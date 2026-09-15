@@ -203,25 +203,27 @@
     .bee-chinese {
       font-size: 2rem;
       font-weight: 700;
-      color: var(--primary);
+      color: #1e3a8a;
       margin-bottom: 0.4rem;
     }
     .bee-phonetic {
       font-size: 0.95rem;
-      color: var(--text-light);
+      color: #475569;
       font-style: italic;
     }
     .bee-hint {
-      font-size: 0.85rem;
-      color: var(--text-light);
-      background: var(--light);
+      font-size: 0.9rem;
+      color: #1e293b;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
       border-radius: 8px;
-      padding: 0.5rem 0.75rem;
+      padding: 0.6rem 0.85rem;
       margin: 0.5rem auto 1rem;
       max-width: 480px;
-      line-height: 1.4;
+      line-height: 1.5;
     }
-    .bee-hint .trap { color: var(--danger); font-weight: 600; }
+    .bee-hint strong { color: #0f172a; font-weight: 700; }
+    .bee-hint .trap { color: var(--danger); font-weight: 700; }
     .bee-prompt {
       text-align: center;
       color: var(--text-light);
@@ -1144,7 +1146,7 @@
             hint: 'scurv + y。**陷阱**:结尾是 -v**y** 不是 -v**ey**',
             accept: ['scurvy'] },
           { en: 'rickets', zh: '佝偻病', phonetic: '/ˈrɪkɪts/',
-            hint: 'rick + ets。**陷阱**:**双 k** (ric**k**ets),复数 -s',
+            hint: 'rick + ets。**陷阱**:注意是 **ck** 组合 (ri**ck**ets),不要漏写 c',
             accept: ['rickets', 'ricket'] },
           { en: 'deficiency', zh: '缺乏症', phonetic: '/dɪˈfɪʃənsi/',
             hint: 'de- + fic- + iency。**陷阱**:fic 拼 fi,iency 拼 -ency',
@@ -1158,7 +1160,7 @@
             hint: '**aliment** (营养) + ary + canal。**陷阱**:al**imen**tary (中间是 imen 不是 iment)',
             accept: ['alimentary canal', 'alimentary-canal'] },
           { en: 'mouth', zh: '口腔', phonetic: '/maʊθ/',
-            hint: '基础词。**陷阱**:mou**th** 结尾 th 不发音',
+            hint: '基础词。**发音**:结尾 **th** 咬舌发 /θ/。**陷阱**:不要拼成 mouthe 或 muth',
             accept: ['mouth'] },
           { en: 'oesophagus', zh: '食道', phonetic: '/iːˈsɒfəɡəs/',
             hint: '**oe**sophagus (英式) / esophagus (美式)。**陷阱**:开头是 **oe** 不是 e-',
@@ -1167,7 +1169,7 @@
             hint: 'stom- + ach。**陷阱**:结尾 -ach (ch 发 /k/)',
             accept: ['stomach'] },
           { en: 'small intestine', zh: '小肠', phonetic: '/smɔːl ɪnˈtestɪn/',
-            hint: 'small + in- + test- + ine。**陷阱**:intes**tine** 结尾 -ine 不是 -ine',
+            hint: 'small + in- + test- + ine。**陷阱**:intes**tine** 结尾是 -ine,不要漏写 e',
             accept: ['small intestine', 'small-intestine'] },
           { en: 'large intestine', zh: '大肠', phonetic: '/lɑːdʒ ɪnˈtestɪn/',
             hint: '与 small intestine 对比,同 -intestine',
@@ -1305,7 +1307,7 @@
             hint: 'prote- + ase。**陷阱**:与 protein 同根',
             accept: ['protease'] },
           { en: 'substrate', zh: '底物', phonetic: '/ˈsʌbstreɪt/',
-            hint: 'sub- + strate。**陷阱**:sub- + str- 双 b 不要漏',
+            hint: '**sub-** (下) + **strate** (层/底)。**陷阱**:单个 b (sub-),不要写成 subbstrate',
             accept: ['substrate'] },
           { en: 'trypsin', zh: '胰蛋白酶', phonetic: '/ˈtrɪpsɪn/',
             hint: 'tryp- + sin。**陷阱**:与 pepsin 同 -psin 结尾',
@@ -1365,7 +1367,7 @@
         name: 'The Circulatory System',
         words: [
           { en: 'aorta', zh: '主动脉', phonetic: '/eɪˈɔːrtə/',
-            hint: 'aort- + a。**陷阱**:a- 开头不是 ao-',
+            hint: '**aort-** + **a**。**陷阱**:以 **ao-** 双元音开头,不要误写成 arta',
             accept: ['aorta'] },
           { en: 'artery', zh: '动脉', phonetic: '/ˈɑːrtəri/',
             hint: 'art- + ery。**陷阱**:art- 不是 atr-',
@@ -1400,8 +1402,11 @@
         name: 'Heart Anatomy & Function',
         words: [
           { en: 'aorta', zh: '主动脉', phonetic: '/eɪˈɔːrtə/',
-            hint: 'aort- + a。**陷阱**:a- 开头不是 ao-',
+            hint: '**aort-** + **a**。**陷阱**:以 **ao-** 双元音开头,不要误写成 arta',
             accept: ['aorta'] },
+          { en: 'atrium', zh: '心房', phonetic: '/ˈeɪtriəm/',
+            hint: 'atri- + um (单数),复数 atria。**陷阱**:不要写成 attrium',
+            accept: ['atrium', 'atria'] },
           { en: 'auricle', zh: '心耳', phonetic: '/ˈɔːrɪkəl/',
             hint: 'aur- + icle。**陷阱**:aur- 发 /ɔːr/',
             accept: ['auricle'] },
@@ -1480,7 +1485,7 @@
             hint: 'respira- + tory + rate。**陷阱**:respiratory 拼 respira-',
             accept: ['respiratory rate', 'respiratory-rate'] },
           { en: 'stroke volume', zh: '每搏输出量', phonetic: '/stroʊk ˈvɒljuːm/',
-            hint: 'stroke + volume。**陷阱**:stroke 不发 /str/',
+            hint: '**stroke** (搏动) + **volume** (容积)。**陷阱**:stroke 开头发 /str/,结尾是 -oke 不是 -ock',
             accept: ['stroke volume', 'stroke-volume'] }
         ]
       },
@@ -1488,7 +1493,7 @@
         name: 'Blood Vessels and Pressure',
         words: [
           { en: 'aorta', zh: '主动脉', phonetic: '/eɪˈɔːrtə/',
-            hint: 'aort- + a。**陷阱**:a- 开头',
+            hint: '**aort-** + **a**。**陷阱**:以 **ao-** 双元音开头,不要误写成 arta',
             accept: ['aorta'] },
           { en: 'blood pressure', zh: '血压', phonetic: '/blʌd ˈpreʃər/',
             hint: 'blood + pressure。**陷阱**:pressure 拼 -ssure',
@@ -1509,7 +1514,7 @@
             hint: 'systol- + ic + pressure。**陷阱**:与 diastolic 反义',
             accept: ['systolic pressure', 'systolic-pressure'] },
           { en: 'vasoconstriction', zh: '血管收缩', phonetic: '/ˌveɪzoʊkənˈstrɪkʃən/',
-            hint: 'vaso- + con- + striction。**陷阱**:vaso- 双 o',
+            hint: '**vaso-** (血管) + **con-** + **striction** (收缩)。**陷阱**:vaso- 只有一个 o,不要拼成 vasoo-',
             accept: ['vasoconstriction'] },
           { en: 'vasodilation', zh: '血管舒张', phonetic: '/ˌveɪzoʊdaɪˈleɪʃən/',
             hint: 'vaso- + dilation。**陷阱**:与 vasoconstriction 反义',
@@ -1520,7 +1525,7 @@
         name: 'The Vascular Pathways',
         words: [
           { en: 'aorta', zh: '主动脉', phonetic: '/eɪˈɔːrtə/',
-            hint: 'aort- + a',
+            hint: '**aort-** + **a**。**陷阱**:以 **ao-** 双元音开头,不要误写成 arta',
             accept: ['aorta'] },
           { en: 'hepatic artery', zh: '肝动脉', phonetic: '/hɪˈpætɪk ˈɑːrtəri/',
             hint: 'hepa- + tic + artery。**陷阱**:hepatic 拼 hepat-',
@@ -1568,7 +1573,10 @@
             accept: ['phagocyte'] },
           { en: 'plasma', zh: '血浆', phonetic: '/ˈplæzmə/',
             hint: 'plasm- + a。**陷阱**:结尾 -ma',
-            accept: ['plasma'] }
+            accept: ['plasma'] },
+          { en: 'platelets', zh: '血小板', phonetic: '/ˈpleɪtlɪts/',
+            hint: 'plate (盘/板) + let (小) + s。**陷阱**:结尾 -let,复数 +s',
+            accept: ['platelets', 'platelet'] }
         ]
       },
       L18: { name: 'Housekeeping / Final Review', mode: 'review', sourceUnits: ['L13', 'L14', 'L15', 'L16', 'L17'] }
@@ -1661,12 +1669,31 @@
       loadVoices();
     }
 
+    function formatHint(hint) {
+      if (!hint) return '';
+      return hint
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/`(.*?)`/g, '<code>$1</code>');
+    }
+
     function pickVoice() {
-      // 优先级: en-US > en-GB > 任何英文 > 第一个可用
-      return voices.find(v => v.lang === 'en-US') ||
-             voices.find(v => v.lang === 'en-GB') ||
-             voices.find(v => v.lang && v.lang.startsWith('en')) ||
-             voices[0] || null;
+      if (!voices || voices.length === 0) return null;
+      // 1. 过滤恶搞/复古怪声 (macOS/iOS vintage novelty voices)
+      const blacklist = /Albert|Fred|Zarvox|Whisper|Deranged|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Good News|Organ|Superstar|Trinoids|Wobble|Junior|Kathy|Ralph|Jester|Hysterical/i;
+      const clean = voices.filter(v => !blacklist.test(v.name));
+
+      // 2. 优先匹配高质量优质自然/标准音色 (Chrome Google TTS / macOS Alex, Daniel, Samantha 等)
+      const preferred = ['Google US English', 'Alex', 'Daniel', 'Samantha', 'Oliver', 'Serena', 'Arthur', 'Karen', 'Reed'];
+      for (const p of preferred) {
+        const found = clean.find(v => v.name.includes(p));
+        if (found) return found;
+      }
+
+      // 3. 回退策略：优先找非黑名单的 en-US / en-GB
+      return clean.find(v => v.lang === 'en-US') ||
+             clean.find(v => v.lang === 'en-GB') ||
+             clean.find(v => v.lang && v.lang.startsWith('en')) ||
+             clean[0] || null;
     }
 
     // iOS Safari 必须在用户手势中首次 speak 一次,之后才能自动 speak
@@ -1697,7 +1724,7 @@
     }
 
     function speak(text) {
-      if (!('speechSynthesis' in window)) return;
+      if (!('speechSynthesis' in window) || !text) return;
       // 未 unlock 时,先尝试触发;移动端大多会自动 fall through,但 iOS 不会出声
       if (!audioUnlocked) {
         // 提示用户去点"开启声音"按钮
@@ -1713,24 +1740,36 @@
       }
       const u = new SpeechSynthesisUtterance(text);
       u.lang = 'en-US';
-      u.rate = 0.85;
+      u.rate = 0.88;
       u.pitch = 1;
       u.volume = 1;
       const v = pickVoice();
-      if (v) u.voice = v;
-      // iOS 上稍微延迟一下,等 cancel 生效
+      if (v) {
+        u.voice = v;
+        if (v.lang) u.lang = v.lang;
+      }
+      // 稍微延迟一下,等 cancel 生效
       setTimeout(() => {
         try { speechSynthesis.speak(u); } catch (e) {}
       }, 60);
     }
     const saveScore = (key, value) => {
-      const s = JSON.parse(localStorage.getItem('sky_word_lab') || '{}');
-      s[key] = value;
-      localStorage.setItem('sky_word_lab', JSON.stringify(s));
+      try {
+        const s = JSON.parse(localStorage.getItem('sky_word_lab') || '{}');
+        s[key] = value;
+        localStorage.setItem('sky_word_lab', JSON.stringify(s));
+      } catch (e) {
+        console.warn('saveScore failed:', e);
+      }
     };
     const loadScore = (key) => {
-      const s = JSON.parse(localStorage.getItem('sky_word_lab') || '{}');
-      return s[key] || 0;
+      try {
+        const s = JSON.parse(localStorage.getItem('sky_word_lab') || '{}');
+        return s[key] || 0;
+      } catch (e) {
+        console.warn('loadScore failed:', e);
+        return 0;
+      }
     };
 
     // ==================== Unit Selector ====================
@@ -1759,16 +1798,26 @@
     $('unit-select').addEventListener('change', (e) => {
       activeUnit = e.target.value;
       renderUnitSelector();
-      // 重置所有游戏
+      // 重置所有游戏状态与定时器
       stopShooter();
       beeState.started = false;
-      memoryState.started = false;
       beeState.queue = [];
+      memoryState.started = false;
       memoryState.cards = [];
       memoryState.matched = 0;
+      if (memoryState.timer) { clearInterval(memoryState.timer); memoryState.timer = null; }
+      listenState.started = false;
+      listenState.queue = [];
+      anagramState.started = false;
+      anagramState.queue = [];
+      if (speedState.timer) { clearInterval(speedState.timer); speedState.timer = null; }
+      speedState.running = false;
+
       const activeTab = document.querySelector('.tabs button.active').dataset.tab;
       if (activeTab === 'bee') startBee();
       else if (activeTab === 'memory') startMemory();
+      else if (activeTab === 'listening') startListening();
+      else if (activeTab === 'anagram') startAnagram();
       else if (activeTab === 'shooter') {
         $('shooter-overlay').style.display = 'flex';
         $('shooter-overlay').innerHTML = `
@@ -1777,6 +1826,9 @@
           <button class="btn" id="shooter-start">开始游戏</button>
         `;
         $('shooter-start').addEventListener('click', startShooter);
+      } else if (activeTab === 'speed') {
+        $('speed-overlay').classList.remove('hidden');
+        $('speed-input').disabled = true;
       }
     });
 
@@ -1784,6 +1836,20 @@
     function switchTab(tab) {
       // 切走时清空 shooter 状态(避免切回时残留)
       if (tab !== 'shooter') stopShooter();
+
+      // 切离 speed 时清理定时器，防止后台泄漏
+      if (tab !== 'speed' && speedState.timer) {
+        clearInterval(speedState.timer);
+        speedState.timer = null;
+        speedState.running = false;
+      }
+
+      // 切离 memory 时清理定时器
+      if (tab !== 'memory' && memoryState.timer) {
+        clearInterval(memoryState.timer);
+        memoryState.timer = null;
+      }
+
       document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.tabs button[data-tab="' + tab + '"]').forEach(b => b.classList.add('active'));
       document.querySelectorAll('.game').forEach(g => g.classList.remove('active'));
@@ -1872,7 +1938,8 @@
       combo: 0,
       wrong: [],
       started: false,
-      hintUsed: false
+      hintUsed: false,
+      isChecking: false
     };
 
     function startBee() {
@@ -1882,6 +1949,7 @@
       beeState.combo = 0;
       beeState.wrong = [];
       beeState.started = true;
+      beeState.isChecking = false;
       $('bee-wrong').style.display = 'none';
       renderBeeProgress();
       loadBeeWord();
@@ -1906,7 +1974,7 @@
       if (!w) { finishBee(); return; }
       $('bee-chinese').textContent = w.zh;
       $('bee-phonetic').textContent = w.phonetic;
-      $('bee-hint').innerHTML = w.hint;
+      $('bee-hint').innerHTML = formatHint(w.hint);
       $('bee-input').value = '';
       $('bee-input').className = 'bee-input';
       $('bee-feedback').textContent = '';
@@ -1917,11 +1985,14 @@
     }
 
     function checkBee() {
+      if (beeState.isChecking) return;
       const w = beeState.queue[beeState.idx];
+      if (!w) return;
       const userInput = $('bee-input').value.trim().toLowerCase();
       const accepted = w.accept.map(a => a.toLowerCase());
       const correct = accepted.includes(userInput);
 
+      beeState.isChecking = true;
       if (correct) {
         $('bee-input').className = 'bee-input correct';
         $('bee-feedback').textContent = `✅ Correct! "${w.en}"`;
@@ -1934,6 +2005,7 @@
         $('bee-combo').textContent = beeState.combo;
         setTimeout(() => {
           beeState.idx++;
+          beeState.isChecking = false;
           renderBeeProgress();
           loadBeeWord();
         }, 1200);
@@ -1947,10 +2019,10 @@
           beeState.wrong.push(w);
         }
         $('bee-input').value = w.en;
-        $('bee-input').className = 'bee-input correct';
         speak(w.en);
         setTimeout(() => {
           beeState.idx++;
+          beeState.isChecking = false;
           renderBeeProgress();
           loadBeeWord();
         }, 2500);
@@ -1958,12 +2030,14 @@
     }
 
     function finishBee() {
+      const total = beeState.queue.length;
+      const correctCount = Math.max(0, total - beeState.wrong.length);
       saveScore('bee_high', Math.max(beeState.score, loadScore('bee_high')));
-      $('modal-title').textContent = beeState.score >= 80 ? '🏆 Master Speller!' : '🎉 Round Complete!';
+      $('modal-title').textContent = beeState.score >= (total * 8) ? '🏆 Master Speller!' : '🎉 Round Complete!';
       $('modal-big-stat').textContent = beeState.score;
       $('modal-sub-stat').innerHTML = beeState.wrong.length === 0
-        ? `完美!10/10 全对 — 你是 Spelling Master!`
-        : `拼对 ${10 - beeState.wrong.length} / 10 · 错词: <strong>${beeState.wrong.length}</strong>`;
+        ? `完美! ${total}/${total} 全对 — 你是 Spelling Master!`
+        : `拼对 ${correctCount} / ${total} · 错词: <strong>${beeState.wrong.length}</strong>`;
       $('modal-action').textContent = '再来一轮';
       $('modal-backdrop').classList.add('active');
 
@@ -2062,7 +2136,7 @@
 
       memoryState.flipped.push(idx);
       el.classList.add('flipped');
-      speak(card.text);
+      if (card.type === 'en') speak(card.text);
 
       if (memoryState.flipped.length === 2) {
         memoryState.moves++;
@@ -2077,10 +2151,9 @@
               if (i === i1 || i === i2) el.classList.add('matched');
             });
             memoryState.matched++;
-            memoryState.pairs = c1.word ? memoryState.pairs : memoryState.pairs;
-            $('memory-pairs').textContent = `${memoryState.matched}/${8}`;
+            $('memory-pairs').textContent = `${memoryState.matched}/${memoryState.pairs}`;
             memoryState.flipped = [];
-            if (memoryState.matched === 8) finishMemory();
+            if (memoryState.matched === memoryState.pairs) finishMemory();
           }, 600);
         } else {
           // 配对失败
@@ -2155,6 +2228,8 @@
     function startShooter() {
       // 切单元后单元为空则不可启动
       if (getWords().length === 0) return;
+      if (shooterState.moveTimer) clearInterval(shooterState.moveTimer);
+      if (shooterState.spawnTimer) clearTimeout(shooterState.spawnTimer);
       shooterState.score = 0;
       shooterState.level = 1;
       shooterState.lives = 3;
@@ -2332,13 +2407,20 @@
       if (!shooterState.running) return;
       const val = e.target.value.trim().toLowerCase();
       if (!val) return;
-      // 找匹配的目标 (优先 targeted, 否则第一个)
-      let target = shooterState.active.find(i => !i.hit && i.word.en.toLowerCase() === val);
+      // 找匹配的目标 (支持标准拼写及 accept 别名)
+      let target = shooterState.active.find(i => {
+        if (i.hit) return false;
+        const enMatch = i.word.en.toLowerCase() === val;
+        const acceptMatch = i.word.accept && i.word.accept.map(a => a.toLowerCase()).includes(val);
+        return enMatch || acceptMatch;
+      });
       if (!target) {
         // 前缀匹配 → 高亮提示
         shooterState.active.forEach(i => {
           if (i.hit) return;
-          if (i.word.en.toLowerCase().startsWith(val)) {
+          const enPrefix = i.word.en.toLowerCase().startsWith(val);
+          const acceptPrefix = i.word.accept && i.word.accept.some(a => a.toLowerCase().startsWith(val));
+          if (enPrefix || acceptPrefix) {
             i.el.classList.add('targeted');
           } else {
             i.el.classList.remove('targeted');
@@ -2658,19 +2740,33 @@
     $('anagram-hint-btn').addEventListener('click', () => {
       if (anagramState.hints <= 0) return;
       const word = anagramState.current;
+      if (!word) return;
       const ans = $('anagram-answer');
-      // 找答案槽下一个应填的字母
-      const current = Array.from(ans.children).map(s => s.dataset.ch).join('');
       const target = word.en.toLowerCase();
-      if (current.length >= target.length) return;
-      const nextChar = target[current.length];
-      // 在池里找这个字母
-      const pool = $('anagram-pool');
-      const found = Array.from(pool.children).find(s => s.dataset.ch === nextChar);
-      if (found) {
-        addAnagramLetter(found);
-        anagramState.hints--;
-        $('anagram-hints').textContent = anagramState.hints;
+      const current = Array.from(ans.children).map(s => s.dataset.ch).join('');
+
+      // 计算当前答案与目标前缀的最大匹配长度
+      let matchLen = 0;
+      while (matchLen < current.length && matchLen < target.length && current[matchLen] === target[matchLen]) {
+        matchLen++;
+      }
+
+      // 如果答案槽中有匹配失败的错误字母，把后面的错字还回字母池
+      if (current.length > matchLen) {
+        const toRemove = Array.from(ans.children).slice(matchLen);
+        toRemove.forEach(s => removeAnagramLetter(s));
+      }
+
+      // 如果尚未拼完整，在字母池里找下一个正确字母填入
+      if (matchLen < target.length) {
+        const nextChar = target[matchLen];
+        const pool = $('anagram-pool');
+        const found = Array.from(pool.children).find(s => s.dataset.ch === nextChar);
+        if (found) {
+          addAnagramLetter(found);
+          anagramState.hints--;
+          $('anagram-hints').textContent = anagramState.hints;
+        }
       }
     });
     $('anagram-restart').addEventListener('click', startAnagram);
@@ -2767,6 +2863,8 @@
       if (activeTab === 'bee') startBee();
       else if (activeTab === 'memory') startMemory();
       else if (activeTab === 'shooter') startShooter();
+      else if (activeTab === 'listening') startListening();
+      else if (activeTab === 'anagram') startAnagram();
     });
     $('modal-close').addEventListener('click', () => {
       $('modal-backdrop').classList.remove('active');
