@@ -1276,7 +1276,7 @@
             accept: ['soluble'] }
         ]
       },
-      L06: { name: 'Housekeeping / Review', words: [] },
+      L06: { name: 'Housekeeping / Review', mode: 'review', sourceUnits: ['L01', 'L02', 'L03', 'L04', 'L05'] },
       L07: {
         name: 'Digestive Enzymes',
         words: [
@@ -1428,7 +1428,7 @@
             accept: ['ventricle'] }
         ]
       },
-      L12: { name: 'Housekeeping / Review', words: [] },
+      L12: { name: 'Housekeeping / Review', mode: 'review', sourceUnits: ['L07', 'L08', 'L09', 'L10', 'L11'] },
       L13: {
         name: 'The Cardiac Cycle and Monitoring',
         words: [
@@ -1571,13 +1571,55 @@
             accept: ['plasma'] }
         ]
       },
-      L18: { name: 'Housekeeping / Final Review', words: [] }
+      L18: { name: 'Housekeeping / Final Review', mode: 'review', sourceUnits: ['L13', 'L14', 'L15', 'L16', 'L17'] }
     };
 
     // 当前活跃单元
     let activeUnit = 'L01';
-    function getWords() { return UNITS[activeUnit].words; }
-    function getUnitName() { return UNITS[activeUnit].name; }
+    function getUnitConfig() {
+      return UNITS[activeUnit] || { name: activeUnit, words: [] };
+    }
+    function isReview(unitId) {
+      const u = UNITS[unitId];
+      return u && u.mode === 'review';
+    }
+    // 复习模式: 合并 sourceUnits 的词汇(去重 by en lowercase)
+    function getReviewWords(unitId) {
+      const u = UNITS[unitId];
+      if (!u || !u.sourceUnits) return [];
+      const seen = new Set();
+      const merged = [];
+      for (const src of u.sourceUnits) {
+        const srcU = UNITS[src];
+        if (!srcU || !srcU.words) continue;
+        for (const w of srcU.words) {
+          const key = (w.en || '').toLowerCase().trim();
+          if (!key || seen.has(key)) continue;
+          seen.add(key);
+          merged.push(w);
+        }
+      }
+      return merged;
+    }
+    // 按 unitId 取词数(用于 unit-select 渲染,不依赖 activeUnit)
+    function getWordCount(unitId) {
+      const u = UNITS[unitId];
+      if (!u) return 0;
+      if (u.mode === 'review') return getReviewWords(unitId).length;
+      return (u.words || []).length;
+    }
+    function getWords() {
+      const u = getUnitConfig();
+      if (u.mode === 'review') return getReviewWords(activeUnit);
+      return u.words || [];
+    }
+    function getUnitName() {
+      const u = getUnitConfig();
+      if (u.mode === 'review' && u.sourceUnits) {
+        return `${u.name} (复习 ${u.sourceUnits.join('+')})`;
+      }
+      return u.name;
+    }
 
     // ==================== 通用工具 ====================
     const $ = (id) => document.getElementById(id);
@@ -1699,14 +1741,16 @@
         const u = UNITS[id];
         const opt = document.createElement('option');
         opt.value = id;
-        const wordCount = u.words.length;
-        const status = wordCount === 0 ? ' (即将推出)' : ` · ${wordCount} 词`;
+        const wordCount = getWordCount(id);
+        // 复习课标识
+        const reviewTag = u.mode === 'review' ? ` (复习 ${u.sourceUnits.length}课合并)` : '';
+        const status = wordCount === 0 ? ' (即将推出)' : ` · ${wordCount} 词${reviewTag}`;
         opt.textContent = `${id} · ${u.name}${status}`;
         if (wordCount === 0) opt.disabled = true;
         if (id === activeUnit) opt.selected = true;
         sel.appendChild(opt);
       });
-      $('unit-word-count').textContent = UNITS[activeUnit].words.length;
+      $('unit-word-count').textContent = getWordCount(activeUnit);
       // 更新 header tag
       document.querySelector('header h1 .tag').textContent = `${activeUnit} · ${UNITS[activeUnit].name}`;
     }
