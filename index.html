@@ -1,0 +1,2736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Sky's Science Word Lab — L01</title>
+  <style>
+    /* ============ Theme: Science Lab / IGCSE Blue ============ */
+    :root {
+      --primary: #2563eb;     /* IGCSE blue */
+      --secondary: #0891b2;   /* cyan */
+      --accent: #f59e0b;      /* amber - highlight */
+      --success: #10b981;     /* green - correct */
+      --danger: #ef4444;      /* red - wrong */
+      --light: #f1f5f9;
+      --bg: #fafbff;
+      --text: #0f172a;
+      --text-light: #64748b;
+      --border: #cbd5e1;
+      --shadow: 0 4px 16px rgba(37, 99, 235, 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* ============ Header ============ */
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      padding: 1rem 1.5rem;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    h1 span.tag {
+      font-size: 0.75rem;
+      background: rgba(255,255,255,0.2);
+      padding: 2px 8px;
+      border-radius: 8px;
+      margin-left: 0.5rem;
+      font-weight: 500;
+    }
+    .sound-toggle {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .sound-toggle:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+    .sound-toggle.on {
+      background: rgba(16, 185, 129, 0.85);
+      border-color: rgba(16, 185, 129, 1);
+    }
+    .sound-toggle.off {
+      background: rgba(239, 68, 68, 0.6);
+      border-color: rgba(239, 68, 68, 0.9);
+    }
+    .sound-toggle.pulse-hint {
+      animation: pulse-hint-anim 0.6s ease 3;
+    }
+    @keyframes pulse-hint-anim {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); box-shadow: 0 0 0 8px rgba(239, 68, 68, 0.3); }
+    }
+    @media (max-width: 600px) {
+      .sound-toggle { top: 0.7rem; right: 0.7rem; padding: 0.3rem 0.6rem; font-size: 0.75rem; }
+    }
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .tabs button {
+      background: rgba(255,255,255,0.15);
+      color: white;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tabs button:hover {
+      background: rgba(255,255,255,0.25);
+    }
+    .tabs button.active {
+      background: white;
+      color: var(--primary);
+      border-color: white;
+    }
+
+    /* ============ Unit Bar (Global) ============ */
+    .unit-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 0.6rem 1rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.9rem;
+      box-shadow: var(--shadow);
+      flex-wrap: wrap;
+    }
+    .unit-bar.hidden { display: none; }
+    .unit-bar label { font-weight: 700; color: var(--text); }
+    .unit-bar select {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.45rem 0.7rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      background: white;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+    .unit-bar select:hover { border-color: var(--primary); }
+    .unit-bar select:focus { outline: none; border-color: var(--primary); }
+    .unit-bar .unit-stats {
+      color: var(--text-light);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .unit-bar .unit-stats .num { color: var(--primary); font-size: 1.05rem; }
+
+    /* ============ Main Container ============ */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+    .game {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .game.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============ Score Bar ============ */
+    .score-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 0.75rem 1.25rem;
+      margin-bottom: 1.25rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: var(--shadow);
+    }
+    .score-bar .stat { display: flex; align-items: center; gap: 0.4rem; }
+    .score-bar .stat .icon { font-size: 1.1rem; }
+    .score-bar .combo { color: var(--accent); }
+    .score-bar .lives { letter-spacing: 0.1rem; }
+
+    /* ============ Card / Panel ============ */
+    .panel {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    /* ============ Game 1: Spelling Bee ============ */
+    .bee-word {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    .bee-chinese {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.4rem;
+    }
+    .bee-phonetic {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      font-style: italic;
+    }
+    .bee-hint {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      background: var(--light);
+      border-radius: 8px;
+      padding: 0.5rem 0.75rem;
+      margin: 0.5rem auto 1rem;
+      max-width: 480px;
+      line-height: 1.4;
+    }
+    .bee-hint .trap { color: var(--danger); font-weight: 600; }
+    .bee-prompt {
+      text-align: center;
+      color: var(--text-light);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+    .bee-input {
+      display: block;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 0.85rem 1rem;
+      font-size: 1.4rem;
+      font-family: monospace;
+      letter-spacing: 0.1em;
+      text-align: center;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      background: white;
+      transition: all 0.2s;
+    }
+    .bee-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+    .bee-input.correct {
+      border-color: var(--success);
+      background: #ecfdf5;
+      color: var(--success);
+    }
+    .bee-input.wrong {
+      border-color: var(--danger);
+      background: #fef2f2;
+      color: var(--danger);
+      animation: shake 0.4s;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      75% { transform: translateX(6px); }
+    }
+    .bee-controls {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .btn {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.7rem 1.5rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .btn-secondary {
+      background: var(--light);
+      color: var(--text);
+    }
+    .btn-secondary:hover { background: #e2e8f0; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .bee-feedback {
+      text-align: center;
+      margin-top: 1rem;
+      min-height: 1.5rem;
+      font-weight: 600;
+    }
+    .bee-feedback.correct { color: var(--success); }
+    .bee-feedback.wrong { color: var(--danger); }
+
+    .bee-progress {
+      display: flex;
+      justify-content: center;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+    .bee-progress .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--border);
+    }
+    .bee-progress .dot.done { background: var(--success); }
+    .bee-progress .dot.current { background: var(--primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2); }
+
+    /* ============ Game 2: Memory Match ============ */
+    .memory-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem;
+      max-width: 480px;
+      margin: 1rem auto 0;
+    }
+    .memory-card {
+      aspect-ratio: 1;
+      background: var(--primary);
+      border-radius: 10px;
+      cursor: pointer;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.5s;
+      user-select: none;
+    }
+    .memory-card.flipped, .memory-card.matched {
+      transform: rotateY(180deg);
+    }
+    .memory-card .face {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.4rem;
+      border-radius: 10px;
+      backface-visibility: hidden;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.85rem;
+      line-height: 1.2;
+    }
+    .memory-card .front {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      font-size: 1.5rem;
+    }
+    .memory-card .back {
+      background: white;
+      color: var(--text);
+      border: 2px solid var(--primary);
+      transform: rotateY(180deg);
+      word-break: break-word;
+    }
+    .memory-card.matched .back {
+      background: #ecfdf5;
+      border-color: var(--success);
+      color: var(--success);
+    }
+    .memory-card.shake { animation: shake 0.4s; }
+
+    .memory-time {
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    .memory-stats {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+    .memory-stats div { font-weight: 600; }
+
+    /* ============ Game 3: Word Shooter ============ */
+    .shooter-area {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      height: 60vh;
+      min-height: 380px;
+      margin: 0 auto;
+      background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid var(--border);
+    }
+    .shooter-corner-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 20;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      backdrop-filter: blur(4px);
+    }
+    .shooter-corner-btn:hover {
+      background: rgba(239, 68, 68, 0.8);
+      border-color: var(--danger);
+      transform: scale(1.1);
+    }
+    .shooter-word {
+      position: absolute;
+      color: white;
+      font-family: monospace;
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 0.5rem 1rem;
+      background: rgba(37, 99, 235, 0.85);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 999px;
+      white-space: nowrap;
+      transition: none;
+    }
+    .shooter-word.targeted { background: rgba(245, 158, 11, 0.95); }
+    .shooter-word.hit {
+      animation: explode 0.4s forwards;
+    }
+    @keyframes explode {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); background: var(--success); }
+      100% { transform: scale(0); opacity: 0; }
+    }
+    .shooter-input-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      display: flex;
+      gap: 0.5rem;
+    }
+    .shooter-input {
+      flex: 1;
+      padding: 0.7rem 1rem;
+      font-size: 1.2rem;
+      font-family: monospace;
+      letter-spacing: 0.1em;
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.95);
+    }
+    .shooter-input:focus { outline: none; border-color: var(--accent); }
+    .shooter-hint {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 1.1rem;
+      text-align: center;
+      pointer-events: none;
+    }
+    .shooter-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      z-index: 10;
+    }
+    .shooter-overlay h2 { font-size: 2rem; }
+    .shooter-overlay p { font-size: 1.1rem; opacity: 0.85; }
+    .shooter-overlay .btn { font-size: 1.1rem; padding: 0.9rem 2rem; }
+
+    /* 单词落到底部时的大提示 */
+    .shooter-missed {
+      position: absolute;
+      top: 35%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 30;
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      color: white;
+      padding: 1.2rem 2rem;
+      border-radius: 14px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      box-shadow: 0 8px 32px rgba(239, 68, 68, 0.6);
+      text-align: center;
+      pointer-events: none;
+      animation: shooter-missed-anim 1.6s ease forwards;
+      max-width: 80%;
+    }
+    .shooter-missed .missed-en {
+      font-family: monospace;
+      letter-spacing: 0.12em;
+      font-size: 1.5em;
+      font-weight: 800;
+      display: block;
+      margin: 0.3em 0;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .shooter-missed .missed-zh {
+      opacity: 0.85;
+      font-size: 0.9em;
+      display: block;
+    }
+    @keyframes shooter-missed-anim {
+      0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+      15%  { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+      25%  { transform: translate(-50%, -50%) scale(1); }
+      75%  { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -50%) translateY(40px) scale(0.95); }
+    }
+
+    /* ============ Wrong-words panel ============ */
+    .wrong-words {
+      margin-top: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: #fef2f2;
+      border: 1.5px solid #fecaca;
+      border-radius: 12px;
+    }
+    .wrong-words h3 {
+      color: var(--danger);
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .wrong-words ul {
+      list-style: none;
+      padding: 0;
+    }
+    .wrong-words li {
+      padding: 0.4rem 0;
+      font-size: 0.95rem;
+      border-bottom: 1px dashed #fecaca;
+    }
+    .wrong-words li:last-child { border: none; }
+    .wrong-words .word { font-weight: 700; color: var(--danger); font-family: monospace; }
+    .wrong-words .translation { color: var(--text-light); margin-left: 0.5rem; }
+
+    /* ============ Game 4: Listening Quiz ============ */
+    .listen-prompt {
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+    .listen-controls {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .listen-hint {
+      text-align: center;
+      font-family: monospace;
+      letter-spacing: 0.12em;
+      font-size: 1.1rem;
+      color: var(--primary);
+      background: var(--light);
+      border-radius: 10px;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .listen-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .listen-option {
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .listen-option:hover {
+      border-color: var(--primary);
+      background: var(--light);
+      transform: translateY(-2px);
+    }
+    .listen-option.correct {
+      background: #ecfdf5;
+      border-color: var(--success);
+      color: var(--success);
+    }
+    .listen-option.wrong {
+      background: #fef2f2;
+      border-color: var(--danger);
+      color: var(--danger);
+      animation: shake 0.4s;
+    }
+    .listen-option.disabled { pointer-events: none; opacity: 0.5; }
+    .listen-feedback {
+      text-align: center;
+      margin-top: 1rem;
+      min-height: 1.5rem;
+      font-weight: 600;
+    }
+    .listen-feedback.correct { color: var(--success); }
+    .listen-feedback.wrong { color: var(--danger); }
+
+    /* ============ Game 5: Anagram ============ */
+    .anagram-prompt {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .anagram-clue {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-align: center;
+    }
+    .anagram-speak {
+      padding: 0.4rem 0.8rem !important;
+      font-size: 0.85rem !important;
+    }
+    .anagram-answer {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      min-height: 60px;
+      padding: 1rem;
+      background: var(--light);
+      border: 2.5px dashed var(--border);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+    .anagram-answer .letter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 44px;
+      background: var(--primary);
+      color: white;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-transform: lowercase;
+    }
+    .anagram-answer .letter.hint {
+      background: var(--accent);
+      cursor: default;
+    }
+    .anagram-answer .letter:hover { background: #1d4ed8; transform: translateY(-2px); }
+    .anagram-answer .letter.hint:hover { background: var(--accent); transform: none; }
+    .anagram-answer .letter.correct {
+      background: var(--success);
+      animation: shake 0.3s;
+    }
+    .anagram-answer .letter.wrong {
+      background: var(--danger);
+      animation: shake 0.3s;
+    }
+    .anagram-pool {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      min-height: 60px;
+      padding: 1rem;
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+    }
+    .anagram-pool .letter {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 44px;
+      background: white;
+      color: var(--text);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-transform: lowercase;
+    }
+    .anagram-pool .letter:hover {
+      border-color: var(--primary);
+      background: var(--light);
+      transform: translateY(-2px);
+    }
+    .anagram-feedback {
+      text-align: center;
+      margin-top: 1rem;
+      min-height: 1.5rem;
+      font-weight: 600;
+    }
+    .anagram-feedback.correct { color: var(--success); }
+    .anagram-feedback.wrong { color: var(--danger); }
+
+    /* ============ Game 6: Speed Round ============ */
+    .speed-area {
+      position: relative;
+      width: 100%;
+      max-width: 700px;
+      height: 50vh;
+      min-height: 320px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid var(--accent);
+    }
+    .speed-display {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 5;
+    }
+    .speed-chinese {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+    .speed-phonetic {
+      font-size: 1rem;
+      color: var(--text-light);
+      font-style: italic;
+    }
+    .speed-input-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(8px);
+    }
+    .speed-input-bar .shooter-input {
+      width: 100%;
+      background: white;
+    }
+    .speed-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      z-index: 10;
+    }
+    .speed-overlay h2 { font-size: 2rem; }
+    .speed-overlay p { font-size: 1.05rem; opacity: 0.9; max-width: 400px; text-align: center; }
+    .speed-overlay .btn { font-size: 1.1rem; padding: 0.9rem 2rem; }
+    .speed-overlay.hidden { display: none; }
+
+    /* ============ Game Over Modal ============ */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal-backdrop.active { display: flex; }
+    .modal {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+    .modal h2 { color: var(--primary); margin-bottom: 0.5rem; }
+    .modal .big-stat {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin: 1rem 0;
+    }
+    .modal .sub-stat { color: var(--text-light); margin-bottom: 1.5rem; }
+    .modal .actions { display: flex; gap: 0.5rem; justify-content: center; }
+
+    /* ============ Welcome Screen ============ */
+    .welcome {
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+    .welcome h2 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+    .welcome p {
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+    }
+    .game-intro {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .game-intro .card {
+      background: var(--light);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: left;
+    }
+    .game-intro .card .emoji { font-size: 1.6rem; }
+    .game-intro .card h4 { color: var(--primary); margin: 0.4rem 0 0.3rem; }
+    .game-intro .card p { font-size: 0.85rem; margin: 0; }
+
+    /* ============ Mobile ============ */
+    @media (max-width: 600px) {
+      h1 { font-size: 1.15rem; }
+      .tabs button { font-size: 0.8rem; padding: 0.4rem 0.7rem; }
+      .bee-chinese { font-size: 1.5rem; }
+      .memory-board { gap: 0.4rem; }
+      .memory-card .face { font-size: 0.7rem; }
+      .shooter-word { font-size: 1rem; }
+      .panel { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🧪 Sky's Science Word Lab <span class="tag">L01 · Balanced Diet</span></h1>
+    <button class="sound-toggle off" id="sound-toggle" title="iOS 移动端需要先点这里解锁声音">🔇 开启声音</button>
+    <nav class="tabs">
+      <button data-tab="home" class="active">🏠 Home</button>
+      <button data-tab="bee">📝 Spelling Bee</button>
+      <button data-tab="memory">🃏 Memory Match</button>
+      <button data-tab="shooter">🚀 Word Shooter</button>
+      <button data-tab="listening">🎧 Listening</button>
+      <button data-tab="anagram">🧩 Anagram</button>
+      <button data-tab="speed">⚡ Speed</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ================ Global Unit Selector (hidden on Home) ================ -->
+    <div class="unit-bar hidden" id="unit-bar">
+      <label>📚 单元:</label>
+      <select id="unit-select"></select>
+      <span class="unit-stats">共 <span class="num" id="unit-word-count">10</span> 词</span>
+    </div>
+
+    <!-- ================ Home ================ -->
+    <section id="home" class="game active">
+      <div class="panel welcome">
+        <h2>欢迎来到 Sky 的科学单词实验室 🚀</h2>
+        <p>6 个游戏,17 个单元共 127 词,帮你攻克 P0 拼写薄弱!点下面的卡片直接进入游戏</p>
+        <div class="game-intro">
+          <div class="card" data-tab="bee" style="cursor:pointer;">
+            <div class="emoji">📝</div>
+            <h4>Spelling Bee 拼写闯关</h4>
+            <p>看中文+释义+拼写提示,拼出英文单词。每词 10 分,连击加分。</p>
+          </div>
+          <div class="card" data-tab="memory" style="cursor:pointer;">
+            <div class="emoji">🃏</div>
+            <h4>Memory Match 翻牌配对</h4>
+            <p>16 张卡片,中英配对。计时挑战,看谁能用最少步数+最短时间配齐。</p>
+          </div>
+          <div class="card" data-tab="shooter" style="cursor:pointer;">
+            <div class="emoji">🚀</div>
+            <h4>Word Shooter 飞行单词</h4>
+            <p>单词从天而降,输入拼写击落。3 命用完 Game Over,看你能撑多久。</p>
+          </div>
+          <div class="card" data-tab="listening" style="cursor:pointer;">
+            <div class="emoji">🎧</div>
+            <h4>Listening 听音辨词</h4>
+            <p>听 TTS 朗读英文,4 选 1 中文。强化"听音→意"反射 + 音标训练。</p>
+          </div>
+          <div class="card" data-tab="anagram" style="cursor:pointer;">
+            <div class="emoji">🧩</div>
+            <h4>Anagram 拼图重组</h4>
+            <p>看中文+乱序字母,点击字母拼出正确单词。强化字母位置记忆 + 拼写结构。</p>
+          </div>
+          <div class="card" data-tab="speed" style="cursor:pointer;">
+            <div class="emoji">⚡</div>
+            <h4>Speed Round 极速挑战</h4>
+            <p>60s 内尽可能多拼对单词。答对 +10,答错 -5。抗压 + 速度 + 拼写三合一。</p>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem;color:var(--text-light);font-size:0.85rem;">
+          选一个 tab 或上面卡片开始 → 数据自动保存到浏览器,下次再来接着练
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ Game 1: Spelling Bee ================ -->
+    <section id="bee" class="game">
+      <div class="score-bar">
+        <div class="stat"><span class="icon">⭐</span> 分数 <span id="bee-score">0</span></div>
+        <div class="stat combo"><span class="icon">🔥</span> 连击 <span id="bee-combo">0</span></div>
+        <div class="stat"><span class="icon">📚</span> <span id="bee-progress-text">0/10</span></div>
+      </div>
+      <div class="panel">
+        <div class="bee-progress" id="bee-progress-dots"></div>
+        <div class="bee-word">
+          <div class="bee-chinese" id="bee-chinese"></div>
+          <div class="bee-phonetic" id="bee-phonetic"></div>
+        </div>
+        <div class="bee-hint" id="bee-hint"></div>
+        <div class="bee-prompt">拼出英文单词 (按 Enter 提交)</div>
+        <input
+          type="text"
+          class="bee-input"
+          id="bee-input"
+          autocomplete="off"
+          autocapitalize="none"
+          autocorrect="off"
+          spellcheck="false"
+          placeholder="type here..."
+        >
+        <div class="bee-feedback" id="bee-feedback"></div>
+        <div class="bee-controls">
+          <button class="btn btn-secondary" id="bee-speak">🔊 听发音</button>
+          <button class="btn btn-secondary" id="bee-skip">⏭ 跳过</button>
+          <button class="btn btn-secondary" id="bee-hint-btn">💡 提示首字母</button>
+        </div>
+      </div>
+      <div class="wrong-words" id="bee-wrong" style="display:none;">
+        <h3>❌ 今日错词 (课后抄 3 遍)</h3>
+        <ul id="bee-wrong-list"></ul>
+      </div>
+    </section>
+
+    <!-- ================ Game 2: Memory Match ================ -->
+    <section id="memory" class="game">
+      <div class="score-bar">
+        <div class="stat"><span class="icon">⏱️</span> 时间 <span id="memory-time">0:00</span></div>
+        <div class="stat"><span class="icon">👣</span> 步数 <span id="memory-moves">0</span></div>
+        <div class="stat"><span class="icon">✅</span> 配对 <span id="memory-pairs">0/8</span></div>
+      </div>
+      <div class="panel">
+        <div class="memory-board" id="memory-board"></div>
+        <div class="bee-controls" style="margin-top:1.25rem;">
+          <button class="btn" id="memory-restart">🔄 重新开始</button>
+        </div>
+      </div>
+      <div class="wrong-words" id="memory-wrong" style="display:none;">
+        <h3>🧠 易混配对 (重点复习)</h3>
+        <ul id="memory-wrong-list"></ul>
+      </div>
+    </section>
+
+    <!-- ================ Game 3: Word Shooter ================ -->
+    <section id="shooter" class="game">
+      <div class="score-bar">
+        <div class="stat"><span class="icon">⭐</span> 分数 <span id="shooter-score">0</span></div>
+        <div class="stat"><span class="icon">📊</span> 等级 <span id="shooter-level">1</span></div>
+        <div class="stat lives"><span class="icon">❤️</span> <span id="shooter-lives">3/3</span></div>
+      </div>
+      <div class="shooter-area" id="shooter-area">
+        <button class="shooter-corner-btn" id="shooter-restart-corner" title="重新开始游戏">🔄</button>
+        <div class="shooter-hint">🎯 单词从上方飞下来,输入拼写击落</div>
+        <div class="shooter-input-bar">
+          <input
+            type="text"
+            class="shooter-input"
+            id="shooter-input"
+            autocomplete="off"
+            autocapitalize="none"
+            autocorrect="off"
+            spellcheck="false"
+            placeholder="Type to fire..."
+          >
+        </div>
+        <div class="shooter-overlay" id="shooter-overlay">
+          <h2>🚀 Word Shooter</h2>
+          <p>单词从屏幕上方飞下来,输入完整英文拼写击落<br>漏 1 个 = 掉 1 命,3 命用完 Game Over</p>
+          <button class="btn" id="shooter-start">开始游戏</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ Game 4: Listening Quiz (听音辨词) ================ -->
+    <section id="listening" class="game">
+      <div class="score-bar">
+        <div class="stat"><span class="icon">⭐</span> 分数 <span id="listen-score">0</span></div>
+        <div class="stat combo"><span class="icon">🔥</span> 连击 <span id="listen-combo">0</span></div>
+        <div class="stat"><span class="icon">📊</span> 进度 <span id="listen-progress">0/10</span></div>
+      </div>
+      <div class="panel">
+        <div class="listen-prompt" id="listen-prompt">🎧 听英文单词,选对应中文</div>
+        <div class="listen-controls">
+          <button class="btn" id="listen-play">▶ 播放发音</button>
+          <button class="btn btn-secondary" id="listen-replay">🔁 再听一次</button>
+        </div>
+        <div class="listen-hint" id="listen-hint" style="display:none;"></div>
+        <div class="listen-options" id="listen-options"></div>
+        <div class="listen-feedback" id="listen-feedback"></div>
+        <div class="bee-controls" style="margin-top:1.25rem;">
+          <button class="btn btn-secondary" id="listen-skip">⏭ 跳过</button>
+          <button class="btn btn-secondary" id="listen-restart">🔄 重新开始</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ Game 5: Anagram (拼图重组) ================ -->
+    <section id="anagram" class="game">
+      <div class="score-bar">
+        <div class="stat"><span class="icon">⭐</span> 分数 <span id="anagram-score">0</span></div>
+        <div class="stat"><span class="icon">📊</span> 进度 <span id="anagram-progress">0/10</span></div>
+        <div class="stat"><span class="icon">💡</span> 提示 <span id="anagram-hints">3</span></div>
+      </div>
+      <div class="panel">
+        <div class="anagram-prompt">
+          <div class="anagram-clue" id="anagram-clue">中文释义</div>
+          <button class="btn btn-secondary anagram-speak" id="anagram-speak">🔊 听发音</button>
+        </div>
+        <div class="anagram-answer" id="anagram-answer"></div>
+        <div class="anagram-pool" id="anagram-pool"></div>
+        <div class="anagram-feedback" id="anagram-feedback"></div>
+        <div class="bee-controls" style="margin-top:1.25rem;">
+          <button class="btn btn-secondary" id="anagram-clear">🗑 清空</button>
+          <button class="btn btn-secondary" id="anagram-hint-btn">💡 揭示 1 个字母</button>
+          <button class="btn btn-secondary" id="anagram-restart">🔄 重新开始</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ Game 6: Speed Round (极速挑战) ================ -->
+    <section id="speed" class="game">
+      <div class="score-bar">
+        <div class="stat"><span class="icon">⏱️</span> 倒计时 <span id="speed-timer">60</span></div>
+        <div class="stat"><span class="icon">⭐</span> 分数 <span id="speed-score">0</span></div>
+        <div class="stat"><span class="icon">✅</span> 正确 <span id="speed-correct">0</span> · <span style="color:#ef4444;">❌ <span id="speed-wrong">0</span></span></div>
+      </div>
+      <div class="speed-area">
+        <div class="speed-display">
+          <div class="speed-chinese" id="speed-chinese">点击"开始"启动</div>
+          <div class="speed-phonetic" id="speed-phonetic"></div>
+        </div>
+        <div class="speed-input-bar">
+          <input
+            type="text"
+            class="shooter-input"
+            id="speed-input"
+            autocomplete="off"
+            autocapitalize="none"
+            autocorrect="off"
+            spellcheck="false"
+            placeholder="Type fast! 按 Enter 提交"
+            disabled
+          >
+        </div>
+        <div class="speed-overlay" id="speed-overlay">
+          <h2>⚡ Speed Round</h2>
+          <p>60 秒内尽可能多拼对单词<br><strong>答对 +10</strong> · <strong>答错 -5</strong> · <strong>跳过 0 分</strong><br>提示:答案输入完成后按 Enter 提交</p>
+          <button class="btn" id="speed-start">开始挑战</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ Game Over Modal ============ -->
+  <div class="modal-backdrop" id="modal-backdrop">
+    <div class="modal" id="modal">
+      <h2 id="modal-title">🎉 Game Complete!</h2>
+      <div class="big-stat" id="modal-big-stat">0</div>
+      <div class="sub-stat" id="modal-sub-stat"></div>
+      <div class="actions">
+        <button class="btn" id="modal-action">再来一次</button>
+        <button class="btn btn-secondary" id="modal-close">关闭</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ==================== 词汇数据 (多单元支持) ====================
+    const UNITS = {
+      L01: {
+        name: 'Balanced Diet & Micronutrients',
+        words: [
+          { en: 'balanced diet', zh: '均衡饮食', phonetic: '/ˈbælənst ˈdaɪət/',
+            hint: 'balance (平衡) + d + diet (饮食)。**陷阱**:balance 结尾不写 balence',
+            accept: ['balanced diet', 'balanced-diet'] },
+          { en: 'macronutrients', zh: '大量营养素', phonetic: '/ˌmækroʊˈnuːtriənts/',
+            hint: '**macro** (大) + nutrients (营养素)。**陷阱**:中间是 n**u** 不是 n**ru**',
+            accept: ['macronutrients', 'macro-nutrients'] },
+          { en: 'micronutrients', zh: '微量营养素', phonetic: '/ˌmaɪkroʊˈnuːtriənts/',
+            hint: '**micro** (小) + nutrients。**陷阱**:micro 不要写成 mac-',
+            accept: ['micronutrients', 'micro-nutrients'] },
+          { en: 'minerals', zh: '矿物质', phonetic: '/ˈmɪnərəlz/',
+            hint: 'miner (矿工) + als。**陷阱**:中间 e 不是 a,miner**als**',
+            accept: ['minerals', 'mineral'] },
+          { en: 'vitamins', zh: '维生素', phonetic: '/ˈvɪtəmɪnz/',
+            hint: '**vit** + amins。**陷阱**:vit- 不是 vid-;结尾 -mins',
+            accept: ['vitamins', 'vitamin'] },
+          { en: 'carbohydrates', zh: '碳水化合物', phonetic: '/ˌkɑːrboʊˈhaɪdreɪts/',
+            hint: '**carbo** + **hy** + drates。**陷阱**:重音在第二音节 (HY)',
+            accept: ['carbohydrates'] },
+          { en: 'proteins', zh: '蛋白质', phonetic: '/ˈproʊtiːnz/',
+            hint: '**pro** + teins。**陷阱**:重音在第一音节 (PRO),不是 TEIN',
+            accept: ['proteins', 'protein'] },
+          { en: 'fats', zh: '脂肪', phonetic: '/fæts/',
+            hint: '直接 fats。**陷阱**:复数直接 +s,别忘了',
+            accept: ['fats', 'fat'] },
+          { en: 'scurvy', zh: '坏血病', phonetic: '/ˈskɜːrvi/',
+            hint: 'scurv + y。**陷阱**:结尾是 -v**y** 不是 -v**ey**',
+            accept: ['scurvy'] },
+          { en: 'rickets', zh: '佝偻病', phonetic: '/ˈrɪkɪts/',
+            hint: 'rick + ets。**陷阱**:**双 k** (ric**k**ets),复数 -s',
+            accept: ['rickets', 'ricket'] },
+          { en: 'deficiency', zh: '缺乏症', phonetic: '/dɪˈfɪʃənsi/',
+            hint: 'de- + fic- + iency。**陷阱**:fic 拼 fi,iency 拼 -ency',
+            accept: ['deficiency', 'deficiencies'] }
+        ]
+      },
+      L02: {
+        name: 'The Alimentary Canal',
+        words: [
+          { en: 'alimentary canal', zh: '消化道', phonetic: '/ˌælɪˈmentəri kəˈnæl/',
+            hint: '**aliment** (营养) + ary + canal。**陷阱**:al**imen**tary (中间是 imen 不是 iment)',
+            accept: ['alimentary canal', 'alimentary-canal'] },
+          { en: 'mouth', zh: '口腔', phonetic: '/maʊθ/',
+            hint: '基础词。**陷阱**:mou**th** 结尾 th 不发音',
+            accept: ['mouth'] },
+          { en: 'oesophagus', zh: '食道', phonetic: '/iːˈsɒfəɡəs/',
+            hint: '**oe**sophagus (英式) / esophagus (美式)。**陷阱**:开头是 **oe** 不是 e-',
+            accept: ['oesophagus', 'esophagus', 'oesophagous'] },
+          { en: 'stomach', zh: '胃', phonetic: '/ˈstʌmək/',
+            hint: 'stom- + ach。**陷阱**:结尾 -ach (ch 发 /k/)',
+            accept: ['stomach'] },
+          { en: 'small intestine', zh: '小肠', phonetic: '/smɔːl ɪnˈtestɪn/',
+            hint: 'small + in- + test- + ine。**陷阱**:intes**tine** 结尾 -ine 不是 -ine',
+            accept: ['small intestine', 'small-intestine'] },
+          { en: 'large intestine', zh: '大肠', phonetic: '/lɑːdʒ ɪnˈtestɪn/',
+            hint: '与 small intestine 对比,同 -intestine',
+            accept: ['large intestine', 'large-intestine'] },
+          { en: 'anus', zh: '肛门', phonetic: '/ˈeɪnəs/',
+            hint: '4 字母短词 a-n-u-s。**陷阱**:不要写成 annual',
+            accept: ['anus'] },
+          { en: 'ingestion', zh: '摄食', phonetic: '/ɪnˈdʒestʃən/',
+            hint: 'in- + gest + ion。**陷阱**:inges**tion** 不是 inges**sion**',
+            accept: ['ingestion'] },
+          { en: 'egestion', zh: '排遗', phonetic: '/iːˈdʒestʃən/',
+            hint: 'e- + gest + ion。**陷阱**:与 ingestion 共享 -gestion,但开头 e 不是 i',
+            accept: ['egestion'] },
+          { en: 'peristalsis', zh: '蠕动', phonetic: '/ˌperɪˈstælsɪs/',
+            hint: 'peri- + -stalsis。**陷阱**:peristal**sis** 重音第二音节,中间 -st- 不要丢',
+            accept: ['peristalsis', 'peristalisis'] }
+        ]
+      },
+      L03: {
+        name: 'Accessory Organs & Digestion',
+        words: [
+          { en: 'absorption', zh: '吸收', phonetic: '/əbˈzɔːpʃən/',
+            hint: 'absorb (v) → absorp**tion** (n)。**陷阱**:结尾 -ption 不是 -btion',
+            accept: ['absorption'] },
+          { en: 'accessory organs', zh: '辅助器官', phonetic: '/əkˈsesəri ˈɔːɡənz/',
+            hint: 'acce**ssory** 双 c 双 s。**陷阱**:不是 acessory',
+            accept: ['accessory organs', 'accessory-organs'] },
+          { en: 'assimilation', zh: '同化', phonetic: '/əˌsɪmɪˈleɪʃən/',
+            hint: 'a-**ss**im- + il- + ation。**陷阱**:5 字段最容易拼错,结尾 -lation',
+            accept: ['assimilation'] },
+          { en: 'digestion', zh: '消化', phonetic: '/daɪˈdʒestʃən/',
+            hint: 'digest (v) → diges**tion** (n)。**陷阱**:不是 diges**sion**',
+            accept: ['digestion'] },
+          { en: 'liver', zh: '肝脏', phonetic: '/ˈlɪvər/',
+            hint: '基础词 liv- + er。**陷阱**:不要漏 e',
+            accept: ['liver'] },
+          { en: 'gall bladder', zh: '胆囊', phonetic: '/ɡɔːl ˈblædər/',
+            hint: 'gall + bl- + add- + er (双 d)。**陷阱**:两词分开写',
+            accept: ['gall bladder', 'gallbladder', 'gall-bladder'] },
+          { en: 'pancreas', zh: '胰腺', phonetic: '/ˈpæŋkrɪəs/',
+            hint: 'pan- + creas。**陷阱**:结尾 -eas 不是 -ias',
+            accept: ['pancreas'] },
+          { en: 'salivary glands', zh: '唾液腺', phonetic: '/ˈsælɪvəri ɡlændz/',
+            hint: 'saliv- + ary + glands。**陷阱**:saliv**ary** 结尾 -ary 不是 -ery',
+            accept: ['salivary glands', 'salivary gland', 'salivary-glands'] }
+        ]
+      },
+      L04: {
+        name: 'Human Teeth & Mechanical Digestion',
+        words: [
+          { en: 'canines', zh: '犬齿', phonetic: '/ˈkeɪnaɪnz/',
+            hint: 'canine (犬) + s。**陷阱**:复数 +s,发 -naɪnz',
+            accept: ['canines', 'canine'] },
+          { en: 'cementum', zh: '牙骨质', phonetic: '/sɪˈmentəm/',
+            hint: 'ce- + men- + tum。**陷阱**:不是 cementt-um 双 t',
+            accept: ['cementum'] },
+          { en: 'dentine', zh: '牙本质', phonetic: '/ˈdentiːn/',
+            hint: 'dent- + ine。**陷阱**:结尾 -ine 不是 -in',
+            accept: ['dentine', 'dentin'] },
+          { en: 'enamel', zh: '牙釉质', phonetic: '/ɪˈnæməl/',
+            hint: 'enam- + el。**陷阱**:en- 开头,不是 e-',
+            accept: ['enamel'] },
+          { en: 'gum', zh: '牙龈', phonetic: '/ɡʌm/',
+            hint: '基础词 g-um (3 字母)',
+            accept: ['gum'] },
+          { en: 'incisors', zh: '门齿', phonetic: '/ɪnˈsaɪzərz/',
+            hint: 'in- + cis- + ors。**陷阱**:复数 -ors',
+            accept: ['incisors', 'incisor'] },
+          { en: 'molars', zh: '臼齿', phonetic: '/ˈmoʊlərz/',
+            hint: 'mol- + ars。**陷阱**:结尾 -ars,发 -ərz',
+            accept: ['molars', 'molar'] },
+          { en: 'physical digestion', zh: '物理消化', phonetic: '/ˈfɪzɪkəl daɪˈdʒestʃən/',
+            hint: 'physical + digestion。**陷阱**:physical 拼 -sical',
+            accept: ['physical digestion', 'physical-digestion'] },
+          { en: 'premolars', zh: '前臼齿', phonetic: '/priːˈmoʊlərz/',
+            hint: 'pre- + molars。**陷阱**:pre- 前缀',
+            accept: ['premolars', 'premolar'] },
+          { en: 'pulp', zh: '牙髓', phonetic: '/pʌlp/',
+            hint: '基础词 pul-p。**陷阱**:结尾 -lp',
+            accept: ['pulp'] },
+          { en: 'surface area', zh: '表面积', phonetic: '/ˈsɜːrfɪs ˈeriə/',
+            hint: 'surface + area。**陷阱**:surface 不要漏 r',
+            accept: ['surface area', 'surface-area'] }
+        ]
+      },
+      L05: {
+        name: 'Intro to Chemical Digestion & Bile',
+        words: [
+          { en: 'bile', zh: '胆汁', phonetic: '/baɪl/',
+            hint: '基础词 bi-le。**陷阱**:b- 开头',
+            accept: ['bile'] },
+          { en: 'chemical digestion', zh: '化学消化', phonetic: '/ˈkemɪkəl daɪˈdʒestʃən/',
+            hint: 'chem- + ical + digestion。**陷阱**:chemical 拼 -mi-',
+            accept: ['chemical digestion', 'chemical-digestion'] },
+          { en: 'emulsification', zh: '乳化作用', phonetic: '/iːˌmʌlsɪfɪˈkeɪʃən/',
+            hint: 'e- + muls- + ification。**陷阱**:长词,emul- 容易写错',
+            accept: ['emulsification'] },
+          { en: 'enzyme', zh: '酶', phonetic: '/ˈenzaɪm/',
+            hint: 'en- + zyme。**陷阱**:z 发 /z/,不要写成 en-zyme-y',
+            accept: ['enzyme'] },
+          { en: 'insoluble', zh: '不溶的', phonetic: '/ɪnˈsɒljəbəl/',
+            hint: 'in- + sol- + uble。**陷阱**:与 soluble 反义',
+            accept: ['insoluble'] },
+          { en: 'soluble', zh: '可溶的', phonetic: '/ˈsɒljəbəl/',
+            hint: 'sol- + uble。**陷阱**:与 insoluble 反义',
+            accept: ['soluble'] }
+        ]
+      },
+      L06: { name: 'Housekeeping / Review', words: [] },
+      L07: {
+        name: 'Digestive Enzymes',
+        words: [
+          { en: 'active site', zh: '活性位点', phonetic: '/ˈæktɪv saɪt/',
+            hint: 'active + site。**陷阱**:两词分开写',
+            accept: ['active site', 'active-site'] },
+          { en: 'amylase', zh: '淀粉酶', phonetic: '/ˈæmɪleɪz/',
+            hint: 'amyl- + ase。**陷阱**:amyl- 拼 amy-',
+            accept: ['amylase'] },
+          { en: 'catalyst', zh: '催化剂', phonetic: '/ˈkætəlɪst/',
+            hint: 'cata- + lyst。**陷阱**:结尾 -yst 不是 -ist',
+            accept: ['catalyst'] },
+          { en: 'digestive enzyme', zh: '消化酶', phonetic: '/daɪˈdʒestɪv ˈenzaɪm/',
+            hint: 'digest- + ive + enzyme。**陷阱**:digestive 拼 -est-',
+            accept: ['digestive enzyme', 'digestive-enzyme'] },
+          { en: 'lipase', zh: '脂肪酶', phonetic: '/ˈlaɪpeɪz/',
+            hint: 'lip- + ase。**陷阱**:lip- 拼 li-,结尾 -ase',
+            accept: ['lipase'] },
+          { en: 'maltase', zh: '麦芽糖酶', phonetic: '/ˈmɔːlteɪz/',
+            hint: 'malt- + ase。**陷阱**:与 maltose 对应',
+            accept: ['maltase'] },
+          { en: 'pepsin', zh: '胃蛋白酶', phonetic: '/ˈpepsɪn/',
+            hint: 'pep- + sin。**陷阱**:结尾 -sin 不是 -sin-e',
+            accept: ['pepsin'] },
+          { en: 'protease', zh: '蛋白酶', phonetic: '/ˈproʊtieɪz/',
+            hint: 'prote- + ase。**陷阱**:与 protein 同根',
+            accept: ['protease'] },
+          { en: 'substrate', zh: '底物', phonetic: '/ˈsʌbstreɪt/',
+            hint: 'sub- + strate。**陷阱**:sub- + str- 双 b 不要漏',
+            accept: ['substrate'] },
+          { en: 'trypsin', zh: '胰蛋白酶', phonetic: '/ˈtrɪpsɪn/',
+            hint: 'tryp- + sin。**陷阱**:与 pepsin 同 -psin 结尾',
+            accept: ['trypsin'] }
+        ]
+      },
+      L08: {
+        name: 'Stomach Acid & Advanced Enzymes',
+        words: [
+          { en: 'acidic', zh: '酸性的', phonetic: '/əˈsɪdɪk/',
+            hint: 'acid + ic。**陷阱**:acid- 拼 ac-',
+            accept: ['acidic'] },
+          { en: 'alkaline', zh: '碱性的', phonetic: '/ˈælkəlaɪn/',
+            hint: 'alkal- + ine。**陷阱**:与 acid 反义',
+            accept: ['alkaline', 'alkalin'] },
+          { en: 'duodenum', zh: '十二指肠', phonetic: '/ˌdjuːəˈdiːnəm/',
+            hint: 'duo- + denum。**陷阱**:发音 duo-de-num',
+            accept: ['duodenum'] },
+          { en: 'gastric juice', zh: '胃液', phonetic: '/ˈɡæstrɪk dʒuːs/',
+            hint: 'gastr- + ic + juice。**陷阱**:gastric 拼 -as-',
+            accept: ['gastric juice', 'gastric-juice'] },
+          { en: 'maltase', zh: '麦芽糖酶', phonetic: '/ˈmɔːlteɪz/',
+            hint: 'malt- + ase。**陷阱**:malt 拼 mal-t',
+            accept: ['maltase'] },
+          { en: 'pepsin', zh: '胃蛋白酶', phonetic: '/ˈpepsɪn/',
+            hint: 'pep- + sin。**陷阱**:pep- 拼 pe-',
+            accept: ['pepsin'] },
+          { en: 'pH', zh: '酸碱度', phonetic: '/ˌpiːˈeɪtʃ/',
+            hint: 'pH = power of Hydrogen。**陷阱**:小写 p 大写 H',
+            accept: ['pH', 'ph', 'Ph'] },
+          { en: 'trypsin', zh: '胰蛋白酶', phonetic: '/ˈtrɪpsɪn/',
+            hint: 'tryp- + sin。**陷阱**:try- 拼 tryp-',
+            accept: ['trypsin'] }
+        ]
+      },
+      L09: {
+        name: 'Absorption and the Villus',
+        words: [
+          { en: 'absorption', zh: '吸收', phonetic: '/əbˈzɔːpʃən/',
+            hint: 'absorb + tion。**陷阱**:结尾 -ption',
+            accept: ['absorption'] },
+          { en: 'capillary', zh: '毛细血管', phonetic: '/ˈkæpɪleri/',
+            hint: 'capill- + ary。**陷阱**:capill- 双 l',
+            accept: ['capillary'] },
+          { en: 'lacteal', zh: '乳糜管', phonetic: '/ˈlæktɪəl/',
+            hint: 'lact- + eal。**陷阱**:lact- 与 lactose 同根',
+            accept: ['lacteal'] },
+          { en: 'microvilli', zh: '微绒毛', phonetic: '/ˌmaɪkroʊˈvɪlaɪ/',
+            hint: 'micro- + villi。**陷阱**:villi 复数 +i,与 villus 对应',
+            accept: ['microvilli', 'microvillus'] },
+          { en: 'surface area', zh: '表面积', phonetic: '/ˈsɜːrfɪs ˈeriə/',
+            hint: 'surface + area。**陷阱**:两词分开',
+            accept: ['surface area', 'surface-area'] }
+        ]
+      },
+      L10: {
+        name: 'The Circulatory System',
+        words: [
+          { en: 'aorta', zh: '主动脉', phonetic: '/eɪˈɔːrtə/',
+            hint: 'aort- + a。**陷阱**:a- 开头不是 ao-',
+            accept: ['aorta'] },
+          { en: 'artery', zh: '动脉', phonetic: '/ˈɑːrtəri/',
+            hint: 'art- + ery。**陷阱**:art- 不是 atr-',
+            accept: ['artery', 'arteries'] },
+          { en: 'capillary', zh: '毛细血管', phonetic: '/ˈkæpɪleri/',
+            hint: 'capill- + ary。**陷阱**:capill- 双 l',
+            accept: ['capillary'] },
+          { en: 'circulatory system', zh: '循环系统', phonetic: '/ˈsɜːrkjələtɔːri ˈsɪstəm/',
+            hint: 'circul- + atory + system。**陷阱**:circul- 双 c',
+            accept: ['circulatory system', 'circulatory-system'] },
+          { en: 'heart', zh: '心脏', phonetic: '/hɑːrt/',
+            hint: '基础词',
+            accept: ['heart'] },
+          { en: 'oxygenated blood', zh: '含氧血液', phonetic: '/ˈɒksɪdʒəneɪtɪd blʌd/',
+            hint: 'oxygen + ated + blood。**陷阱**:oxygenated 拼 oxy-',
+            accept: ['oxygenated blood', 'oxygenated-blood'] },
+          { en: 'pulmonary', zh: '肺的', phonetic: '/ˈpʌlməneri/',
+            hint: 'pulm- + onary。**陷阱**:pulm- 拼 pul-',
+            accept: ['pulmonary'] },
+          { en: 'valve', zh: '瓣膜', phonetic: '/vælv/',
+            hint: '基础词 val- + ve',
+            accept: ['valve'] },
+          { en: 'vein', zh: '静脉', phonetic: '/veɪn/',
+            hint: '基础词 ve- + in',
+            accept: ['vein', 'veins'] },
+          { en: 'vena cava', zh: '腔静脉', phonetic: '/ˈviːnə ˈkeɪvə/',
+            hint: 'vena + cava。**陷阱**:两词分开,复数 venae cavae',
+            accept: ['vena cava', 'vena-cava', 'venae cavae'] }
+        ]
+      },
+      L11: {
+        name: 'Heart Anatomy & Function',
+        words: [
+          { en: 'aorta', zh: '主动脉', phonetic: '/eɪˈɔːrtə/',
+            hint: 'aort- + a。**陷阱**:a- 开头不是 ao-',
+            accept: ['aorta'] },
+          { en: 'auricle', zh: '心耳', phonetic: '/ˈɔːrɪkəl/',
+            hint: 'aur- + icle。**陷阱**:aur- 发 /ɔːr/',
+            accept: ['auricle'] },
+          { en: 'chordae tendineae', zh: '腱索', phonetic: '/ˈkɔːrdiː tendɪniː/',
+            hint: 'chordae + tendineae。**陷阱**:拉丁复数 -ae',
+            accept: ['chordae tendineae', 'chordae-tendineae', 'chorda tendinea'] },
+          { en: 'heart', zh: '心脏', phonetic: '/hɑːrt/',
+            hint: '基础词',
+            accept: ['heart'] },
+          { en: 'pulmonary artery', zh: '肺动脉', phonetic: '/ˈpʌlməneri ˈɑːrtəri/',
+            hint: 'pulmonary + artery。**陷阱**:肺动脉是动脉里唯一带脱氧血的',
+            accept: ['pulmonary artery', 'pulmonary-artery'] },
+          { en: 'pulmonary vein', zh: '肺静脉', phonetic: '/ˈpʌlməneri veɪn/',
+            hint: 'pulmonary + vein。**陷阱**:肺静脉是静脉里唯一带含氧血的',
+            accept: ['pulmonary vein', 'pulmonary-vein'] },
+          { en: 'tricuspid valve', zh: '三尖瓣', phonetic: '/traɪˈkʌspɪd vælv/',
+            hint: 'tri- + cuspid + valve。**陷阱**:三尖 = 三个尖(瓣膜)',
+            accept: ['tricuspid valve', 'tricuspid-valve'] },
+          { en: 'valve', zh: '瓣膜', phonetic: '/vælv/',
+            hint: '基础词 val- + ve',
+            accept: ['valve'] },
+          { en: 'ventricle', zh: '心室', phonetic: '/ˈventrɪkəl/',
+            hint: 'ventr- + icle。**陷阱**:ventr- 拼 ven-',
+            accept: ['ventricle'] }
+        ]
+      },
+      L12: { name: 'Housekeeping / Review', words: [] },
+      L13: {
+        name: 'The Cardiac Cycle and Monitoring',
+        words: [
+          { en: 'cardiac cycle', zh: '心动周期', phonetic: '/ˈkɑːrdiæk ˈsaɪkəl/',
+            hint: 'cardi- + ac + cycle。**陷阱**:cardiac 拼 -ac',
+            accept: ['cardiac cycle', 'cardiac-cycle'] },
+          { en: 'diastole', zh: '舒张期', phonetic: '/daɪˈæstəli/',
+            hint: 'dia- + stole。**陷阱**:与 systole 反义',
+            accept: ['diastole'] },
+          { en: 'pulse', zh: '脉搏', phonetic: '/pʌls/',
+            hint: '基础词 pul- + se',
+            accept: ['pulse'] },
+          { en: 'pulse rate', zh: '脉搏率', phonetic: '/pʌls reɪt/',
+            hint: 'pulse + rate。**陷阱**:两词分开',
+            accept: ['pulse rate', 'pulse-rate'] },
+          { en: 'sphygmomanometer', zh: '血压计', phonetic: '/ˌsfɪɡmoʊmænˈɒmɪtər/',
+            hint: 'sphyg- + momano- + meter。**陷阱**:超长词,sphyg- 发 /sf/',
+            accept: ['sphygmomanometer', 'sphygmomanometre'] },
+          { en: 'stethoscope', zh: '听诊器', phonetic: '/ˈsteθəskoʊp/',
+            hint: 'stetho- + scope。**陷阱**:stetho- 拼 stetho-',
+            accept: ['stethoscope'] },
+          { en: 'systole', zh: '收缩期', phonetic: '/ˈsɪstəli/',
+            hint: 'sys- + tole。**陷阱**:与 diastole 反义',
+            accept: ['systole'] }
+        ]
+      },
+      L14: {
+        name: 'Exercise and Heart Rate',
+        words: [
+          { en: 'adrenaline', zh: '肾上腺素', phonetic: '/əˈdrenəlɪn/',
+            hint: 'adren- + aline。**陷阱**:adren- 拼 adre-',
+            accept: ['adrenaline', 'adrenalin'] },
+          { en: 'aerobic respiration', zh: '有氧呼吸', phonetic: '/eəˈroʊbɪk respɪˈreɪʃən/',
+            hint: 'aero- + bic + respiration。**陷阱**:aerobic 拼 aero-',
+            accept: ['aerobic respiration', 'aerobic-respiration'] },
+          { en: 'anaerobic respiration', zh: '无氧呼吸', phonetic: '/ˌæneəˈroʊbɪk respɪˈreɪʃən/',
+            hint: 'an- + aerobic + respiration。**陷阱**:an- 前缀表示"无"',
+            accept: ['anaerobic respiration', 'anaerobic-respiration'] },
+          { en: 'heart rate', zh: '心率', phonetic: '/hɑːrt reɪt/',
+            hint: 'heart + rate。**陷阱**:两词分开',
+            accept: ['heart rate', 'heart-rate'] },
+          { en: 'oxygen debt', zh: '氧债', phonetic: '/ˈɒksɪdʒən det/',
+            hint: 'oxygen + debt。**陷阱**:debt 拼 -bt',
+            accept: ['oxygen debt', 'oxygen-debt'] },
+          { en: 'recovery time', zh: '恢复时间', phonetic: '/rɪˈkʌvəri taɪm/',
+            hint: 're- + covery + time。**陷阱**:recovery 拼 -cov-',
+            accept: ['recovery time', 'recovery-time'] },
+          { en: 'respiratory rate', zh: '呼吸频率', phonetic: '/ˈrespərətɔːri reɪt/',
+            hint: 'respira- + tory + rate。**陷阱**:respiratory 拼 respira-',
+            accept: ['respiratory rate', 'respiratory-rate'] },
+          { en: 'stroke volume', zh: '每搏输出量', phonetic: '/stroʊk ˈvɒljuːm/',
+            hint: 'stroke + volume。**陷阱**:stroke 不发 /str/',
+            accept: ['stroke volume', 'stroke-volume'] }
+        ]
+      },
+      L15: {
+        name: 'Blood Vessels and Pressure',
+        words: [
+          { en: 'aorta', zh: '主动脉', phonetic: '/eɪˈɔːrtə/',
+            hint: 'aort- + a。**陷阱**:a- 开头',
+            accept: ['aorta'] },
+          { en: 'blood pressure', zh: '血压', phonetic: '/blʌd ˈpreʃər/',
+            hint: 'blood + pressure。**陷阱**:pressure 拼 -ssure',
+            accept: ['blood pressure', 'blood-pressure'] },
+          { en: 'capillary', zh: '毛细血管', phonetic: '/ˈkæpɪleri/',
+            hint: 'capill- + ary。**陷阱**:capill- 双 l',
+            accept: ['capillary'] },
+          { en: 'diastolic pressure', zh: '舒张压', phonetic: '/ˌdaɪəˈstɒlɪk ˈpreʃər/',
+            hint: 'diastol- + ic + pressure。**陷阱**:与 systole 反义',
+            accept: ['diastolic pressure', 'diastolic-pressure'] },
+          { en: 'lumen', zh: '管腔', phonetic: '/ˈluːmen/',
+            hint: '基础词 lu- + men',
+            accept: ['lumen'] },
+          { en: 'sphygmomanometer', zh: '血压计', phonetic: '/ˌsfɪɡmoʊmænˈɒmɪtər/',
+            hint: 'sphyg- + momano- + meter。**陷阱**:超长词',
+            accept: ['sphygmomanometer'] },
+          { en: 'systolic pressure', zh: '收缩压', phonetic: '/sɪˈstɒlɪk ˈpreʃər/',
+            hint: 'systol- + ic + pressure。**陷阱**:与 diastolic 反义',
+            accept: ['systolic pressure', 'systolic-pressure'] },
+          { en: 'vasoconstriction', zh: '血管收缩', phonetic: '/ˌveɪzoʊkənˈstrɪkʃən/',
+            hint: 'vaso- + con- + striction。**陷阱**:vaso- 双 o',
+            accept: ['vasoconstriction'] },
+          { en: 'vasodilation', zh: '血管舒张', phonetic: '/ˌveɪzoʊdaɪˈleɪʃən/',
+            hint: 'vaso- + dilation。**陷阱**:与 vasoconstriction 反义',
+            accept: ['vasodilation', 'vasodilatation'] }
+        ]
+      },
+      L16: {
+        name: 'The Vascular Pathways',
+        words: [
+          { en: 'aorta', zh: '主动脉', phonetic: '/eɪˈɔːrtə/',
+            hint: 'aort- + a',
+            accept: ['aorta'] },
+          { en: 'hepatic artery', zh: '肝动脉', phonetic: '/hɪˈpætɪk ˈɑːrtəri/',
+            hint: 'hepa- + tic + artery。**陷阱**:hepatic 拼 hepat-',
+            accept: ['hepatic artery', 'hepatic-artery'] },
+          { en: 'hepatic portal vein', zh: '肝门静脉', phonetic: '/hɪˈpætɪk ˈpɔːrtəl veɪn/',
+            hint: 'hepatic + portal + vein。**陷阱**:portal 拼 -tal',
+            accept: ['hepatic portal vein', 'hepatic-portal-vein'] },
+          { en: 'hepatic vein', zh: '肝静脉', phonetic: '/hɪˈpætɪk veɪn/',
+            hint: 'hepatic + vein',
+            accept: ['hepatic vein', 'hepatic-vein'] },
+          { en: 'pulmonary artery', zh: '肺动脉', phonetic: '/ˈpʌlməneri ˈɑːrtəri/',
+            hint: 'pulmonary + artery',
+            accept: ['pulmonary artery', 'pulmonary-artery'] },
+          { en: 'pulmonary circulation', zh: '肺循环', phonetic: '/ˈpʌlməneri ˌsɜːrkjʊˈleɪʃən/',
+            hint: 'pulmonary + circulation',
+            accept: ['pulmonary circulation', 'pulmonary-circulation'] },
+          { en: 'pulmonary vein', zh: '肺静脉', phonetic: '/ˈpʌlməneri veɪn/',
+            hint: 'pulmonary + vein',
+            accept: ['pulmonary vein', 'pulmonary-vein'] },
+          { en: 'renal artery', zh: '肾动脉', phonetic: '/ˈriːnəl ˈɑːrtəri/',
+            hint: 'ren- + al + artery。**陷阱**:renal 拼 -en-',
+            accept: ['renal artery', 'renal-artery'] },
+          { en: 'renal vein', zh: '肾静脉', phonetic: '/ˈriːnəl veɪn/',
+            hint: 'renal + vein',
+            accept: ['renal vein', 'renal-vein'] },
+          { en: 'systemic circulation', zh: '体循环', phonetic: '/sɪˈstemɪk ˌsɜːrkjʊˈleɪʃən/',
+            hint: 'system- + ic + circulation。**陷阱**:systemic 拼 -em-',
+            accept: ['systemic circulation', 'systemic-circulation'] }
+        ]
+      },
+      L17: {
+        name: 'Components of Blood',
+        words: [
+          { en: 'blood', zh: '血液', phonetic: '/blʌd/',
+            hint: '基础词',
+            accept: ['blood'] },
+          { en: 'haemoglobin', zh: '血红蛋白', phonetic: '/ˌhiːməˈɡloʊbɪn/',
+            hint: 'haemo- + globin。**陷阱**:英式 haemo- / 美式 hemo-',
+            accept: ['haemoglobin', 'hemoglobin'] },
+          { en: 'lymphocyte', zh: '淋巴细胞', phonetic: '/ˈlɪmfəsaɪt/',
+            hint: 'lympho- + cyte。**陷阱**:lympho- 拼 lym-',
+            accept: ['lymphocyte'] },
+          { en: 'phagocyte', zh: '吞噬细胞', phonetic: '/ˈfæɡəsaɪt/',
+            hint: 'phago- + cyte。**陷阱**:phag- 拼 pha-',
+            accept: ['phagocyte'] },
+          { en: 'plasma', zh: '血浆', phonetic: '/ˈplæzmə/',
+            hint: 'plasm- + a。**陷阱**:结尾 -ma',
+            accept: ['plasma'] }
+        ]
+      },
+      L18: { name: 'Housekeeping / Final Review', words: [] }
+    };
+
+    // 当前活跃单元
+    let activeUnit = 'L01';
+    function getWords() { return UNITS[activeUnit].words; }
+    function getUnitName() { return UNITS[activeUnit].name; }
+
+    // ==================== 通用工具 ====================
+    const $ = (id) => document.getElementById(id);
+    const shuffle = (arr) => {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    };
+    // ==================== TTS (跨平台兼容 - iOS Safari 需要 unlock) ====================
+    let voices = [];
+    let audioUnlocked = false;
+    function loadVoices() {
+      return new Promise((resolve) => {
+        const got = speechSynthesis.getVoices();
+        if (got && got.length > 0) {
+          voices = got;
+          resolve(voices);
+          return;
+        }
+        const handler = () => {
+          voices = speechSynthesis.getVoices();
+          resolve(voices);
+        };
+        speechSynthesis.addEventListener('voiceschanged', handler, { once: true });
+        // 兜底:某些浏览器不触发 voiceschanged,2s 后强制读
+        setTimeout(() => {
+          if (voices.length === 0) {
+            voices = speechSynthesis.getVoices();
+            resolve(voices);
+          }
+        }, 2000);
+      });
+    }
+    // 页面加载时立即预加载 voices
+    if ('speechSynthesis' in window) {
+      loadVoices();
+    }
+
+    function pickVoice() {
+      // 优先级: en-US > en-GB > 任何英文 > 第一个可用
+      return voices.find(v => v.lang === 'en-US') ||
+             voices.find(v => v.lang === 'en-GB') ||
+             voices.find(v => v.lang && v.lang.startsWith('en')) ||
+             voices[0] || null;
+    }
+
+    // iOS Safari 必须在用户手势中首次 speak 一次,之后才能自动 speak
+    function unlockAudio() {
+      if (audioUnlocked || !('speechSynthesis' in window)) return;
+      try {
+        const u = new SpeechSynthesisUtterance(' ');
+        u.volume = 0;
+        u.rate = 1;
+        speechSynthesis.speak(u);
+        audioUnlocked = true;
+        updateSoundBtn();
+      } catch (e) {}
+    }
+
+    function updateSoundBtn() {
+      const btn = $('sound-toggle');
+      if (!btn) return;
+      if (audioUnlocked) {
+        btn.innerHTML = '🔊 声音已开启';
+        btn.className = 'sound-toggle on';
+        btn.title = '声音已开启 (iOS 已解锁)';
+      } else {
+        btn.innerHTML = '🔇 开启声音';
+        btn.className = 'sound-toggle off';
+        btn.title = 'iOS 需要先点这里解锁声音';
+      }
+    }
+
+    function speak(text) {
+      if (!('speechSynthesis' in window)) return;
+      // 未 unlock 时,先尝试触发;移动端大多会自动 fall through,但 iOS 不会出声
+      if (!audioUnlocked) {
+        // 提示用户去点"开启声音"按钮
+        const btn = $('sound-toggle');
+        if (btn) {
+          btn.classList.add('pulse-hint');
+          setTimeout(() => btn.classList.remove('pulse-hint'), 2000);
+        }
+      }
+      // cancel 旧的发音,避免队列堆叠
+      if (speechSynthesis.speaking || speechSynthesis.pending) {
+        speechSynthesis.cancel();
+      }
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'en-US';
+      u.rate = 0.85;
+      u.pitch = 1;
+      u.volume = 1;
+      const v = pickVoice();
+      if (v) u.voice = v;
+      // iOS 上稍微延迟一下,等 cancel 生效
+      setTimeout(() => {
+        try { speechSynthesis.speak(u); } catch (e) {}
+      }, 60);
+    }
+    const saveScore = (key, value) => {
+      const s = JSON.parse(localStorage.getItem('sky_word_lab') || '{}');
+      s[key] = value;
+      localStorage.setItem('sky_word_lab', JSON.stringify(s));
+    };
+    const loadScore = (key) => {
+      const s = JSON.parse(localStorage.getItem('sky_word_lab') || '{}');
+      return s[key] || 0;
+    };
+
+    // ==================== Unit Selector ====================
+    function renderUnitSelector() {
+      const sel = $('unit-select');
+      sel.innerHTML = '';
+      Object.keys(UNITS).forEach(id => {
+        const u = UNITS[id];
+        const opt = document.createElement('option');
+        opt.value = id;
+        const wordCount = u.words.length;
+        const status = wordCount === 0 ? ' (即将推出)' : ` · ${wordCount} 词`;
+        opt.textContent = `${id} · ${u.name}${status}`;
+        if (wordCount === 0) opt.disabled = true;
+        if (id === activeUnit) opt.selected = true;
+        sel.appendChild(opt);
+      });
+      $('unit-word-count').textContent = UNITS[activeUnit].words.length;
+      // 更新 header tag
+      document.querySelector('header h1 .tag').textContent = `${activeUnit} · ${UNITS[activeUnit].name}`;
+    }
+    renderUnitSelector();
+
+    $('unit-select').addEventListener('change', (e) => {
+      activeUnit = e.target.value;
+      renderUnitSelector();
+      // 重置所有游戏
+      stopShooter();
+      beeState.started = false;
+      memoryState.started = false;
+      beeState.queue = [];
+      memoryState.cards = [];
+      memoryState.matched = 0;
+      const activeTab = document.querySelector('.tabs button.active').dataset.tab;
+      if (activeTab === 'bee') startBee();
+      else if (activeTab === 'memory') startMemory();
+      else if (activeTab === 'shooter') {
+        $('shooter-overlay').style.display = 'flex';
+        $('shooter-overlay').innerHTML = `
+          <h2>🚀 Word Shooter</h2>
+          <p>已切换到 <strong>${getUnitName()}</strong>(${getWords().length} 词)<br>单词从屏幕上方飞下来,输入完整英文拼写击落<br>漏 1 个 = 掉 1 命,3 命用完 Game Over</p>
+          <button class="btn" id="shooter-start">开始游戏</button>
+        `;
+        $('shooter-start').addEventListener('click', startShooter);
+      }
+    });
+
+    // ==================== Tab 切换 ====================
+    function switchTab(tab) {
+      // 切走时清空 shooter 状态(避免切回时残留)
+      if (tab !== 'shooter') stopShooter();
+      document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tabs button[data-tab="' + tab + '"]').forEach(b => b.classList.add('active'));
+      document.querySelectorAll('.game').forEach(g => g.classList.remove('active'));
+      $(tab).classList.add('active');
+      // Unit bar 仅在非 home 页显示
+      if (tab === 'home') {
+        $('unit-bar').classList.add('hidden');
+      } else {
+        $('unit-bar').classList.remove('hidden');
+      }
+      if (tab === 'bee' && !beeState.started) startBee();
+      if (tab === 'memory' && !memoryState.started) startMemory();
+      if (tab === 'listening' && !listenState.started) startListening();
+      if (tab === 'anagram' && !anagramState.started) startAnagram();
+      if (tab === 'shooter') {
+        // 切回 shooter 总是从 overlay 开始(可重启)
+        $('shooter-overlay').style.display = 'flex';
+        // 如果单元没词,提示
+        if (getWords().length === 0) {
+          $('shooter-overlay').innerHTML = `
+            <h2>🚀 Word Shooter</h2>
+            <p><strong>${activeUnit}</strong> 单元词汇尚未录入<br>请先在顶部选一个有词的单元</p>
+            <button class="btn" disabled>暂不可用</button>
+          `;
+        } else {
+          $('shooter-overlay').innerHTML = `
+            <h2>🚀 Word Shooter</h2>
+            <p>当前单元: <strong>${getUnitName()}</strong> · ${getWords().length} 词<br>单词从屏幕上方飞下来,输入完整英文拼写击落<br>漏 1 个 = 掉 1 命,3 命用完 Game Over</p>
+            <button class="btn" id="shooter-start">开始游戏</button>
+          `;
+          $('shooter-start').addEventListener('click', startShooter);
+        }
+      }
+      if (tab === 'speed') {
+        // 切到 Speed 总是从 overlay 开始(可重启)
+        $('speed-overlay').classList.remove('hidden');
+        $('speed-overlay').innerHTML = `
+          <h2>⚡ Speed Round</h2>
+          <p>60 秒内尽可能多拼对单词<br><strong>答对 +10</strong> · <strong>答错 -5</strong> · <strong>跳过 0 分</strong><br>提示:答案输入完成后按 Enter 提交</p>
+          <button class="btn" id="speed-start">开始挑战</button>
+        `;
+        $('speed-start').addEventListener('click', startSpeed);
+        // 如果游戏已在跑,恢复 overlay 隐藏 + input 可用
+        if (speedState.running) {
+          $('speed-overlay').classList.add('hidden');
+          $('speed-input').disabled = false;
+        }
+      }
+    }
+    document.querySelectorAll('.tabs button').forEach(btn => {
+      btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+    });
+    // Home 卡片可点选
+    document.querySelectorAll('.game-intro .card[data-tab]').forEach(card => {
+      card.addEventListener('click', () => switchTab(card.dataset.tab));
+    });
+    // 声音 toggle 按钮:首次点击解锁 + 播放 demo
+    $('sound-toggle').addEventListener('click', () => {
+      if (!audioUnlocked) {
+        unlockAudio();
+        // 延迟一下,然后用 unlocked 状态 demo 一次,让用户确认声音
+        setTimeout(() => {
+          if (audioUnlocked) {
+            try {
+              const u = new SpeechSynthesisUtterance('Sound enabled');
+              u.lang = 'en-US';
+              u.rate = 0.9;
+              const v = pickVoice();
+              if (v) u.voice = v;
+              speechSynthesis.speak(u);
+            } catch (e) {}
+          }
+        }, 200);
+      } else {
+        // 已开启,再点播一个 demo
+        speak('Sound on');
+      }
+    });
+    updateSoundBtn();
+
+    // ==================== Game 1: Spelling Bee ====================
+    const beeState = {
+      queue: [],
+      idx: 0,
+      score: 0,
+      combo: 0,
+      wrong: [],
+      started: false,
+      hintUsed: false
+    };
+
+    function startBee() {
+      beeState.queue = shuffle(getWords());
+      beeState.idx = 0;
+      beeState.score = 0;
+      beeState.combo = 0;
+      beeState.wrong = [];
+      beeState.started = true;
+      $('bee-wrong').style.display = 'none';
+      renderBeeProgress();
+      loadBeeWord();
+      $('bee-input').focus();
+    }
+
+    function renderBeeProgress() {
+      const dots = $('bee-progress-dots');
+      dots.innerHTML = '';
+      beeState.queue.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.className = 'dot';
+        if (i < beeState.idx) dot.classList.add('done');
+        if (i === beeState.idx) dot.classList.add('current');
+        dots.appendChild(dot);
+      });
+      $('bee-progress-text').textContent = `${beeState.idx}/${beeState.queue.length}`;
+    }
+
+    function loadBeeWord() {
+      const w = beeState.queue[beeState.idx];
+      if (!w) { finishBee(); return; }
+      $('bee-chinese').textContent = w.zh;
+      $('bee-phonetic').textContent = w.phonetic;
+      $('bee-hint').innerHTML = w.hint;
+      $('bee-input').value = '';
+      $('bee-input').className = 'bee-input';
+      $('bee-feedback').textContent = '';
+      $('bee-feedback').className = 'bee-feedback';
+      beeState.hintUsed = false;
+      speak(w.en);
+      $('bee-input').focus();
+    }
+
+    function checkBee() {
+      const w = beeState.queue[beeState.idx];
+      const userInput = $('bee-input').value.trim().toLowerCase();
+      const accepted = w.accept.map(a => a.toLowerCase());
+      const correct = accepted.includes(userInput);
+
+      if (correct) {
+        $('bee-input').className = 'bee-input correct';
+        $('bee-feedback').textContent = `✅ Correct! "${w.en}"`;
+        $('bee-feedback').className = 'bee-feedback correct';
+        const points = beeState.hintUsed ? 5 : 10;
+        beeState.combo += 1;
+        const comboBonus = beeState.combo >= 3 ? 5 : 0;
+        beeState.score += points + comboBonus;
+        $('bee-score').textContent = beeState.score;
+        $('bee-combo').textContent = beeState.combo;
+        setTimeout(() => {
+          beeState.idx++;
+          renderBeeProgress();
+          loadBeeWord();
+        }, 1200);
+      } else {
+        $('bee-input').className = 'bee-input wrong';
+        $('bee-feedback').textContent = `❌ 正确: ${w.en} — ${w.zh}`;
+        $('bee-feedback').className = 'bee-feedback wrong';
+        beeState.combo = 0;
+        $('bee-combo').textContent = 0;
+        if (!beeState.wrong.find(x => x.en === w.en)) {
+          beeState.wrong.push(w);
+        }
+        $('bee-input').value = w.en;
+        $('bee-input').className = 'bee-input correct';
+        speak(w.en);
+        setTimeout(() => {
+          beeState.idx++;
+          renderBeeProgress();
+          loadBeeWord();
+        }, 2500);
+      }
+    }
+
+    function finishBee() {
+      saveScore('bee_high', Math.max(beeState.score, loadScore('bee_high')));
+      $('modal-title').textContent = beeState.score >= 80 ? '🏆 Master Speller!' : '🎉 Round Complete!';
+      $('modal-big-stat').textContent = beeState.score;
+      $('modal-sub-stat').innerHTML = beeState.wrong.length === 0
+        ? `完美!10/10 全对 — 你是 Spelling Master!`
+        : `拼对 ${10 - beeState.wrong.length} / 10 · 错词: <strong>${beeState.wrong.length}</strong>`;
+      $('modal-action').textContent = '再来一轮';
+      $('modal-backdrop').classList.add('active');
+
+      if (beeState.wrong.length > 0) {
+        $('bee-wrong').style.display = 'block';
+        $('bee-wrong-list').innerHTML = beeState.wrong.map(w =>
+          `<li><span class="word">${w.en}</span><span class="translation">${w.zh}</span></li>`
+        ).join('');
+      }
+    }
+
+    $('bee-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') checkBee();
+    });
+    $('bee-speak').addEventListener('click', () => {
+      const w = beeState.queue[beeState.idx];
+      if (w) speak(w.en);
+    });
+    $('bee-skip').addEventListener('click', () => {
+      const w = beeState.queue[beeState.idx];
+      if (!beeState.wrong.find(x => x.en === w.en)) {
+        beeState.wrong.push(w);
+      }
+      beeState.combo = 0;
+      $('bee-combo').textContent = 0;
+      beeState.idx++;
+      renderBeeProgress();
+      loadBeeWord();
+    });
+    $('bee-hint-btn').addEventListener('click', () => {
+      const w = beeState.queue[beeState.idx];
+      if (!w || beeState.hintUsed) return;
+      beeState.hintUsed = true;
+      $('bee-input').value = w.en[0] + '_'.repeat(Math.max(w.en.length - 1, 1));
+      $('bee-input').focus();
+    });
+
+    // ==================== Game 2: Memory Match ====================
+    const memoryState = {
+      cards: [],
+      flipped: [],
+      moves: 0,
+      pairs: 0,
+      matched: 0,
+      startTime: 0,
+      timer: null,
+      wrong: [],
+      started: false
+    };
+
+    function startMemory() {
+      memoryState.started = true;
+      // 选 8 个词 → 16 张卡(每词 1 张英文 + 1 张中文)
+      const picks = shuffle(getWords()).slice(0, 8);
+      memoryState.cards = [];
+      picks.forEach((w, i) => {
+        memoryState.cards.push({ id: `${i}-en`, pairId: i, type: 'en', text: w.en, word: w });
+        memoryState.cards.push({ id: `${i}-zh`, pairId: i, type: 'zh', text: w.zh, word: w });
+      });
+      memoryState.cards = shuffle(memoryState.cards);
+      memoryState.flipped = [];
+      memoryState.moves = 0;
+      memoryState.matched = 0;
+      memoryState.pairs = picks.length;
+      memoryState.wrong = [];
+      memoryState.startTime = Date.now();
+      $('memory-pairs').textContent = `0/${memoryState.pairs}`;
+      $('memory-moves').textContent = 0;
+      $('memory-wrong').style.display = 'none';
+      renderMemory();
+      startMemoryTimer();
+    }
+
+    function renderMemory() {
+      const board = $('memory-board');
+      board.innerHTML = '';
+      memoryState.cards.forEach((card, idx) => {
+        const div = document.createElement('div');
+        div.className = 'memory-card';
+        div.dataset.idx = idx;
+        div.innerHTML = `
+          <div class="face front">?</div>
+          <div class="face back">${card.text}</div>
+        `;
+        div.addEventListener('click', () => flipMemoryCard(idx));
+        board.appendChild(div);
+      });
+    }
+
+    function flipMemoryCard(idx) {
+      if (memoryState.flipped.length >= 2) return;
+      if (memoryState.flipped.includes(idx)) return;
+      const card = memoryState.cards[idx];
+      const el = document.querySelectorAll('.memory-card')[idx];
+      if (el.classList.contains('matched')) return;
+
+      memoryState.flipped.push(idx);
+      el.classList.add('flipped');
+      speak(card.text);
+
+      if (memoryState.flipped.length === 2) {
+        memoryState.moves++;
+        $('memory-moves').textContent = memoryState.moves;
+        const [i1, i2] = memoryState.flipped;
+        const c1 = memoryState.cards[i1];
+        const c2 = memoryState.cards[i2];
+        if (c1.pairId === c2.pairId && c1.type !== c2.type) {
+          // 配对成功
+          setTimeout(() => {
+            document.querySelectorAll('.memory-card').forEach((el, i) => {
+              if (i === i1 || i === i2) el.classList.add('matched');
+            });
+            memoryState.matched++;
+            memoryState.pairs = c1.word ? memoryState.pairs : memoryState.pairs;
+            $('memory-pairs').textContent = `${memoryState.matched}/${8}`;
+            memoryState.flipped = [];
+            if (memoryState.matched === 8) finishMemory();
+          }, 600);
+        } else {
+          // 配对失败
+          if (c1.word && c2.word && c1.pairId !== c2.pairId) {
+            const key = [c1.en, c2.en].sort().join('|');
+            if (!memoryState.wrong.find(w => w.key === key)) {
+              memoryState.wrong.push({ key, en: [c1.word.en, c2.word.en], zh: [c1.word.zh, c2.word.zh] });
+            }
+          }
+          setTimeout(() => {
+            const els = document.querySelectorAll('.memory-card');
+            els[i1].classList.remove('flipped');
+            els[i1].classList.add('shake');
+            els[i2].classList.remove('flipped');
+            els[i2].classList.add('shake');
+            setTimeout(() => {
+              els[i1].classList.remove('shake');
+              els[i2].classList.remove('shake');
+            }, 400);
+            memoryState.flipped = [];
+          }, 1000);
+        }
+      }
+    }
+
+    function startMemoryTimer() {
+      if (memoryState.timer) clearInterval(memoryState.timer);
+      memoryState.timer = setInterval(() => {
+        const sec = Math.floor((Date.now() - memoryState.startTime) / 1000);
+        const min = Math.floor(sec / 60);
+        $('memory-time').textContent = `${min}:${String(sec % 60).padStart(2, '0')}`;
+      }, 200);
+    }
+
+    function finishMemory() {
+      clearInterval(memoryState.timer);
+      const sec = Math.floor((Date.now() - memoryState.startTime) / 1000);
+      const min = Math.floor(sec / 60);
+      const timeStr = `${min}:${String(sec % 60).padStart(2, '0')}`;
+      const score = Math.max(0, 1000 - memoryState.moves * 10 - sec * 2);
+      saveScore('memory_high', Math.max(score, loadScore('memory_high')));
+      $('modal-title').textContent = memoryState.moves <= 12 ? '🏆 Memory Master!' : '🎉 Round Complete!';
+      $('modal-big-stat').textContent = score;
+      $('modal-sub-stat').innerHTML = `用时 <strong>${timeStr}</strong> · 步数 <strong>${memoryState.moves}</strong>`;
+      $('modal-action').textContent = '再来一局';
+      $('modal-backdrop').classList.add('active');
+
+      if (memoryState.wrong.length > 0) {
+        $('memory-wrong').style.display = 'block';
+        $('memory-wrong-list').innerHTML = memoryState.wrong.map(w =>
+          `<li><span class="word">${w.en[0]}</span><span class="translation">${w.zh[0]}</span> ↔ <span class="word">${w.en[1]}</span><span class="translation">${w.zh[1]}</span></li>`
+        ).join('');
+      }
+    }
+
+    $('memory-restart').addEventListener('click', startMemory);
+
+    // ==================== Game 3: Word Shooter ====================
+    const shooterState = {
+      words: [],
+      active: [],
+      score: 0,
+      level: 1,
+      lives: 3,
+      running: false,
+      spawnTimer: null,
+      moveTimer: null,
+      hitWords: new Set(),  // 已至少击落 1 次的词(用于通关判定)
+      completed: false      // 是否已通关
+    };
+
+    function startShooter() {
+      // 切单元后单元为空则不可启动
+      if (getWords().length === 0) return;
+      shooterState.score = 0;
+      shooterState.level = 1;
+      shooterState.lives = 3;
+      shooterState.hitWords = new Set();
+      shooterState.completed = false;
+      shooterState.active.forEach(w => w.el.remove());
+      shooterState.active = [];
+      shooterState.running = true;
+      updateShooterUI();
+      $('shooter-overlay').style.display = 'none';
+      $('shooter-input').value = '';
+      $('shooter-input').focus();
+      scheduleShooterSpawn();
+      shooterState.moveTimer = setInterval(moveShooterWords, 50);
+    }
+
+    // 单词落到底部时显示拼法(加深记忆)
+    function showMissedWord(word) {
+      const area = $('shooter-area');
+      // 移除旧的 miss 提示
+      area.querySelectorAll('.shooter-missed').forEach(el => el.remove());
+      const el = document.createElement('div');
+      el.className = 'shooter-missed';
+      el.innerHTML = `❌ 漏掉:<span class="missed-en">${word.en}</span><span class="missed-zh">${word.zh}</span>`;
+      area.appendChild(el);
+      setTimeout(() => el.remove(), 1600);
+    }
+
+    // 通关判定:所有词都至少击落 1 次
+    function checkCompletion() {
+      if (shooterState.completed) return;
+      const total = getWords().length;
+      const hit = shooterState.hitWords.size;
+      if (total > 0 && hit >= total) {
+        shooterState.completed = true;
+        endShooter(true);  // 通关
+      }
+    }
+
+    function scheduleShooterSpawn() {
+      // 起步 4500ms,每级 -300ms,最低 2000ms(避免扎堆)
+      const interval = Math.max(4500 - shooterState.level * 300, 2000);
+      shooterState.spawnTimer = setTimeout(() => {
+        if (!shooterState.running) return;
+        const spawned = spawnShooterWord();
+        if (spawned) {
+          shooterState.level = Math.floor(shooterState.score / 50) + 1;
+        }
+        updateShooterUI();
+        scheduleShooterSpawn();
+      }, interval);
+    }
+
+    function buildShooterHint(en) {
+      // 显示前 40% 字母(至少 2 个),其余用下划线;保留空格
+      const revealCount = Math.max(2, Math.ceil(en.length * 0.4));
+      let hint = '';
+      let revealed = 0;
+      for (let i = 0; i < en.length; i++) {
+        if (en[i] === ' ') {
+          hint += ' ';
+        } else if (revealed < revealCount) {
+          hint += en[i];
+          revealed++;
+        } else {
+          hint += '_';
+        }
+      }
+      return hint;
+    }
+
+    function spawnShooterWord() {
+      // 规则 1: 屏幕内已有该词则不重复
+      const activeWords = new Set(shooterState.active.filter(i => !i.hit).map(i => i.word.en));
+      const available = getWords().filter(w => !activeWords.has(w.en));
+      if (available.length === 0) return false;  // 全在屏幕,本轮不 spawn
+
+      // 规则 2: 避免扎堆 - X 位置距离现有词至少 20%
+      const minDistance = 20;
+      let x, attempts = 0;
+      do {
+        x = Math.random() * 75 + 5;
+        const tooClose = shooterState.active.some(item => {
+          if (item.hit) return false;
+          return Math.abs(item.x - x) < minDistance;
+        });
+        if (!tooClose) break;
+        attempts++;
+      } while (attempts < 6);
+      // 6 次仍重叠也 spawn(避免永远卡住)
+
+      const w = available[Math.floor(Math.random() * available.length)];
+      const el = document.createElement('div');
+      el.className = 'shooter-word';
+      el.textContent = w.zh;
+      el.style.left = x + '%';
+      el.style.top = '0px';
+      $('shooter-area').appendChild(el);
+      shooterState.active.push({ word: w, el: el, x: x, hit: false, hinted: false });
+      return true;
+    }
+
+    function moveShooterWords() {
+      const areaH = $('shooter-area').clientHeight - 80;
+      // 加快下落:起步 0.5px/帧(10px/s),每级 +0.1
+      const speed = 0.5 + shooterState.level * 0.1;
+      const halfH = areaH / 2;
+      shooterState.active.forEach((item) => {
+        if (item.hit) return;
+        const top = parseFloat(item.el.style.top);
+        const newTop = top + speed;
+        item.el.style.top = newTop + 'px';
+        // 下落到一半高度时给出部分提示
+        if (newTop > halfH && !item.hinted) {
+          item.hinted = true;
+          const hint = buildShooterHint(item.word.en);
+          item.el.innerHTML = `${item.word.zh} <span style="opacity:0.65;font-size:0.75em;margin-left:0.4em;font-family:monospace;letter-spacing:0.05em;">${hint}</span>`;
+        }
+        if (newTop > areaH) {
+          // 漏掉 - 显眼的拼法提示(加深记忆) + 失命
+          showMissedWord(item.word);
+          item.el.remove();
+          item.hit = true;
+          shooterState.lives--;
+          updateShooterUI();
+          if (shooterState.lives <= 0) endShooter(false);
+        }
+      });
+      shooterState.active = shooterState.active.filter(i => !i.hit || i.el.parentNode);
+    }
+
+    function stopShooter() {
+      shooterState.running = false;
+      clearTimeout(shooterState.spawnTimer);
+      clearInterval(shooterState.moveTimer);
+      shooterState.active.forEach(i => i.el && i.el.remove());
+      shooterState.active = [];
+      // 重置血条显示
+      shooterState.lives = 3;
+      shooterState.score = 0;
+      shooterState.level = 1;
+      shooterState.hitWords = new Set();
+      shooterState.completed = false;
+      updateShooterUI();
+      // 显示 overlay (无论是否在 shooter tab 都会重新渲染,等切回 tab 再显示)
+      const overlay = $('shooter-overlay');
+      overlay.style.display = 'flex';
+      overlay.innerHTML = `
+        <h2>🚀 Word Shooter</h2>
+        <p>当前单元: <strong>${getUnitName()}</strong> · ${getWords().length} 词<br>单词从屏幕上方飞下来,输入完整英文拼写击落<br>漏 1 个 = 掉 1 命,3 命用完 Game Over</p>
+        <button class="btn" id="shooter-start">开始游戏</button>
+      `;
+      $('shooter-start').addEventListener('click', startShooter);
+    }
+
+    function updateShooterUI() {
+      $('shooter-score').textContent = shooterState.score;
+      $('shooter-level').textContent = shooterState.level;
+      // 血条:用 ♥/♡ + 数字,1 命时变红警示
+      const lives = shooterState.lives;
+      let html = '';
+      for (let i = 0; i < 3; i++) {
+        if (i < lives) {
+          html += '<span style="color:#ef4444;font-size:1.4em;text-shadow:0 1px 2px rgba(239,68,68,0.4);margin:0 0.05em;">♥</span>';
+        } else {
+          html += '<span style="color:#cbd5e1;font-size:1.4em;margin:0 0.05em;">♡</span>';
+        }
+      }
+      const dangerColor = lives <= 1 ? '#ef4444' : 'var(--text)';
+      html += ` <span style="margin-left:0.5em;font-weight:700;color:${dangerColor};">${lives}/3</span>`;
+      $('shooter-lives').innerHTML = html;
+    }
+
+    $('shooter-input').addEventListener('input', (e) => {
+      if (!shooterState.running) return;
+      const val = e.target.value.trim().toLowerCase();
+      if (!val) return;
+      // 找匹配的目标 (优先 targeted, 否则第一个)
+      let target = shooterState.active.find(i => !i.hit && i.word.en.toLowerCase() === val);
+      if (!target) {
+        // 前缀匹配 → 高亮提示
+        shooterState.active.forEach(i => {
+          if (i.hit) return;
+          if (i.word.en.toLowerCase().startsWith(val)) {
+            i.el.classList.add('targeted');
+          } else {
+            i.el.classList.remove('targeted');
+          }
+        });
+        return;
+      }
+      // 击落
+      target.hit = true;
+      target.el.classList.remove('targeted');
+      target.el.classList.add('hit');
+      shooterState.score += 10;
+      shooterState.hitWords.add(target.word.en);  // 记录已击落词
+      updateShooterUI();
+      shooterState.level = Math.floor(shooterState.score / 50) + 1;
+      e.target.value = '';
+      speak(target.word.en);
+      setTimeout(() => target.el.remove(), 400);
+      shooterState.active = shooterState.active.filter(i => i !== target);
+      // 通关判定
+      checkCompletion();
+    });
+
+    function endShooter(win = false) {
+      shooterState.running = false;
+      clearTimeout(shooterState.spawnTimer);
+      clearInterval(shooterState.moveTimer);
+      saveScore('shooter_high', Math.max(shooterState.score, loadScore('shooter_high')));
+      const totalWords = getWords().length;
+      const hitCount = shooterState.hitWords.size;
+      if (win) {
+        $('modal-title').textContent = '🎉 通关!全部 ' + totalWords + ' 词都击落!';
+        $('modal-big-stat').textContent = shooterState.score;
+        $('modal-sub-stat').innerHTML = `击落 <strong>${hitCount}/${totalWords}</strong> 词 · 剩余血量 <strong>${shooterState.lives}/3</strong> · 等级 <strong>${shooterState.level}</strong>`;
+        $('modal-action').textContent = '再来一次';
+      } else {
+        $('modal-title').textContent = shooterState.score >= 200 ? '🚀 Sky Master!' : '💥 Game Over';
+        $('modal-big-stat').textContent = shooterState.score;
+        $('modal-sub-stat').innerHTML = `击落 <strong>${hitCount}/${totalWords}</strong> 词 (${hitCount * 10} 分) · 达到 <strong>Level ${shooterState.level}</strong><br>漏掉的词已在屏幕上显示过拼法,记得复习哦`;
+        $('modal-action').textContent = '再来一次';
+      }
+      $('modal-backdrop').classList.add('active');
+    }
+
+    $('shooter-start').addEventListener('click', startShooter);
+    // 角落 🔄 按钮:任何时候可重启(包括游戏中、game over、暂停)
+    $('shooter-restart-corner').addEventListener('click', () => {
+      if (getWords().length === 0) return;
+      startShooter();
+    });
+
+    // ==================== Game 4: Listening Quiz ====================
+    const listenState = {
+      queue: [],
+      idx: 0,
+      score: 0,
+      combo: 0,
+      started: false,
+      revealed: false
+    };
+
+    function startListening() {
+      if (getWords().length === 0) return;
+      listenState.queue = shuffle(getWords());
+      listenState.idx = 0;
+      listenState.score = 0;
+      listenState.combo = 0;
+      listenState.started = true;
+      listenState.revealed = false;
+      loadListeningWord();
+    }
+
+    function loadListeningWord() {
+      if (listenState.idx >= listenState.queue.length) { finishListening(); return; }
+      const word = listenState.queue[listenState.idx];
+      $('listen-progress').textContent = `${listenState.idx + 1}/${listenState.queue.length}`;
+      $('listen-feedback').textContent = '';
+      $('listen-feedback').className = 'listen-feedback';
+      $('listen-hint').style.display = 'none';
+      $('listen-hint').textContent = '';
+      listenState.revealed = false;
+      // 生成 4 个选项: 1 正确 + 3 干扰(从同单元其他词随机)
+      const pool = getWords().filter(w => w.en !== word.en);
+      const distractors = shuffle(pool).slice(0, 3);
+      const options = shuffle([word, ...distractors]);
+      const container = $('listen-options');
+      container.innerHTML = '';
+      options.forEach(opt => {
+        const btn = document.createElement('div');
+        btn.className = 'listen-option';
+        btn.textContent = opt.zh;
+        btn.dataset.en = opt.en;
+        btn.addEventListener('click', () => checkListenAnswer(btn, word));
+        container.appendChild(btn);
+      });
+      // 播放发音
+      setTimeout(() => speak(word.en), 200);
+    }
+
+    function checkListenAnswer(btn, correct) {
+      if (listenState.revealed) return;
+      listenState.revealed = true;
+      const allBtns = document.querySelectorAll('.listen-option');
+      allBtns.forEach(b => b.classList.add('disabled'));
+      if (btn.dataset.en === correct.en) {
+        btn.classList.add('correct');
+        $('listen-feedback').textContent = `✅ 正确! ${correct.en} = ${correct.zh}`;
+        $('listen-feedback').className = 'listen-feedback correct';
+        listenState.combo++;
+        const points = 10 + (listenState.combo >= 3 ? 5 : 0);
+        listenState.score += points;
+        $('listen-score').textContent = listenState.score;
+        $('listen-combo').textContent = listenState.combo;
+      } else {
+        btn.classList.add('wrong');
+        // 高亮正确选项
+        allBtns.forEach(b => {
+          if (b.dataset.en === correct.en) b.classList.add('correct');
+        });
+        $('listen-feedback').textContent = `❌ 正确: ${correct.en} = ${correct.zh}`;
+        $('listen-feedback').className = 'listen-feedback wrong';
+        listenState.combo = 0;
+        $('listen-combo').textContent = 0;
+      }
+      setTimeout(() => {
+        listenState.idx++;
+        loadListeningWord();
+      }, 1500);
+    }
+
+    function finishListening() {
+      $('modal-title').textContent = '🎧 听音挑战完成!';
+      $('modal-big-stat').textContent = listenState.score;
+      $('modal-sub-stat').innerHTML = `本轮 <strong>${listenState.queue.length}</strong> 词全听完,得分 <strong>${listenState.score}</strong>`;
+      $('modal-action').textContent = '再来一轮';
+      $('modal-backdrop').classList.add('active');
+      saveScore('listening_high', Math.max(listenState.score, loadScore('listening_high')));
+    }
+
+    $('listen-play').addEventListener('click', () => {
+      const word = listenState.queue[listenState.idx];
+      if (word) speak(word.en);
+    });
+    $('listen-replay').addEventListener('click', () => {
+      const word = listenState.queue[listenState.idx];
+      if (word) {
+        speak(word.en);
+        $('listen-hint').style.display = 'block';
+        $('listen-hint').textContent = word.en[0] + '_'.repeat(Math.max(word.en.length - 1, 1));
+      }
+    });
+    $('listen-skip').addEventListener('click', () => {
+      if (!listenState.started) return;
+      listenState.idx++;
+      loadListeningWord();
+    });
+    $('listen-restart').addEventListener('click', startListening);
+
+    // ==================== Game 5: Anagram ====================
+    const anagramState = {
+      queue: [],
+      idx: 0,
+      score: 0,
+      hints: 3,
+      started: false,
+      current: null
+    };
+
+    function startAnagram() {
+      if (getWords().length === 0) return;
+      anagramState.queue = shuffle(getWords());
+      anagramState.idx = 0;
+      anagramState.score = 0;
+      anagramState.hints = 3;
+      anagramState.started = true;
+      $('anagram-score').textContent = 0;
+      $('anagram-hints').textContent = 3;
+      loadAnagram();
+    }
+
+    function scrambleWord(en) {
+      // 字母乱序(多字母)
+      const chars = en.toLowerCase().split('');
+      // 至少 1 次重新洗牌保证打乱
+      for (let i = 0; i < 3; i++) {
+        for (let j = chars.length - 1; j > 0; j--) {
+          const k = Math.floor(Math.random() * (j + 1));
+          [chars[j], chars[k]] = [chars[k], chars[j]];
+        }
+      }
+      // 如果洗后还是原序,再洗一次
+      if (chars.join('') === en.toLowerCase()) {
+        [chars[0], chars[1]] = [chars[1], chars[0]];
+      }
+      return chars;
+    }
+
+    function loadAnagram() {
+      if (anagramState.idx >= anagramState.queue.length) { finishAnagram(); return; }
+      const word = anagramState.queue[anagramState.idx];
+      anagramState.current = word;
+      $('anagram-progress').textContent = `${anagramState.idx + 1}/${anagramState.queue.length}`;
+      $('anagram-clue').textContent = word.zh;
+      $('anagram-feedback').textContent = '';
+      $('anagram-feedback').className = 'anagram-feedback';
+      // 字母池 (保留空格)
+      const letters = scrambleWord(word.en);
+      const pool = $('anagram-pool');
+      pool.innerHTML = '';
+      letters.forEach((ch, i) => {
+        const span = document.createElement('span');
+        span.className = 'letter';
+        span.textContent = ch === ' ' ? '⎵' : ch;  // 空格用特殊符号
+        span.dataset.idx = i;
+        span.dataset.ch = ch;
+        span.addEventListener('click', () => addAnagramLetter(span));
+        pool.appendChild(span);
+      });
+      // 答案槽空
+      $('anagram-answer').innerHTML = '';
+    }
+
+    function addAnagramLetter(letterSpan) {
+      const ch = letterSpan.dataset.ch;
+      // 移到答案槽
+      const ans = $('anagram-answer');
+      const newSpan = document.createElement('span');
+      newSpan.className = 'letter';
+      newSpan.textContent = ch === ' ' ? '⎵' : ch;
+      newSpan.dataset.ch = ch;
+      newSpan.addEventListener('click', () => removeAnagramLetter(newSpan));
+      ans.appendChild(newSpan);
+      letterSpan.remove();
+      checkAnagram();
+    }
+
+    function removeAnagramLetter(letterSpan) {
+      const ch = letterSpan.dataset.ch;
+      // 还回字母池
+      const pool = $('anagram-pool');
+      const newSpan = document.createElement('span');
+      newSpan.className = 'letter';
+      newSpan.textContent = ch === ' ' ? '⎵' : ch;
+      newSpan.dataset.ch = ch;
+      newSpan.addEventListener('click', () => addAnagramLetter(newSpan));
+      pool.appendChild(newSpan);
+      letterSpan.remove();
+    }
+
+    function checkAnagram() {
+      const ans = $('anagram-answer');
+      const current = Array.from(ans.children).map(s => s.dataset.ch).join('');
+      const target = anagramState.current.en.toLowerCase();
+      if (current.length !== target.length) return;
+      if (current === target) {
+        // 正确
+        ans.querySelectorAll('.letter').forEach(s => s.classList.add('correct'));
+        $('anagram-feedback').textContent = `✅ 正确! ${anagramState.current.en}`;
+        $('anagram-feedback').className = 'anagram-feedback correct';
+        anagramState.score += 10;
+        $('anagram-score').textContent = anagramState.score;
+        setTimeout(() => {
+          anagramState.idx++;
+          loadAnagram();
+        }, 1200);
+      } else if (current.length === target.length) {
+        // 长度对了但拼错
+        ans.querySelectorAll('.letter').forEach(s => s.classList.add('wrong'));
+        $('anagram-feedback').textContent = `❌ 拼错了,再试一次`;
+        $('anagram-feedback').className = 'anagram-feedback wrong';
+        setTimeout(() => {
+          // 自动清空重试
+          ans.querySelectorAll('.letter').forEach(s => {
+            const ch = s.dataset.ch;
+            const pool = $('anagram-pool');
+            const newSpan = document.createElement('span');
+            newSpan.className = 'letter';
+            newSpan.textContent = ch === ' ' ? '⎵' : ch;
+            newSpan.dataset.ch = ch;
+            newSpan.addEventListener('click', () => addAnagramLetter(newSpan));
+            pool.appendChild(newSpan);
+            s.remove();
+          });
+          $('anagram-feedback').textContent = '';
+          $('anagram-feedback').className = 'anagram-feedback';
+        }, 800);
+      }
+    }
+
+    function finishAnagram() {
+      $('modal-title').textContent = '🧩 拼图挑战完成!';
+      $('modal-big-stat').textContent = anagramState.score;
+      $('modal-sub-stat').innerHTML = `本轮 <strong>${anagramState.queue.length}</strong> 词全拼对,得分 <strong>${anagramState.score}</strong>`;
+      $('modal-action').textContent = '再来一轮';
+      $('modal-backdrop').classList.add('active');
+      saveScore('anagram_high', Math.max(anagramState.score, loadScore('anagram_high')));
+    }
+
+    $('anagram-speak').addEventListener('click', () => {
+      if (anagramState.current) speak(anagramState.current.en);
+    });
+    $('anagram-clear').addEventListener('click', () => {
+      // 把答案槽的所有字母还回池
+      const ans = $('anagram-answer');
+      ans.querySelectorAll('.letter').forEach(s => {
+        const ch = s.dataset.ch;
+        const pool = $('anagram-pool');
+        const newSpan = document.createElement('span');
+        newSpan.className = 'letter';
+        newSpan.textContent = ch === ' ' ? '⎵' : ch;
+        newSpan.dataset.ch = ch;
+        newSpan.addEventListener('click', () => addAnagramLetter(newSpan));
+        pool.appendChild(newSpan);
+        s.remove();
+      });
+    });
+    $('anagram-hint-btn').addEventListener('click', () => {
+      if (anagramState.hints <= 0) return;
+      const word = anagramState.current;
+      const ans = $('anagram-answer');
+      // 找答案槽下一个应填的字母
+      const current = Array.from(ans.children).map(s => s.dataset.ch).join('');
+      const target = word.en.toLowerCase();
+      if (current.length >= target.length) return;
+      const nextChar = target[current.length];
+      // 在池里找这个字母
+      const pool = $('anagram-pool');
+      const found = Array.from(pool.children).find(s => s.dataset.ch === nextChar);
+      if (found) {
+        addAnagramLetter(found);
+        anagramState.hints--;
+        $('anagram-hints').textContent = anagramState.hints;
+      }
+    });
+    $('anagram-restart').addEventListener('click', startAnagram);
+
+    // ==================== Game 6: Speed Round ====================
+    const speedState = {
+      time: 60,
+      score: 0,
+      correct: 0,
+      wrong: 0,
+      running: false,
+      current: null,
+      timer: null
+    };
+
+    function startSpeed() {
+      if (getWords().length === 0) return;
+      speedState.time = 60;
+      speedState.score = 0;
+      speedState.correct = 0;
+      speedState.wrong = 0;
+      speedState.running = true;
+      $('speed-overlay').classList.add('hidden');
+      $('speed-input').disabled = false;
+      $('speed-input').value = '';
+      $('speed-input').focus();
+      loadSpeedWord();
+      updateSpeedUI();
+      speedState.timer = setInterval(() => {
+        speedState.time--;
+        updateSpeedUI();
+        if (speedState.time <= 0) endSpeed();
+      }, 1000);
+    }
+
+    function loadSpeedWord() {
+      const pool = getWords();
+      speedState.current = pool[Math.floor(Math.random() * pool.length)];
+      $('speed-chinese').textContent = speedState.current.zh;
+      $('speed-phonetic').textContent = speedState.current.phonetic || '';
+    }
+
+    function updateSpeedUI() {
+      $('speed-timer').textContent = speedState.time;
+      $('speed-score').textContent = speedState.score;
+      $('speed-correct').textContent = speedState.correct;
+      $('speed-wrong').textContent = speedState.wrong;
+      // 倒计时 < 10s 时变红
+      const timerEl = $('speed-timer');
+      timerEl.style.color = speedState.time <= 10 ? '#ef4444' : '';
+      timerEl.style.fontWeight = speedState.time <= 10 ? '800' : '';
+    }
+
+    function endSpeed() {
+      speedState.running = false;
+      clearInterval(speedState.timer);
+      $('speed-input').disabled = true;
+      $('speed-overlay').classList.remove('hidden');
+      $('speed-overlay').innerHTML = `
+        <h2>⏱️ 时间到!</h2>
+        <p style="font-size:1.5rem;">得分 <strong style="color:#fbbf24;">${speedState.score}</strong></p>
+        <p>✅ 正确 <strong>${speedState.correct}</strong> · ❌ 错误 <strong>${speedState.wrong}</strong></p>
+        <button class="btn" id="speed-start">再来一次</button>
+      `;
+      $('speed-start').addEventListener('click', startSpeed);
+      saveScore('speed_high', Math.max(speedState.score, loadScore('speed_high')));
+    }
+
+    $('speed-input').addEventListener('keydown', (e) => {
+      if (!speedState.running || !speedState.current) return;
+      if (e.key !== 'Enter') return;
+      const val = e.target.value.trim().toLowerCase();
+      const target = speedState.current.en.toLowerCase();
+      const accepted = speedState.current.accept.map(a => a.toLowerCase());
+      if (accepted.includes(val)) {
+        speedState.score += 10;
+        speedState.correct++;
+        speak(speedState.current.en);
+        loadSpeedWord();
+      } else {
+        speedState.score = Math.max(0, speedState.score - 5);
+        speedState.wrong++;
+      }
+      e.target.value = '';
+      updateSpeedUI();
+    });
+
+    $('speed-start').addEventListener('click', startSpeed);
+
+    // ==================== Modal 控制 ====================
+    $('modal-action').addEventListener('click', () => {
+      $('modal-backdrop').classList.remove('active');
+      const activeTab = document.querySelector('.tabs button.active').dataset.tab;
+      if (activeTab === 'bee') startBee();
+      else if (activeTab === 'memory') startMemory();
+      else if (activeTab === 'shooter') startShooter();
+    });
+    $('modal-close').addEventListener('click', () => {
+      $('modal-backdrop').classList.remove('active');
+    });
+
+    // ==================== 启动 ====================
+    // 默认 Bee 已就绪(等用户切到 tab)
+    $('bee-input').addEventListener('focus', () => { if (!beeState.started) startBee(); });
+  </script>
+</body>
+</html>

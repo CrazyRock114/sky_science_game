@@ -1,0 +1,98 @@
+# Sky's Science Word Lab 🎮🧪
+
+> Interactive word games for **Sky G8 IGCSE Biology 1v1** class.
+> 6 games, 18 lessons, 127 vocabulary words. Helps Sky conquer the P0 spelling weakness.
+
+---
+
+## 🎯 6 Games (模式)
+
+| Tab | 主题 | 学习维度 |
+|---|---|---|
+| | **Spelling Bee** 拼写闯关 | 看中文 + 释义 + 拼写提示 → 拼出英文 | 拼写 (静态) |
+| | **Memory Match** 翻牌配对 | 16 张卡片中英配对 + 计时 | 视觉配对 |
+| | **Word Shooter** 飞行单词 | 单词下落，输入拼写击落 + 通关 + 漏词提示 | 拼写 + 反应 (动态) |
+| | **Listening** 听音辨词 | TTS 朗读 → 4 选 1 中文 | **听觉** 反射 |
+| | **Anagram** 拼图重组 | 看中文 + 乱序字母，点击拼出单词 | 字母结构 |
+| | **Speed Round** 极速挑战 | 60s 内尽可能多拼对单词 | **速度** + 抗压 |
+
+---
+
+## 📚 18 Lessons (17 内容 + 3 Housekeeping)
+
+| Lesson | 名称 | 词数 |
+|---|---|---|
+| L01 | Balanced Diet & Micronutrients | 11 |
+| L02 | The Alimentary Canal | 10 |
+| L03 | Accessory Organs & Digestion | 8 |
+| L04 | Human Teeth & Mechanical Digestion | 11 |
+| L05 | Intro to Chemical Digestion & Bile | 6 |
+| L06 | Housekeeping / Review | 0 |
+| L07 | Digestive Enzymes | 10 |
+| L08 | Stomach Acid & Advanced Enzymes | 8 |
+| L09 | Absorption and the Villus | 5 |
+| L10 | The Circulatory System | 10 |
+| L11 | Heart Anatomy & Function | 9 |
+| L12 | Housekeeping / Review | 0 |
+| L13 | The Cardiac Cycle and Monitoring | 7 |
+| L14 | Exercise and Heart Rate | 8 |
+| L15 | Blood Vessels and Pressure | 9 |
+| L16 | The Vascular Pathways | 10 |
+| L17 | Components of Blood | 5 |
+| L18 | Housekeeping / Final Review | 0 |
+
+**总计：127 词汇跨 17 个内容单元**
+
+---
+
+## 🎮 核心功能
+
+- ✅ **6 种游戏模式**：拼写 / 配对 / 反应 / 听觉 / 重组 / 速度
+- ✅ **单元选择器**：顶部下拉切换 18 个单元（3 个 Housekeeping 标"即将推出"）
+- ✅ **iOS Safari 兼容**：右上角"开启声音"按钮 + TTS unlock + 自动 voice selection
+- ✅ **通关规则** (Word Shooter)：所有词都击落 → 通关
+- ✅ **漏词提示** (Word Shooter)：单词落到底部时屏幕中央红色大提示显示拼法
+- ✅ **进度持久化**：localStorage 保存每个游戏最高分
+- ✅ **响应式设计**：iPad / 手机 / 桌面自适应
+- ✅ **血条可视化** (Word Shooter)：♥/♡ + 数字，1 命时变红警示
+
+---
+
+## 🚀 部署
+
+游戏是 **self-contained 单 HTML 文件**（107 KB），无后端、无依赖。可直接部署到：
+
+- ✅ **Vercel** （推荐 — 免费、自动部署、HTTPS）
+- ✅ **GitHub Pages**
+- ✅ **Cloudflare Pages**
+- ✅ **任何静态服务器**（Nginx / Apache / Caddy / Python http.server）
+
+只需把 `index.html` 部署到根目录即可。
+
+---
+
+## 🛠️ 技术栈
+
+- **HTML + CSS + 原生 JavaScript**（无框架、无构建工具）
+- **Web Speech API**（`speechSynthesis` 用于 TTS）
+- **localStorage**（高分持久化）
+- **响应式 CSS Grid + Flexbox**
+- 文件大小：107 KB（自包含）
+
+---
+
+## 🎓 教学背景
+
+为 **Sky（G8 IGCSE Biology 1v1）** 定制：
+- **P0 短板**：英文科学词汇拼写（每节课都有）
+- **学习风格**：互问互答、快节奏、联系生活、深入理解
+- **教材**：5008_IG Science G8_Science_Autumn（教师版 PPT + 学生 PDF）
+
+教师：**石头**（stone / Paul Shi）
+项目：EnglishMath（线下 K12 教培辅助）
+
+---
+
+## 📝 License
+
+MIT License - 教学用途
