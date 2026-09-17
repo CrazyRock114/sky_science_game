@@ -1676,6 +1676,44 @@
         .replace(/`(.*?)`/g, '<code>$1</code>');
     }
 
+    // 智能回答归一化与比对：容错全角空格、连续多空格、连字符、多余标点及下划线
+    function normalizeAnswer(str) {
+      if (!str) return '';
+      return str
+        .toLowerCase()
+        .replace(/[\u3000\u00A0]/g, ' ')   // 全角空格/NBSP -> 普通空格
+        .replace(/['’]/g, "'")             // 弯引号 -> 直引号
+        .replace(/[，,。.\-_/\\+]/g, ' ')  // 标点、连字符 -> 空格
+        .replace(/\s+/g, ' ')             // 连续空格合并为单个空格
+        .trim();
+    }
+
+    function checkAnswerMatch(input, word) {
+      if (!word) return false;
+      const cleanInput = (input || '').replace(/_/g, '');
+      const normInput = normalizeAnswer(cleanInput);
+      if (!normInput) return false;
+
+      const noSpaceInput = normInput.replace(/\s+/g, '');
+      const acceptedList = [word.en, ...(word.accept || [])];
+
+      // 1. 标准归一化比对（忽略大小写、全角空格、连续多空格、标点）
+      if (acceptedList.some(a => normalizeAnswer(a) === normInput)) return true;
+
+      // 2. 去空格比对（容错连写、漏空格或连字符情况，如 salivaryglands 匹配 salivary glands）
+      if (noSpaceInput.length >= 3 && acceptedList.some(a => normalizeAnswer(a).replace(/\s+/g, '') === noSpaceInput)) {
+        return true;
+      }
+      return false;
+    }
+
+    function buildWordSkeleton(en) {
+      return (en || '').split(' ').map(part => {
+        if (part.length <= 1) return part;
+        return part[0] + ' ' + '_ '.repeat(part.length - 1).trim();
+      }).join(' &nbsp; ');
+    }
+
     function pickVoice() {
       if (!voices || voices.length === 0) return null;
       // 1. 过滤恶搞/复古怪声 (macOS/iOS vintage novelty voices)
@@ -1988,9 +2026,8 @@
       if (beeState.isChecking) return;
       const w = beeState.queue[beeState.idx];
       if (!w) return;
-      const userInput = $('bee-input').value.trim().toLowerCase();
-      const accepted = w.accept.map(a => a.toLowerCase());
-      const correct = accepted.includes(userInput);
+      const userInput = $('bee-input').value;
+      const correct = checkAnswerMatch(userInput, w);
 
       beeState.isChecking = true;
       if (correct) {
@@ -2050,6 +2087,8 @@
     }
 
     $('bee-input').addEventListener('keydown', (e) => {
+      // 避免中文输入法敲回车确认拼音时误触提交
+      if (e.isComposing || e.keyCode === 229) return;
       if (e.key === 'Enter') checkBee();
     });
     $('bee-speak').addEventListener('click', () => {
@@ -2071,7 +2110,11 @@
       const w = beeState.queue[beeState.idx];
       if (!w || beeState.hintUsed) return;
       beeState.hintUsed = true;
-      $('bee-input').value = w.en[0] + '_'.repeat(Math.max(w.en.length - 1, 1));
+      // 在反馈区展示清晰的字母结构骨架，避免下划线污染输入框
+      $('bee-feedback').innerHTML = `<div style="font-family:monospace;font-size:1.15rem;letter-spacing:0.1em;color:var(--primary);font-weight:700;margin-top:0.2rem;">💡 ${buildWordSkeleton(w.en)}</div>`;
+      if (!$('bee-input').value) {
+        $('bee-input').value = w.en[0];
+      }
       $('bee-input').focus();
     });
 
@@ -2405,22 +2448,22 @@
 
     $('shooter-input').addEventListener('input', (e) => {
       if (!shooterState.running) return;
-      const val = e.target.value.trim().toLowerCase();
-      if (!val) return;
-      // 找匹配的目标 (支持标准拼写及 accept 别名)
-      let target = shooterState.active.find(i => {
-        if (i.hit) return false;
-        const enMatch = i.word.en.toLowerCase() === val;
-        const acceptMatch = i.word.accept && i.word.accept.map(a => a.toLowerCase()).includes(val);
-        return enMatch || acceptMatch;
-      });
+      const val = e.target.value;
+      if (!val || !val.trim()) return;
+      // 找匹配的目标 (支持智能归一化、标准拼写及 accept 别名)
+      let target = shooterState.active.find(i => !i.hit && checkAnswerMatch(val, i.word));
       if (!target) {
         // 前缀匹配 → 高亮提示
+        const normVal = normalizeAnswer(val);
+        const noSpaceVal = normVal.replace(/\s+/g, '');
         shooterState.active.forEach(i => {
           if (i.hit) return;
-          const enPrefix = i.word.en.toLowerCase().startsWith(val);
-          const acceptPrefix = i.word.accept && i.word.accept.some(a => a.toLowerCase().startsWith(val));
-          if (enPrefix || acceptPrefix) {
+          const candidates = [i.word.en, ...(i.word.accept || [])];
+          const hasPrefix = candidates.some(c => {
+            const normC = normalizeAnswer(c);
+            return normC.startsWith(normVal) || (noSpaceVal && normC.replace(/\s+/g, '').startsWith(noSpaceVal));
+          });
+          if (hasPrefix) {
             i.el.classList.add('targeted');
           } else {
             i.el.classList.remove('targeted');
@@ -2837,11 +2880,10 @@
 
     $('speed-input').addEventListener('keydown', (e) => {
       if (!speedState.running || !speedState.current) return;
+      if (e.isComposing || e.keyCode === 229) return;
       if (e.key !== 'Enter') return;
-      const val = e.target.value.trim().toLowerCase();
-      const target = speedState.current.en.toLowerCase();
-      const accepted = speedState.current.accept.map(a => a.toLowerCase());
-      if (accepted.includes(val)) {
+      const val = e.target.value;
+      if (checkAnswerMatch(val, speedState.current)) {
         speedState.score += 10;
         speedState.correct++;
         speak(speedState.current.en);
