@@ -854,6 +854,324 @@
     .game-intro .card h4 { color: var(--primary); margin: 0.4rem 0 0.3rem; }
     .game-intro .card p { font-size: 0.85rem; margin: 0; }
 
+    /* ============ Stats & Mistake Bank Styles ============ */
+    .stats-header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .stats-title-group h2 {
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-bottom: 0.25rem;
+    }
+    .stats-title-group p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    .stats-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .btn-danger-outline {
+      background: transparent;
+      color: var(--danger);
+      border: 1px solid var(--danger);
+    }
+    .btn-danger-outline:hover {
+      background: #fef2f2;
+    }
+    .stats-metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .metric-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .metric-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+    .metric-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+    .metric-num {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.1;
+    }
+    .metric-num.warning {
+      color: var(--danger);
+    }
+    .metric-label {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-top: 0.2rem;
+    }
+    .stats-section {
+      text-align: left;
+      margin-bottom: 1.5rem;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1rem;
+    }
+    .section-header h3 {
+      font-size: 1.15rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .filters-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .filters-group select {
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: white;
+      font-size: 0.85rem;
+      color: var(--text);
+      cursor: pointer;
+    }
+    .filters-group select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    /* 错题卡片 */
+    .mistake-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .mistake-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--danger);
+      border-radius: 10px;
+      padding: 0.9rem 1.1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      transition: all 0.2s;
+    }
+    .mistake-card.mastered {
+      border-left-color: var(--success);
+      opacity: 0.82;
+      background: #f8fafc;
+    }
+    .mistake-word-main {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    .mistake-en {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    .mistake-phonetic {
+      font-family: "Lucida Sans Unicode", "Segoe UI", sans-serif;
+      color: var(--text-light);
+      font-size: 0.88rem;
+    }
+    .mistake-zh {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .mistake-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-top: 0.35rem;
+      font-size: 0.82rem;
+      color: var(--text-light);
+      flex-wrap: wrap;
+    }
+    .badge-unit {
+      background: #eff6ff;
+      color: var(--primary);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.78rem;
+    }
+    .badge-wrong {
+      background: #fee2e2;
+      color: #b91c1c;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.78rem;
+    }
+    .badge-mastered {
+      background: #dcfce7;
+      color: #15803d;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.78rem;
+    }
+    .wrong-highlight {
+      color: #ef4444;
+      font-family: monospace;
+      font-weight: 600;
+      text-decoration: line-through;
+    }
+    .mistake-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-xs {
+      padding: 0.35rem 0.7rem;
+      font-size: 0.8rem;
+      border-radius: 6px;
+    }
+
+    /* 历史记录流 */
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .history-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
+    .history-summary {
+      padding: 0.75rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      background: #ffffff;
+      transition: background 0.15s;
+    }
+    .history-summary:hover {
+      background: #f8fafc;
+    }
+    .history-time {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      min-width: 120px;
+    }
+    .history-game-badge {
+      background: #f1f5f9;
+      color: var(--text);
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .history-score {
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 0.95rem;
+    }
+    .history-stats {
+      font-size: 0.85rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+    .history-details {
+      padding: 0.75rem 1rem;
+      background: #f8fafc;
+      border-top: 1px solid var(--border);
+      display: none;
+      font-size: 0.85rem;
+    }
+    .history-details.open {
+      display: block;
+    }
+    .history-wrong-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.4rem;
+    }
+    .history-wrong-tag {
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+      color: #991b1b;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+
+    /* 空状态 */
+    .empty-state {
+      text-align: center;
+      padding: 2.5rem 1rem;
+      color: var(--text-light);
+    }
+    .empty-state .icon {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+    }
+    .empty-state p {
+      font-size: 0.95rem;
+      margin: 0.2rem 0;
+    }
+
+    /* 错题突破模式专用标识 */
+    .badge-drill {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #f87171;
+      padding: 0.15rem 0.55rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      vertical-align: middle;
+      margin-right: 0.4rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.75; }
+    }
+
     /* ============ Mobile ============ */
     @media (max-width: 600px) {
       h1 { font-size: 1.15rem; }
@@ -863,6 +1181,12 @@
       .memory-card .face { font-size: 0.7rem; }
       .shooter-word { font-size: 1rem; }
       .panel { padding: 1rem; }
+      .stats-header-bar { flex-direction: column; align-items: flex-start; }
+      .stats-actions { width: 100%; }
+      .stats-actions button { flex: 1 1 calc(50% - 0.5rem); text-align: center; }
+      .metric-card { padding: 0.8rem; }
+      .mistake-card { flex-direction: column; align-items: flex-start; }
+      .mistake-actions { width: 100%; justify-content: flex-end; }
     }
   </style>
 </head>
@@ -878,6 +1202,7 @@
       <button data-tab="listening">🎧 Listening</button>
       <button data-tab="anagram">🧩 Anagram</button>
       <button data-tab="speed">⚡ Speed</button>
+      <button data-tab="stats">📊 错题与统计</button>
     </nav>
   </header>
 
@@ -893,7 +1218,7 @@
     <section id="home" class="game active">
       <div class="panel welcome">
         <h2>欢迎来到 Sky 的科学单词实验室 🚀</h2>
-        <p>6 个游戏,17 个单元共 127 词,帮你攻克 P0 拼写薄弱!点下面的卡片直接进入游戏</p>
+        <p>6 个游戏，33 个单元（Part 1 + Part 2 全覆盖，共 180 个核心科学词汇），助你全面攻克 IGCSE 科学词汇与拼写陷阱！点击下方卡片开启挑战</p>
         <div class="game-intro">
           <div class="card" data-tab="bee" style="cursor:pointer;">
             <div class="emoji">📝</div>
@@ -924,6 +1249,11 @@
             <div class="emoji">⚡</div>
             <h4>Speed Round 极速挑战</h4>
             <p>60s 内尽可能多拼对单词。答对 +10,答错 -5。抗压 + 速度 + 拼写三合一。</p>
+          </div>
+          <div class="card" data-tab="stats" style="cursor:pointer;background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);border:1px solid #bfdbfe;">
+            <div class="emoji">📊</div>
+            <h4>错题本与学情看板</h4>
+            <p>全游戏错词自动记录、错误频次与历史答卷。支持一键专项错题攻坚与微信报告导出。</p>
           </div>
         </div>
         <div style="margin-top:1.5rem;color:var(--text-light);font-size:0.85rem;">
@@ -1094,6 +1424,92 @@
           <h2>⚡ Speed Round</h2>
           <p>60 秒内尽可能多拼对单词<br><strong>答对 +10</strong> · <strong>答错 -5</strong> · <strong>跳过 0 分</strong><br>提示:答案输入完成后按 Enter 提交</p>
           <button class="btn" id="speed-start">开始挑战</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================ Game 7: Stats & Mistake Bank ================ -->
+    <section id="stats" class="game">
+      <!-- 顶部操作栏 -->
+      <div class="stats-header-bar">
+        <div class="stats-title-group">
+          <h2>📊 学情看板与智能错题本</h2>
+          <p>全 6 款游戏数据自动记录 · 精准锁定高频错词 · 一键专项突破</p>
+        </div>
+        <div class="stats-actions">
+          <button class="btn btn-primary" id="stats-btn-drill">🎯 错题专项重练 (Spelling Bee)</button>
+          <button class="btn btn-secondary" id="stats-btn-report">📋 复制学情报告 (微信)</button>
+          <button class="btn btn-secondary" id="stats-btn-export">💾 导出数据</button>
+          <button class="btn btn-danger-outline" id="stats-btn-clear">🗑️ 清空数据</button>
+        </div>
+      </div>
+
+      <!-- 核心指标卡片 -->
+      <div class="stats-metrics-grid">
+        <div class="metric-card">
+          <div class="metric-icon">🎮</div>
+          <div class="metric-info">
+            <div class="metric-num" id="stat-total-sessions">0</div>
+            <div class="metric-label">累计测试轮次</div>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon">📝</div>
+          <div class="metric-info">
+            <div class="metric-num" id="stat-total-attempts">0</div>
+            <div class="metric-label">考查单词人次</div>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon">🎯</div>
+          <div class="metric-info">
+            <div class="metric-num" id="stat-accuracy">0%</div>
+            <div class="metric-label">综合正确率</div>
+          </div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon">🔥</div>
+          <div class="metric-info">
+            <div class="metric-num warning" id="stat-unmastered">0</div>
+            <div class="metric-label">待攻克错词 (共 <span id="stat-total-mistakes">0</span> 词曾错)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 错题本区域 -->
+      <div class="panel stats-section">
+        <div class="section-header">
+          <h3>🔥 高频错题本 (Mistake Bank)</h3>
+          <div class="filters-group">
+            <select id="stats-filter-unit">
+              <option value="all">📚 全部单元</option>
+            </select>
+            <select id="stats-filter-status">
+              <option value="unmastered">⏳ 仅看待攻克</option>
+              <option value="all">📑 查看全部错词</option>
+              <option value="mastered">✅ 仅看已攻克</option>
+            </select>
+            <select id="stats-sort">
+              <option value="wrong">⚡ 按错误频次排序</option>
+              <option value="time">🕒 按最近时间排序</option>
+              <option value="alphabet">🔤 按字母排序</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="stats-mistakes-container">
+          <!-- 动态渲染错题列表 -->
+        </div>
+      </div>
+
+      <!-- 历史测试记录流水 -->
+      <div class="panel stats-section" style="margin-top:1.5rem;">
+        <div class="section-header">
+          <h3>📜 历史答卷流水 (最近 50 局)</h3>
+          <span class="sub-hint" style="color:var(--text-light);font-size:0.85rem;">点击记录条目可展开查看具体答题与错词回放</span>
+        </div>
+        <div id="stats-history-container">
+          <!-- 动态渲染历史流水 -->
         </div>
       </div>
     </section>
@@ -1579,7 +1995,301 @@
             accept: ['platelets', 'platelet'] }
         ]
       },
-      L18: { name: 'Housekeeping / Final Review', mode: 'review', sourceUnits: ['L13', 'L14', 'L15', 'L16', 'L17'] }
+      L18: { name: 'Housekeeping / Review (Part 1 Final)', mode: 'review', sourceUnits: ['L13', 'L14', 'L15', 'L16', 'L17'] },
+      L19: {
+        name: 'Functions of Blood',
+        words: [
+          { en: 'carbon dioxide', zh: '二氧化碳', phonetic: '/ˌkɑːrbən daɪˈɑːksaɪd/',
+            hint: 'carbon + di- (两个) + oxide (氧化物)。**陷阱**:di-oxide 中间无空格,整体为两个词',
+            accept: ['carbon dioxide', 'carbon-dioxide', 'co2'] },
+          { en: 'clotting', zh: '凝血', phonetic: '/ˈklɒtɪŋ/',
+            hint: 'clot + 双写 t + ing。**陷阱**:必须双写 t (clotting, 非 cloting)',
+            accept: ['clotting', 'blood clotting', 'clot'] },
+          { en: 'haemoglobin', zh: '血红蛋白', phonetic: '/ˌhiːməˈɡloʊbɪn/',
+            hint: 'haemo- (血) + globin (球蛋白)。**陷阱**:英式带 a (haemo-),美式写作 hemo-',
+            accept: ['haemoglobin', 'hemoglobin'] },
+          { en: 'hormone', zh: '激素 / 荷尔蒙', phonetic: '/ˈhɔːrmoʊn/',
+            hint: 'horm- + one。**陷阱**:结尾有不发音的 -e,不要漏掉',
+            accept: ['hormone', 'hormones'] },
+          { en: 'ion', zh: '离子', phonetic: '/ˈaɪən/',
+            hint: '极简 3 字母: i-o-n。**陷阱**:发音为双音节,离子溶解在血浆中运输',
+            accept: ['ion', 'ions'] },
+          { en: 'plasma', zh: '血浆', phonetic: '/ˈplæzmə/',
+            hint: 'plasm + a (血液淡黄色液体基质)。**陷阱**:以 -a 结尾,中音 /æ/',
+            accept: ['plasma', 'blood plasma'] },
+          { en: 'platelet', zh: '血小板', phonetic: '/ˈpleɪtlət/',
+            hint: 'plate (盘/板) + -let (小微指小后缀)。**陷阱**:结尾为 -let 不是 -lit',
+            accept: ['platelet', 'platelets'] },
+          { en: 'red blood cell', zh: '红细胞', phonetic: '/red blʌd sel/',
+            hint: 'red + blood + cell。**陷阱**:blood 含双写 o (发 /ʌ/ 音),负责运氧',
+            accept: ['red blood cell', 'red blood cells', 'rbc', 'rbcs'] },
+          { en: 'urea', zh: '尿素', phonetic: '/jʊˈriːə/',
+            hint: 'u-re-a (肝脏脱氨废物)。**陷阱**:4 字母含 3 元音,结尾为 -ea',
+            accept: ['urea'] }
+        ]
+      },
+      L20: {
+        name: 'White Blood Cells & Blood Clotting',
+        words: [
+          { en: 'antibody', zh: '抗体', phonetic: '/ˈæntibɒdi/',
+            hint: 'anti- (抗) + body (体)。**陷阱**:前缀 anti- 是 i,复数变 y 为 i 加 es (antibodies)',
+            accept: ['antibody', 'antibodies'] },
+          { en: 'clotting', zh: '凝血机制', phonetic: '/ˈklɒtɪŋ/',
+            hint: 'clot + 双写 t + ing。**陷阱**:血小板引发网状纤维封闭伤口,双写 t',
+            accept: ['clotting', 'blood clotting', 'clot'] },
+          { en: 'fibrin', zh: '纤维蛋白', phonetic: '/ˈfaɪbrɪn/',
+            hint: 'fibr- (纤维) + -in (蛋白质后缀)。**陷阱**:不溶性网状蛋白截留血细胞,结尾是 -in 不是 -ine',
+            accept: ['fibrin'] },
+          { en: 'fibrinogen', zh: '纤维蛋白原', phonetic: '/faɪˈbrɪnədʒən/',
+            hint: 'fibrin (纤维蛋白) + -o- + -gen (原/前体)。**陷阱**:血浆中可溶性前体,中间有 -o-',
+            accept: ['fibrinogen'] },
+          { en: 'pathogen', zh: '病原体', phonetic: '/ˈpæθədʒən/',
+            hint: 'patho- (疾病) + -gen (产生源)。**陷阱**:th 发 /θ/ 咬舌音,-gen 结尾',
+            accept: ['pathogen', 'pathogens'] },
+          { en: 'phagocytosis', zh: '吞噬作用', phonetic: '/ˌfæɡəsaɪˈtoʊsɪs/',
+            hint: 'phago- (吞食) + cyt- (细胞) + -osis (过程)。**陷阱**:ph 开头发 /f/,中间 cyto-',
+            accept: ['phagocytosis'] },
+          { en: 'white blood cell', zh: '白细胞', phonetic: '/waɪt blʌd sel/',
+            hint: 'white + blood + cell。**陷阱**:防御病原体的免疫细胞统称',
+            accept: ['white blood cell', 'white blood cells', 'wbc', 'wbcs'] },
+          { en: 'lymphocyte', zh: '淋巴细胞', phonetic: '/ˈlɪmfəsaɪt/',
+            hint: 'lympho- (淋巴) + -cyte (细胞)。**陷阱**:特异性产生抗体;lym- 为 y,ph 发 /f/',
+            accept: ['lymphocyte', 'lymphocytes'] },
+          { en: 'phagocyte', zh: '吞噬细胞', phonetic: '/ˈfæɡəsaɪt/',
+            hint: 'phago- (吞吃) + -cyte (细胞)。**陷阱**:执行吞噬消化病原体;ph 开头,-cyte 结尾',
+            accept: ['phagocyte', 'phagocytes'] }
+        ]
+      },
+      L21: {
+        name: 'The Breathing System',
+        words: [
+          { en: 'alveolus', zh: '肺泡 (单数)', phonetic: '/ælˈviːələs/',
+            hint: 'al-ve-o-lus。**陷阱**:单数以 -us 结尾,复数规则拉丁变为 alveoli (-i)',
+            accept: ['alveolus', 'alveoli'] },
+          { en: 'bronchiole', zh: '细支气管', phonetic: '/ˈbrɒŋkiˌoʊl/',
+            hint: 'bronchi + -ole (微小后缀)。**陷阱**:ch 发 /k/ 音,以 -ole 结尾',
+            accept: ['bronchiole', 'bronchioles'] },
+          { en: 'bronchus', zh: '支气管 (单数)', phonetic: '/ˈbrɒŋkəs/',
+            hint: 'bronch- + -us。**陷阱**:气管分叉支气管,单数 -us,两条复数为 bronchi (-i)',
+            accept: ['bronchus', 'bronchi'] },
+          { en: 'diaphragm', zh: '横膈膜 / 膈肌', phonetic: '/ˈdaɪəfræm/',
+            hint: 'dia- + phragm。**陷阱**:g 不发音 (silent g),必须写出 -gm,ph 发 /f/',
+            accept: ['diaphragm', 'diaphragms'] },
+          { en: 'larynx', zh: '喉 / 声门', phonetic: '/ˈlærɪŋks/',
+            hint: 'la-ry-nx (声门/voice box)。**陷阱**:中间是 y 不是 i,结尾为 -nx',
+            accept: ['larynx'] },
+          { en: 'trachea', zh: '气管', phonetic: '/trəˈkiːə/',
+            hint: 'tra-che-a (风管/windpipe)。**陷阱**:ch 发 /k/ 音,结尾为 -ea',
+            accept: ['trachea', 'tracheas', 'windpipe'] },
+          { en: 'ventilation', zh: '通气 / 换气', phonetic: '/ˌventɪˈleɪʃən/',
+            hint: 'ventil- (通风) + -ation (名词后缀)。**陷阱**:气体进出肺的机械吸呼过程',
+            accept: ['ventilation'] },
+          { en: 'intercostal muscles', zh: '肋间肌', phonetic: '/ˌɪntərˈkɒstəl ˈmʌslz/',
+            hint: 'inter- (在...之间) + costal (肋骨的) + muscles。**陷阱**:intercostal 为 -costal',
+            accept: ['intercostal muscles', 'intercostal muscle', 'intercostal-muscles'] }
+        ]
+      },
+      L22: {
+        name: 'Alveoli & Gas Exchange',
+        words: [
+          { en: 'capillary', zh: '毛细血管', phonetic: '/kəˈpɪləri/',
+            hint: 'capill- + -ary。**陷阱**:双写 l (double l),结尾为 -ary 不是 -ery',
+            accept: ['capillary', 'capillaries'] },
+          { en: 'concentration gradient', zh: '浓度梯度', phonetic: '/ˌkɒnsənˈtreɪʃən ˈɡreɪdiənt/',
+            hint: 'concentration + gradient。**陷阱**:gradient 拼写为 gra-di-ent',
+            accept: ['concentration gradient', 'concentration-gradient'] },
+          { en: 'diffusion', zh: '扩散', phonetic: '/dɪˈfjuːʒən/',
+            hint: 'di- + 双写 f + fusion。**陷阱**:粒子高浓度向低浓度净移动,必须双写 ff',
+            accept: ['diffusion'] },
+          { en: 'gas exchange', zh: '气体交换', phonetic: '/ɡæs ɪksˈtʃeɪndʒ/',
+            hint: 'gas + ex- + change。**陷阱**:肺泡与毛细血管间氧气与二氧化碳交换',
+            accept: ['gas exchange', 'gas-exchange'] },
+          { en: 'surface area', zh: '表面积', phonetic: '/ˈsɜːrfɪs ˈeriə/',
+            hint: 'surface + area。**陷阱**:surface 拼写别丢 r,肺泡巨大表面积利于扩散',
+            accept: ['surface area', 'surface-area'] }
+        ]
+      },
+      L23: {
+        name: 'The Excretory System',
+        words: [
+          { en: 'bladder', zh: '膀胱', phonetic: '/ˈblædər/',
+            hint: 'blad- + -der。**陷阱**:必须双写 d (double d),储存尿液的肌性囊袋',
+            accept: ['bladder', 'urinary bladder'] },
+          { en: 'egestion', zh: '排遗 (排出食物残渣)', phonetic: '/iˈdʒestʃən/',
+            hint: 'e- + gest (消化) + -ion。**陷阱**:从肛门排出未消化的食物残渣,非代谢废物',
+            accept: ['egestion'] },
+          { en: 'excretion', zh: '排泄 (排出代谢废物)', phonetic: '/ɪkˈskriːʃən/',
+            hint: 'ex- + cret + -ion。**陷阱**:排出尿素、CO₂等细胞代谢废物,不要漏写 c',
+            accept: ['excretion'] },
+          { en: 'kidney', zh: '肾脏', phonetic: '/ˈkɪdni/',
+            hint: 'kid- + -ney。**陷阱**:以 -ey 结尾不是 -y,复数直接加 s (kidneys)',
+            accept: ['kidney', 'kidneys'] },
+          { en: 'ureter', zh: '输尿管 (肾连膀胱)', phonetic: '/jʊˈriːtər/',
+            hint: 'u-re-ter (从肾脏通向膀胱)。**陷阱**:【极高危混淆】结尾是 -ter,长管输尿',
+            accept: ['ureter', 'ureters'] },
+          { en: 'urethra', zh: '尿道 (膀胱排体外)', phonetic: '/jʊˈriːθrə/',
+            hint: 'u-re-th-ra (从膀胱通向体外)。**陷阱**:【极高危混淆】含 -th-,结尾是 -ra',
+            accept: ['urethra', 'urethras'] }
+        ]
+      },
+      L24: { name: 'Housekeeping / Review (Blood, Breathing & Excretion)', mode: 'review', sourceUnits: ['L19', 'L20', 'L21', 'L22', 'L23'] },
+      L25: {
+        name: 'Urine Formation & Sweat',
+        words: [
+          { en: 'filtration', zh: '滤过 / 过滤作用', phonetic: '/fɪlˈtreɪʃən/',
+            hint: 'filtr- + -ation。**陷阱**:高压下血浆小分子从肾小球滤入肾小囊腔',
+            accept: ['filtration', 'ultrafiltration'] },
+          { en: 'glomerulus', zh: '肾小球', phonetic: '/ɡloʊˈmerjələs/',
+            hint: 'glo-mer-u-lus。**陷阱**:肾单位毛细血管团,单数 -us,复数 glomeruli (-i)',
+            accept: ['glomerulus', 'glomeruli'] },
+          { en: 'nephron', zh: '肾单位', phonetic: '/ˈnefrɒn/',
+            hint: 'nephr- (肾) + -on。**陷阱**:肾脏基本结构和功能单位,ph 发 /f/',
+            accept: ['nephron', 'nephrons'] },
+          { en: 'reabsorption', zh: '重吸收 / 选择性重吸收', phonetic: '/ˌriːəbˈsɔːrpʃən/',
+            hint: 're- + absorb + -tion (变为 -ption)。**陷阱**:b 变 p,写为 -sorption 非 -sorbtion',
+            accept: ['reabsorption', 'selective reabsorption', 're-absorption'] },
+          { en: 'renal tubule', zh: '肾小管', phonetic: '/ˈriːnəl ˈtjuːbjuːl/',
+            hint: 'renal (肾的) + tubule (微管)。**陷阱**:useful 物质在此被重吸收回血液',
+            accept: ['renal tubule', 'renal tubules', 'renal-tubule'] },
+          { en: 'sweat gland', zh: '汗腺', phonetic: '/swet ɡlænd/',
+            hint: 'sweat (汗) + gland (腺体)。**陷阱**:sweat 含 ea,分泌汗液带走热量排泄盐尿素',
+            accept: ['sweat gland', 'sweat glands', 'sweat-gland'] },
+          { en: 'Bowman\'s capsule', zh: '肾小囊 / 鲍曼氏囊', phonetic: '/ˈboʊmənz ˈkæpsjuːl/',
+            hint: 'Bowman + \'s + capsule。**陷阱**:专有名词大写 Bowman,套在肾小球外接收滤液',
+            accept: ['bowman\'s capsule', 'bowmans capsule', 'renal capsule', 'bowman\'s-capsule'] }
+        ]
+      },
+      L26: {
+        name: 'Nervous & Endocrine Coordination',
+        words: [
+          { en: 'coordination', zh: '协调', phonetic: '/koʊˌɔːrdɪˈneɪʃən/',
+            hint: 'co- + ordin- + -ation。**陷阱**:双写 o (co-ordination),身体机能配合',
+            accept: ['coordination', 'co-ordination'] },
+          { en: 'endocrine system', zh: '内分泌系统', phonetic: '/ˈendəkrɪn ˈsɪstəm/',
+            hint: 'endo- (内) + crine (分泌) + system。**陷阱**:通过激素传导慢速持久调节',
+            accept: ['endocrine system', 'endocrine-system'] },
+          { en: 'gland', zh: '腺体', phonetic: '/ɡlænd/',
+            hint: 'gl-a-n-d (分泌激素或消化液的器官)。**陷阱**:单音节词,结尾为 -nd',
+            accept: ['gland', 'glands'] },
+          { en: 'nervous system', zh: '神经系统', phonetic: '/ˈnɜːrvəs ˈsɪstəm/',
+            hint: 'nerve + -ous + system。**陷阱**:nervous 拼写为 -ous,传导电脉冲快速调节',
+            accept: ['nervous system', 'nervous-system'] },
+          { en: 'target organ', zh: '靶器官', phonetic: '/ˈtɑːrɡɪt ˈɔːrɡən/',
+            hint: 'target (靶心) + organ (器官)。**陷阱**:特定激素只对其对应的靶器官起作用',
+            accept: ['target organ', 'target organs', 'target-organ'] },
+          { en: 'stimulus', zh: '刺激', phonetic: '/ˈstɪmjələs/',
+            hint: 'stimul- + -us。**陷阱**:单数以 -us 结尾,复数变为 stimuli (-i)',
+            accept: ['stimulus', 'stimuli'] },
+          { en: 'receptor', zh: '感受器', phonetic: '/rɪˈseptər/',
+            hint: 're- + cept + -or。**陷阱**:探测刺激的感觉结构,结尾是 -or 不是 -er',
+            accept: ['receptor', 'receptors'] },
+          { en: 'effector', zh: '效应器', phonetic: '/ɪˈfektər/',
+            hint: 'ef- + fect + -or。**陷阱**:双写 ff,执行反应的肌肉或腺体,结尾为 -or',
+            accept: ['effector', 'effectors'] }
+        ]
+      },
+      L27: {
+        name: 'Endocrine Glands & Adrenaline',
+        words: [
+          { en: 'adrenal gland', zh: '肾上腺', phonetic: '/əˈdriːnəl ɡlænd/',
+            hint: 'ad- (上/旁) + renal (肾) + gland。**陷阱**:位于双肾顶端,分泌肾上腺素',
+            accept: ['adrenal gland', 'adrenal glands', 'adrenal-gland'] },
+          { en: 'adrenaline', zh: '肾上腺素', phonetic: '/əˈdrenəlɪn/',
+            hint: 'adrenal + -ine。**陷阱**:英式带 -e,美式为 epinephrine;应急提高心率与血糖',
+            accept: ['adrenaline', 'epinephrine'] },
+          { en: 'ovary', zh: '卵巢', phonetic: '/ˈoʊvəri/',
+            hint: 'ov- (卵) + -ary。**陷阱**:o- 开头,-ary 结尾,产生雌激素与卵细胞',
+            accept: ['ovary', 'ovaries'] },
+          { en: 'pancreas', zh: '胰腺', phonetic: '/ˈpæŋkriəs/',
+            hint: 'pan- + cre- + as。**陷阱**:位于胃下方,内分泌细胞分泌胰岛素和胰高血糖素',
+            accept: ['pancreas'] },
+          { en: 'testes', zh: '睾丸 (复数)', phonetic: '/ˈtestiːz/',
+            hint: 'test- + -es。**陷阱**:复数是 testes (-es),单数为 testis (-is),分泌睾酮',
+            accept: ['testes', 'testis'] },
+          { en: 'pituitary gland', zh: '垂体 / 脑下垂体', phonetic: '/pɪˈtjuːɪteri ɡlænd/',
+            hint: 'pi-tu-i-tary + gland。**陷阱**:脑底部的主控腺体,pituitary 为 -ary 结尾',
+            accept: ['pituitary gland', 'pituitary', 'pituitary-gland'] }
+        ]
+      },
+      L28: {
+        name: 'Controlling Blood Glucose',
+        words: [
+          { en: 'blood glucose', zh: '血糖', phonetic: '/blʌd ˈɡluːkoʊs/',
+            hint: 'blood + glucose。**陷阱**:glucose 结尾为 -ose (六碳单糖)',
+            accept: ['blood glucose', 'glucose', 'blood-glucose'] },
+          { en: 'homeostasis', zh: '稳态 / 内环境相对稳定', phonetic: '/ˌhoʊmioʊˈsteɪsɪs/',
+            hint: 'homeo- (恒定) + stasis (状态)。**陷阱**:体温、血糖与水分动态平衡;home-o-stasis',
+            accept: ['homeostasis'] },
+          { en: 'insulin', zh: '胰岛素 (降血糖)', phonetic: '/ˈɪnsjəlɪn/',
+            hint: 'insul- (胰岛) + -in。**陷阱**:促使肝脏与肌肉摄取葡萄糖并合成糖原储存,结尾 -in',
+            accept: ['insulin'] },
+          { en: 'glucagon', zh: '胰高血糖素 (升血糖)', phonetic: '/ˈɡluːkəɡɒn/',
+            hint: 'gluc- (糖) + -agon。**陷阱**:【极高危易混】glucagon 是激素;促糖原分解使血糖上升',
+            accept: ['glucagon'] },
+          { en: 'glycogen', zh: '糖原 (多糖储存物)', phonetic: '/ˈɡlaɪkədʒən/',
+            hint: 'glyco- (糖) + -gen。**陷阱**:【极高危易混】glycogen 是多糖(储存于肝脏和肌肉)',
+            accept: ['glycogen'] }
+        ]
+      },
+      L29: {
+        name: 'Puberty & Adolescence',
+        words: [
+          { en: 'adolescence', zh: '青少年期 / 青春期过程', phonetic: '/ˌædəˈlesns/',
+            hint: 'adol- + -esce- + -nce。**陷阱**:含 -sc- 结构 (adolescence),不可丢 c',
+            accept: ['adolescence'] },
+          { en: 'oestrogen', zh: '雌激素', phonetic: '/ˈiːstrədʒən/',
+            hint: 'oestro- + -gen。**陷阱**:英式剑桥规范写作 oe- 开头,美式拼写作 estrogen',
+            accept: ['oestrogen', 'estrogen'] },
+          { en: 'puberty', zh: '青春期 (性成熟生理阶段)', phonetic: '/ˈpjuːbərti/',
+            hint: 'pu-ber-ty。**陷阱**:指身体达到性生殖成熟阶段,结尾为 -ty',
+            accept: ['puberty'] },
+          { en: 'secondary sexual characteristics', zh: '第二性征', phonetic: '/ˈsekənderi ˈsekʃuəl ˌkærəktəˈrɪstɪks/',
+            hint: 'secondary + sexual + characteristics。**陷阱**:受性激素控制出现的体貌生理特征',
+            accept: ['secondary sexual characteristics', 'secondary sex characteristics', 'secondary sexual characteristic'] },
+          { en: 'testosterone', zh: '睾酮 / 雄性激素', phonetic: '/teˈstɒstəroʊn/',
+            hint: 'testo- + ster- + -one。**陷阱**:两处 -st- (te-sto-ster-one),结尾带 -e',
+            accept: ['testosterone'] }
+        ]
+      },
+      L30: { name: 'Housekeeping / Review (Excretion, Endocrine & Puberty)', mode: 'review', sourceUnits: ['L25', 'L26', 'L27', 'L28', 'L29'] },
+      L31: {
+        name: 'Health During Adolescence',
+        words: [
+          { en: 'hormonal changes', zh: '激素变化', phonetic: '/hɔːrˈmoʊnəl ˈtʃeɪndʒɪz/',
+            hint: 'hormonal (hormone 形容词) + changes。**陷阱**:hormonal 是 -al 结尾不是 -el',
+            accept: ['hormonal changes', 'hormonal change', 'hormonal-changes'] },
+          { en: 'lifestyle', zh: '生活方式', phonetic: '/ˈlaɪfstaɪl/',
+            hint: 'life + style (合为一个词)。**陷阱**:中间无空格,涵盖饮食、运动与睡眠习惯',
+            accept: ['lifestyle', 'lifestyles', 'life style'] },
+          { en: 'well-being', zh: '身心健康 / 全面安康', phonetic: '/ˈwel biːɪŋ/',
+            hint: 'well + - + being。**陷阱**:剑桥规范常带连字符 well-being,也接受空格与连写',
+            accept: ['well-being', 'wellbeing', 'well being'] }
+        ]
+      },
+      L32: {
+        name: 'The Menstrual Cycle & Pregnancy',
+        words: [
+          { en: 'menstrual cycle', zh: '月经周期', phonetic: '/ˈmenstruəl ˈsaɪkl/',
+            hint: 'menstru- + -al + cycle。**陷阱**:menstrual 中间有 -stru-,不可漏 r;cycle 结尾 -cle',
+            accept: ['menstrual cycle', 'menstrual-cycle'] },
+          { en: 'oestrogen', zh: '雌激素 (修复子宫内膜)', phonetic: '/ˈiːstrədʒən/',
+            hint: 'oestro- + -gen。**陷阱**:排卵前促内膜增厚修复,英式 oe- 开头,美式 e-',
+            accept: ['oestrogen', 'estrogen'] },
+          { en: 'ovulation', zh: '排卵 (卵巢释放卵子)', phonetic: '/ˌɒvjuˈleɪʃən/',
+            hint: 'ovul- + -ation。**陷阱**:通常发生于周期第 14 天,ov- 开头,-ation 结尾',
+            accept: ['ovulation'] },
+          { en: 'pregnancy', zh: '怀孕 / 妊娠', phonetic: '/ˈpreɡnənsi/',
+            hint: 'pregnan- + -cy。**陷阱**:名词后缀为 -cy (pregnancy),着床后内膜不脱落',
+            accept: ['pregnancy', 'pregnancies'] },
+          { en: 'progesterone', zh: '孕酮 / 黄体酮 (维持内膜厚度)', phonetic: '/prəˈdʒestəroʊn/',
+            hint: 'pro- (促进) + gest- (妊娠) + -er- + -one。**陷阱**:pro- 开头,中间 gest,结尾 -erone',
+            accept: ['progesterone'] },
+          { en: 'uterus', zh: '子宫', phonetic: '/ˈjuːtərəs/',
+            hint: 'u-ter-us (胚胎着床发育器官)。**陷阱**:以 u- 开头,-us 结尾,别名 womb',
+            accept: ['uterus', 'womb'] }
+        ]
+      },
+      L33: { name: 'Part 2 Final Review (Human Physiology Comprehensive)', mode: 'review', sourceUnits: ['L19', 'L20', 'L21', 'L22', 'L23', 'L25', 'L26', 'L27', 'L28', 'L29', 'L31', 'L32'] }
     };
 
     // 当前活跃单元
@@ -1810,6 +2520,229 @@
       }
     };
 
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    const GAME_NAMES = {
+      bee: 'Spelling Bee 拼写',
+      memory: 'Memory Match 翻牌',
+      shooter: 'Word Shooter 飞行单词',
+      listening: 'Listening 听音辨词',
+      anagram: 'Anagram 拼图重组',
+      speed: 'Speed Round 极速挑战'
+    };
+
+    const StatsManager = {
+      STORAGE_KEY: 'sky_word_lab_stats_v2',
+      data: {
+        sessions: [],
+        wordMastery: {}
+      },
+
+      init() {
+        try {
+          const raw = localStorage.getItem(this.STORAGE_KEY);
+          if (raw) {
+            this.data = JSON.parse(raw);
+            if (!this.data.sessions) this.data.sessions = [];
+            if (!this.data.wordMastery) this.data.wordMastery = {};
+          }
+        } catch (e) {
+          console.warn('StatsManager init error:', e);
+        }
+      },
+
+      save() {
+        try {
+          localStorage.setItem(this.STORAGE_KEY, JSON.stringify(this.data));
+        } catch (e) {
+          console.warn('StatsManager save error:', e);
+        }
+      },
+
+      recordWordAttempt(wordObj, { correct, game, userInput = '', hintUsed = false, unit = '' }) {
+        if (!wordObj || !wordObj.en) return;
+        const key = wordObj.en.toLowerCase();
+        if (!this.data.wordMastery[key]) {
+          this.data.wordMastery[key] = {
+            en: wordObj.en,
+            zh: wordObj.zh || '',
+            phonetic: wordObj.phonetic || '',
+            unit: unit || activeUnit || 'L01',
+            testedCount: 0,
+            correctCount: 0,
+            wrongCount: 0,
+            consecutiveCorrect: 0,
+            lastWrongAnswer: '',
+            lastWrongGame: '',
+            lastTested: Date.now(),
+            mastered: false
+          };
+        }
+        const item = this.data.wordMastery[key];
+        item.testedCount++;
+        item.lastTested = Date.now();
+        if (unit) item.unit = unit;
+        if (wordObj.zh && !item.zh) item.zh = wordObj.zh;
+        if (wordObj.phonetic && !item.phonetic) item.phonetic = wordObj.phonetic;
+
+        if (correct) {
+          item.correctCount++;
+          item.consecutiveCorrect = (item.consecutiveCorrect || 0) + 1;
+          if (item.consecutiveCorrect >= 3 && !item.mastered) {
+            item.mastered = true;
+          }
+        } else {
+          item.wrongCount++;
+          item.consecutiveCorrect = 0;
+          item.lastWrongAnswer = userInput || '';
+          item.lastWrongGame = game;
+          item.mastered = false;
+        }
+        this.save();
+      },
+
+      recordSession({ game, gameName, unit, unitName, score, total, correct, wrong, wrongDetails = [] }) {
+        const session = {
+          id: 's_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+          timestamp: Date.now(),
+          game: game || 'unknown',
+          gameName: gameName || GAME_NAMES[game] || game,
+          unit: unit || activeUnit,
+          unitName: unitName || (UNITS[unit || activeUnit] ? UNITS[unit || activeUnit].name : ''),
+          score: score || 0,
+          total: total || 0,
+          correct: correct || 0,
+          wrong: wrong || 0,
+          wrongDetails: wrongDetails || []
+        };
+        this.data.sessions.unshift(session);
+        if (this.data.sessions.length > 500) {
+          this.data.sessions = this.data.sessions.slice(0, 500);
+        }
+        this.save();
+        return session;
+      },
+
+      toggleMastered(en) {
+        const key = en.toLowerCase();
+        if (this.data.wordMastery[key]) {
+          this.data.wordMastery[key].mastered = !this.data.wordMastery[key].mastered;
+          if (this.data.wordMastery[key].mastered) {
+            this.data.wordMastery[key].consecutiveCorrect = 3;
+          } else {
+            this.data.wordMastery[key].consecutiveCorrect = 0;
+          }
+          this.save();
+          return this.data.wordMastery[key].mastered;
+        }
+        return false;
+      },
+
+      getMistakes({ unit = 'all', status = 'all', sortBy = 'wrong' } = {}) {
+        let list = Object.values(this.data.wordMastery).filter(w => w.wrongCount > 0);
+        if (unit !== 'all') {
+          list = list.filter(w => w.unit === unit);
+        }
+        if (status === 'unmastered') {
+          list = list.filter(w => !w.mastered);
+        } else if (status === 'mastered') {
+          list = list.filter(w => w.mastered);
+        }
+        if (sortBy === 'wrong') {
+          list.sort((a, b) => b.wrongCount - a.wrongCount || b.lastTested - a.lastTested);
+        } else if (sortBy === 'time') {
+          list.sort((a, b) => b.lastTested - a.lastTested);
+        } else if (sortBy === 'alphabet') {
+          list.sort((a, b) => a.en.localeCompare(b.en));
+        }
+        return list;
+      },
+
+      getSummary() {
+        const totalSessions = this.data.sessions.length;
+        let totalAttempts = 0;
+        let totalCorrect = 0;
+        let totalWrong = 0;
+
+        Object.values(this.data.wordMastery).forEach(w => {
+          totalAttempts += (w.testedCount || 0);
+          totalCorrect += (w.correctCount || 0);
+          totalWrong += (w.wrongCount || 0);
+        });
+
+        const accuracy = totalAttempts > 0 ? Math.round((totalCorrect / totalAttempts) * 100) : 0;
+        const mistakesList = Object.values(this.data.wordMastery).filter(w => w.wrongCount > 0);
+        const unmasteredCount = mistakesList.filter(w => !w.mastered).length;
+        const masteredCount = mistakesList.filter(w => w.mastered).length;
+
+        const todayStart = new Date().setHours(0, 0, 0, 0);
+        const todaySessions = this.data.sessions.filter(s => s.timestamp >= todayStart);
+        let todayWordsTested = 0;
+        todaySessions.forEach(s => { todayWordsTested += (s.total || 0); });
+
+        return {
+          totalSessions,
+          totalAttempts,
+          totalCorrect,
+          totalWrong,
+          accuracy,
+          totalMistakes: mistakesList.length,
+          unmasteredCount,
+          masteredCount,
+          todaySessionsCount: todaySessions.length,
+          todayWordsTested
+        };
+      },
+
+      generateReportText() {
+        const sum = this.getSummary();
+        const todayStr = new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' });
+        const topMistakes = this.getMistakes({ status: 'unmastered', sortBy: 'wrong' }).slice(0, 8);
+
+        let lines = [];
+        lines.push(`📊【Sky 科学单词实验室 · 学习报告】`);
+        lines.push(`📅 日期：${todayStr}`);
+        lines.push(`🎮 今日测试：${sum.todaySessionsCount} 轮（考查 ${sum.todayWordsTested} 词次）`);
+        lines.push(`📈 累计练习：${sum.totalSessions} 轮 · 累计考查 ${sum.totalAttempts} 词次`);
+        lines.push(`🎯 综合正确率：${sum.accuracy}%`);
+        lines.push(`📝 错题攻坚：待攻克 ${sum.unmasteredCount} 词 / 已攻克 ${sum.masteredCount} 词`);
+
+        if (topMistakes.length > 0) {
+          lines.push(`\n⚠️【重点高频错词榜 (需重点复习)】`);
+          topMistakes.forEach((m, idx) => {
+            const wrongNote = m.lastWrongAnswer ? ` (常错为: ${m.lastWrongAnswer})` : '';
+            lines.push(`${idx + 1}. ${m.en} [${m.zh}] · 错 ${m.wrongCount} 次${wrongNote}`);
+          });
+        } else {
+          lines.push(`\n🎉 太棒了！当前没有待攻克的错词，全部掌握！`);
+        }
+        return lines.join('\n');
+      },
+
+      exportJSON() {
+        const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.data, null, 2));
+        const dlAnchor = document.createElement('a');
+        dlAnchor.setAttribute('href', dataStr);
+        dlAnchor.setAttribute('download', `sky_science_vocab_stats_${new Date().toISOString().slice(0, 10)}.json`);
+        document.body.appendChild(dlAnchor);
+        dlAnchor.click();
+        dlAnchor.remove();
+      },
+
+      clearAll() {
+        this.data = { sessions: [], wordMastery: {} };
+        this.save();
+      }
+    };
+    StatsManager.init();
+
     // ==================== Unit Selector ====================
     function renderUnitSelector() {
       const sel = $('unit-select');
@@ -1892,11 +2825,14 @@
       document.querySelectorAll('.tabs button[data-tab="' + tab + '"]').forEach(b => b.classList.add('active'));
       document.querySelectorAll('.game').forEach(g => g.classList.remove('active'));
       $(tab).classList.add('active');
-      // Unit bar 仅在非 home 页显示
-      if (tab === 'home') {
+      // Unit bar 仅在非 home 与非 stats 页显示
+      if (tab === 'home' || tab === 'stats') {
         $('unit-bar').classList.add('hidden');
       } else {
         $('unit-bar').classList.remove('hidden');
+      }
+      if (tab === 'stats') {
+        renderStatsView();
       }
       if (tab === 'bee' && !beeState.started) startBee();
       if (tab === 'memory' && !memoryState.started) startMemory();
@@ -1977,11 +2913,18 @@
       wrong: [],
       started: false,
       hintUsed: false,
-      isChecking: false
+      isChecking: false,
+      isMistakeMode: false
     };
 
-    function startBee() {
-      beeState.queue = shuffle(getWords());
+    function startBee(customQueue = null) {
+      if (customQueue && Array.isArray(customQueue) && customQueue.length > 0) {
+        beeState.isMistakeMode = true;
+        beeState.queue = [...customQueue];
+      } else {
+        beeState.isMistakeMode = false;
+        beeState.queue = shuffle(getWords());
+      }
       beeState.idx = 0;
       beeState.score = 0;
       beeState.combo = 0;
@@ -2011,13 +2954,19 @@
       const w = beeState.queue[beeState.idx];
       if (!w) { finishBee(); return; }
       $('bee-chinese').textContent = w.zh;
-      $('bee-phonetic').textContent = w.phonetic;
-      $('bee-hint').innerHTML = formatHint(w.hint);
+      $('bee-phonetic').textContent = w.phonetic || '';
+      $('bee-hint').innerHTML = formatHint(w.hint || '');
       $('bee-input').value = '';
       $('bee-input').className = 'bee-input';
       $('bee-feedback').textContent = '';
       $('bee-feedback').className = 'bee-feedback';
       beeState.hintUsed = false;
+      const promptEl = document.querySelector('#bee .bee-prompt');
+      if (promptEl) {
+        promptEl.innerHTML = beeState.isMistakeMode
+          ? '<span class="badge-drill">🎯 错题专项攻坚</span> 拼出英文单词 (按 Enter 提交)'
+          : '拼出英文单词 (按 Enter 提交)';
+      }
       speak(w.en);
       $('bee-input').focus();
     }
@@ -2028,6 +2977,14 @@
       if (!w) return;
       const userInput = $('bee-input').value;
       const correct = checkAnswerMatch(userInput, w);
+
+      StatsManager.recordWordAttempt(w, {
+        correct: correct,
+        game: 'bee',
+        userInput: userInput.trim(),
+        hintUsed: beeState.hintUsed,
+        unit: beeState.isMistakeMode ? (w.unit || activeUnit) : activeUnit
+      });
 
       beeState.isChecking = true;
       if (correct) {
@@ -2070,7 +3027,24 @@
       const total = beeState.queue.length;
       const correctCount = Math.max(0, total - beeState.wrong.length);
       saveScore('bee_high', Math.max(beeState.score, loadScore('bee_high')));
-      $('modal-title').textContent = beeState.score >= (total * 8) ? '🏆 Master Speller!' : '🎉 Round Complete!';
+
+      StatsManager.recordSession({
+        game: 'bee',
+        gameName: beeState.isMistakeMode ? 'Spelling Bee (错题攻坚)' : 'Spelling Bee 拼写',
+        unit: beeState.isMistakeMode ? '错题专项' : activeUnit,
+        unitName: beeState.isMistakeMode ? '高频错题攻坚突破' : (UNITS[activeUnit] ? UNITS[activeUnit].name : ''),
+        score: beeState.score,
+        total: total,
+        correct: correctCount,
+        wrong: beeState.wrong.length,
+        wrongDetails: beeState.wrong.map(w => ({ en: w.en, zh: w.zh, userInput: '(未拼对)' }))
+      });
+
+      if (beeState.isMistakeMode) {
+        $('modal-title').textContent = beeState.wrong.length === 0 ? '🏆 错题攻坚大捷！全数消灭！' : '💪 错题专项测试完成！';
+      } else {
+        $('modal-title').textContent = beeState.score >= (total * 8) ? '🏆 Master Speller!' : '🎉 Round Complete!';
+      }
       $('modal-big-stat').textContent = beeState.score;
       $('modal-sub-stat').innerHTML = beeState.wrong.length === 0
         ? `完美! ${total}/${total} 全对 — 你是 Spelling Master!`
@@ -2097,9 +3071,17 @@
     });
     $('bee-skip').addEventListener('click', () => {
       const w = beeState.queue[beeState.idx];
+      if (!w) return;
       if (!beeState.wrong.find(x => x.en === w.en)) {
         beeState.wrong.push(w);
       }
+      StatsManager.recordWordAttempt(w, {
+        correct: false,
+        game: 'bee',
+        userInput: '(跳过)',
+        hintUsed: beeState.hintUsed,
+        unit: beeState.isMistakeMode ? (w.unit || activeUnit) : activeUnit
+      });
       beeState.combo = 0;
       $('bee-combo').textContent = 0;
       beeState.idx++;
@@ -2189,6 +3171,7 @@
         const c2 = memoryState.cards[i2];
         if (c1.pairId === c2.pairId && c1.type !== c2.type) {
           // 配对成功
+          if (c1.word) StatsManager.recordWordAttempt(c1.word, { correct: true, game: 'memory', unit: activeUnit });
           setTimeout(() => {
             document.querySelectorAll('.memory-card').forEach((el, i) => {
               if (i === i1 || i === i2) el.classList.add('matched');
@@ -2205,6 +3188,8 @@
             if (!memoryState.wrong.find(w => w.key === key)) {
               memoryState.wrong.push({ key, en: [c1.word.en, c2.word.en], zh: [c1.word.zh, c2.word.zh] });
             }
+            StatsManager.recordWordAttempt(c1.word, { correct: false, game: 'memory', userInput: `误配: ${c2.word ? c2.word.zh : ''}`, unit: activeUnit });
+            StatsManager.recordWordAttempt(c2.word, { correct: false, game: 'memory', userInput: `误配: ${c1.word ? c1.word.zh : ''}`, unit: activeUnit });
           }
           setTimeout(() => {
             const els = document.querySelectorAll('.memory-card');
@@ -2238,6 +3223,23 @@
       const timeStr = `${min}:${String(sec % 60).padStart(2, '0')}`;
       const score = Math.max(0, 1000 - memoryState.moves * 10 - sec * 2);
       saveScore('memory_high', Math.max(score, loadScore('memory_high')));
+
+      StatsManager.recordSession({
+        game: 'memory',
+        gameName: 'Memory Match 翻牌配对',
+        unit: activeUnit,
+        unitName: UNITS[activeUnit] ? UNITS[activeUnit].name : '',
+        score: score,
+        total: memoryState.pairs,
+        correct: memoryState.pairs,
+        wrong: memoryState.wrong.length,
+        wrongDetails: memoryState.wrong.map(w => ({
+          en: `${w.en[0]} ↔ ${w.en[1]}`,
+          zh: `${w.zh[0]} ↔ ${w.zh[1]}`,
+          userInput: '(配对混淆)'
+        }))
+      });
+
       $('modal-title').textContent = memoryState.moves <= 12 ? '🏆 Memory Master!' : '🎉 Round Complete!';
       $('modal-big-stat').textContent = score;
       $('modal-sub-stat').innerHTML = `用时 <strong>${timeStr}</strong> · 步数 <strong>${memoryState.moves}</strong>`;
@@ -2277,6 +3279,7 @@
       shooterState.level = 1;
       shooterState.lives = 3;
       shooterState.hitWords = new Set();
+      shooterState.missedWords = [];
       shooterState.completed = false;
       shooterState.active.forEach(w => w.el.remove());
       shooterState.active = [];
@@ -2394,6 +3397,16 @@
         if (newTop > areaH) {
           // 漏掉 - 显眼的拼法提示(加深记忆) + 失命
           showMissedWord(item.word);
+          if (!shooterState.missedWords) shooterState.missedWords = [];
+          if (!shooterState.missedWords.find(w => w.en === item.word.en)) {
+            shooterState.missedWords.push(item.word);
+          }
+          StatsManager.recordWordAttempt(item.word, {
+            correct: false,
+            game: 'shooter',
+            userInput: '(触底未击落)',
+            unit: activeUnit
+          });
           item.el.remove();
           item.hit = true;
           shooterState.lives--;
@@ -2415,6 +3428,7 @@
       shooterState.score = 0;
       shooterState.level = 1;
       shooterState.hitWords = new Set();
+      shooterState.missedWords = [];
       shooterState.completed = false;
       updateShooterUI();
       // 显示 overlay (无论是否在 shooter tab 都会重新渲染,等切回 tab 再显示)
@@ -2477,6 +3491,12 @@
       target.el.classList.add('hit');
       shooterState.score += 10;
       shooterState.hitWords.add(target.word.en);  // 记录已击落词
+      StatsManager.recordWordAttempt(target.word, {
+        correct: true,
+        game: 'shooter',
+        userInput: val.trim(),
+        unit: activeUnit
+      });
       updateShooterUI();
       shooterState.level = Math.floor(shooterState.score / 50) + 1;
       e.target.value = '';
@@ -2493,7 +3513,21 @@
       clearInterval(shooterState.moveTimer);
       saveScore('shooter_high', Math.max(shooterState.score, loadScore('shooter_high')));
       const totalWords = getWords().length;
-      const hitCount = shooterState.hitWords.size;
+      const hitCount = shooterState.hitWords ? shooterState.hitWords.size : 0;
+      const missedList = shooterState.missedWords || [];
+
+      StatsManager.recordSession({
+        game: 'shooter',
+        gameName: 'Word Shooter 飞行单词',
+        unit: activeUnit,
+        unitName: UNITS[activeUnit] ? UNITS[activeUnit].name : '',
+        score: shooterState.score,
+        total: totalWords,
+        correct: hitCount,
+        wrong: missedList.length,
+        wrongDetails: missedList.map(w => ({ en: w.en, zh: w.zh, userInput: '(触底未击落)' }))
+      });
+
       if (win) {
         $('modal-title').textContent = '🎉 通关!全部 ' + totalWords + ' 词都击落!';
         $('modal-big-stat').textContent = shooterState.score;
@@ -2533,6 +3567,7 @@
       listenState.combo = 0;
       listenState.started = true;
       listenState.revealed = false;
+      listenState.wrong = [];
       loadListeningWord();
     }
 
@@ -2577,6 +3612,12 @@
         listenState.score += points;
         $('listen-score').textContent = listenState.score;
         $('listen-combo').textContent = listenState.combo;
+        StatsManager.recordWordAttempt(correct, {
+          correct: true,
+          game: 'listening',
+          userInput: btn.textContent,
+          unit: activeUnit
+        });
       } else {
         btn.classList.add('wrong');
         // 高亮正确选项
@@ -2587,6 +3628,16 @@
         $('listen-feedback').className = 'listen-feedback wrong';
         listenState.combo = 0;
         $('listen-combo').textContent = 0;
+        if (!listenState.wrong) listenState.wrong = [];
+        if (!listenState.wrong.find(w => w.en === correct.en)) {
+          listenState.wrong.push({ word: correct, chosen: btn.textContent });
+        }
+        StatsManager.recordWordAttempt(correct, {
+          correct: false,
+          game: 'listening',
+          userInput: `误选: ${btn.textContent}`,
+          unit: activeUnit
+        });
       }
       setTimeout(() => {
         listenState.idx++;
@@ -2595,12 +3646,31 @@
     }
 
     function finishListening() {
+      const total = listenState.queue.length;
+      const wrongCount = (listenState.wrong || []).length;
+      const correctCount = Math.max(0, total - wrongCount);
       $('modal-title').textContent = '🎧 听音挑战完成!';
       $('modal-big-stat').textContent = listenState.score;
-      $('modal-sub-stat').innerHTML = `本轮 <strong>${listenState.queue.length}</strong> 词全听完,得分 <strong>${listenState.score}</strong>`;
+      $('modal-sub-stat').innerHTML = `本轮 <strong>${total}</strong> 词完成 · 听对 <strong>${correctCount}</strong> 词 · 错词: <strong>${wrongCount}</strong>`;
       $('modal-action').textContent = '再来一轮';
       $('modal-backdrop').classList.add('active');
       saveScore('listening_high', Math.max(listenState.score, loadScore('listening_high')));
+
+      StatsManager.recordSession({
+        game: 'listening',
+        gameName: 'Listening 听音辨词',
+        unit: activeUnit,
+        unitName: UNITS[activeUnit] ? UNITS[activeUnit].name : '',
+        score: listenState.score,
+        total: total,
+        correct: correctCount,
+        wrong: wrongCount,
+        wrongDetails: (listenState.wrong || []).map(item => ({
+          en: item.word.en,
+          zh: item.word.zh,
+          userInput: item.chosen
+        }))
+      });
     }
 
     $('listen-play').addEventListener('click', () => {
@@ -2617,6 +3687,19 @@
     });
     $('listen-skip').addEventListener('click', () => {
       if (!listenState.started) return;
+      const word = listenState.queue[listenState.idx];
+      if (word) {
+        if (!listenState.wrong) listenState.wrong = [];
+        if (!listenState.wrong.find(w => w.en === word.en)) {
+          listenState.wrong.push({ word: word, chosen: '(跳过)' });
+        }
+        StatsManager.recordWordAttempt(word, {
+          correct: false,
+          game: 'listening',
+          userInput: '(跳过)',
+          unit: activeUnit
+        });
+      }
       listenState.idx++;
       loadListeningWord();
     });
@@ -2639,6 +3722,7 @@
       anagramState.score = 0;
       anagramState.hints = 3;
       anagramState.started = true;
+      anagramState.wrong = [];
       $('anagram-score').textContent = 0;
       $('anagram-hints').textContent = 3;
       loadAnagram();
@@ -2720,6 +3804,12 @@
       if (current.length !== target.length) return;
       if (current === target) {
         // 正确
+        StatsManager.recordWordAttempt(anagramState.current, {
+          correct: true,
+          game: 'anagram',
+          userInput: current,
+          unit: activeUnit
+        });
         ans.querySelectorAll('.letter').forEach(s => s.classList.add('correct'));
         $('anagram-feedback').textContent = `✅ 正确! ${anagramState.current.en}`;
         $('anagram-feedback').className = 'anagram-feedback correct';
@@ -2731,6 +3821,16 @@
         }, 1200);
       } else if (current.length === target.length) {
         // 长度对了但拼错
+        if (!anagramState.wrong) anagramState.wrong = [];
+        if (!anagramState.wrong.find(w => w.en === anagramState.current.en)) {
+          anagramState.wrong.push(anagramState.current);
+        }
+        StatsManager.recordWordAttempt(anagramState.current, {
+          correct: false,
+          game: 'anagram',
+          userInput: current,
+          unit: activeUnit
+        });
         ans.querySelectorAll('.letter').forEach(s => s.classList.add('wrong'));
         $('anagram-feedback').textContent = `❌ 拼错了,再试一次`;
         $('anagram-feedback').className = 'anagram-feedback wrong';
@@ -2754,12 +3854,31 @@
     }
 
     function finishAnagram() {
+      const total = anagramState.queue.length;
+      const wrongCount = (anagramState.wrong || []).length;
+      const correctCount = Math.max(0, total - wrongCount);
       $('modal-title').textContent = '🧩 拼图挑战完成!';
       $('modal-big-stat').textContent = anagramState.score;
-      $('modal-sub-stat').innerHTML = `本轮 <strong>${anagramState.queue.length}</strong> 词全拼对,得分 <strong>${anagramState.score}</strong>`;
+      $('modal-sub-stat').innerHTML = `本轮 <strong>${total}</strong> 词完成 · 一次拼对 <strong>${correctCount}</strong> 词 · 错词: <strong>${wrongCount}</strong>`;
       $('modal-action').textContent = '再来一轮';
       $('modal-backdrop').classList.add('active');
       saveScore('anagram_high', Math.max(anagramState.score, loadScore('anagram_high')));
+
+      StatsManager.recordSession({
+        game: 'anagram',
+        gameName: 'Anagram 拼图重组',
+        unit: activeUnit,
+        unitName: UNITS[activeUnit] ? UNITS[activeUnit].name : '',
+        score: anagramState.score,
+        total: total,
+        correct: correctCount,
+        wrong: wrongCount,
+        wrongDetails: (anagramState.wrong || []).map(w => ({
+          en: w.en,
+          zh: w.zh,
+          userInput: '(重组拼写错误)'
+        }))
+      });
     }
 
     $('anagram-speak').addEventListener('click', () => {
@@ -2831,6 +3950,7 @@
       speedState.score = 0;
       speedState.correct = 0;
       speedState.wrong = 0;
+      speedState.wrongWords = [];
       speedState.running = true;
       $('speed-overlay').classList.add('hidden');
       $('speed-input').disabled = false;
@@ -2876,6 +3996,23 @@
       `;
       $('speed-start').addEventListener('click', startSpeed);
       saveScore('speed_high', Math.max(speedState.score, loadScore('speed_high')));
+
+      const total = speedState.correct + speedState.wrong;
+      StatsManager.recordSession({
+        game: 'speed',
+        gameName: 'Speed Round 极速挑战',
+        unit: activeUnit,
+        unitName: UNITS[activeUnit] ? UNITS[activeUnit].name : '',
+        score: speedState.score,
+        total: total,
+        correct: speedState.correct,
+        wrong: speedState.wrong,
+        wrongDetails: (speedState.wrongWords || []).map(w => ({
+          en: w.word.en,
+          zh: w.word.zh,
+          userInput: w.input || '(未拼对)'
+        }))
+      });
     }
 
     $('speed-input').addEventListener('keydown', (e) => {
@@ -2886,11 +4023,25 @@
       if (checkAnswerMatch(val, speedState.current)) {
         speedState.score += 10;
         speedState.correct++;
+        StatsManager.recordWordAttempt(speedState.current, {
+          correct: true,
+          game: 'speed',
+          userInput: val.trim(),
+          unit: activeUnit
+        });
         speak(speedState.current.en);
         loadSpeedWord();
       } else {
         speedState.score = Math.max(0, speedState.score - 5);
         speedState.wrong++;
+        if (!speedState.wrongWords) speedState.wrongWords = [];
+        speedState.wrongWords.push({ word: speedState.current, input: val.trim() });
+        StatsManager.recordWordAttempt(speedState.current, {
+          correct: false,
+          game: 'speed',
+          userInput: val.trim() || '(拼错/空)',
+          unit: activeUnit
+        });
       }
       e.target.value = '';
       updateSpeedUI();
@@ -2902,7 +4053,13 @@
     $('modal-action').addEventListener('click', () => {
       $('modal-backdrop').classList.remove('active');
       const activeTab = document.querySelector('.tabs button.active').dataset.tab;
-      if (activeTab === 'bee') startBee();
+      if (activeTab === 'bee') {
+        if (beeState.isMistakeMode) {
+          startMistakeDrill();
+        } else {
+          startBee();
+        }
+      }
       else if (activeTab === 'memory') startMemory();
       else if (activeTab === 'shooter') startShooter();
       else if (activeTab === 'listening') startListening();
@@ -2911,6 +4068,284 @@
     $('modal-close').addEventListener('click', () => {
       $('modal-backdrop').classList.remove('active');
     });
+
+    // ==================== 错题专项攻坚 (Spelling Bee Drill) ====================
+    function startMistakeDrill(singleWord = null) {
+      let drillWords = [];
+      if (singleWord) {
+        let full = null;
+        for (const u of Object.values(UNITS)) {
+          const f = (u.words || []).find(w => w.en.toLowerCase() === singleWord.en.toLowerCase());
+          if (f) { full = f; break; }
+        }
+        drillWords = [full || {
+          en: singleWord.en,
+          zh: singleWord.zh,
+          phonetic: singleWord.phonetic,
+          hint: '重点错词专项攻坚',
+          accept: [singleWord.en],
+          unit: singleWord.unit || activeUnit
+        }];
+      } else {
+        const mistakes = StatsManager.getMistakes({ status: 'unmastered' });
+        if (mistakes.length === 0) {
+          alert('🎉 太棒了！当前没有待攻克的错词，所有生词均已掌握！');
+          return;
+        }
+        drillWords = mistakes.map(m => {
+          for (const u of Object.values(UNITS)) {
+            const f = (u.words || []).find(w => w.en.toLowerCase() === m.en.toLowerCase());
+            if (f) return { ...f, unit: m.unit || f.unit };
+          }
+          return {
+            en: m.en,
+            zh: m.zh,
+            phonetic: m.phonetic,
+            hint: '高频错词专项突破',
+            accept: [m.en],
+            unit: m.unit || activeUnit
+          };
+        });
+      }
+      switchTab('bee');
+      startBee(drillWords);
+    }
+
+    // ==================== 学情统计与错题本视图渲染 ====================
+    function renderStatsView() {
+      const sum = StatsManager.getSummary();
+
+      // 核心指标更新
+      $('stat-total-sessions').textContent = sum.totalSessions;
+      $('stat-total-attempts').textContent = sum.totalAttempts;
+      $('stat-accuracy').textContent = sum.accuracy + '%';
+      $('stat-unmastered').textContent = sum.unmasteredCount;
+      $('stat-total-mistakes').textContent = sum.totalMistakes;
+
+      // 填充单元筛选下拉框
+      const unitSel = $('stats-filter-unit');
+      if (unitSel.children.length <= 1) {
+        Object.keys(UNITS).forEach(id => {
+          const opt = document.createElement('option');
+          opt.value = id;
+          opt.textContent = `${id} · ${UNITS[id].name}`;
+          unitSel.appendChild(opt);
+        });
+      }
+
+      renderMistakesList();
+      renderHistoryList();
+    }
+
+    function renderMistakesList() {
+      const unit = $('stats-filter-unit').value;
+      const status = $('stats-filter-status').value;
+      const sortBy = $('stats-sort').value;
+      const list = StatsManager.getMistakes({ unit, status, sortBy });
+      const container = $('stats-mistakes-container');
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="icon">🎉</div>
+            <p><strong>当前筛选条件下没有错题记录</strong></p>
+            <p style="font-size:0.85rem;color:var(--text-light);">所有测试错题攻克后会变为绿色已掌握状态，继续加油！</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '<div class="mistake-list">';
+      list.forEach(item => {
+        const accuracy = item.testedCount > 0 ? Math.round((item.correctCount / item.testedCount) * 100) : 0;
+        const unitLabel = UNITS[item.unit] ? `${item.unit} · ${UNITS[item.unit].name}` : item.unit;
+        const gameLabel = GAME_NAMES[item.lastWrongGame] || item.lastWrongGame || '科学测试';
+        const cardClass = item.mastered ? 'mistake-card mastered' : 'mistake-card';
+        const statusBadge = item.mastered
+          ? '<span class="badge-mastered">✅ 已攻克</span>'
+          : '<span class="badge-wrong">⏳ 待攻克</span>';
+
+        html += `
+          <div class="${cardClass}" data-word="${escapeHtml(item.en)}">
+            <div class="mistake-info">
+              <div class="mistake-word-main">
+                <span class="mistake-en">${escapeHtml(item.en)}</span>
+                <button class="btn btn-secondary btn-xs btn-speak" data-en="${escapeHtml(item.en)}" title="朗读发音">🔊</button>
+                <span class="mistake-phonetic">${escapeHtml(item.phonetic || '')}</span>
+                <span class="mistake-zh">${escapeHtml(item.zh)}</span>
+              </div>
+              <div class="mistake-meta">
+                <span class="badge-unit">${escapeHtml(unitLabel)}</span>
+                <span class="badge-wrong">❌ 累计做错 ${item.wrongCount} 次</span>
+                <span>考查 ${item.testedCount} 次 (正确率 ${accuracy}%)</span>
+                ${statusBadge}
+                ${item.lastWrongAnswer ? `<span>最近失误: <span class="wrong-highlight">${escapeHtml(item.lastWrongAnswer)}</span></span>` : ''}
+                <span>来源: ${escapeHtml(gameLabel)}</span>
+              </div>
+            </div>
+            <div class="mistake-actions">
+              <button class="btn btn-secondary btn-xs btn-toggle-master" data-en="${escapeHtml(item.en)}">
+                ${item.mastered ? '标为未攻克' : '标记为已攻克'}
+              </button>
+              <button class="btn btn-primary btn-xs btn-drill-single" data-en="${escapeHtml(item.en)}">
+                🎯 攻克此词
+              </button>
+            </div>
+          </div>
+        `;
+      });
+      html += '</div>';
+      container.innerHTML = html;
+
+      // 绑定错题卡片内按钮事件
+      container.querySelectorAll('.btn-speak').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          speak(btn.dataset.en);
+        });
+      });
+      container.querySelectorAll('.btn-toggle-master').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          StatsManager.toggleMastered(btn.dataset.en);
+          renderStatsView();
+        });
+      });
+      container.querySelectorAll('.btn-drill-single').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const en = btn.dataset.en;
+          const wordObj = list.find(w => w.en === en);
+          if (wordObj) startMistakeDrill(wordObj);
+        });
+      });
+    }
+
+    function renderHistoryList() {
+      const sessions = StatsManager.data.sessions.slice(0, 50);
+      const container = $('stats-history-container');
+
+      if (sessions.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="icon">📜</div>
+            <p><strong>暂无历史测试记录</strong></p>
+            <p style="font-size:0.85rem;color:var(--text-light);">Sky 完成任意游戏后，答题记录会自动持久化并在此展示</p>
+          </div>
+        `;
+        return;
+      }
+
+      let html = '<div class="history-list">';
+      sessions.forEach(s => {
+        const date = new Date(s.timestamp);
+        const timeStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+        const hasWrongs = s.wrongDetails && s.wrongDetails.length > 0;
+
+        html += `
+          <div class="history-card">
+            <div class="history-summary" data-id="${s.id}">
+              <div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;">
+                <span class="history-time">${timeStr}</span>
+                <span class="history-game-badge">${escapeHtml(s.gameName || s.game)}</span>
+                <span class="badge-unit">${escapeHtml(s.unit)} · ${escapeHtml(s.unitName || '')}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap;">
+                <span class="history-score">⭐ ${s.score}分</span>
+                <div class="history-stats">
+                  <span style="color:var(--success);font-weight:600;">✅ ${s.correct}</span>
+                  <span style="color:var(--danger);font-weight:600;">❌ ${s.wrong}</span>
+                </div>
+                ${hasWrongs ? '<span class="history-toggle-icon" style="color:var(--text-light);font-size:0.75rem;">▼ 查看错题</span>' : '<span style="color:var(--success);font-size:0.75rem;">全对!</span>'}
+              </div>
+            </div>
+            ${hasWrongs ? `
+              <div class="history-details" id="details-${s.id}">
+                <div style="color:var(--text-light);margin-bottom:0.3rem;">本轮错题清单:</div>
+                <div class="history-wrong-tags">
+                  ${s.wrongDetails.map(w => `
+                    <span class="history-wrong-tag">
+                      <strong>${escapeHtml(w.en)}</strong> [${escapeHtml(w.zh || '')}]
+                      ${w.userInput ? `<small style="opacity:0.85;">(${escapeHtml(w.userInput)})</small>` : ''}
+                    </span>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      });
+      html += '</div>';
+      container.innerHTML = html;
+
+      // 绑定展开/折叠历史记录详情事件
+      container.querySelectorAll('.history-summary').forEach(row => {
+        row.addEventListener('click', () => {
+          const id = row.dataset.id;
+          const details = $(`details-${id}`);
+          if (details) {
+            details.classList.toggle('open');
+            const toggleIcon = row.querySelector('.history-toggle-icon');
+            if (toggleIcon) {
+              toggleIcon.textContent = details.classList.contains('open') ? '▲ 收起' : '▼ 查看错题';
+            }
+          }
+        });
+      });
+    }
+
+    // 筛选条件变化监听
+    ['stats-filter-unit', 'stats-filter-status', 'stats-sort'].forEach(id => {
+      $(id).addEventListener('change', renderMistakesList);
+    });
+
+    // 顶部按钮事件绑定
+    $('stats-btn-drill').addEventListener('click', () => startMistakeDrill());
+    $('stats-btn-export').addEventListener('click', () => StatsManager.exportJSON());
+    $('stats-btn-clear').addEventListener('click', () => {
+      if (confirm('⚠️ 确定要清空全部错题数据与测试历史吗？此操作无法撤销！')) {
+        StatsManager.clearAll();
+        renderStatsView();
+      }
+    });
+
+    function showReportCopied() {
+      const btn = $('stats-btn-report');
+      const orig = btn.textContent;
+      btn.textContent = '✅ 学情报告已复制到剪贴板！';
+      btn.style.background = 'var(--success)';
+      btn.style.color = '#fff';
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.background = '';
+        btn.style.color = '';
+      }, 2500);
+    }
+
+    $('stats-btn-report').addEventListener('click', () => {
+      const text = StatsManager.generateReportText();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(showReportCopied).catch(() => fallbackCopy(text));
+      } else {
+        fallbackCopy(text);
+      }
+    });
+
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        showReportCopied();
+      } catch (e) {
+        alert('无法复制到剪贴板，请手动查看');
+      }
+      document.body.removeChild(ta);
+    }
 
     // ==================== 启动 ====================
     // 默认 Bee 已就绪(等用户切到 tab)
