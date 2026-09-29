@@ -2415,6 +2415,14 @@
       if (noSpaceInput.length >= 3 && acceptedList.some(a => normalizeAnswer(a).replace(/\s+/g, '') === noSpaceInput)) {
         return true;
       }
+
+      // 3. 单复数智能容错（长度 >= 4 字符，如 salivary gland <=> salivary glands）
+      if (normInput.length >= 4 && acceptedList.some(a => {
+        const normA = normalizeAnswer(a);
+        return normInput + 's' === normA || normA + 's' === normInput;
+      })) {
+        return true;
+      }
       return false;
     }
 
