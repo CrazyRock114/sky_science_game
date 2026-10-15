@@ -993,21 +993,21 @@ def build_page():
                 <tbody>
                   <tr>
                     <td><strong>扩散 (Diffusion)</strong></td>
-                    <td>沿浓度梯度（高 $\to$ 低）</td>
+                    <td>沿浓度梯度（高 ➔ 低）</td>
                     <td><span class="badge-pill pill-green">否 (被动)</span></td>
                     <td>否（可在任何介质自由移动）</td>
                     <td>肺泡与毛细血管间 O2 / CO2 气体交换</td>
                   </tr>
                   <tr>
                     <td><strong>渗透 (Osmosis)</strong></td>
-                    <td>沿水势梯度（高水势 $\to$ 低水势）</td>
+                    <td>沿水势梯度（高水势 ➔ 低水势）</td>
                     <td><span class="badge-pill pill-green">否 (被动)</span></td>
                     <td><strong>必须穿过半透膜</strong></td>
                     <td>植物根毛吸水；红细胞吸水涨破 / 失水皱缩</td>
                   </tr>
                   <tr>
                     <td><strong>主动运输 (Active Transport)</strong></td>
-                    <td><strong>逆浓度梯度（低 $\to$ 高）</strong></td>
+                    <td><strong>逆浓度梯度（低 ➔ 高）</strong></td>
                     <td><span class="badge-pill pill-red">必须消耗 ATP</span></td>
                     <td><strong>必须依赖特异性载体蛋白</strong></td>
                     <td>肾小管 100% 重吸收葡萄糖；根毛吸收矿质离子</td>
@@ -1018,11 +1018,11 @@ def build_page():
               <div class="highlight-box">
                 <strong>⚠️ 官方高频陷阱：植物细胞与动物细胞在不同溶液中的表现区别</strong><br>
                 1. <strong>置于纯水/低渗溶液中</strong>：<br>
-                - 植物细胞：水渗入液泡，坚韧纤维素细胞壁抵抗膨胀产生膨压 $\to$ <strong>膨胀坚挺 (Turgid)</strong>，支持植物直立，<strong>绝不涨破</strong>！<br>
-                - 动物红细胞：没有细胞壁，吸水持续膨胀直至破裂 $\to$ <strong>涨破 (Lysis / Haemolysis)</strong>！<br>
+                - 植物细胞：水渗入液泡，坚韧纤维素细胞壁抵抗膨胀产生膨压 ➔ <strong>膨胀坚挺 (Turgid)</strong>，支持植物直立，<strong>绝不涨破</strong>！<br>
+                - 动物红细胞：没有细胞壁，吸水持续膨胀直至破裂 ➔ <strong>涨破 (Lysis / Haemolysis)</strong>！<br>
                 2. <strong>置于高浓度浓盐水中</strong>：<br>
-                - 植物细胞：渗透失水，液泡缩小，原生质层与细胞壁分离 $\to$ <strong>质壁分离 (Plasmolysed)</strong>！<br>
-                - 动物红细胞：渗透失水，细胞缩小起皱 $\to$ <strong>皱缩 (Crenated)</strong>，绝对不能用质壁分离描述动物细胞！
+                - 植物细胞：渗透失水，液泡缩小，原生质层与细胞壁分离 ➔ <strong>质壁分离 (Plasmolysed)</strong>！<br>
+                - 动物红细胞：渗透失水，细胞缩小起皱 ➔ <strong>皱缩 (Crenated)</strong>，绝对不能用质壁分离描述动物细胞！
               </div>
             </div>
           </div>
@@ -1061,7 +1061,7 @@ def build_page():
 
               <div class="highlight-box">
                 <strong>🔬 肾单位尿液生成两步法机制 (Nephron 2-Step Mechanism)</strong><br>
-                1. <strong>肾小球高压超微滤过 (Ultrafiltration)</strong>：入球小动脉粗、出球小动脉细 $\to$ 产生极高流体静水压 $\to$ 挤压小分子（水、葡萄糖、氨基酸、尿素、离子）穿透基底膜进入肾小囊形成原尿；红细胞和大分子血浆蛋白（白蛋白）因孔径过大留在血液中。<br>
+                1. <strong>肾小球高压超微滤过 (Ultrafiltration)</strong>：入球小动脉粗、出球小动脉细 ➔ 产生极高流体静水压 ➔ 挤压小分子（水、葡萄糖、氨基酸、尿素、离子）穿透基底膜进入肾小囊形成原尿；红细胞和大分子血浆蛋白（白蛋白）因孔径过大留在血液中。<br>
                 2. <strong>肾小管选择性重吸收 (Selective Reabsorption)</strong>：在近曲小管处，<strong>100% 的葡萄糖和氨基酸</strong>被载体蛋白逆浓度主动重吸收回血液！约 99% 的水分通过渗透作用重吸收；尿素留在管内高度浓缩形成终尿。<br>
                 3. <strong>透析机 (Dialysis Machine) 原理</strong>：血液与透析液<strong>逆流流动 (Counter-current)</strong> 维持最大浓度梯度；透析液配制正常浓度的葡萄糖与无机盐（防止有用物质丢失），但尿素浓度为零（确保尿素最大化扩散排出）。
               </div>
@@ -1078,8 +1078,8 @@ def build_page():
               <div class="highlight-box" style="border-left-color:var(--purple);">
                 <strong>🌟 稳态与负反馈闭环图 (Negative Feedback Closed Loop)</strong><br>
                 正常基准设定值：<strong>5.0 mmol/L</strong><br>
-                • <strong>餐后血糖升高</strong> $\to$ 胰腺 $\beta$ 细胞感知并分泌【<strong>胰岛素 (Insulin)</strong>】 $\to$ 促使肝脏和肌肉细胞摄取葡萄糖，并催化转化为不溶性【<strong>糖原 (Glycogen)</strong>】储存（葡萄糖 $\to$ 糖原） $\to$ 血糖回落正常设定值。<br>
-                • <strong>饥饿/运动血糖降低</strong> $\to$ 胰腺 $\alpha$ 细胞感知并分泌【<strong>胰高血糖素 (Glucagon)</strong>】 $\to$ 促使肝脏将储备的【<strong>糖原 (Glycogen)</strong>】分解为【<strong>葡萄糖 (Glucose)</strong>】释放入血（糖原 $\to$ 葡萄糖） $\to$ 血糖上升回归正常设定值。
+                • <strong>餐后血糖升高</strong> ➔ 胰腺 β 细胞感知并分泌【<strong>胰岛素 (Insulin)</strong>】 ➔ 促使肝脏和肌肉细胞摄取葡萄糖，并催化转化为不溶性【<strong>糖原 (Glycogen)</strong>】储存（葡萄糖 ➔ 糖原） ➔ 血糖回落正常设定值。<br>
+                • <strong>饥饿/运动血糖降低</strong> ➔ 胰腺 α 细胞感知并分泌【<strong>胰高血糖素 (Glucagon)</strong>】 ➔ 促使肝脏将储备的【<strong>糖原 (Glycogen)</strong>】分解为【<strong>葡萄糖 (Glucose)</strong>】释放入血（糖原 ➔ 葡萄糖） ➔ 血糖上升回归正常设定值。
               </div>
 
               <p style="font-weight:700; color:#fff; margin:1rem 0 0.5rem;">三大 G 字头核心术语辨析表（千万不可拼写混淆！）：</p>
@@ -1112,9 +1112,9 @@ def build_page():
 
               <div class="highlight-box" style="border-left-color:var(--danger);">
                 <strong>🩺 糖尿病临床病理对照：1 型 vs 2 型</strong><br>
-                - <strong>1 型糖尿病 (Type 1)</strong>：自身免疫系统破坏胰岛 $\beta$ 细胞 $\to$ 无法分泌胰岛素 $\to$ 必须每日皮下注射外源性胰岛素。<br>
-                - <strong>2 型糖尿病 (Type 2)</strong>：胰腺能产生胰岛素，但靶细胞膜受体不敏感发生【胰岛素抵抗】 $\to$ 与高糖饮食和肥胖紧密相关 $\to$ 通过健康低糖饮食、运动和口服药物改善受体敏感性。<br>
-                - <strong>糖尿与肾糖阈 (Renal Threshold)</strong>：当血糖超过 10~12 mmol/L 时，超出肾小管载体蛋白最大转运能力，原尿中葡萄糖无法全部重吸收，随尿排出（糖尿）。临床可用本尼迪特试剂水浴加热检测（蓝 $\to$ 砖红沉淀）。
+                - <strong>1 型糖尿病 (Type 1)</strong>：自身免疫系统破坏胰岛 β 细胞 ➔ 无法分泌胰岛素 ➔ 必须每日皮下注射外源性胰岛素。<br>
+                - <strong>2 型糖尿病 (Type 2)</strong>：胰腺能产生胰岛素，但靶细胞膜受体不敏感发生【胰岛素抵抗】 ➔ 与高糖饮食和肥胖紧密相关 ➔ 通过健康低糖饮食、运动和口服药物改善受体敏感性。<br>
+                - <strong>糖尿与肾糖阈 (Renal Threshold)</strong>：当血糖超过 10~12 mmol/L 时，超出肾小管载体蛋白最大转运能力，原尿中葡萄糖无法全部重吸收，随尿排出（糖尿）。临床可用本尼迪特试剂水浴加热检测（蓝 ➔ 砖红沉淀）。
               </div>
             </div>
           </div>
@@ -1137,7 +1137,7 @@ def build_page():
           <div class="stats-meter">
             <div class="timer-wrap">
               <span id="obj-timer-icon">⏱️</span>
-              <span id="obj-timer-sec">20s</span>
+              <span id="obj-timer-sec">60s</span>
             </div>
             <div>积分: <strong id="obj-score" style="color:var(--accent);">0</strong></div>
             <div>连击: <strong id="obj-streak" style="color:var(--success);">0</strong></div>
@@ -1496,7 +1496,7 @@ def build_page():
     let objIsAnswered = false;
     let objWrongIds = new Set();
     let objTimerInterval = null;
-    let objRemainingSec = 20;
+    let objRemainingSec = 60;
     let objStartTime = Date.now();
     let objTotalTime = 0;
 
@@ -1592,7 +1592,7 @@ def build_page():
 
     function startObjectiveTimer() {{
       if (objTimerInterval) clearInterval(objTimerInterval);
-      objRemainingSec = 20;
+      objRemainingSec = 60;
       updateObjectiveTimerUI();
 
       objTimerInterval = setInterval(() => {{
@@ -1659,7 +1659,7 @@ def build_page():
         fbTitle.textContent = `🎉 回答正确！(+${{100 + objRemainingSec * 5}} pts)`;
         fbTitle.style.color = 'var(--success)';
       }} else if (isTimeout) {{
-        fbTitle.textContent = `⏰ 20秒倒计时耗尽！正确答案是: ${{q.correct}}`;
+        fbTitle.textContent = `⏰ 60秒倒计时耗尽！正确答案是: ${{q.correct}}`;
         fbTitle.style.color = 'var(--danger)';
       }} else {{
         fbTitle.textContent = `❌ 回答错误！正确答案是: ${{q.correct}}`;
@@ -1921,10 +1921,13 @@ def build_page():
       const l3Pool = RUSH_QUESTIONS.filter(q => q.level === 3).sort(() => Math.random() - 0.5).slice(0, 5);
       mockSecAQuestions = [...l1Pool, ...l2Pool, ...l3Pool];
 
-      // Select 3 Theory questions: 1 Transport, 1 Kidneys, 1 Glucose
-      const tTransport = THEORY_QUESTIONS.filter(q => q.topic.includes('Movement') || q.topic.includes('Cell'))[0];
-      const tKidneys = THEORY_QUESTIONS.filter(q => q.topic.includes('Excretion') || q.topic.includes('Kidney'))[1]; // e.g. Nephron 5 marks
-      const tGlucose = THEORY_QUESTIONS.filter(q => q.topic.includes('Glucose'))[1]; // e.g. Glucose curve 5 marks
+      // Select 3 Theory questions: 1 Transport, 1 Kidneys, 1 Glucose (Randomized)
+      const poolTransport = THEORY_QUESTIONS.filter(q => q.topic.includes('Movement') || q.topic.includes('Cell'));
+      const poolKidneys = THEORY_QUESTIONS.filter(q => q.topic.includes('Excretion') || q.topic.includes('Kidney'));
+      const poolGlucose = THEORY_QUESTIONS.filter(q => q.topic.includes('Glucose') || q.topic.includes('Endocrine') || q.topic.includes('Nervous'));
+      const tTransport = poolTransport[Math.floor(Math.random() * poolTransport.length)];
+      const tKidneys = poolKidneys[Math.floor(Math.random() * poolKidneys.length)];
+      const tGlucose = poolGlucose[Math.floor(Math.random() * poolGlucose.length)];
       mockSecBQuestions = [tTransport, tKidneys, tGlucose].filter(Boolean);
 
       mockSecAAnswers = {{}};
@@ -2046,10 +2049,18 @@ def build_page():
         if (msBox) msBox.style.display = 'block';
       }});
 
+      // 滚动至 Section B 引导学生对照采分点打分
+      const evaluatedCount = Object.keys(mockSecBScores).length;
+      if (evaluatedCount < mockSecBQuestions.length) {{
+        alert('📝 请对照展开的官方标准采分点，为 Section B 的 3 道笔试题完成自评打分后再查看总成绩单！');
+        document.getElementById('mock-secB-container').scrollIntoView({{ behavior: 'smooth' }});
+        return;
+      }}
+
       // Calculate total Section B score
       let secBScore = 0;
       mockSecBQuestions.forEach(q => {{
-        secBScore += (mockSecBScores[q.id] || Math.floor(q.marks * 0.8)); // default estimate if not clicked
+        secBScore += (mockSecBScores[q.id] || 0);
       }});
 
       const totalScore = secAScore + secBScore;
@@ -2086,15 +2097,22 @@ def build_page():
         badgeElem.textContent = '💪 Needs Revision 尚未及格 (Below 60%)';
       }}
 
-      // Compute Radar
-      const t1Acc = Math.min(100, Math.round(pct * 0.95 + 5));
-      const t2Acc = Math.min(100, Math.round(pct * 0.9 + 4));
-      const t3Acc = Math.min(100, Math.round(pct * 1.02));
-      document.getElementById('mock-diag-t1-pct').textContent = `${{t1Acc}}%`;
+      // Compute Real Module Diagnosis Accuracy from Section A
+      let l1Correct = 0, l2Correct = 0, l3Correct = 0;
+      mockSecAQuestions.forEach(q => {{
+        const isCorr = (mockSecAAnswers[q.id] === q.correct);
+        if (q.level === 1 && isCorr) l1Correct++;
+        if (q.level === 2 && isCorr) l2Correct++;
+        if (q.level === 3 && isCorr) l3Correct++;
+      }});
+      const t1Acc = Math.round((l1Correct / 5) * 100);
+      const t2Acc = Math.round((l2Correct / 5) * 100);
+      const t3Acc = Math.round((l3Correct / 5) * 100);
+      document.getElementById('mock-diag-t1-pct').textContent = `${{t1Acc}}% (${{l1Correct}}/5)`;
       document.getElementById('mock-diag-t1-bar').style.width = `${{t1Acc}}%`;
-      document.getElementById('mock-diag-t2-pct').textContent = `${{t2Acc}}%`;
+      document.getElementById('mock-diag-t2-pct').textContent = `${{t2Acc}}% (${{l2Correct}}/5)`;
       document.getElementById('mock-diag-t2-bar').style.width = `${{t2Acc}}%`;
-      document.getElementById('mock-diag-t3-pct').textContent = `${{t3Acc}}%`;
+      document.getElementById('mock-diag-t3-pct').textContent = `${{t3Acc}}% (${{l3Correct}}/5)`;
       document.getElementById('mock-diag-t3-bar').style.width = `${{t3Acc}}%`;
     }}
 

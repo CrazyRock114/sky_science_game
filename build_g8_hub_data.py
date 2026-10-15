@@ -121,8 +121,8 @@ OBJECTIVE_QUESTIONS = [
             {"letter": "D", "text_en": "Red blood cells remain completely unchanged due to their rigid cell walls.", "text_cn": "红细胞因具有刚性细胞壁而保持体积完全不变。"}
         ],
         "correct": "B",
-        "concept_en": "Animal cells lack a cell wall. Hypertonic solution $\\to$ water leaves $\\to$ crenated (shrivelled). Hypotonic / pure water $\\to$ water enters $\\to$ swells and bursts (haemolysis).",
-        "concept_cn": "动物细胞没有细胞壁。高渗失水 $\\to$ 皱缩（Crenated）；低渗吸水 $\\to$ 涨破（Lysis）。",
+        "concept_en": "Animal cells lack a cell wall. Hypertonic solution $\➔$ water leaves $\➔$ crenated (shrivelled). Hypotonic / pure water $\➔$ water enters $\➔$ swells and bursts (haemolysis).",
+        "concept_cn": "动物细胞没有细胞壁。高渗失水 $\➔$ 皱缩（Crenated）；低渗吸水 $\➔$ 涨破（Lysis）。",
         "trap_en": "Red blood cells NEVER undergo plasmolysis because they have no cell wall! Plasmolysis is strictly for plant cells.",
         "trap_cn": "动物红细胞绝对没有细胞壁，因此绝对不能用“质壁分离”来描述动物细胞！",
         "citation": "《G8 Science》Chapter 3.05 Osmosis in Animal Cells (pp. 34-35)"
@@ -309,7 +309,7 @@ OBJECTIVE_QUESTIONS = [
             {"letter": "D", "text_en": "Dense chloroplasts to carry out photosynthesis underground.", "text_cn": "含有大量叶绿体以便在地下进行光合作用。"}
         ],
         "correct": "A",
-        "concept_en": "Root hair cells feature: 1) Elongated extension $\\to$ high SA:V for osmosis; 2) Abundant mitochondria $\\to$ ATP for active transport of nitrates/minerals from low soil concentrations.",
+        "concept_en": "Root hair cells feature: 1) Elongated extension $\➔$ high SA:V for osmosis; 2) Abundant mitochondria $\➔$ ATP for active transport of nitrates/minerals from low soil concentrations.",
         "concept_cn": "根毛细胞的两大经典考纲结构特征：1) 细长突起极大增加表面积提高渗透效率；2) 大量线粒体供能保障主动吸收低浓度土壤无机盐。",
         "trap_en": "Root cells NEVER have chloroplasts because they live underground in darkness with no light for photosynthesis.",
         "trap_cn": "根毛细胞绝对没有叶绿体（在地下黑暗环境中生长，无法光合作用）。",
@@ -343,14 +343,14 @@ OBJECTIVE_QUESTIONS = [
         "prompt_en": "Which sequence correctly traces the flow of urine from its site of formation to its exit from the body?",
         "prompt_cn": "下列哪一项正确追踪了尿液从生成部位到排出体外的生理通路？",
         "options": [
-            {"letter": "A", "text_en": "Kidney $\\to$ Urethra $\\to$ Bladder $\\to$ Ureter.", "text_cn": "肾脏 $\\to$ 尿道 $\\to$ 膀胱 $\\to$ 输尿管。"},
-            {"letter": "B", "text_en": "Kidney $\\to$ Ureter $\\to$ Bladder $\\to$ Urethra.", "text_cn": "肾脏 $\\to$ 输尿管（Ureter） $\\to$ 膀胱（Bladder） $\\to$ 尿道（Urethra）。"},
-            {"letter": "C", "text_en": "Renal vein $\\to$ Ureter $\\to$ Bladder $\\to$ Renal artery.", "text_cn": "肾静脉 $\\to$ 输尿管 $\\to$ 膀胱 $\\to$ 肾动脉。"},
-            {"letter": "D", "text_en": "Bladder $\\to$ Kidney $\\to$ Ureter $\\to$ Urethra.", "text_cn": "膀胱 $\\to$ 肾脏 $\\to$ 输尿管 $\\to$ 尿道。"}
+            {"letter": "A", "text_en": "Kidney $\➔$ Urethra $\➔$ Bladder $\➔$ Ureter.", "text_cn": "肾脏 $\➔$ 尿道 $\➔$ 膀胱 $\➔$ 输尿管。"},
+            {"letter": "B", "text_en": "Kidney $\➔$ Ureter $\➔$ Bladder $\➔$ Urethra.", "text_cn": "肾脏 $\➔$ 输尿管（Ureter） $\➔$ 膀胱（Bladder） $\➔$ 尿道（Urethra）。"},
+            {"letter": "C", "text_en": "Renal vein $\➔$ Ureter $\➔$ Bladder $\➔$ Renal artery.", "text_cn": "肾静脉 $\➔$ 输尿管 $\➔$ 膀胱 $\➔$ 肾动脉。"},
+            {"letter": "D", "text_en": "Bladder $\➔$ Kidney $\➔$ Ureter $\➔$ Urethra.", "text_cn": "膀胱 $\➔$ 肾脏 $\➔$ 输尿管 $\➔$ 尿道。"}
         ],
         "correct": "B",
-        "concept_en": "Urine is formed in the kidney nephrons $\\to$ passes down the URETER (one from each kidney) $\\to$ stored in the muscular BLADDER $\\to$ discharged via the single URETHRA during micturition.",
-        "concept_cn": "肾单位形成的尿液流入肾盂 $\\to$ 经两侧的输尿管（Ureter）流入膀胱（Bladder）暂存 $\\to$ 排尿时经单根尿道（Urethra）排出体外。",
+        "concept_en": "Urine is formed in the kidney nephrons $\➔$ passes down the URETER (one from each kidney) $\➔$ stored in the muscular BLADDER $\➔$ discharged via the single URETHRA during micturition.",
+        "concept_cn": "肾单位形成的尿液流入肾盂 $\➔$ 经两侧的输尿管（Ureter）流入膀胱（Bladder）暂存 $\➔$ 排尿时经单根尿道（Urethra）排出体外。",
         "trap_en": "Ureter has 2 tubes (from each kidney) and comes FIRST alphabetically before Urethra (single exit tube).",
         "trap_cn": "记忆技巧：Ureter（输尿管）有两个在上方；Urethra（尿道）只有一根在最下方，千万不可倒置！",
         "citation": "《G8 Science》Chapter 13.02 The Urinary System (pp. 142-143)"
@@ -653,8 +653,8 @@ OBJECTIVE_QUESTIONS = [
             {"letter": "D", "text_en": "It stimulates body cells to burn out all metabolic fuel immediately.", "text_cn": "刺激体细胞立即耗尽所有代谢燃料。"}
         ],
         "correct": "B",
-        "concept_en": "Negative feedback is an error-correcting control loop: Stimulus $\\to$ Receptor $\\to$ Control Centre $\\to$ Effector $\\to$ Corrective Action in OPPOSITE direction $\\to$ Return to Set Point.",
-        "concept_cn": "负反馈是闭环自我纠错机制：刺激 $\\to$ 感受器 $\\to$ 中枢 $\\to$ 效应器 $\\to$ 相反方向纠正动作 $\\to$ 回归设定基准值。",
+        "concept_en": "Negative feedback is an error-correcting control loop: Stimulus $\➔$ Receptor $\➔$ Control Centre $\➔$ Effector $\➔$ Corrective Action in OPPOSITE direction $\➔$ Return to Set Point.",
+        "concept_cn": "负反馈是闭环自我纠错机制：刺激 $\➔$ 感受器 $\➔$ 中枢 $\➔$ 效应器 $\➔$ 相反方向纠正动作 $\➔$ 回归设定基准值。",
         "trap_en": "'Negative' means reversing/negating the change, NOT that the process is harmful!",
         "trap_cn": "“负”反馈的含义是逆转抵消偏离方向（恢复原状），绝不是指该机制对身体有害！",
         "citation": "《G8 Science》Chapter 4: B9.08 Negative Feedback (pp. 59-60)"
@@ -666,14 +666,14 @@ OBJECTIVE_QUESTIONS = [
         "prompt_en": "After eating a bowl of pasta, blood glucose rises above the 5.0 mmol/L set point. Which sequence restores normal blood glucose levels?",
         "prompt_cn": "进食一碗意面后，血糖升至正常设定值（5.0 mmol/L）之上。下列哪一生理调节通路能使血糖恢复正常？",
         "options": [
-            {"letter": "A", "text_en": "Liver secretes glucagon $\\to$ pancreas converts glycogen into glucose.", "text_cn": "肝脏分泌胰高血糖素 $\\to$ 胰腺将糖原分解为葡萄糖。"},
-            {"letter": "B", "text_en": "Pancreas detects high glucose and secretes INSULIN $\\to$ stimulates liver and muscle cells to absorb glucose and convert it into insoluble GLYCOGEN.", "text_cn": "胰腺感应到高血糖并分泌**胰岛素（Insulin）** $\\to$ 促使肝脏和肌肉细胞加速摄取葡萄糖，并将其聚合为不溶性**糖原（Glycogen）**储存。"},
+            {"letter": "A", "text_en": "Liver secretes glucagon $\➔$ pancreas converts glycogen into glucose.", "text_cn": "肝脏分泌胰高血糖素 $\➔$ 胰腺将糖原分解为葡萄糖。"},
+            {"letter": "B", "text_en": "Pancreas detects high glucose and secretes INSULIN $\➔$ stimulates liver and muscle cells to absorb glucose and convert it into insoluble GLYCOGEN.", "text_cn": "胰腺感应到高血糖并分泌**胰岛素（Insulin）** $\➔$ 促使肝脏和肌肉细胞加速摄取葡萄糖，并将其聚合为不溶性**糖原（Glycogen）**储存。"},
             {"letter": "C", "text_en": "Kidneys filter all glucose directly into urine to reduce blood volume.", "text_cn": "肾脏将全部葡萄糖直接排入尿液以减少血容量。"},
             {"letter": "D", "text_en": "Pancreas secretes insulin to break down glycogen into glucose.", "text_cn": "胰腺分泌胰岛素将体内的糖原分解为葡萄糖。"}
         ],
         "correct": "B",
-        "concept_en": "High glucose $\\to$ Pancreatic $\\beta$-cells secrete INSULIN $\\to$ Liver & Muscle cells take up glucose and convert it into GLYCOGEN (glycogenesis) $\\to$ Blood glucose falls to normal set point.",
-        "concept_cn": "高血糖刺激胰岛分泌胰岛素 $\\to$ 作用于靶器官肝脏与肌肉 $\\to$ 促进摄取葡萄糖并合成糖原储存（葡萄糖 $\\to$ 糖原） $\\to$ 血糖回落正常。",
+        "concept_en": "High glucose $\➔$ Pancreatic $\β$-cells secrete INSULIN $\➔$ Liver & Muscle cells take up glucose and convert it into GLYCOGEN (glycogenesis) $\➔$ Blood glucose falls to normal set point.",
+        "concept_cn": "高血糖刺激胰岛分泌胰岛素 $\➔$ 作用于靶器官肝脏与肌肉 $\➔$ 促进摄取葡萄糖并合成糖原储存（葡萄糖 $\➔$ 糖原） $\➔$ 血糖回落正常。",
         "trap_en": "Pancreas is the gland that secretes the hormone; Liver is the target organ that stores glycogen. Insulin converts Glucose INTO Glycogen, never the reverse!",
         "trap_cn": "胰腺是分泌器官；肝脏是靶器官。胰岛素的作用是将可溶葡萄糖合成转化为糖原储存，绝非分解糖原。",
         "citation": "《G8 Science》Chapter 14.02 High Blood Glucose & Insulin (pp. 156-157)"
@@ -686,13 +686,13 @@ OBJECTIVE_QUESTIONS = [
         "prompt_cn": "在 10 公里长跑中，血液中葡萄糖浓度跌落至基准值以下。机体如何应对以防发生低血糖昏迷？",
         "options": [
             {"letter": "A", "text_en": "Pancreas secretes insulin to convert glucose into fat.", "text_cn": "胰腺分泌胰岛素将葡萄糖转化为脂肪。"},
-            {"letter": "B", "text_en": "Pancreas detects low glucose and secretes GLUCAGON $\\to$ stimulates liver cells to break down stored GLYCOGEN into GLUCOSE and release it into the bloodstream.", "text_cn": "胰腺感应到低血糖并分泌**胰高血糖素（Glucagon）** $\\to$ 促使肝细胞将储备的**糖原（Glycogen）**分解为**葡萄糖（Glucose）**释放入血。"},
+            {"letter": "B", "text_en": "Pancreas detects low glucose and secretes GLUCAGON $\➔$ stimulates liver cells to break down stored GLYCOGEN into GLUCOSE and release it into the bloodstream.", "text_cn": "胰腺感应到低血糖并分泌**胰高血糖素（Glucagon）** $\➔$ 促使肝细胞将储备的**糖原（Glycogen）**分解为**葡萄糖（Glucose）**释放入血。"},
             {"letter": "C", "text_en": "Stomach releases digestive amylase directly into circulatory vessels.", "text_cn": "胃向血液循环管路中直接分泌消化性淀粉酶。"},
             {"letter": "D", "text_en": "Red blood cells release their stored hemoglobin as an alternative carbohydrate.", "text_cn": "红细胞释放其储备的血红蛋白作为替代碳水化合物。"}
         ],
         "correct": "B",
-        "concept_en": "Low glucose $\\to$ Pancreatic $\\alpha$-cells secrete GLUCAGON $\\to$ Liver cells break down stored glycogen into glucose (glycogenolysis) $\\to$ Glucose diffuses into blood $\\to$ Blood glucose rises to set point.",
-        "concept_cn": "低血糖刺激胰岛分泌胰高血糖素 $\\to$ 作用于肝脏靶细胞 $\\to$ 催化肝糖原分解为葡萄糖并释放入血（糖原 $\\to$ 葡萄糖） $\\to$ 血糖上升回归平衡。",
+        "concept_en": "Low glucose $\➔$ Pancreatic $\α$-cells secrete GLUCAGON $\➔$ Liver cells break down stored glycogen into glucose (glycogenolysis) $\➔$ Glucose diffuses into blood $\➔$ Blood glucose rises to set point.",
+        "concept_cn": "低血糖刺激胰岛分泌胰高血糖素 $\➔$ 作用于肝脏靶细胞 $\➔$ 催化肝糖原分解为葡萄糖并释放入血（糖原 $\➔$ 葡萄糖） $\➔$ 血糖上升回归平衡。",
         "trap_en": "Mnemonic: 'When glucose is GONE, release GLUCAGON!'. Glucagon is the hormone; Glycogen is the stored carbohydrate in the liver.",
         "trap_cn": "英语速记谐音：“Glucose is gone, so release Glucagon!”。胰高血糖素促进糖原分解释放葡萄糖。",
         "citation": "《G8 Science》Chapter 14.03 Low Blood Glucose & Glucagon (pp. 158-159)"
@@ -729,8 +729,8 @@ OBJECTIVE_QUESTIONS = [
             {"letter": "D", "text_en": "Type 1 never requires insulin injections, whereas Type 2 always requires bone marrow surgery.", "text_cn": "1 型从不需要注射胰岛素，而 2 型必须进行骨髓手术。"}
         ],
         "correct": "B",
-        "concept_en": "Type 1 Diabetes: Autoimmune destruction of pancreatic $\\beta$-cells $\\to$ zero insulin $\\to$ daily insulin injections. Type 2 Diabetes: Target cells insulin resistant, linked to obesity $\\to$ diet, exercise, and oral drugs.",
-        "concept_cn": "1型糖尿病：自身免疫破坏胰岛 $\\beta$ 细胞，无法合成胰岛素，必须每日注射胰岛素。2型糖尿病：靶细胞受体产生胰岛素抵抗，通过控糖运动与口服药治疗。",
+        "concept_en": "Type 1 Diabetes: Autoimmune destruction of pancreatic $\β$-cells $\➔$ zero insulin $\➔$ daily insulin injections. Type 2 Diabetes: Target cells insulin resistant, linked to obesity $\➔$ diet, exercise, and oral drugs.",
+        "concept_cn": "1型糖尿病：自身免疫破坏胰岛 $\β$ 细胞，无法合成胰岛素，必须每日注射胰岛素。2型糖尿病：靶细胞受体产生胰岛素抵抗，通过控糖运动与口服药治疗。",
         "trap_en": "Injecting insulin into a typical Type 2 diabetic does not directly solve the root cause, which is receptor resistance, not hormone absence.",
         "trap_cn": "2型糖尿病的主要矛盾不是缺乏胰岛素，而是细胞“听不见”胰岛素信号（胰岛素受体抵抗）。",
         "citation": "《G8 Science》Chapter 14.05 Diabetes Mellitus (pp. 161-163)"
@@ -751,7 +751,7 @@ OBJECTIVE_QUESTIONS = [
         "concept_en": "In diabetics, blood glucose exceeds the renal threshold (~10-12 mmol/L). Glomerulus filters vast amounts of glucose. Carrier proteins in the proximal tubule become saturated (Vmax reached), and excess unabsorbed glucose is excreted in urine.",
         "concept_cn": "高血糖导致超滤出的葡萄糖总量大幅超过近曲小管载体蛋白的主动转运极限（肾糖阈）。载体饱和后，多余无法被重吸收的葡萄糖滞留于原尿中最终排出（糖尿）。",
         "trap_en": "The kidney tubules are NOT damaged here! They are simply overwhelmed because the glucose concentration is abnormally excessive.",
-        "trap_cn": "并非肾脏本身受损，而是进入肾单位的原尿葡萄糖泛滥，超过了载体蛋白的生理负荷上限。可用本尼迪特试剂检测（蓝 $\\to$ 砖红沉淀）。",
+        "trap_cn": "并非肾脏本身受损，而是进入肾单位的原尿葡萄糖泛滥，超过了载体蛋白的生理负荷上限。可用本尼迪特试剂检测（蓝 $\➔$ 砖红沉淀）。",
         "citation": "《G8 Science》Chapter 14.06 Clinical Diabetes & Kidneys (pp. 164-165)"
     },
     {
@@ -824,7 +824,7 @@ OBJECTIVE_QUESTIONS = [
             {"letter": "D", "text_en": "Nervous effects last for several months.", "text_cn": "神经冲动的生理效应可持续数月之久。"}
         ],
         "correct": "A",
-        "concept_en": "Nervous system: electrical impulses along neurons $\\to$ ultra-fast $\\to$ localized and short-lived. Endocrine system: chemical hormones in blood $\\to$ slower transit $\\to$ widespread and sustained.",
+        "concept_en": "Nervous system: electrical impulses along neurons $\➔$ ultra-fast $\➔$ localized and short-lived. Endocrine system: chemical hormones in blood $\➔$ slower transit $\➔$ widespread and sustained.",
         "concept_cn": "神经系统以神经电冲动沿轴突传导，毫秒级生效，冲动停止即终止；内分泌系统以激素随血液运输，起效较慢但调控持久广泛。",
         "trap_en": "Classic 4-mark Cambridge exam question! Remember: Speed (Fast vs Slower) and Duration (Short vs Long-lasting).",
         "trap_cn": "经典 4 分大题考点：从【反应速度】（快 vs 慢）和【持续时间】（短暂 vs 持久）两个维度精准对比！",
@@ -862,8 +862,8 @@ OBJECTIVE_QUESTIONS = [
             {"letter": "D", "text_en": "Mix with ethanol and water; forms cloudy white emulsion.", "text_cn": "加入乙醇和水；形成浑浊的白色乳浊液。"}
         ],
         "correct": "A",
-        "concept_en": "Benedict's test detects reducing sugars (glucose). MUST be heated (>80°C in a water bath). Colour progression indicates semi-quantitative concentration: Blue (none) $\\to$ Green $\\to$ Yellow $\\to$ Orange $\\to$ Brick-red (high glucose).",
-        "concept_cn": "本尼迪特试剂检测还原糖（葡萄糖），【必须水浴加热】。颜色渐变反映浓度：蓝色（无糖）$\\to$ 绿色 $\\to$ 黄色 $\\to$ 橙色 $\\to$ 砖红色沉淀（高糖）。",
+        "concept_en": "Benedict's test detects reducing sugars (glucose). MUST be heated (>80°C in a water bath). Colour progression indicates semi-quantitative concentration: Blue (none) $\➔$ Green $\➔$ Yellow $\➔$ Orange $\➔$ Brick-red (high glucose).",
+        "concept_cn": "本尼迪特试剂检测还原糖（葡萄糖），【必须水浴加热】。颜色渐变反映浓度：蓝色（无糖）$\➔$ 绿色 $\➔$ 黄色 $\➔$ 橙色 $\➔$ 砖红色沉淀（高糖）。",
         "trap_en": "Iodine is for starch; Biuret is for protein; Ethanol is for lipids; ONLY Benedict's is for glucose!",
         "trap_cn": "三大生物化学试剂易混点：碘液验淀粉（蓝黑）；双缩脲验蛋白质（紫）；乙醇乳化验脂质；唯有本尼迪特验葡萄糖（需加热成砖红）！",
         "citation": "《G8 Science》Chapter 1: Food Tests (pp. 8-10)"
@@ -917,8 +917,8 @@ OBJECTIVE_QUESTIONS = [
             {"letter": "D", "text_en": "Tracheal cartilage rings (气管软骨环)", "text_cn": "Tracheal cartilage rings (气管软骨环)"}
         ],
         "correct": "A",
-        "concept_en": "The Islets of Langerhans (endocrine micro-organs embedded within pancreatic acinar tissue) contain $\\beta$-cells (secrete insulin) and $\\alpha$-cells (secrete glucagon).",
-        "concept_cn": "胰腺内的【胰岛 (Islets of Langerhans)】是内分泌微结构，其中的 $\\beta$ 细胞分泌胰岛素，$\\alpha$ 细胞分泌胰高血糖素。",
+        "concept_en": "The Islets of Langerhans (endocrine micro-organs embedded within pancreatic acinar tissue) contain $\β$-cells (secrete insulin) and $\α$-cells (secrete glucagon).",
+        "concept_cn": "胰腺内的【胰岛 (Islets of Langerhans)】是内分泌微结构，其中的 $\β$ 细胞分泌胰岛素，$\α$ 细胞分泌胰高血糖素。",
         "trap_en": "Most of the pancreas (~98%) makes digestive juice; only ~2% consists of the endocrine Islets of Langerhans.",
         "trap_cn": "胰腺 98% 的体积为外分泌消化腺组织；只有散布在其中的 2% 是专职调控血糖的内分泌胰岛细胞群。",
         "citation": "《G8 Science》Chapter 4: B9.08 Pancreatic Islets (p. 59)"
@@ -1080,7 +1080,7 @@ WRITTEN_THEORY_QUESTIONS = [
         "mark_scheme": [
             {"point": 1, "text_en": "Trend - Rise: In the first 30–60 minutes after eating, blood glucose concentration rises sharply above the normal fasting baseline (~5.0 mmol/L) as carbohydrates are digested into glucose and absorbed into the bloodstream. [1]", "text_cn": "走势 - 上升：进餐后前 30 至 60 分钟内，随着食物中的碳水化合物被消化成葡萄糖并吸收进入血液，血糖浓度急剧攀升脱离正常基准值（~5.0 mmol/L）。[1分]"},
             {"point": 2, "text_en": "Trend - Peak & Fall: Blood glucose reaches a peak (at ~1 hour) and then steadily decreases over the next 1–2 hours back towards the fasting set point. [1]", "text_cn": "走势 - 达峰与回落：血糖浓度在 1 小时左右达到峰值，随后在接下来的 1 至 2 小时内平稳持续回落，回归空腹正常设定线。[1分]"},
-            {"point": 3, "text_en": "Insulin Detection: The rise in blood glucose is detected by the beta cells of the pancreas, which respond by secreting the hormone insulin into the bloodstream. [1]", "text_cn": "胰岛素分泌：血糖升高被胰腺 $\\beta$ 细胞敏锐感知，随即加速向血液中分泌释放激素【胰岛素 (Insulin)】。[1分]"},
+            {"point": 3, "text_en": "Insulin Detection: The rise in blood glucose is detected by the beta cells of the pancreas, which respond by secreting the hormone insulin into the bloodstream. [1]", "text_cn": "胰岛素分泌：血糖升高被胰腺 $\β$ 细胞敏锐感知，随即加速向血液中分泌释放激素【胰岛素 (Insulin)】。[1分]"},
             {"point": 4, "text_en": "Cellular Uptake: Insulin stimulates body cells (muscle and adipose) to increase glucose uptake from blood to use in cellular respiration. [1]", "text_cn": "细胞摄取：胰岛素刺激全身外周肌细胞和脂肪细胞加速从血液中摄取葡萄糖，用于细胞呼吸氧化供能。[1分]"},
             {"point": 5, "text_en": "Glycogenesis in Liver: Insulin stimulates liver and skeletal muscle cells to convert soluble glucose into the insoluble storage carbohydrate glycogen (glycogenesis), clearing excess glucose and restoring homeostasis. [1]", "text_cn": "肝糖原合成：胰岛素促使肝脏和骨骼肌将可溶性葡萄糖催化合成为不溶性【糖原 (Glycogen)】储存起来，清除血液过多游离糖，恢复内环境稳态。[1分]"}
         ],
@@ -1118,7 +1118,7 @@ WRITTEN_THEORY_QUESTIONS = [
         "prompt_cn": "详细解释胰岛素调节血糖的负反馈调节回路。具体阐明它向肝脏下达了哪三项具体的生化代谢生理指令？[4分]",
         "keywords": ["negative feedback loop", "insulin from beta cells", "command 1 increase glucose uptake", "command 2 convert glucose to glycogen", "command 3 increase respiration", "blood glucose falls to set point"],
         "mark_scheme": [
-            {"point": 1, "text_en": "Negative Feedback Loop: After a meal, high blood glucose is detected by pancreatic beta cells, which secrete insulin. As glucose is cleared, blood sugar falls to 5.0 mmol/L set point, turning off high insulin secretion. [1]", "text_cn": "负反馈闭环：餐后高血糖被胰腺 $\\beta$ 细胞感知并释放胰岛素；随着游离糖被转移储存，血糖回落至 5.0 mmol/L 设定线，反馈抑制并关闭高胰岛素分泌。[1分]"},
+            {"point": 1, "text_en": "Negative Feedback Loop: After a meal, high blood glucose is detected by pancreatic beta cells, which secrete insulin. As glucose is cleared, blood sugar falls to 5.0 mmol/L set point, turning off high insulin secretion. [1]", "text_cn": "负反馈闭环：餐后高血糖被胰腺 $\β$ 细胞感知并释放胰岛素；随着游离糖被转移储存，血糖回落至 5.0 mmol/L 设定线，反馈抑制并关闭高胰岛素分泌。[1分]"},
             {"point": 2, "text_en": "Liver Command 1 - Glucose Uptake: Stimulates liver cells to increase the permeability of their cell membranes to absorb glucose from the blood at an accelerated rate. [1]", "text_cn": "对肝脏指令 1 - 加速摄取：指令肝细胞膜载体开放，成倍加速从血液中摄取转运游离葡萄糖进入细胞。[1分]"},
             {"point": 3, "text_en": "Liver Command 2 - Glycogenesis: Activates glycogen synthase enzymes to convert soluble glucose into the insoluble storage polymer glycogen (glycogenesis). [1]", "text_cn": "对肝脏指令 2 - 糖原合成：激活糖原合成酶，将可溶性葡萄糖脱水缩合为不溶性大分子糖原 (Glycogen) 储存。[1分]"},
             {"point": 4, "text_en": "Liver Command 3 - Respiration Rate: Stimulates the liver cells to increase the rate of glucose breakdown in cellular respiration for metabolic energy. [1]", "text_cn": "对肝脏指令 3 - 氧化分解：促进肝细胞线粒体加速葡萄糖的氧化分解呼吸反应，消耗多余糖分。[1分]"}
