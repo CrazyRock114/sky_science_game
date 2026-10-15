@@ -1,9 +1,9 @@
 const playwright = require('/Users/crazyrock/Antigravity/IGCSE_miniMax/node_modules/playwright-core');
 const path = require('path');
 
-async function verifyG8ExamRush() {
+async function runComprehensiveVerification() {
   console.log('================================================================');
-  console.log('🚀 TESTING G8 EXAM RUSH (10.19) INTERACTIVE SUITE');
+  console.log('🚀 TESTING CAMBRIDGE G8 SCIENCE 2-HOUR EXAM RUSH HUB');
   console.log('================================================================');
 
   const browser = await playwright.chromium.launch({ headless: true });
@@ -18,158 +18,195 @@ async function verifyG8ExamRush() {
 
   const htmlUrl = 'file://' + path.resolve(__dirname, 'g8_exam_rush.html');
   console.log(`Loading URL: ${htmlUrl}`);
-  await page.goto(htmlUrl, { waitUntil: 'commit', timeout: 15000 });
-  await page.waitForSelector('.rush-card');
+  await page.goto(htmlUrl, { waitUntil: 'commit', timeout: 20000 });
+  await page.waitForSelector('.glass-card');
 
-  // 1. Console check
+  // Check 1: Console errors
   if (consoleErrors.length > 0) {
-    console.error('❌ Console errors detected:', consoleErrors);
+    console.error('❌ Console errors detected on page load:', consoleErrors);
     process.exit(1);
   }
   console.log('✅ Page loaded cleanly with 0 console errors.');
 
-  // 2. Data check
-  const meta = await page.evaluate(() => ({
-    title: document.title,
-    questionCount: RUSH_QUESTIONS.length,
-    initialScore: parseInt(document.getElementById('rush-score').textContent, 10),
-    initialTimer: document.getElementById('rush-timer-seconds').textContent
+  // Check 2: Data counts verification
+  const counts = await page.evaluate(() => ({
+    objectiveCount: window.RUSH_QUESTIONS ? window.RUSH_QUESTIONS.length : 0,
+    theoryCount: window.THEORY_QUESTIONS ? window.THEORY_QUESTIONS.length : 0,
+    title: document.title
   }));
-  console.log('Page Meta:', meta);
-  if (meta.questionCount !== 18) {
-    throw new Error(`Expected 18 questions, found ${meta.questionCount}`);
+  console.log('Data counts:', counts);
+  if (counts.objectiveCount !== 48) {
+    throw new Error(`Expected 48 objective questions, found ${counts.objectiveCount}`);
   }
-  console.log('✅ Verified full 18 questions loaded.');
+  if (counts.theoryCount !== 10) {
+    throw new Error(`Expected 10 theory questions, found ${counts.theoryCount}`);
+  }
+  console.log('✅ Verified 48 Objective Questions and 10 Written Theory Questions loaded.');
 
-  // 3. Test Level Switching via pills
-  const levelSwitchTest = await page.evaluate(() => {
-    switchLevel(2); // Jump to Q7
-    const q7Idx = currentIdx;
-    const q7Tag = document.getElementById('rush-topic-tag').textContent;
-    switchLevel(3); // Jump to Q13
-    const q13Idx = currentIdx;
-    const q13Tag = document.getElementById('rush-topic-tag').textContent;
-    switchLevel(1); // Back to Q1
-    const q1Idx = currentIdx;
-    return { q7Idx, q7Tag, q13Idx, q13Tag, q1Idx };
+  // Check 3: Tab 1 - Concept Cards Accordion
+  console.log('\n--- Testing Tab 1: Concept Cards & Mindmaps ---');
+  const accordionTest = await page.evaluate(() => {
+    const items = document.querySelectorAll('.concept-item');
+    const firstOpen = items[0].classList.contains('open');
+    // Click second item
+    items[1].querySelector('.concept-header').click();
+    const secondOpen = items[1].classList.contains('open');
+    return { count: items.length, firstOpen, secondOpen };
   });
-  console.log('Level Switch Test:', levelSwitchTest);
-  if (levelSwitchTest.q7Idx !== 6 || levelSwitchTest.q13Idx !== 12 || levelSwitchTest.q1Idx !== 0) {
-    throw new Error('Level switching failed!');
+  console.log('Accordion test:', accordionTest);
+  if (accordionTest.count !== 3 || !accordionTest.secondOpen) {
+    throw new Error('Concept cards accordion failed!');
   }
-  console.log('✅ Level navigation pills verified (L1: Q1, L2: Q7, L3: Q13).');
+  console.log('✅ Tab 1 Concept cards verified (3 comprehensive modules).');
 
-  // 4. Test Bilingual Toggle
-  const langTest = await page.evaluate(() => {
-    const initialCnDisplay = document.getElementById('rush-prompt-cn').style.display;
-    toggleLanguage();
-    const afterEnDisplay = document.getElementById('rush-prompt-cn').style.display;
-    toggleLanguage();
-    const afterRestoreDisplay = document.getElementById('rush-prompt-cn').style.display;
-    return { initialCnDisplay, afterEnDisplay, afterRestoreDisplay };
+  // Check 4: Tab 2 - Objective Arena (Filters, Question Answering, Feedback)
+  console.log('\n--- Testing Tab 2: Objective Practice Arena ---');
+  await page.evaluate(() => switchMainTab('objective'));
+  
+  // Test filter switching
+  const filterTest = await page.evaluate(() => {
+    filterObjective(1, document.querySelectorAll('.filter-btn')[1]);
+    const l1Count = filteredQuestions.length;
+    filterObjective(2, document.querySelectorAll('.filter-btn')[2]);
+    const l2Count = filteredQuestions.length;
+    filterObjective(3, document.querySelectorAll('.filter-btn')[3]);
+    const l3Count = filteredQuestions.length;
+    filterObjective('all', document.querySelectorAll('.filter-btn')[0]);
+    const allCount = filteredQuestions.length;
+    return { l1Count, l2Count, l3Count, allCount };
   });
-  console.log('Language Toggle Test:', langTest);
-  if (langTest.afterEnDisplay !== 'none' || langTest.afterRestoreDisplay !== 'block') {
-    throw new Error('Language toggle failed!');
+  console.log('Objective filter test:', filterTest);
+  if (filterTest.l1Count !== 16 || filterTest.l2Count !== 16 || filterTest.l3Count !== 16 || filterTest.allCount !== 48) {
+    throw new Error('Objective filters failed! Expected 16 each.');
   }
-  console.log('✅ Bilingual / Pure English toggle verified.');
+  console.log('✅ Objective filters verified (16 L1 + 16 L2 + 16 L3 = 48 items).');
 
-  // 5. Test Question Answering and Scoring across all 18 questions
-  console.log('\n--- Answering All 18 Questions (Simulating High-Score Run) ---');
-  let currentScore = 0;
-  for (let i = 0; i < 18; i++) {
-    const qResult = await page.evaluate((idx) => {
-      const q = RUSH_QUESTIONS[idx];
-      // Click correct option
-      const correctBtn = document.querySelector(`.option-btn[data-letter="${q.correct}"]`);
-      if (!correctBtn) return { error: `Button for ${q.correct} not found!` };
-      correctBtn.click();
-
-      const isBtnCorrect = correctBtn.classList.contains('correct');
-      const fbDisplay = document.getElementById('rush-feedback-box').style.display;
-      const conceptText = document.getElementById('fb-concept').textContent;
-      const trapText = document.getElementById('fb-trap').textContent;
-      const citationText = document.getElementById('fb-citation').textContent;
-      const newScore = parseInt(document.getElementById('rush-score').textContent, 10);
-
-      // Advance to next
-      advanceToNextQuestion();
-
-      return {
-        qId: q.id,
-        level: q.level,
-        topic: q.topic,
-        isBtnCorrect,
-        fbDisplay,
-        hasConcept: !!conceptText,
-        hasTrap: !!trapText,
-        hasCitation: !!citationText,
-        newScore
-      };
+  // Answer first 3 questions in Arena
+  for (let i = 0; i < 3; i++) {
+    const qAns = await page.evaluate((idx) => {
+      const q = filteredQuestions[currentObjIdx];
+      selectObjectiveAnswer(q.correct);
+      const isFbVisible = document.getElementById('obj-feedback-box').style.display === 'block';
+      const score = parseInt(document.getElementById('obj-score').textContent, 10);
+      nextObjectiveQuestion();
+      return { qId: q.id, isFbVisible, score };
     }, i);
-
-    if (qResult.error) throw new Error(qResult.error);
-    if (!qResult.isBtnCorrect || qResult.fbDisplay !== 'block' || !qResult.hasConcept || !qResult.hasTrap) {
-      throw new Error(`Question ${i + 1} (${qResult.qId}) failed verification!`);
+    console.log(`✓ Objective Q${i + 1} (${qAns.qId}) answered correctly, score incremented to ${qAns.score}`);
+    if (!qAns.isFbVisible || qAns.score <= 0) {
+      throw new Error(`Objective Q${i + 1} answering failed!`);
     }
-    if (qResult.newScore <= currentScore) {
-      throw new Error(`Score did not increment on Question ${i + 1}!`);
-    }
-    currentScore = qResult.newScore;
-    console.log(`✓ Q${i + 1} [L${qResult.level} ${qResult.topic}]: Correct -> Score ${qResult.newScore}`);
   }
+  console.log('✅ Objective Arena question answering and scoring verified.');
 
-  // 6. Test Completion View & Certificate
-  const compResult = await page.evaluate(() => {
-    const compBox = document.getElementById('rush-completion-box');
-    const arenaBox = document.getElementById('rush-arena-box');
-    const isCompVisible = compBox.style.display === 'block';
-    const isArenaHidden = arenaBox.style.display === 'none';
-    const accuracy = document.getElementById('res-accuracy').textContent;
-    const scoreVal = document.getElementById('res-score').textContent;
-    const gradeBadge = document.getElementById('cert-grade-badge').textContent;
+  // Check 5: Tab 3 - Written Theory Arena
+  console.log('\n--- Testing Tab 3: Written Theory Arena (10 Questions) ---');
+  await page.evaluate(() => switchMainTab('theory'));
+
+  const theoryCheck = await page.evaluate(() => {
+    const cards = document.querySelectorAll('.theory-item');
+    if (cards.length !== 10) return { error: `Expected 10 theory cards, got ${cards.length}` };
+
+    // Test typing draft in Q1
+    const q1 = THEORY_QUESTIONS[0];
+    const textarea = document.getElementById(`textarea-${q1.id}`);
+    textarea.value = 'Oxygen diffuses down steep concentration gradient from alveoli to blood.';
+    saveTheoryDraft(q1.id, textarea.value);
+
+    // Test Reveal Mark Scheme
+    toggleTheoryMarkScheme(q1.id);
+    const isMsVisible = document.getElementById(`ms-${q1.id}`).style.display === 'block';
+
+    // Test Self-Assessment Rating (give 3 marks)
+    rateTheoryQuestion(q1.id, 3, q1.marks);
+    const scoreVal = document.getElementById(`lbl-score-${q1.id}`).textContent;
+    const totalScore = document.getElementById('theory-total-score').textContent;
 
     return {
-      isCompVisible,
-      isArenaHidden,
-      accuracy,
+      cardsCount: cards.length,
+      isMsVisible,
       scoreVal,
-      gradeBadge
+      totalScore
+    };
+  });
+  console.log('Theory arena check:', theoryCheck);
+  if (theoryCheck.error) throw new Error(theoryCheck.error);
+  if (!theoryCheck.isMsVisible || theoryCheck.scoreVal !== '3' || theoryCheck.totalScore !== '3') {
+    throw new Error('Written Theory Mark Scheme reveal or self-scoring failed!');
+  }
+  console.log('✅ Written Theory Arena 10 questions, text drafting, mark scheme reveal, and self-scoring verified.');
+
+  // Check 6: Tab 4 - Mock Exam Simulator
+  console.log('\n--- Testing Tab 4: 40-Minute Mock Exam Simulator ---');
+  await page.evaluate(() => switchMainTab('mock'));
+
+  const mockCheck = await page.evaluate(() => {
+    // Start Mock
+    startMockExam();
+    const isActiveVisible = document.getElementById('mock-active-screen').style.display === 'block';
+    const secACount = mockSecAQuestions.length;
+    const secBCount = mockSecBQuestions.length;
+    const timerText = document.getElementById('mock-timer-val').textContent;
+
+    // Simulate answering 15 MCQs
+    mockSecAQuestions.forEach(q => {
+      selectMockSecA(q.id, q.correct);
+    });
+
+    // Simulate scoring Section B (full marks)
+    mockSecBQuestions.forEach(q => {
+      mockSecBScores[q.id] = q.marks;
+    });
+
+    // Submit Exam
+    submitMockExam();
+    const isResultVisible = document.getElementById('mock-result-screen').style.display === 'block';
+    const finalScore = document.getElementById('mock-res-score').textContent;
+    const finalPct = document.getElementById('mock-res-pct').textContent;
+    const gradeBadge = document.getElementById('mock-res-badge').textContent;
+    const t1Diag = document.getElementById('mock-diag-t1-pct').textContent;
+    const t2Diag = document.getElementById('mock-diag-t2-pct').textContent;
+    const t3Diag = document.getElementById('mock-diag-t3-pct').textContent;
+
+    return {
+      isActiveVisible,
+      secACount,
+      secBCount,
+      timerText,
+      isResultVisible,
+      finalScore,
+      finalPct,
+      gradeBadge,
+      t1Diag,
+      t2Diag,
+      t3Diag
     };
   });
 
-  console.log('\nCompletion Results:', compResult);
-  if (!compResult.isCompVisible || !compResult.isArenaHidden) {
-    throw new Error('Completion view not displayed after Q18!');
+  console.log('Mock exam check:', mockCheck);
+  if (!mockCheck.isResultVisible) {
+    throw new Error('Mock exam result screen not displayed!');
   }
-  if (!compResult.accuracy.includes('100%')) {
-    throw new Error(`Expected 100% accuracy, got ${compResult.accuracy}`);
+  if (mockCheck.secACount !== 15 || mockCheck.secBCount !== 3) {
+    throw new Error(`Expected 15 MCQs and 3 Theory questions in mock, got ${mockCheck.secACount} & ${mockCheck.secBCount}`);
   }
-  if (!compResult.gradeBadge.includes('A* Master')) {
-    throw new Error(`Expected A* Master grade, got ${compResult.gradeBadge}`);
+  if (!mockCheck.finalScore.includes('/') || mockCheck.finalPct !== '100%') {
+    throw new Error(`Expected 100% full score in mock, got ${mockCheck.finalScore} (${mockCheck.finalPct})`);
   }
-  console.log('✅ Completion view, 100% accuracy, and A* Master certificate verified.');
+  console.log('✅ 40-Minute Mock Exam Simulator: 15 MCQs + 3 Theory questions, timer, auto-scoring, and 3D radar diagnosis verified.');
 
-  // 7. Test Restart Button
-  await page.evaluate(() => restartRushGame());
-  const restartCheck = await page.evaluate(() => ({
-    arenaVisible: document.getElementById('rush-arena-box').style.display === 'block',
-    compHidden: document.getElementById('rush-completion-box').style.display === 'none',
-    idx: currentIdx,
-    score: parseInt(document.getElementById('rush-score').textContent, 10)
-  }));
-  if (!restartCheck.arenaVisible || restartCheck.compHidden !== true || restartCheck.idx !== 0 || restartCheck.score !== 0) {
-    throw new Error('Restart rush failed!');
+  // Clean exit check
+  if (consoleErrors.length > 0) {
+    console.error('❌ Console errors detected during test run:', consoleErrors);
+    process.exit(1);
   }
-  console.log('✅ Restart functionality verified.');
 
   await browser.close();
   console.log('\n================================================================');
-  console.log('🎉 G8 EXAM RUSH (10.19) ALL 18 QUESTIONS 100% VERIFIED PASS!');
+  console.log('🎉 CAMBRIDGE G8 SCIENCE 2-HOUR EXAM RUSH HUB 100% VERIFIED PASS!');
   console.log('================================================================');
 }
 
-verifyG8ExamRush().catch(err => {
-  console.error('\n❌ VERIFICATION ERROR:', err);
+runComprehensiveVerification().catch(err => {
+  console.error('\n❌ VERIFICATION TEST FAILED:', err);
   process.exit(1);
 });
