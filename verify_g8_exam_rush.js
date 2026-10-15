@@ -26,7 +26,7 @@ async function runComprehensiveVerification() {
 
   const htmlUrl = 'file://' + path.resolve(__dirname, 'g8_exam_rush.html');
   console.log(`Loading URL: ${htmlUrl}`);
-  await page.goto(htmlUrl, { waitUntil: 'commit', timeout: 20000 });
+  await page.goto(htmlUrl, { waitUntil: 'domcontentloaded', timeout: 20000 });
   await page.waitForSelector('.glass-card');
 
   // Check 1: Console errors

@@ -5,44 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Sky's Science Exercise & Exam Lab — 剑桥G8科学课后练习与真题互动平台</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧬</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="sky-subnav.css">
   <style>
     :root {
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --secondary: #0891b2;
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --secondary: #0ea5e9;
       --accent: #f59e0b;
       --success: #10b981;
       --danger: #ef4444;
       --purple: #8b5cf6;
-      --bg: #f8fafc;
-      --panel: #ffffff;
-      --text: #0f172a;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
-      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
-      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
-      --radius: 12px;
+      --bg: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 50%, #020617 100%);
+      --panel: rgba(30, 41, 59, 0.85);
+      --card-bg: rgba(30, 41, 59, 0.85);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: rgba(255, 255, 255, 0.12);
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.4), 0 2px 4px -1px rgba(0,0,0,0.3);
+      --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.5), 0 4px 6px -2px rgba(0,0,0,0.3);
+      --radius: 16px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
+      min-height: 100vh;
       padding-bottom: 60px;
     }
 
     /* Header */
     header {
-      background: linear-gradient(135deg, #1e3a8a 0%, #0284c7 100%);
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--card-border);
       color: #fff;
-      padding: 1.2rem 1.5rem;
+      padding: 0.9rem 1.25rem;
       position: sticky;
-      top: 0;
+      top: 48px;
       z-index: 100;
-      box-shadow: var(--shadow);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
     .header-content {
       max-width: 1200px;
@@ -252,8 +266,10 @@
     /* Container */
     .container {
       max-width: 1200px;
+      width: 100%;
       margin: 1.5rem auto;
       padding: 0 1rem;
+      box-sizing: border-box;
     }
 
     /* Control Bar */
@@ -269,45 +285,55 @@
       gap: 1rem;
       justify-content: space-between;
       align-items: center;
+      max-width: 100%;
+      box-sizing: border-box;
     }
     .part-switch {
       display: inline-flex;
-      background: #f1f5f9;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       padding: 0.25rem;
-      border-radius: 10px;
+      border-radius: 9999px;
       gap: 0.25rem;
+      max-width: 100%;
+      box-sizing: border-box;
     }
     .part-btn {
       border: none;
       background: transparent;
       padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-size: 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.88rem;
       font-weight: 700;
       color: var(--text-muted);
       cursor: pointer;
       transition: all 0.2s;
     }
     .part-btn.active {
-      background: #fff;
-      color: var(--primary);
-      box-shadow: var(--shadow-sm);
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: #fff;
+      box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
     }
     .filter-group {
       display: flex;
       flex-wrap: wrap;
       gap: 0.75rem;
       align-items: center;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
     select, input[type="text"] {
       padding: 0.5rem 0.85rem;
       border-radius: 8px;
-      border: 1px solid var(--border);
-      background: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #0f172a;
       font-size: 0.9rem;
       color: var(--text);
       outline: none;
       transition: border-color 0.2s;
+      max-width: 100%;
+      box-sizing: border-box;
     }
     select:focus, input[type="text"]:focus {
       border-color: var(--primary);
@@ -320,14 +346,18 @@
       overflow-x: auto;
       padding-bottom: 0.5rem;
       margin-bottom: 1.5rem;
+      max-width: 100%;
+      min-width: 0;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
     }
     .tab-btn {
-      background: var(--panel);
-      border: 1px solid var(--border);
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid var(--card-border);
       color: var(--text-muted);
-      padding: 0.65rem 1.1rem;
-      border-radius: 10px;
-      font-size: 0.9rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 9999px;
+      font-size: 0.88rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
@@ -336,20 +366,23 @@
       white-space: nowrap;
       transition: all 0.2s;
       box-shadow: var(--shadow-sm);
+      flex-shrink: 0;
+      box-sizing: border-box;
     }
     .tab-btn:hover {
-      color: var(--primary);
-      border-color: var(--primary);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.1);
     }
     .tab-btn.active {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
       color: #fff;
-      border-color: var(--primary);
-      box-shadow: 0 4px 10px rgba(37,99,235,0.25);
+      border-color: #60a5fa;
+      box-shadow: 0 0 16px rgba(59, 130, 246, 0.4);
     }
     .tab-count {
       font-size: 0.75rem;
-      background: rgba(0,0,0,0.08);
+      background: rgba(255,255,255,0.15);
       padding: 0.15rem 0.45rem;
       border-radius: 20px;
     }
@@ -372,12 +405,14 @@
 
     /* Common Card Styles */
     .card {
-      background: var(--panel);
+      background: var(--card-bg);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--card-border);
       padding: 1.5rem;
       margin-bottom: 1.25rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
     .badge {
       display: inline-block;
@@ -388,11 +423,11 @@
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    .badge-primary { background: #dbeafe; color: #1e40af; }
-    .badge-secondary { background: #e0e7ff; color: #4338ca; }
-    .badge-success { background: #dcfce7; color: #166534; }
-    .badge-warning { background: #fef3c7; color: #92400e; }
-    .badge-danger { background: #fee2e2; color: #991b1b; }
+    .badge-primary { background: rgba(59, 130, 246, 0.25); color: #93c5fd; }
+    .badge-secondary { background: rgba(139, 92, 246, 0.25); color: #c4b5fd; }
+    .badge-success { background: rgba(16, 185, 129, 0.25); color: #86efac; }
+    .badge-warning { background: rgba(245, 158, 11, 0.25); color: #fde047; }
+    .badge-danger { background: rgba(239, 68, 68, 0.25); color: #fca5a5; }
 
     /* Buttons */
     .btn {
@@ -400,22 +435,43 @@
       align-items: center;
       justify-content: center;
       gap: 0.4rem;
-      padding: 0.55rem 1.1rem;
-      border-radius: 8px;
+      padding: 0.55rem 1.25rem;
+      border-radius: 9999px;
       font-size: 0.9rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       border: none;
-      transition: all 0.2s;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .btn-primary { background: var(--primary); color: #fff; }
-    .btn-primary:hover { background: var(--primary-dark); }
-    .btn-secondary { background: #f1f5f9; color: var(--text); border: 1px solid var(--border); }
-    .btn-secondary:hover { background: #e2e8f0; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.5);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text);
+      border: 1px solid var(--card-border);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
     .btn-success { background: var(--success); color: #fff; }
     .btn-success:hover { background: #059669; }
-    .btn-outline-primary { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
-    .btn-outline-primary:hover { background: var(--primary); color: #fff; }
+    .btn-outline-primary {
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: #60a5fa;
+    }
+    .btn-outline-primary:hover {
+      background: var(--primary);
+      color: #fff;
+    }
 
     /* ==================== GAME 1: MCQ ARENA ==================== */
     .mcq-header {
@@ -434,7 +490,7 @@
     }
     .mcq-progress-bar {
       height: 6px;
-      background: #e2e8f0;
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 3px;
       margin-bottom: 1.5rem;
       overflow: hidden;
@@ -449,10 +505,11 @@
       margin-bottom: 1.5rem;
     }
     .mcq-q-title {
-      font-size: 1.15rem;
-      font-weight: 700;
+      font-size: 1.18rem;
+      font-weight: 800;
       margin-bottom: 0.5rem;
-      color: #0f172a;
+      color: #f8fafc;
+      letter-spacing: -0.01em;
     }
     .mcq-q-cn {
       font-size: 0.95rem;
@@ -464,13 +521,14 @@
       gap: 0.75rem;
     }
     .mcq-option-btn {
-      background: #fff;
-      border: 2px solid var(--border);
-      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
       padding: 0.85rem 1.1rem;
       text-align: left;
       font-size: 0.95rem;
       font-weight: 500;
+      color: #f8fafc;
       cursor: pointer;
       display: flex;
       align-items: flex-start;
@@ -479,11 +537,11 @@
     }
     .mcq-option-btn:hover:not(.disabled) {
       border-color: var(--primary);
-      background: #f8fafc;
+      background: rgba(30, 41, 59, 0.9);
       transform: translateY(-1px);
     }
     .opt-letter {
-      background: #f1f5f9;
+      background: rgba(255, 255, 255, 0.1);
       color: var(--text);
       font-weight: 700;
       width: 26px;
@@ -497,8 +555,8 @@
     }
     .mcq-option-btn.correct {
       border-color: var(--success);
-      background: #ecfdf5;
-      color: #065f46;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
     }
     .mcq-option-btn.correct .opt-letter {
       background: var(--success);
@@ -506,8 +564,8 @@
     }
     .mcq-option-btn.wrong {
       border-color: var(--danger);
-      background: #fef2f2;
-      color: #991b1b;
+      background: rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
     }
     .mcq-option-btn.wrong .opt-letter {
       background: var(--danger);
@@ -516,25 +574,26 @@
     .mcq-feedback {
       margin-top: 1.25rem;
       padding: 1.25rem;
-      border-radius: 10px;
+      border-radius: 12px;
       display: none;
       border: 1px solid transparent;
     }
     .mcq-feedback.correct-box {
-      background: #f0fdf4;
-      border-color: #bbf7d0;
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
       display: block;
     }
     .mcq-feedback.wrong-box {
-      background: #fef2f2;
-      border-color: #fecaca;
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
       display: block;
     }
     .citation-tag {
       margin-top: 0.75rem;
       font-size: 0.82rem;
       color: var(--text-muted);
-      background: #f1f5f9;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       padding: 0.4rem 0.75rem;
       border-radius: 6px;
       display: inline-block;
@@ -558,13 +617,14 @@
       gap: 0.75rem;
     }
     .match-card {
-      background: #fff;
-      border: 2px solid var(--border);
-      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
       padding: 0.9rem 1.1rem;
       cursor: pointer;
       font-size: 0.95rem;
       font-weight: 600;
+      color: #f8fafc;
       transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
       min-height: 54px;
       display: flex;
@@ -576,22 +636,22 @@
       outline: none;
     }
     .match-card:hover {
-      border-color: var(--secondary);
-      background: #f0f9ff;
+      border-color: #38bdf8;
+      background: rgba(30, 41, 59, 0.9);
     }
     .match-card:active {
       transform: scale(0.98);
     }
     .match-card.selected {
       border-color: var(--primary);
-      background: #eff6ff;
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.25);
+      background: rgba(59, 130, 246, 0.25);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
       transform: translateY(-1px);
     }
     .match-card.matched {
       border-color: var(--success);
-      background: #f0fdf4;
-      color: #166534;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
       cursor: default;
       pointer-events: none;
       opacity: 0.88;
@@ -599,7 +659,7 @@
     .match-card.error-shake {
       animation: shake 0.4s ease-in-out;
       border-color: var(--danger);
-      background: #fef2f2;
+      background: rgba(239, 68, 68, 0.2);
     }
     @keyframes shake {
       0%, 100% { transform: translateX(0); }
@@ -609,9 +669,10 @@
 
     /* ==================== GAME 3: CLOZE ==================== */
     .word-bank-box {
-      background: #f1f5f9;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       padding: 1rem;
-      border-radius: 10px;
+      border-radius: 12px;
       margin-bottom: 1.25rem;
     }
     .word-bank-title {
@@ -627,13 +688,13 @@
       gap: 0.5rem;
     }
     .word-chip {
-      background: #fff;
-      border: 1px solid var(--border);
-      padding: 0.35rem 0.75rem;
-      border-radius: 20px;
+      background: rgba(30, 41, 59, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
       font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--primary);
+      font-weight: 700;
+      color: #38bdf8;
       cursor: pointer;
       transition: all 0.2s;
       box-shadow: var(--shadow-sm);
@@ -641,18 +702,21 @@
     .word-chip:hover {
       background: var(--primary);
       color: #fff;
+      border-color: #60a5fa;
     }
     .cloze-passage {
       line-height: 2.2;
       font-size: 1.05rem;
     }
     .cloze-input {
-      border: 2px dashed var(--border);
-      border-radius: 6px;
-      padding: 0.25rem 0.5rem;
+      border: 2px dashed rgba(255, 255, 255, 0.25);
+      background: #0f172a;
+      border-radius: 8px;
+      padding: 0.3rem 0.6rem;
       font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--primary);
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      color: #38bdf8;
       width: 140px;
       text-align: center;
       outline: none;
@@ -662,19 +726,19 @@
     .cloze-input:focus {
       border-style: solid;
       border-color: var(--primary);
-      background: #eff6ff;
+      background: rgba(59, 130, 246, 0.15);
     }
     .cloze-input.valid {
       border-color: var(--success);
       border-style: solid;
-      background: #ecfdf5;
-      color: #065f46;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
     }
     .cloze-input.invalid {
       border-color: var(--danger);
       border-style: solid;
-      background: #fef2f2;
-      color: #991b1b;
+      background: rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
     }
 
     /* ==================== GAME 4: SORTING ==================== */
@@ -685,9 +749,9 @@
       margin-top: 1rem;
     }
     .sort-item {
-      background: #fff;
-      border: 2px solid var(--border);
-      border-radius: 10px;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
       padding: 0.85rem 1rem;
       display: flex;
       align-items: center;
@@ -699,34 +763,36 @@
       user-select: none;
       -webkit-user-select: none;
       touch-action: manipulation;
+      color: #f8fafc;
     }
     .sort-item:hover {
       border-color: var(--primary);
+      background: rgba(30, 41, 59, 0.9);
     }
     .sort-item:active {
       cursor: grabbing;
     }
     .sort-item.dragging {
       opacity: 0.45;
-      background: #eff6ff;
+      background: rgba(59, 130, 246, 0.2);
       border-color: #3b82f6;
       border-style: dashed;
       transform: scale(0.99);
     }
     .sort-item.drag-over {
-      border-top: 3px solid #2563eb;
-      background: #f0fdf4;
+      border-top: 3px solid #3b82f6;
+      background: rgba(59, 130, 246, 0.15);
     }
     .sort-item.correct-pos {
       border-color: #10b981;
-      background: #f0fdf4;
+      background: rgba(16, 185, 129, 0.2);
     }
     .sort-item.correct-pos .sort-num {
       background: #10b981;
     }
     .sort-item.incorrect-pos {
       border-color: #f59e0b;
-      background: #fffbeb;
+      background: rgba(245, 158, 11, 0.2);
     }
     .sort-item.incorrect-pos .sort-num {
       background: #f59e0b;
@@ -766,8 +832,9 @@
       gap: 0.35rem;
     }
     .btn-sort {
-      background: #f1f5f9;
-      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #f8fafc;
       border-radius: 6px;
       width: 32px;
       height: 32px;
@@ -782,18 +849,19 @@
     .btn-sort:hover:not(:disabled) {
       background: var(--primary);
       color: #fff;
+      border-color: var(--primary);
     }
     .btn-sort:disabled {
-      opacity: 0.4;
+      opacity: 0.3;
       cursor: not-allowed;
     }
 
     /* ==================== EXPLORER: MODEL ANSWERS ==================== */
     .explorer-item {
-      border: 1px solid var(--border);
+      border: 1px solid var(--card-border);
       border-radius: var(--radius);
       margin-bottom: 1rem;
-      background: #fff;
+      background: var(--card-bg);
       overflow: hidden;
       transition: box-shadow 0.2s;
     }
@@ -802,7 +870,8 @@
     }
     .explorer-header {
       padding: 1rem 1.25rem;
-      background: #fff;
+      background: rgba(15, 23, 42, 0.6);
+      color: #f8fafc;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
@@ -817,8 +886,8 @@
     }
     .explorer-body {
       padding: 1.25rem;
-      background: #fafbff;
-      border-top: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.4);
+      border-top: 1px solid var(--card-border);
       display: none;
     }
     .explorer-item.open .explorer-body {
@@ -832,7 +901,8 @@
       color: var(--text-muted);
     }
     .prompt-box {
-      background: #fff;
+      background: rgba(15, 23, 42, 0.75);
+      color: #f8fafc;
       border-left: 4px solid var(--primary);
       padding: 0.85rem 1rem;
       border-radius: 0 8px 8px 0;
@@ -840,28 +910,30 @@
       font-size: 0.95rem;
     }
     .answer-box {
-      background: #ecfdf5;
+      background: rgba(16, 185, 129, 0.15);
       border-left: 4px solid var(--success);
       padding: 0.85rem 1rem;
       border-radius: 0 8px 8px 0;
       margin-bottom: 1rem;
       font-size: 0.95rem;
+      color: #f8fafc;
     }
     .rationale-box {
-      background: #fffbeb;
+      background: rgba(245, 158, 11, 0.15);
       border-left: 4px solid var(--accent);
       padding: 0.85rem 1rem;
       border-radius: 0 8px 8px 0;
       margin-bottom: 1rem;
       font-size: 0.9rem;
+      color: #f8fafc;
     }
 
     /* ==================== MISTAKE BANK ==================== */
     .mistake-header-box {
-      background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+      background: rgba(239, 68, 68, 0.15);
       padding: 1.5rem;
       border-radius: var(--radius);
-      border: 1px solid #fecaca;
+      border: 1px solid rgba(239, 68, 68, 0.35);
       margin-bottom: 1.5rem;
       display: flex;
       justify-content: space-between;
@@ -872,7 +944,8 @@
     .mistake-stat-num {
       font-size: 2.2rem;
       font-weight: 800;
-      color: var(--danger);
+      color: #f87171;
+      font-family: 'JetBrains Mono', monospace;
     }
 
     /* ==================== ANALYTICS & TIME TRACKING ==================== */
@@ -880,22 +953,22 @@
       display: inline-flex;
       align-items: center;
       gap: 0.35rem;
-      background: #eff6ff;
-      border: 1px solid #bfdbfe;
-      color: #1e40af;
+      background: rgba(59, 130, 246, 0.18);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      color: #93c5fd;
       padding: 0.2rem 0.55rem;
       border-radius: 6px;
       font-weight: 700;
       font-size: 0.85rem;
-      font-variant-numeric: tabular-nums;
+      font-family: 'JetBrains Mono', monospace;
     }
     .session-mode-switch {
       display: inline-flex;
-      background: #f1f5f9;
+      background: rgba(15, 23, 42, 0.7);
       padding: 3px;
       border-radius: 8px;
       gap: 3px;
-      border: 1px solid var(--border);
+      border: 1px solid var(--card-border);
     }
     .session-mode-btn {
       border: none;
@@ -921,7 +994,8 @@
 
     /* Analytics Dashboard Header */
     .analytics-header-box {
-      background: linear-gradient(135deg, #1e3a8a 0%, #0369a1 100%);
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid var(--card-border);
       color: #fff;
       padding: 1.5rem;
       border-radius: var(--radius);
@@ -942,7 +1016,7 @@
     }
     .analytics-header-box p {
       font-size: 0.86rem;
-      color: #bae6fd;
+      color: var(--text-muted);
       margin-top: 0.25rem;
     }
 
@@ -954,9 +1028,9 @@
       margin-bottom: 1.5rem;
     }
     .kpi-card {
-      background: #fff;
+      background: var(--card-bg);
       border-radius: var(--radius);
-      border: 1px solid var(--border);
+      border: 1px solid var(--card-border);
       padding: 1.25rem;
       box-shadow: var(--shadow-sm);
       display: flex;
@@ -969,6 +1043,7 @@
     .kpi-card:hover {
       transform: translateY(-2px);
       box-shadow: var(--shadow);
+      border-color: rgba(59, 130, 246, 0.35);
     }
     .kpi-card-top {
       display: flex;
@@ -984,7 +1059,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: #f1f5f9;
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
     }
     .kpi-title {
       font-size: 0.82rem;
@@ -996,10 +1072,10 @@
     .kpi-val {
       font-size: 2rem;
       font-weight: 800;
-      color: var(--text);
+      color: #38bdf8;
       line-height: 1.1;
       margin: 0.25rem 0;
-      font-variant-numeric: tabular-nums;
+      font-family: 'JetBrains Mono', monospace;
     }
     .kpi-sub {
       font-size: 0.8rem;
@@ -1011,7 +1087,7 @@
     .sub-tabs-bar {
       display: flex;
       gap: 0.5rem;
-      border-bottom: 2px solid var(--border);
+      border-bottom: 1px solid var(--card-border);
       margin-bottom: 1.25rem;
     }
     .sub-tab-btn {
@@ -1029,20 +1105,20 @@
       border-radius: 6px 6px 0 0;
     }
     .sub-tab-btn:hover {
-      color: var(--primary);
-      background: #f1f5f9;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
     }
     .sub-tab-btn.active {
-      color: var(--primary);
-      border-bottom-color: var(--primary);
-      background: #eff6ff;
+      color: #38bdf8;
+      border-bottom-color: #38bdf8;
+      background: rgba(59, 130, 246, 0.15);
     }
 
     /* Unit Performance Bars */
     .mastery-card {
-      background: #fff;
+      background: var(--card-bg);
       border-radius: var(--radius);
-      border: 1px solid var(--border);
+      border: 1px solid var(--card-border);
       padding: 1.25rem;
       margin-bottom: 1.5rem;
       box-shadow: var(--shadow-sm);
@@ -1054,6 +1130,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      color: #f8fafc;
     }
     .mastery-list {
       display: flex;
@@ -1074,7 +1151,7 @@
       }
     }
     .mastery-bar-bg {
-      background: #e2e8f0;
+      background: rgba(255, 255, 255, 0.1);
       height: 10px;
       border-radius: 999px;
       overflow: hidden;
@@ -1088,9 +1165,9 @@
 
     /* Attempt Log Table & Management */
     .history-card {
-      background: #fff;
+      background: var(--card-bg);
       border-radius: var(--radius);
-      border: 1px solid var(--border);
+      border: 1px solid var(--card-border);
       padding: 1.25rem;
       box-shadow: var(--shadow-sm);
     }
@@ -1102,7 +1179,7 @@
       gap: 0.75rem;
       margin-bottom: 1rem;
       padding-bottom: 1rem;
-      border-bottom: 1px dashed var(--border);
+      border-bottom: 1px dashed var(--card-border);
     }
     .filter-pills {
       display: flex;
@@ -1110,8 +1187,8 @@
       flex-wrap: wrap;
     }
     .pill-btn {
-      border: 1px solid var(--border);
-      background: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(15, 23, 42, 0.6);
       font-size: 0.8rem;
       font-weight: 600;
       padding: 0.3rem 0.75rem;
@@ -1121,13 +1198,13 @@
       transition: all 0.2s;
     }
     .pill-btn:hover {
-      border-color: var(--primary);
-      color: var(--primary);
+      border-color: rgba(255, 255, 255, 0.25);
+      color: #fff;
     }
     .pill-btn.active {
-      background: #2563eb;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
       color: #fff;
-      border-color: #2563eb;
+      border-color: #3b82f6;
     }
     .history-actions {
       display: flex;
@@ -1152,8 +1229,8 @@
     .btn-xs-warning:hover { background: #fde68a; }
     .btn-xs-danger { background: #fee2e2; color: #b91c1c; border-color: #fecaca; }
     .btn-xs-danger:hover { background: #fecaca; }
-    .btn-xs-secondary { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }
-    .btn-xs-secondary:hover { background: #e2e8f0; }
+    .btn-xs-secondary { background: rgba(255, 255, 255, 0.08); color: var(--text-muted); border-color: rgba(255, 255, 255, 0.15); }
+    .btn-xs-secondary:hover { background: rgba(255, 255, 255, 0.15); }
 
     /* Table styling */
     .table-responsive {
@@ -1167,24 +1244,25 @@
       text-align: left;
     }
     .attempt-table th {
-      background: #f8fafc;
+      background: rgba(15, 23, 42, 0.85);
       padding: 0.65rem 0.85rem;
       font-weight: 700;
       color: var(--text-muted);
-      border-bottom: 2px solid var(--border);
+      border-bottom: 1px solid var(--card-border);
       white-space: nowrap;
     }
     .attempt-table td {
       padding: 0.75rem 0.85rem;
-      border-bottom: 1px solid var(--border);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       vertical-align: middle;
+      color: #f8fafc;
     }
     .attempt-row.excluded {
-      background: #f8fafc;
+      background: rgba(15, 23, 42, 0.45);
       opacity: 0.65;
     }
     .attempt-row.excluded td {
-      color: #94a3b8;
+      color: #64748b;
     }
     .badge-excluded {
       background: #f1f5f9;
@@ -1225,6 +1303,9 @@
 
     /* Responsive */
     @media (max-width: 768px) {
+      .container {
+        padding: 0 0.6rem;
+      }
       .match-container {
         grid-template-columns: 1fr;
       }
@@ -1234,10 +1315,32 @@
       }
       .part-switch {
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        border-radius: 12px;
       }
       .part-btn {
         flex: 1;
         text-align: center;
+        white-space: normal;
+        word-break: break-word;
+      }
+      .filter-group {
+        width: 100%;
+        max-width: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      .filter-group select,
+      .filter-group input {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+      }
+      .game-tabs {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
       }
     }
   </style>
@@ -1245,6 +1348,40 @@
   <script src="science_exercises_data.js"></script>
 </head>
 <body>
+  <!-- ==================== Mother-Ship Global TopBar ==================== -->
+  <script src="https://igcse.xyz/ecosystem-nav.js" defer></script>
+  <igcse-nav active="sky"></igcse-nav>
+
+  <!-- ==================== Secondary Interconnection Breadcrumb ==================== -->
+  <nav class="sky-subnav" aria-label="Sky G8 科学矩阵互通导航">
+    <div class="sky-subnav-inner">
+      <div class="sky-subnav-breadcrumb">
+        <a href="index.html" class="sky-brand-link">
+          <span class="sky-brand-icon">🚀</span>
+          <span class="sky-brand-title">Sky Science G8</span>
+        </a>
+        <span class="sky-divider">/</span>
+        <span class="sky-current">🧬 267题大练兵 (Exercise Lab)</span>
+      </div>
+      <div class="sky-subnav-tabs" role="tablist">
+        <a href="index.html" class="sky-subnav-tab">
+          <span class="tab-icon">🎮</span>
+          <span class="tab-text">单词特训岛</span>
+          <span class="tab-badge">180词</span>
+        </a>
+        <a href="exercise_lab.html" class="sky-subnav-tab active" aria-current="page">
+          <span class="tab-icon">🧬</span>
+          <span class="tab-text">267题大练兵</span>
+          <span class="tab-badge">267题</span>
+        </a>
+        <a href="g8_exam_rush.html" class="sky-subnav-tab tab-rush">
+          <span class="tab-icon">🎯</span>
+          <span class="tab-text">考前突击大厅</span>
+          <span class="tab-badge-rush">10.19 特训</span>
+        </a>
+      </div>
+    </div>
+  </nav>
 
   <!-- ==================== HEADER ==================== -->
   <header>
@@ -1255,12 +1392,11 @@
       </div>
       <div class="header-links">
         <div class="lang-switch">
-          <button id="btn-lang-bilingual" class="lang-btn active" onclick="setLanguageMode('bilingual')">🇨🇳/🇬🇧 中英双语</button>
-          <button id="btn-lang-en" class="lang-btn" onclick="setLanguageMode('en')">🇬🇧 English Only</button>
+          <button id="btn-lang-bilingual" class="lang-btn active" onclick="setLanguageMode('bilingual')">🇨🇳/🇬🇧 双语</button>
+          <button id="btn-lang-en" class="lang-btn" onclick="setLanguageMode('en')">🇬🇧 English</button>
         </div>
-        <a href="https://igcse.xyz/practical" class="btn-nav-vocab" style="background: linear-gradient(135deg, #0284c7 0%, #059669 100%); border: none; font-weight: 700; box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);" target="_blank">🔬 实验母舰平台 (Paper 5/6 显微测微)</a>
-        <a href="knowledge_animations/compare_showcase.html" class="btn-nav-vocab" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); border: none; font-weight: 700; box-shadow: 0 2px 8px rgba(236, 72, 153, 0.4);" target="_blank">🎬 核心考点动画对比台 (6套视频)</a>
-        <a href="index.html" class="btn-nav-vocab" id="btn-nav-vocab">🔤 切换至词汇实验室 (Word Lab)</a>
+        <a href="https://igcse.xyz/practical" class="btn-action" target="_blank" style="text-decoration:none;font-size:0.8rem;padding:0.4rem 0.85rem;border-radius:9999px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#94a3b8;font-weight:700;">🔬 实验母舰</a>
+        <a href="knowledge_animations/compare_showcase.html" class="btn-action" target="_blank" style="text-decoration:none;font-size:0.8rem;padding:0.4rem 0.85rem;border-radius:9999px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:#94a3b8;font-weight:700;">🎬 考点动画</a>
       </div>
     </div>
   </header>

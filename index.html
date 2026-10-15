@@ -5,40 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Sky's Science Word Lab — L01</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="sky-subnav.css">
   <style>
-    /* ============ Theme: Science Lab / IGCSE Blue ============ */
+    /* ============ Unified Theme: Mother-Ship Deep Blue ============ */
     :root {
-      --primary: #2563eb;     /* IGCSE blue */
-      --secondary: #0891b2;   /* cyan */
+      --primary: #3b82f6;     /* IGCSE blue */
+      --primary-dark: #2563eb;
+      --secondary: #0ea5e9;   /* cyan */
       --accent: #f59e0b;      /* amber - highlight */
+      --accent-hover: #d97706;
       --success: #10b981;     /* green - correct */
       --danger: #ef4444;      /* red - wrong */
-      --light: #f1f5f9;
-      --bg: #fafbff;
-      --text: #0f172a;
-      --text-light: #64748b;
-      --border: #cbd5e1;
-      --shadow: 0 4px 16px rgba(37, 99, 235, 0.1);
+      --light: rgba(255, 255, 255, 0.06);
+      --bg: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 50%, #020617 100%);
+      --card-bg: rgba(30, 41, 59, 0.85);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text: #f8fafc;
+      --text-light: #94a3b8;
+      --border: rgba(255, 255, 255, 0.12);
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+      --radius: 16px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
+    html, body { min-height: 100%; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.5;
+      min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* ============ Header ============ */
+    /* ============ Local Header ============ */
     header {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--card-border);
       color: white;
-      padding: 1rem 1.5rem;
-      box-shadow: var(--shadow);
+      padding: 0.9rem 1.25rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       position: sticky;
-      top: 0;
+      top: 48px;
       z-index: 100;
     }
     h1 {
@@ -96,23 +109,25 @@
       flex-wrap: wrap;
     }
     .tabs button {
-      background: rgba(255,255,255,0.15);
-      color: white;
-      border: 1.5px solid rgba(255,255,255,0.3);
-      padding: 0.5rem 1rem;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      font-weight: 600;
+      background: rgba(255,255,255,0.08);
+      color: #cbd5e1;
+      border: 1px solid rgba(255,255,255,0.15);
+      padding: 0.45rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.88rem;
+      font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
     }
     .tabs button:hover {
-      background: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.2);
+      color: #fff;
     }
     .tabs button.active {
-      background: white;
-      color: var(--primary);
-      border-color: white;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      border-color: #60a5fa;
+      box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
     }
 
     /* ============ Unit Bar (Global) ============ */
@@ -120,14 +135,15 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      background: white;
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 0.6rem 1rem;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 0.65rem 1rem;
       margin-bottom: 1.25rem;
       font-size: 0.9rem;
       box-shadow: var(--shadow);
       flex-wrap: wrap;
+      backdrop-filter: blur(12px);
     }
     .unit-bar.hidden { display: none; }
     .unit-bar label { font-weight: 700; color: var(--text); }
@@ -135,11 +151,12 @@
       flex: 1;
       min-width: 200px;
       padding: 0.45rem 0.7rem;
-      border: 1.5px solid var(--border);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 8px;
       font-size: 0.95rem;
       font-weight: 500;
-      background: white;
+      background: #0f172a;
+      color: #f8fafc;
       cursor: pointer;
       transition: border-color 0.2s;
     }
@@ -150,7 +167,7 @@
       font-size: 0.85rem;
       font-weight: 600;
     }
-    .unit-bar .unit-stats .num { color: var(--primary); font-size: 1.05rem; }
+    .unit-bar .unit-stats .num { color: #38bdf8; font-size: 1.05rem; }
 
     /* ============ Main Container ============ */
     main {
@@ -173,14 +190,16 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: white;
-      border: 1.5px solid var(--border);
-      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
       padding: 0.75rem 1.25rem;
       margin-bottom: 1.25rem;
       font-weight: 600;
       font-size: 0.95rem;
       box-shadow: var(--shadow);
+      color: var(--text);
+      backdrop-filter: blur(12px);
     }
     .score-bar .stat { display: flex; align-items: center; gap: 0.4rem; }
     .score-bar .stat .icon { font-size: 1.1rem; }
@@ -189,11 +208,13 @@
 
     /* ============ Card / Panel ============ */
     .panel {
-      background: white;
-      border: 1.5px solid var(--border);
-      border-radius: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
       padding: 1.5rem;
       box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     /* ============ Game 1: Spelling Bee ============ */
@@ -202,28 +223,29 @@
       margin-bottom: 1rem;
     }
     .bee-chinese {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #1e3a8a;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #60a5fa;
       margin-bottom: 0.4rem;
+      letter-spacing: -0.01em;
     }
     .bee-phonetic {
       font-size: 0.95rem;
-      color: #475569;
+      color: var(--text-light);
       font-style: italic;
     }
     .bee-hint {
       font-size: 0.9rem;
-      color: #1e293b;
-      background: #f1f5f9;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      padding: 0.6rem 0.85rem;
+      color: #cbd5e1;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 0.65rem 0.95rem;
       margin: 0.5rem auto 1rem;
       max-width: 480px;
       line-height: 1.5;
     }
-    .bee-hint strong { color: #0f172a; font-weight: 700; }
+    .bee-hint strong { color: #f8fafc; font-weight: 700; }
     .bee-hint .trap { color: var(--danger); font-weight: 700; }
     .bee-prompt {
       text-align: center;
@@ -238,28 +260,29 @@
       margin: 0 auto;
       padding: 0.85rem 1rem;
       font-size: 1.4rem;
-      font-family: monospace;
+      font-family: 'JetBrains Mono', monospace;
       letter-spacing: 0.1em;
       text-align: center;
-      border: 2px solid var(--border);
+      border: 2px solid rgba(255, 255, 255, 0.15);
       border-radius: 12px;
-      background: white;
+      background: #0f172a;
+      color: #f8fafc;
       transition: all 0.2s;
     }
     .bee-input:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
     }
     .bee-input.correct {
       border-color: var(--success);
-      background: #ecfdf5;
-      color: var(--success);
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
     }
     .bee-input.wrong {
       border-color: var(--danger);
-      background: #fef2f2;
-      color: var(--danger);
+      background: rgba(239, 68, 68, 0.15);
+      color: #f87171;
       animation: shake 0.4s;
     }
     @keyframes shake {
@@ -275,23 +298,37 @@
       flex-wrap: wrap;
     }
     .btn {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
       color: white;
       border: none;
-      padding: 0.7rem 1.5rem;
-      border-radius: 10px;
+      padding: 0.65rem 1.4rem;
+      border-radius: 9999px;
       font-size: 0.95rem;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
     }
-    .btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .btn:hover {
+      background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.45);
+    }
     .btn-secondary {
-      background: var(--light);
+      background: rgba(255, 255, 255, 0.08);
       color: var(--text);
+      border: 1px solid var(--card-border);
+      box-shadow: none;
     }
-    .btn-secondary:hover { background: #e2e8f0; }
-    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: none;
+    }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
 
     .bee-feedback {
       text-align: center;
@@ -358,16 +395,16 @@
       font-size: 1.5rem;
     }
     .memory-card .back {
-      background: white;
-      color: var(--text);
+      background: #0f172a;
+      color: #f8fafc;
       border: 2px solid var(--primary);
       transform: rotateY(180deg);
       word-break: break-word;
     }
     .memory-card.matched .back {
-      background: #ecfdf5;
+      background: rgba(16, 185, 129, 0.2);
       border-color: var(--success);
-      color: var(--success);
+      color: #34d399;
     }
     .memory-card.shake { animation: shake 0.4s; }
 
@@ -536,12 +573,12 @@
     .wrong-words {
       margin-top: 1.5rem;
       padding: 1rem 1.25rem;
-      background: #fef2f2;
-      border: 1.5px solid #fecaca;
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
       border-radius: 12px;
     }
     .wrong-words h3 {
-      color: var(--danger);
+      color: #f87171;
       font-size: 1rem;
       margin-bottom: 0.5rem;
     }
@@ -552,10 +589,10 @@
     .wrong-words li {
       padding: 0.4rem 0;
       font-size: 0.95rem;
-      border-bottom: 1px dashed #fecaca;
+      border-bottom: 1px dashed rgba(239, 68, 68, 0.3);
     }
     .wrong-words li:last-child { border: none; }
-    .wrong-words .word { font-weight: 700; color: var(--danger); font-family: monospace; }
+    .wrong-words .word { font-weight: 700; color: #ef4444; font-family: 'JetBrains Mono', monospace; }
     .wrong-words .translation { color: var(--text-light); margin-left: 0.5rem; }
 
     /* ============ Game 4: Listening Quiz ============ */
@@ -575,11 +612,12 @@
     }
     .listen-hint {
       text-align: center;
-      font-family: monospace;
+      font-family: 'JetBrains Mono', monospace;
       letter-spacing: 0.12em;
       font-size: 1.1rem;
-      color: var(--primary);
-      background: var(--light);
+      color: #38bdf8;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid var(--card-border);
       border-radius: 10px;
       padding: 0.75rem;
       margin-bottom: 1rem;
@@ -592,8 +630,8 @@
       margin: 0 auto;
     }
     .listen-option {
-      background: white;
-      border: 2px solid var(--border);
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 12px;
       padding: 1rem;
       font-size: 1.05rem;
@@ -601,21 +639,22 @@
       cursor: pointer;
       transition: all 0.2s;
       text-align: center;
+      color: #f8fafc;
     }
     .listen-option:hover {
       border-color: var(--primary);
-      background: var(--light);
+      background: rgba(59, 130, 246, 0.2);
       transform: translateY(-2px);
     }
     .listen-option.correct {
-      background: #ecfdf5;
+      background: rgba(16, 185, 129, 0.2);
       border-color: var(--success);
-      color: var(--success);
+      color: #34d399;
     }
     .listen-option.wrong {
-      background: #fef2f2;
+      background: rgba(239, 68, 68, 0.2);
       border-color: var(--danger);
-      color: var(--danger);
+      color: #f87171;
       animation: shake 0.4s;
     }
     .listen-option.disabled { pointer-events: none; opacity: 0.5; }
@@ -640,7 +679,7 @@
     .anagram-clue {
       font-size: 1.3rem;
       font-weight: 700;
-      color: var(--primary);
+      color: #38bdf8;
       text-align: center;
     }
     .anagram-speak {
@@ -654,8 +693,8 @@
       gap: 0.4rem;
       min-height: 60px;
       padding: 1rem;
-      background: var(--light);
-      border: 2.5px dashed var(--border);
+      background: rgba(15, 23, 42, 0.6);
+      border: 2px dashed rgba(255, 255, 255, 0.2);
       border-radius: 12px;
       margin-bottom: 1rem;
     }
@@ -665,10 +704,10 @@
       justify-content: center;
       width: 38px;
       height: 44px;
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
       color: white;
       border-radius: 8px;
-      font-family: monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 1.1rem;
       font-weight: 800;
       letter-spacing: 0.05em;
@@ -697,8 +736,8 @@
       gap: 0.4rem;
       min-height: 60px;
       padding: 1rem;
-      background: white;
-      border: 2px solid var(--border);
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 12px;
     }
     .anagram-pool .letter {
@@ -707,11 +746,11 @@
       justify-content: center;
       width: 38px;
       height: 44px;
-      background: white;
-      color: var(--text);
-      border: 2px solid var(--border);
+      background: #0f172a;
+      color: #f8fafc;
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
       border-radius: 8px;
-      font-family: monospace;
+      font-family: 'JetBrains Mono', monospace;
       font-size: 1.1rem;
       font-weight: 700;
       letter-spacing: 0.05em;
@@ -721,7 +760,7 @@
     }
     .anagram-pool .letter:hover {
       border-color: var(--primary);
-      background: var(--light);
+      background: #1e293b;
       transform: translateY(-2px);
     }
     .anagram-feedback {
@@ -807,20 +846,23 @@
     }
     .modal-backdrop.active { display: flex; }
     .modal {
-      background: white;
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.15);
       padding: 2rem;
       border-radius: 16px;
       max-width: 420px;
       width: 90%;
       text-align: center;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+      color: #f8fafc;
     }
-    .modal h2 { color: var(--primary); margin-bottom: 0.5rem; }
+    .modal h2 { color: #60a5fa; margin-bottom: 0.5rem; }
     .modal .big-stat {
       font-size: 3rem;
       font-weight: 800;
       color: var(--accent);
       margin: 1rem 0;
+      font-family: 'JetBrains Mono', monospace;
     }
     .modal .sub-stat { color: var(--text-light); margin-bottom: 1.5rem; }
     .modal .actions { display: flex; gap: 0.5rem; justify-content: center; }
@@ -831,9 +873,10 @@
       padding: 2rem 1rem;
     }
     .welcome h2 {
-      font-size: 1.5rem;
-      color: var(--primary);
+      font-size: 1.6rem;
+      color: #f8fafc;
       margin-bottom: 0.5rem;
+      font-weight: 800;
     }
     .welcome p {
       color: var(--text-light);
@@ -846,14 +889,22 @@
       margin-top: 1.5rem;
     }
     .game-intro .card {
-      background: var(--light);
-      border-radius: 12px;
-      padding: 1rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 1.15rem;
       text-align: left;
+      transition: all 0.2s ease;
+    }
+    .game-intro .card:hover {
+      background: rgba(30, 41, 59, 0.9);
+      border-color: rgba(59, 130, 246, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
     .game-intro .card .emoji { font-size: 1.6rem; }
-    .game-intro .card h4 { color: var(--primary); margin: 0.4rem 0 0.3rem; }
-    .game-intro .card p { font-size: 0.85rem; margin: 0; }
+    .game-intro .card h4 { color: #60a5fa; margin: 0.4rem 0 0.3rem; font-weight: 700; }
+    .game-intro .card p { font-size: 0.85rem; margin: 0; color: #94a3b8; }
 
     /* ============ Stats & Mistake Bank Styles ============ */
     .stats-header-bar {
@@ -866,7 +917,7 @@
     }
     .stats-title-group h2 {
       font-size: 1.4rem;
-      color: var(--primary);
+      color: #60a5fa;
       margin-bottom: 0.25rem;
     }
     .stats-title-group p {
@@ -881,11 +932,11 @@
     }
     .btn-danger-outline {
       background: transparent;
-      color: var(--danger);
-      border: 1px solid var(--danger);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.4);
     }
     .btn-danger-outline:hover {
-      background: #fef2f2;
+      background: rgba(239, 68, 68, 0.15);
     }
     .stats-metrics-grid {
       display: grid;
@@ -894,19 +945,20 @@
       margin-bottom: 1.5rem;
     }
     .metric-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
       padding: 1.1rem;
       display: flex;
       align-items: center;
       gap: 0.9rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
       transition: transform 0.15s, box-shadow 0.15s;
     }
     .metric-card:hover {
       transform: translateY(-2px);
       box-shadow: var(--shadow);
+      border-color: rgba(59, 130, 246, 0.3);
     }
     .metric-icon {
       font-size: 2rem;
@@ -915,8 +967,9 @@
     .metric-num {
       font-size: 1.6rem;
       font-weight: 800;
-      color: var(--primary);
+      color: #38bdf8;
       line-height: 1.1;
+      font-family: 'JetBrains Mono', monospace;
     }
     .metric-num.warning {
       color: var(--danger);
@@ -955,8 +1008,8 @@
     .filters-group select {
       padding: 0.4rem 0.75rem;
       border-radius: 8px;
-      border: 1px solid var(--border);
-      background: white;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #0f172a;
       font-size: 0.85rem;
       color: var(--text);
       cursor: pointer;
@@ -973,10 +1026,10 @@
       gap: 0.75rem;
     }
     .mistake-card {
-      background: white;
-      border: 1px solid var(--border);
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid var(--card-border);
       border-left: 4px solid var(--danger);
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 0.9rem 1.1rem;
       display: flex;
       justify-content: space-between;
@@ -987,8 +1040,8 @@
     }
     .mistake-card.mastered {
       border-left-color: var(--success);
-      opacity: 0.82;
-      background: #f8fafc;
+      opacity: 0.85;
+      background: rgba(15, 23, 42, 0.5);
     }
     .mistake-word-main {
       display: flex;
@@ -999,10 +1052,11 @@
     .mistake-en {
       font-size: 1.25rem;
       font-weight: 700;
-      color: var(--primary);
+      color: #60a5fa;
+      font-family: 'JetBrains Mono', monospace;
     }
     .mistake-phonetic {
-      font-family: "Lucida Sans Unicode", "Segoe UI", sans-serif;
+      font-family: 'JetBrains Mono', monospace;
       color: var(--text-light);
       font-size: 0.88rem;
     }
@@ -1021,24 +1075,24 @@
       flex-wrap: wrap;
     }
     .badge-unit {
-      background: #eff6ff;
-      color: var(--primary);
+      background: rgba(59, 130, 246, 0.2);
+      color: #93c5fd;
       padding: 0.15rem 0.5rem;
       border-radius: 4px;
       font-weight: 600;
       font-size: 0.78rem;
     }
     .badge-wrong {
-      background: #fee2e2;
-      color: #b91c1c;
+      background: rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
       padding: 0.15rem 0.5rem;
       border-radius: 4px;
       font-weight: 600;
       font-size: 0.78rem;
     }
     .badge-mastered {
-      background: #dcfce7;
-      color: #15803d;
+      background: rgba(16, 185, 129, 0.2);
+      color: #86efac;
       padding: 0.15rem 0.5rem;
       border-radius: 4px;
       font-weight: 600;
@@ -1192,6 +1246,41 @@
   </style>
 </head>
 <body>
+  <!-- ==================== Mother-Ship Global TopBar ==================== -->
+  <script src="https://igcse.xyz/ecosystem-nav.js" defer></script>
+  <igcse-nav active="sky"></igcse-nav>
+
+  <!-- ==================== Secondary Interconnection Breadcrumb ==================== -->
+  <nav class="sky-subnav" aria-label="Sky G8 科学矩阵互通导航">
+    <div class="sky-subnav-inner">
+      <div class="sky-subnav-breadcrumb">
+        <a href="index.html" class="sky-brand-link">
+          <span class="sky-brand-icon">🚀</span>
+          <span class="sky-brand-title">Sky Science G8</span>
+        </a>
+        <span class="sky-divider">/</span>
+        <span class="sky-current">🎮 单词特训岛 (Word Lab)</span>
+      </div>
+      <div class="sky-subnav-tabs" role="tablist">
+        <a href="index.html" class="sky-subnav-tab active" aria-current="page">
+          <span class="tab-icon">🎮</span>
+          <span class="tab-text">单词特训岛</span>
+          <span class="tab-badge">180词</span>
+        </a>
+        <a href="exercise_lab.html" class="sky-subnav-tab">
+          <span class="tab-icon">🧬</span>
+          <span class="tab-text">267题大练兵</span>
+          <span class="tab-badge">267题</span>
+        </a>
+        <a href="g8_exam_rush.html" class="sky-subnav-tab tab-rush">
+          <span class="tab-icon">🎯</span>
+          <span class="tab-text">考前突击大厅</span>
+          <span class="tab-badge-rush">10.19 特训</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
   <header>
     <h1>🧪 Sky's Science Word Lab <span class="tag">L01 · Balanced Diet</span></h1>
     <button class="sound-toggle off" id="sound-toggle" title="iOS 移动端需要先点这里解锁声音">🔇 开启声音</button>
@@ -1204,8 +1293,6 @@
       <button data-tab="anagram">🧩 Anagram</button>
       <button data-tab="speed">⚡ Speed</button>
       <button data-tab="stats">📊 错题与统计</button>
-      <a href="g8_exam_rush.html" style="background:linear-gradient(135deg, #ef4444 0%, #dc2626 100%);color:#fff;padding:0.45rem 0.95rem;border-radius:999px;font-size:0.85rem;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;box-shadow:0 2px 10px rgba(239,68,68,0.4);margin-left:auto;">🎯 10.19 考前突击 ➔</a>
-      <a href="exercise_lab.html" style="background:linear-gradient(135deg, #f59e0b 0%, #d97706 100%);color:#0f172a;padding:0.45rem 0.95rem;border-radius:999px;font-size:0.85rem;font-weight:800;text-decoration:none;display:inline-flex;align-items:center;gap:0.35rem;box-shadow:0 2px 8px rgba(245,158,11,0.3);">🧬 习题大练兵 (267题)</a>
     </nav>
   </header>
 
@@ -1220,45 +1307,6 @@
     <!-- ================ Home ================ -->
     <section id="home" class="game active">
       <div class="panel welcome">
-        <!-- G8 Emergency Exam Rush Banner (10.19 考试专用) -->
-        <div style="background:linear-gradient(135deg, #7f1d1d 0%, #991b1b 50%, #450a0a 100%);border:2px solid #ef4444;border-radius:14px;padding:1.1rem 1.35rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.85rem;box-shadow:0 6px 20px rgba(239,68,68,0.25);">
-          <div style="color:#fef2f2;font-size:0.95rem;">
-            <div style="font-weight:800;font-size:1.12rem;margin-bottom:0.3rem;display:flex;align-items:center;gap:0.45rem;letter-spacing:-0.01em;">
-              🔥 紧急特训：G8 考前冲刺突击大练兵 (10.19 考试专用)
-              <span style="background:#ef4444;color:#fff;font-size:0.72rem;padding:2px 9px;border-radius:999px;font-weight:800;box-shadow:0 0 8px rgba(239,68,68,0.6);">限时突击 18 题</span>
-            </div>
-            <div style="color:#fca5a5;font-size:0.86rem;line-height:1.45;">
-              针对下周一二科学期中考试量身定制： Level 1 细胞运输与渗透 · Level 2 排泄与肾小球超滤 · Level 3 血糖调节负反馈稳态！20秒限时答题 · 60% 通关及格线 · 战报一键生成！
-            </div>
-          </div>
-          <a href="g8_exam_rush.html" style="background:linear-gradient(135deg, #f59e0b 0%, #d97706 100%);color:#0f172a;text-decoration:none;padding:0.6rem 1.4rem;border-radius:999px;font-weight:800;font-size:0.95rem;box-shadow:0 4px 15px rgba(245,158,11,0.4);white-space:nowrap;display:inline-flex;align-items:center;gap:0.4rem;">
-            ⚡ 立即启动考前突击 ➔
-          </a>
-        </div>
-        <!-- Exercise Lab Entrance Banner -->
-        <div style="background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);border:2px solid #3b82f6;border-radius:12px;padding:1rem 1.25rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;box-shadow:0 4px 12px rgba(37,99,235,0.08);">
-          <div style="color:#1e3a8a;font-size:0.95rem;">
-            <div style="font-weight:800;font-size:1.05rem;margin-bottom:0.25rem;display:flex;align-items:center;gap:0.4rem;">
-              🧬 剑桥 G8 科学课后练习与真题大练兵平台上线！
-              <span style="background:#2563eb;color:#fff;font-size:0.7rem;padding:2px 8px;border-radius:999px;">267题全真互动</span>
-            </div>
-            <div style="color:#334155;font-size:0.85rem;line-height:1.4;">
-              Part 1 (秋季篇 91 题) + Part 2 (人体生理篇 176 题) · 中英双语对照 · 官方教材溯源 · 选择竞技场 / 概念配对 / 完形填空 / 时序排列 / 错题巩固！
-            </div>
-          </div>
-          <a href="exercise_lab.html" style="background:linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);color:white;text-decoration:none;padding:0.55rem 1.2rem;border-radius:999px;font-weight:700;font-size:0.9rem;box-shadow:0 3px 10px rgba(37,99,235,0.3);white-space:nowrap;">
-            🎯 立即进入习题大厅 ➔
-          </a>
-        </div>
-
-        <div style="background:linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);border:2px dashed #10b981;border-radius:12px;padding:0.75rem 1.25rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;">
-          <div style="color:#065f46;font-size:0.95rem;font-weight:700;">
-            🌱 <strong>小学生全新平行系统上线</strong>：SciencePre 自然英语与科学探索营 (Pre-IGCSE 双语启蒙)
-          </div>
-          <a href="https://pre.igcse.xyz" target="_blank" style="background:#10b981;color:white;text-decoration:none;padding:0.4rem 1rem;border-radius:999px;font-weight:700;font-size:0.85rem;box-shadow:0 2px 8px rgba(16,185,129,0.3);">
-            🚀 访问 pre.igcse.xyz 探索站 ➔
-          </a>
-        </div>
         <h2>欢迎来到 Sky 的科学单词实验室 🚀</h2>
         <p>6 个游戏，33 个单元（Part 1 + Part 2 全覆盖，共 180 个核心科学词汇），助你全面攻克 IGCSE 科学词汇与拼写陷阱！点击下方卡片开启挑战</p>
         <div class="game-intro">
@@ -1292,7 +1340,7 @@
             <h4>Speed Round 极速挑战</h4>
             <p>60s 内尽可能多拼对单词。答对 +10,答错 -5。抗压 + 速度 + 拼写三合一。</p>
           </div>
-          <div class="card" data-tab="stats" style="cursor:pointer;background:linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);border:1px solid #bfdbfe;">
+          <div class="card" data-tab="stats" style="cursor:pointer;background:rgba(30, 41, 59, 0.85);border:1px solid rgba(59, 130, 246, 0.4);">
             <div class="emoji">📊</div>
             <h4>错题本与学情看板</h4>
             <p>全游戏错词自动记录、错误频次与历史答卷。支持一键专项错题攻坚与微信报告导出。</p>

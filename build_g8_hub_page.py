@@ -20,6 +20,7 @@ def build_page():
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="sky-subnav.css">
   <style>
     :root {{
       --primary: #3b82f6;
@@ -49,11 +50,7 @@ def build_page():
     }}
 
     body {{
-      background-color: var(--bg);
-      background-image: 
-        radial-gradient(circle at 15% 15%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 85% 85%, rgba(139, 92, 246, 0.12) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 60%);
+      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 50%, #020617 100%);
       color: var(--text-main);
       font-family: var(--font-sans);
       min-height: 100vh;
@@ -63,11 +60,12 @@ def build_page():
     }}
 
     header {{
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(12px);
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--card-border);
       position: sticky;
-      top: 0;
+      top: 48px;
       z-index: 50;
       padding: 0.65rem 1.25rem;
     }}
@@ -918,6 +916,41 @@ def build_page():
   </style>
 </head>
 <body>
+  <!-- ==================== Mother-Ship Global TopBar ==================== -->
+  <script src="https://igcse.xyz/ecosystem-nav.js" defer></script>
+  <igcse-nav active="sky"></igcse-nav>
+
+  <!-- ==================== Secondary Interconnection Breadcrumb ==================== -->
+  <nav class="sky-subnav" aria-label="Sky G8 科学矩阵互通导航">
+    <div class="sky-subnav-inner">
+      <div class="sky-subnav-breadcrumb">
+        <a href="index.html" class="sky-brand-link">
+          <span class="sky-brand-icon">🚀</span>
+          <span class="sky-brand-title">Sky Science G8</span>
+        </a>
+        <span class="sky-divider">/</span>
+        <span class="sky-current">🎯 考前突击大厅 (Exam Rush)</span>
+      </div>
+      <div class="sky-subnav-tabs" role="tablist">
+        <a href="index.html" class="sky-subnav-tab">
+          <span class="tab-icon">🎮</span>
+          <span class="tab-text">单词特训岛</span>
+          <span class="tab-badge">180词</span>
+        </a>
+        <a href="exercise_lab.html" class="sky-subnav-tab">
+          <span class="tab-icon">🧬</span>
+          <span class="tab-text">267题大练兵</span>
+          <span class="tab-badge">267题</span>
+        </a>
+        <a href="g8_exam_rush.html" class="sky-subnav-tab tab-rush active" aria-current="page">
+          <span class="tab-icon">🎯</span>
+          <span class="tab-text">考前突击大厅</span>
+          <span class="tab-badge-rush">10.19 特训</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
   <canvas id="confetti-canvas"></canvas>
 
   <header>
@@ -940,9 +973,6 @@ def build_page():
         <button class="btn-action active" id="btn-sound" onclick="toggleGlobalSound()">
           🔊 <span id="txt-sound">声音</span>
         </button>
-        <a href="exercise_lab.html" class="btn-action" style="text-decoration:none;">
-          🧬 <span>题库大练兵</span>
-        </a>
       </div>
     </div>
 
