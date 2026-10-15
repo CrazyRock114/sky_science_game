@@ -20,7 +20,7 @@ def build_page():
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <link rel="stylesheet" href="sky-subnav.css">
+  <link rel="stylesheet" href="https://igcse.xyz/ecosystem-nav.css">
   <style>
     :root {{
       --primary: #3b82f6;
@@ -59,15 +59,12 @@ def build_page():
       line-height: 1.5;
     }}
 
-    header {{
-      background: rgba(15, 23, 42, 0.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+    header.rush-header {{
+      background: rgba(15, 23, 42, 0.95);
       border-bottom: 1px solid var(--card-border);
-      position: sticky;
-      top: 48px;
-      z-index: 50;
-      padding: 0.65rem 1.25rem;
+      position: relative;
+      padding: 0.5rem 1rem 0.35rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     }}
 
     .header-top {{
@@ -77,38 +74,69 @@ def build_page():
       gap: 0.75rem;
       max-width: 1200px;
       margin: 0 auto;
+      flex-wrap: wrap;
     }}
 
-    .brand {{
+    .header-left {{
       display: flex;
       align-items: center;
-      gap: 0.65rem;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }}
+
+    .btn-back-home {{
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 9999px;
+      padding: 0.25rem 0.65rem;
       text-decoration: none;
-      color: var(--text-main);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }}
+    .btn-back-home:hover {{
+      background: rgba(56, 189, 248, 0.2);
+      color: #7dd3fc;
+      border-color: #38bdf8;
+      transform: translateX(-1px);
+    }}
+
+    .brand-title-wrap {{
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
     }}
 
     .brand-icon {{
       background: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%);
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
-      box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+      font-size: 0.95rem;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+      flex-shrink: 0;
     }}
 
-    .brand-text h1 {{
+    .brand-title {{
       font-size: 1.05rem;
       font-weight: 800;
       letter-spacing: -0.01em;
       display: flex;
       align-items: center;
       gap: 0.45rem;
+      color: #fff;
+      margin: 0;
     }}
 
-    .brand-text .badge-emergency {{
+    .badge-emergency {{
       background: #ef4444;
       color: #fff;
       font-size: 0.65rem;
@@ -116,16 +144,12 @@ def build_page():
       padding: 1px 7px;
       border-radius: 999px;
       animation: pulse 2s infinite;
+      white-space: nowrap;
     }}
 
     @keyframes pulse {{
       0%, 100% {{ opacity: 1; transform: scale(1); }}
       50% {{ opacity: 0.8; transform: scale(0.96); }}
-    }}
-
-    .brand-text p {{
-      font-size: 0.75rem;
-      color: var(--text-muted);
     }}
 
     .header-actions {{
@@ -138,9 +162,9 @@ def build_page():
       background: rgba(255, 255, 255, 0.08);
       border: 1px solid var(--card-border);
       color: var(--text-main);
-      padding: 0.35rem 0.75rem;
+      padding: 0.32rem 0.7rem;
       border-radius: 999px;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
       cursor: pointer;
       display: inline-flex;
@@ -166,51 +190,54 @@ def build_page():
       align-items: center;
       gap: 0.4rem;
       max-width: 1200px;
-      margin: 0.6rem auto 0.1rem;
+      margin: 0.4rem auto 0;
       overflow-x: auto;
-      padding-bottom: 0.25rem;
+      padding-bottom: 0.2rem;
       scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
     }}
     .nav-tabs::-webkit-scrollbar {{ display: none; }}
 
     .tab-btn {{
-      background: transparent;
-      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       color: var(--text-muted);
-      padding: 0.45rem 0.95rem;
-      border-radius: 8px;
-      font-size: 0.88rem;
+      padding: 0.38rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.84rem;
       font-weight: 700;
       cursor: pointer;
       white-space: nowrap;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.35rem;
       transition: all 0.2s ease;
+      flex-shrink: 0;
     }}
 
     .tab-btn:hover {{
       color: var(--text-main);
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
     }}
 
     .tab-btn.active {{
       color: #fff;
-      background: rgba(59, 130, 246, 0.25);
-      border-color: rgba(59, 130, 246, 0.5);
-      box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      border-color: rgba(96, 165, 250, 0.7);
+      box-shadow: 0 0 14px rgba(59, 130, 246, 0.45);
     }}
 
     .tab-btn.tab-mock.active {{
-      background: rgba(239, 68, 68, 0.25);
-      border-color: rgba(239, 68, 68, 0.5);
-      box-shadow: 0 0 12px rgba(239, 68, 68, 0.3);
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      border-color: rgba(248, 113, 113, 0.8);
+      box-shadow: 0 0 14px rgba(239, 68, 68, 0.45);
     }}
 
     .tab-btn.tab-theory.active {{
-      background: rgba(139, 92, 246, 0.25);
-      border-color: rgba(139, 92, 246, 0.5);
-      box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+      background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+      border-color: rgba(167, 139, 250, 0.8);
+      box-shadow: 0 0 14px rgba(139, 92, 246, 0.45);
     }}
 
     /* Main Container */
@@ -904,13 +931,17 @@ def build_page():
     }}
 
     @media (max-width: 768px) {{
-      header {{ padding: 0.5rem 0.75rem; }}
-      main {{ padding: 0.85rem 0.6rem 2rem; }}
+      header.rush-header {{ padding: 0.45rem 0.65rem 0.35rem; }}
+      main {{ padding: 0.75rem 0.5rem 2rem; }}
       .glass-card {{ padding: 1.15rem; }}
-      .brand-text h1 {{ font-size: 0.92rem; }}
-      .brand-text p {{ display: none; }}
+      .header-top {{ flex-wrap: wrap; gap: 0.4rem; }}
+      .brand-title {{ font-size: 0.9rem; }}
+      .brand-icon {{ width: 24px; height: 24px; font-size: 0.8rem; }}
+      .btn-back-home {{ font-size: 0.72rem; padding: 0.2rem 0.5rem; }}
       .btn-action span {{ display: none; }}
-      .btn-action {{ padding: 0.35rem 0.55rem; }}
+      .btn-action {{ padding: 0.3rem 0.5rem; font-size: 0.75rem; }}
+      .tab-btn {{ font-size: 0.78rem; padding: 0.32rem 0.65rem; }}
+      .nav-tabs {{ margin-top: 0.35rem; gap: 0.3rem; }}
       .q-prompt-en {{ font-size: 1rem; }}
     }}
   </style>
@@ -920,55 +951,26 @@ def build_page():
   <script src="https://igcse.xyz/ecosystem-nav.js" defer></script>
   <igcse-nav active="sky"></igcse-nav>
 
-  <!-- ==================== Secondary Interconnection Breadcrumb ==================== -->
-  <nav class="sky-subnav" aria-label="Sky G8 科学矩阵互通导航">
-    <div class="sky-subnav-inner">
-      <div class="sky-subnav-breadcrumb">
-        <a href="index.html" class="sky-brand-link">
-          <span class="sky-brand-icon">🚀</span>
-          <span class="sky-brand-title">Sky Science G8</span>
-        </a>
-        <span class="sky-divider">/</span>
-        <span class="sky-current">🎯 考前突击大厅 (Exam Rush)</span>
-      </div>
-      <div class="sky-subnav-tabs" role="tablist">
-        <a href="index.html" class="sky-subnav-tab">
-          <span class="tab-icon">🎮</span>
-          <span class="tab-text">单词特训岛</span>
-          <span class="tab-badge">180词</span>
-        </a>
-        <a href="exercise_lab.html" class="sky-subnav-tab">
-          <span class="tab-icon">🧬</span>
-          <span class="tab-text">267题大练兵</span>
-          <span class="tab-badge">267题</span>
-        </a>
-        <a href="g8_exam_rush.html" class="sky-subnav-tab tab-rush active" aria-current="page">
-          <span class="tab-icon">🎯</span>
-          <span class="tab-text">考前突击大厅</span>
-          <span class="tab-badge-rush">10.19 特训</span>
-        </a>
-      </div>
-    </div>
-  </nav>
-
   <canvas id="confetti-canvas"></canvas>
 
-  <header>
+  <header class="rush-header">
     <div class="header-top">
-      <a href="index.html" class="brand">
-        <div class="brand-icon">⚡</div>
-        <div class="brand-text">
-          <h1>
-            G8 Science Exam Rush
-            <span class="badge-emergency">10.19 考试专用</span>
+      <div class="header-left">
+        <a href="index.html" class="btn-back-home" title="返回 Sky 科学岛首页">
+          ← 返回 Sky 科学岛首页
+        </a>
+        <div class="brand-title-wrap">
+          <div class="brand-icon">⚡</div>
+          <h1 class="brand-title">
+            G8 科学考前冲刺大厅
+            <span class="badge-emergency">10.19 特训</span>
           </h1>
-          <p>Cambridge Checkpoint & IGCSE 考前 2 小时全真特训大厅</p>
         </div>
-      </a>
+      </div>
 
       <div class="header-actions">
         <button class="btn-action" id="btn-lang" onclick="toggleGlobalLang()">
-          🌐 <span id="txt-lang">🇨🇳/🇬🇧 双语</span>
+          🌐 <span id="txt-lang">双语</span>
         </button>
         <button class="btn-action active" id="btn-sound" onclick="toggleGlobalSound()">
           🔊 <span id="txt-sound">声音</span>
@@ -976,7 +978,7 @@ def build_page():
       </div>
     </div>
 
-    <div class="nav-tabs">
+    <div class="nav-tabs" role="tablist">
       <button class="tab-btn active" onclick="switchMainTab('concepts')">
         📌 核心考纲速记卡
       </button>

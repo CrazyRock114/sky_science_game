@@ -7,8 +7,8 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="sky-subnav.css">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://igcse.xyz/ecosystem-nav.css">
   <style>
     /* ============ Unified Theme: Mother-Ship Deep Blue ============ */
     :root {
@@ -42,17 +42,44 @@
     }
 
     /* ============ Local Header ============ */
-    header {
-      background: rgba(15, 23, 42, 0.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+    header.word-header {
+      background: rgba(15, 23, 42, 0.95);
       border-bottom: 1px solid var(--card-border);
       color: white;
-      padding: 0.9rem 1.25rem;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      position: sticky;
-      top: 48px;
-      z-index: 100;
+      padding: 0.6rem 1rem 0.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .nav-cross-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .nav-link-exercise {
+      color: #38bdf8;
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+    .nav-link-exercise:hover {
+      background: rgba(56, 189, 248, 0.2);
+      color: #7dd3fc;
+    }
+    .nav-link-rush {
+      color: #0f172a;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      font-weight: 800;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+    }
+    .nav-link-rush:hover {
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.6);
+      transform: translateY(-1px);
     }
     h1 {
       font-size: 1.4rem;
@@ -1250,40 +1277,15 @@
   <script src="https://igcse.xyz/ecosystem-nav.js" defer></script>
   <igcse-nav active="sky"></igcse-nav>
 
-  <!-- ==================== Secondary Interconnection Breadcrumb ==================== -->
-  <nav class="sky-subnav" aria-label="Sky G8 科学矩阵互通导航">
-    <div class="sky-subnav-inner">
-      <div class="sky-subnav-breadcrumb">
-        <a href="index.html" class="sky-brand-link">
-          <span class="sky-brand-icon">🚀</span>
-          <span class="sky-brand-title">Sky Science G8</span>
-        </a>
-        <span class="sky-divider">/</span>
-        <span class="sky-current">🎮 单词特训岛 (Word Lab)</span>
-      </div>
-      <div class="sky-subnav-tabs" role="tablist">
-        <a href="index.html" class="sky-subnav-tab active" aria-current="page">
-          <span class="tab-icon">🎮</span>
-          <span class="tab-text">单词特训岛</span>
-          <span class="tab-badge">180词</span>
-        </a>
-        <a href="exercise_lab.html" class="sky-subnav-tab">
-          <span class="tab-icon">🧬</span>
-          <span class="tab-text">267题大练兵</span>
-          <span class="tab-badge">267题</span>
-        </a>
-        <a href="g8_exam_rush.html" class="sky-subnav-tab tab-rush">
-          <span class="tab-icon">🎯</span>
-          <span class="tab-text">考前突击大厅</span>
-          <span class="tab-badge-rush">10.19 特训</span>
-        </a>
+  <header class="word-header">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.6rem; margin-bottom:0.4rem;">
+      <h1 style="margin:0; font-size:1.25rem;">🧪 Sky's Science Word Lab <span class="tag">L01 · Balanced Diet</span></h1>
+      <div style="display:flex; align-items:center; gap:0.45rem; flex-wrap:wrap;">
+        <a href="exercise_lab.html" class="nav-cross-link nav-link-exercise">🧬 267题大练兵</a>
+        <a href="g8_exam_rush.html" class="nav-cross-link nav-link-rush">🎯 考前突击大厅</a>
+        <button class="sound-toggle off" id="sound-toggle" title="iOS 移动端需要先点这里解锁声音" style="position:static; margin:0; padding:0.3rem 0.75rem; font-size:0.8rem;">🔇 开启声音</button>
       </div>
     </div>
-  </nav>
-
-  <header>
-    <h1>🧪 Sky's Science Word Lab <span class="tag">L01 · Balanced Diet</span></h1>
-    <button class="sound-toggle off" id="sound-toggle" title="iOS 移动端需要先点这里解锁声音">🔇 开启声音</button>
     <nav class="tabs">
       <button data-tab="home" class="active">🏠 Home</button>
       <button data-tab="bee">📝 Spelling Bee</button>
