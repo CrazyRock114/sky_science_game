@@ -1,0 +1,3966 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Sky's Science Exercise & Exam Lab — 剑桥G8科学课后练习与真题互动平台</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧬</text></svg>">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #0891b2;
+      --accent: #f59e0b;
+      --success: #10b981;
+      --danger: #ef4444;
+      --purple: #8b5cf6;
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #0284c7 100%);
+      color: #fff;
+      padding: 1.2rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow);
+    }
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .brand h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .brand p {
+      font-size: 0.85rem;
+      color: #bae6fd;
+      margin-top: 0.15rem;
+    }
+    .header-links {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .btn-nav-vocab {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      text-decoration: none;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: all 0.2s;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .btn-nav-vocab:hover {
+      background: rgba(255,255,255,0.3);
+      transform: translateY(-1px);
+    }
+
+    /* Language Switcher */
+    .lang-switch {
+      display: inline-flex;
+      background: rgba(255,255,255,0.18);
+      padding: 0.2rem;
+      border-radius: 8px;
+      gap: 0.2rem;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: #e0f2fe;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lang-btn.active {
+      background: #fff;
+      color: var(--primary-dark);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    }
+    .lang-btn:hover:not(.active) {
+      color: #fff;
+      background: rgba(255,255,255,0.25);
+    }
+
+    /* Option Breakdown & Distractor Analysis */
+    .options-breakdown-box {
+      margin-top: 1.25rem;
+      border-top: 1px dashed var(--border);
+      padding-top: 1.25rem;
+    }
+    .breakdown-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.85rem;
+    }
+    .breakdown-title {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: #1e3a8a;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .breakdown-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+    .breakdown-card {
+      padding: 0.85rem 1rem;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      transition: all 0.2s;
+    }
+    .breakdown-card.correct-card {
+      border-color: #10b981;
+      background: #f0fdf4;
+    }
+    .breakdown-card.incorrect-card {
+      border-color: #f87171;
+      background: #fef2f2;
+    }
+    .breakdown-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.35rem;
+    }
+    .breakdown-letter-badge {
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+    }
+    .correct-card .breakdown-letter-badge {
+      background: #10b981;
+      color: #fff;
+    }
+    .incorrect-card .breakdown-letter-badge {
+      background: #ef4444;
+      color: #fff;
+    }
+    .breakdown-status-tag {
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+    }
+    .correct-card .breakdown-status-tag {
+      background: #dcfce7;
+      color: #15803d;
+    }
+    .incorrect-card .breakdown-status-tag {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+    .breakdown-opt-text {
+      font-weight: 700;
+      font-size: 0.92rem;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+    .breakdown-reason-en {
+      font-size: 0.88rem;
+      color: #334155;
+      line-height: 1.45;
+    }
+    .breakdown-reason-cn {
+      font-size: 0.84rem;
+      color: #475569;
+      margin-top: 0.25rem;
+      line-height: 1.45;
+    }
+    .distractor-tag {
+      display: inline-flex;
+      align-items: center;
+      font-weight: 700;
+      font-size: 0.76rem;
+      padding: 0.12rem 0.45rem;
+      border-radius: 4px;
+      margin-right: 0.35rem;
+      margin-bottom: 0.15rem;
+      letter-spacing: 0.01em;
+    }
+    .tag-concept {
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+    .tag-diff {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fde68a;
+    }
+    .tag-trap {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fecaca;
+    }
+    .tag-correct {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #bbf7d0;
+    }
+    body.lang-mode-en .mcq-q-cn,
+    body.lang-mode-en .lang-cn-only,
+    body.lang-mode-en [data-lang="cn"],
+    body.lang-mode-en .cn-subtext,
+    body.lang-mode-en .breakdown-reason-cn {
+      display: none !important;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 1.5rem auto;
+      padding: 0 1rem;
+    }
+
+    /* Control Bar */
+    .control-panel {
+      background: var(--panel);
+      padding: 1.25rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .part-switch {
+      display: inline-flex;
+      background: #f1f5f9;
+      padding: 0.25rem;
+      border-radius: 10px;
+      gap: 0.25rem;
+    }
+    .part-btn {
+      border: none;
+      background: transparent;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .part-btn.active {
+      background: #fff;
+      color: var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    select, input[type="text"] {
+      padding: 0.5rem 0.85rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 0.9rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    select:focus, input[type="text"]:focus {
+      border-color: var(--primary);
+    }
+
+    /* Tabs Bar */
+    .game-tabs {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .tab-btn {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.65rem 1.1rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      white-space: nowrap;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .tab-btn:hover {
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      box-shadow: 0 4px 10px rgba(37,99,235,0.25);
+    }
+    .tab-count {
+      font-size: 0.75rem;
+      background: rgba(0,0,0,0.08);
+      padding: 0.15rem 0.45rem;
+      border-radius: 20px;
+    }
+    .tab-btn.active .tab-count {
+      background: rgba(255,255,255,0.25);
+    }
+
+    /* Content Area */
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Common Card Styles */
+    .card {
+      background: var(--panel);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge-primary { background: #dbeafe; color: #1e40af; }
+    .badge-secondary { background: #e0e7ff; color: #4338ca; }
+    .badge-success { background: #dcfce7; color: #166534; }
+    .badge-warning { background: #fef3c7; color: #92400e; }
+    .badge-danger { background: #fee2e2; color: #991b1b; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-secondary { background: #f1f5f9; color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: #e2e8f0; }
+    .btn-success { background: var(--success); color: #fff; }
+    .btn-success:hover { background: #059669; }
+    .btn-outline-primary { background: transparent; border: 1px solid var(--primary); color: var(--primary); }
+    .btn-outline-primary:hover { background: var(--primary); color: #fff; }
+
+    /* ==================== GAME 1: MCQ ARENA ==================== */
+    .mcq-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .mcq-stats {
+      display: flex;
+      gap: 1.25rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+    .mcq-progress-bar {
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 3px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+    .mcq-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      width: 0%;
+      transition: width 0.3s;
+    }
+    .mcq-question-box {
+      margin-bottom: 1.5rem;
+    }
+    .mcq-q-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: #0f172a;
+    }
+    .mcq-q-cn {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .mcq-options {
+      display: grid;
+      gap: 0.75rem;
+    }
+    .mcq-option-btn {
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1.1rem;
+      text-align: left;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      transition: all 0.15s;
+    }
+    .mcq-option-btn:hover:not(.disabled) {
+      border-color: var(--primary);
+      background: #f8fafc;
+      transform: translateY(-1px);
+    }
+    .opt-letter {
+      background: #f1f5f9;
+      color: var(--text);
+      font-weight: 700;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.85rem;
+    }
+    .mcq-option-btn.correct {
+      border-color: var(--success);
+      background: #ecfdf5;
+      color: #065f46;
+    }
+    .mcq-option-btn.correct .opt-letter {
+      background: var(--success);
+      color: #fff;
+    }
+    .mcq-option-btn.wrong {
+      border-color: var(--danger);
+      background: #fef2f2;
+      color: #991b1b;
+    }
+    .mcq-option-btn.wrong .opt-letter {
+      background: var(--danger);
+      color: #fff;
+    }
+    .mcq-feedback {
+      margin-top: 1.25rem;
+      padding: 1.25rem;
+      border-radius: 10px;
+      display: none;
+      border: 1px solid transparent;
+    }
+    .mcq-feedback.correct-box {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+      display: block;
+    }
+    .mcq-feedback.wrong-box {
+      background: #fef2f2;
+      border-color: #fecaca;
+      display: block;
+    }
+    .citation-tag {
+      margin-top: 0.75rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      background: #f1f5f9;
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    .mcq-nav-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+    }
+
+    /* ==================== GAME 2: MATCHING ==================== */
+    .match-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    .match-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .match-card {
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 0.9rem 1.1rem;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      min-height: 54px;
+      display: flex;
+      align-items: center;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      outline: none;
+    }
+    .match-card:hover {
+      border-color: var(--secondary);
+      background: #f0f9ff;
+    }
+    .match-card:active {
+      transform: scale(0.98);
+    }
+    .match-card.selected {
+      border-color: var(--primary);
+      background: #eff6ff;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.25);
+      transform: translateY(-1px);
+    }
+    .match-card.matched {
+      border-color: var(--success);
+      background: #f0fdf4;
+      color: #166534;
+      cursor: default;
+      pointer-events: none;
+      opacity: 0.88;
+    }
+    .match-card.error-shake {
+      animation: shake 0.4s ease-in-out;
+      border-color: var(--danger);
+      background: #fef2f2;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    /* ==================== GAME 3: CLOZE ==================== */
+    .word-bank-box {
+      background: #f1f5f9;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1.25rem;
+    }
+    .word-bank-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+    .word-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .word-chip {
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 0.35rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+    .word-chip:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+    .cloze-passage {
+      line-height: 2.2;
+      font-size: 1.05rem;
+    }
+    .cloze-input {
+      border: 2px dashed var(--border);
+      border-radius: 6px;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--primary);
+      width: 140px;
+      text-align: center;
+      outline: none;
+      margin: 0 0.25rem;
+      transition: all 0.2s;
+    }
+    .cloze-input:focus {
+      border-style: solid;
+      border-color: var(--primary);
+      background: #eff6ff;
+    }
+    .cloze-input.valid {
+      border-color: var(--success);
+      border-style: solid;
+      background: #ecfdf5;
+      color: #065f46;
+    }
+    .cloze-input.invalid {
+      border-color: var(--danger);
+      border-style: solid;
+      background: #fef2f2;
+      color: #991b1b;
+    }
+
+    /* ==================== GAME 4: SORTING ==================== */
+    .sort-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-top: 1rem;
+    }
+    .sort-item {
+      background: #fff;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.85rem;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+    }
+    .sort-item:hover {
+      border-color: var(--primary);
+    }
+    .sort-item:active {
+      cursor: grabbing;
+    }
+    .sort-item.dragging {
+      opacity: 0.45;
+      background: #eff6ff;
+      border-color: #3b82f6;
+      border-style: dashed;
+      transform: scale(0.99);
+    }
+    .sort-item.drag-over {
+      border-top: 3px solid #2563eb;
+      background: #f0fdf4;
+    }
+    .sort-item.correct-pos {
+      border-color: #10b981;
+      background: #f0fdf4;
+    }
+    .sort-item.correct-pos .sort-num {
+      background: #10b981;
+    }
+    .sort-item.incorrect-pos {
+      border-color: #f59e0b;
+      background: #fffbeb;
+    }
+    .sort-item.incorrect-pos .sort-num {
+      background: #f59e0b;
+    }
+    .sort-drag-handle {
+      font-size: 1.15rem;
+      color: #94a3b8;
+      cursor: grab;
+      padding: 0 0.4rem;
+      user-select: none;
+      transition: color 0.15s;
+    }
+    .sort-drag-handle:hover {
+      color: var(--primary);
+    }
+    .sort-num {
+      width: 28px;
+      height: 28px;
+      background: var(--primary);
+      color: #fff;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 0.85rem;
+      transition: background 0.2s;
+    }
+    .sort-text {
+      flex: 1;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .sort-ctrls {
+      display: flex;
+      gap: 0.35rem;
+    }
+    .btn-sort {
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      transition: all 0.15s;
+      touch-action: manipulation;
+    }
+    .btn-sort:hover:not(:disabled) {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-sort:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* ==================== EXPLORER: MODEL ANSWERS ==================== */
+    .explorer-item {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+      background: #fff;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .explorer-item:hover {
+      box-shadow: var(--shadow);
+    }
+    .explorer-header {
+      padding: 1rem 1.25rem;
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .explorer-title-box {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex: 1;
+    }
+    .explorer-body {
+      padding: 1.25rem;
+      background: #fafbff;
+      border-top: 1px solid var(--border);
+      display: none;
+    }
+    .explorer-item.open .explorer-body {
+      display: block;
+    }
+    .explorer-item.open .exp-arrow {
+      transform: rotate(180deg);
+    }
+    .exp-arrow {
+      transition: transform 0.2s;
+      color: var(--text-muted);
+    }
+    .prompt-box {
+      background: #fff;
+      border-left: 4px solid var(--primary);
+      padding: 0.85rem 1rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+    .answer-box {
+      background: #ecfdf5;
+      border-left: 4px solid var(--success);
+      padding: 0.85rem 1rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+    .rationale-box {
+      background: #fffbeb;
+      border-left: 4px solid var(--accent);
+      padding: 0.85rem 1rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* ==================== MISTAKE BANK ==================== */
+    .mistake-header-box {
+      background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid #fecaca;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .mistake-stat-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--danger);
+    }
+
+    /* ==================== ANALYTICS & TIME TRACKING ==================== */
+    .mcq-timer-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      color: #1e40af;
+      padding: 0.2rem 0.55rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .session-mode-switch {
+      display: inline-flex;
+      background: #f1f5f9;
+      padding: 3px;
+      border-radius: 8px;
+      gap: 3px;
+      border: 1px solid var(--border);
+    }
+    .session-mode-btn {
+      border: none;
+      background: transparent;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .session-mode-btn.active {
+      background: #2563eb;
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(37,99,235,0.25);
+    }
+    .session-mode-btn.mode-trial.active {
+      background: #d97706;
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(217,119,6,0.25);
+    }
+
+    /* Analytics Dashboard Header */
+    .analytics-header-box {
+      background: linear-gradient(135deg, #1e3a8a 0%, #0369a1 100%);
+      color: #fff;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .analytics-header-box h2 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .analytics-header-box p {
+      font-size: 0.86rem;
+      color: #bae6fd;
+      margin-top: 0.25rem;
+    }
+
+    /* KPI Cards Grid */
+    .stats-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .kpi-card {
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+    .kpi-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .kpi-icon {
+      font-size: 1.4rem;
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #f1f5f9;
+    }
+    .kpi-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .kpi-val {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.1;
+      margin: 0.25rem 0;
+      font-variant-numeric: tabular-nums;
+    }
+    .kpi-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Sub-tabs */
+    .sub-tabs-bar {
+      display: flex;
+      gap: 0.5rem;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 1.25rem;
+    }
+    .sub-tab-btn {
+      border: none;
+      background: transparent;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      position: relative;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.2s;
+      border-radius: 6px 6px 0 0;
+    }
+    .sub-tab-btn:hover {
+      color: var(--primary);
+      background: #f1f5f9;
+    }
+    .sub-tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      background: #eff6ff;
+    }
+
+    /* Unit Performance Bars */
+    .mastery-card {
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .mastery-header {
+      font-weight: 800;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .mastery-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .mastery-row {
+      display: grid;
+      grid-template-columns: 180px 1fr 100px;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.85rem;
+    }
+    @media (max-width: 640px) {
+      .mastery-row {
+        grid-template-columns: 1fr;
+        gap: 0.35rem;
+      }
+    }
+    .mastery-bar-bg {
+      background: #e2e8f0;
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+    .mastery-bar-fill {
+      height: 100%;
+      border-radius: 999px;
+      transition: width 0.5s ease;
+    }
+
+    /* Attempt Log Table & Management */
+    .history-card {
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .history-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px dashed var(--border);
+    }
+    .filter-pills {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .pill-btn {
+      border: 1px solid var(--border);
+      background: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .pill-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .pill-btn.active {
+      background: #2563eb;
+      color: #fff;
+      border-color: #2563eb;
+    }
+    .history-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .btn-xs {
+      padding: 0.25rem 0.55rem;
+      font-size: 0.76rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+    .btn-xs-primary { background: #2563eb; color: #fff; }
+    .btn-xs-primary:hover { background: #1d4ed8; }
+    .btn-xs-warning { background: #fef3c7; color: #b45309; border-color: #fde68a; }
+    .btn-xs-warning:hover { background: #fde68a; }
+    .btn-xs-danger { background: #fee2e2; color: #b91c1c; border-color: #fecaca; }
+    .btn-xs-danger:hover { background: #fecaca; }
+    .btn-xs-secondary { background: #f1f5f9; color: #475569; border-color: #cbd5e1; }
+    .btn-xs-secondary:hover { background: #e2e8f0; }
+
+    /* Table styling */
+    .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .attempt-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.84rem;
+      text-align: left;
+    }
+    .attempt-table th {
+      background: #f8fafc;
+      padding: 0.65rem 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+    }
+    .attempt-table td {
+      padding: 0.75rem 0.85rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .attempt-row.excluded {
+      background: #f8fafc;
+      opacity: 0.65;
+    }
+    .attempt-row.excluded td {
+      color: #94a3b8;
+    }
+    .badge-excluded {
+      background: #f1f5f9;
+      color: #64748b;
+      border: 1px solid #cbd5e1;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-included {
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-trial {
+      background: #fffbeb;
+      color: #b45309;
+      border: 1px solid #fde68a;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .badge-formal {
+      background: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .match-container {
+        grid-template-columns: 1fr;
+      }
+      .control-panel {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .part-switch {
+        width: 100%;
+      }
+      .part-btn {
+        flex: 1;
+        text-align: center;
+      }
+    }
+  </style>
+  <!-- Load Bundled Science Data (Offline/file:// compatible) -->
+  <script src="science_exercises_data.js"></script>
+</head>
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header>
+    <div class="header-content">
+      <div class="brand">
+        <h1>🧬 Sky's Science Exercise & Exam Lab</h1>
+        <p id="header-subtitle">剑桥 G8 科学课后练习官方全解析 · 题库闯关 · 错题突破 · 考点溯源</p>
+      </div>
+      <div class="header-links">
+        <div class="lang-switch">
+          <button id="btn-lang-bilingual" class="lang-btn active" onclick="setLanguageMode('bilingual')">🇨🇳/🇬🇧 中英双语</button>
+          <button id="btn-lang-en" class="lang-btn" onclick="setLanguageMode('en')">🇬🇧 English Only</button>
+        </div>
+        <a href="https://igcse.xyz/practical" class="btn-nav-vocab" style="background: linear-gradient(135deg, #0284c7 0%, #059669 100%); border: none; font-weight: 700; box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);" target="_blank">🔬 实验母舰平台 (Paper 5/6 显微测微)</a>
+        <a href="knowledge_animations/compare_showcase.html" class="btn-nav-vocab" style="background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%); border: none; font-weight: 700; box-shadow: 0 2px 8px rgba(236, 72, 153, 0.4);" target="_blank">🎬 核心考点动画对比台 (6套视频)</a>
+        <a href="index.html" class="btn-nav-vocab" id="btn-nav-vocab">🔤 切换至词汇实验室 (Word Lab)</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- ==================== CONTROL & UNIT SWITCHER ==================== -->
+    <div class="control-panel">
+      <!-- Part 1 vs Part 2 vs All Switch -->
+      <div class="part-switch">
+        <button class="part-btn active" id="btn-part-1" onclick="switchCoursePart(1)">
+          <span id="lbl-part-1">🍂 第一部分：秋季学期 (L01–L18)</span>
+        </button>
+        <button class="part-btn" id="btn-part-2" onclick="switchCoursePart(2)">
+          <span id="lbl-part-2">🫀 第二部分：人体生理学 (L19–L32 + 统考)</span>
+        </button>
+        <button class="part-btn" id="btn-part-all" onclick="switchCoursePart('all')">
+          <span id="lbl-part-all">🌐 全量总库 (267 题)</span>
+        </button>
+      </div>
+
+      <!-- Filters -->
+      <div class="filter-group">
+        <select id="select-lesson" onchange="filterCurrentExercises()">
+          <option value="all">📚 查看全部单元练习</option>
+        </select>
+        <input type="text" id="search-input" placeholder="🔍 搜索考点 / 题目 / 关键词..." oninput="searchExercises()">
+      </div>
+    </div>
+
+    <!-- ==================== GAME & PRACTICE MODE TABS ==================== -->
+    <div class="game-tabs">
+      <button class="tab-btn active" data-tab="tab-mcq" onclick="openTab('tab-mcq')">
+        <span id="lbl-tab-mcq">🎯 单选真题闯关</span> <span class="tab-count" id="count-mcq">0</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-match" onclick="openTab('tab-match')">
+        <span id="lbl-tab-match">🧩 概念连线大作战</span> <span class="tab-count" id="count-match">0</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-cloze" onclick="openTab('tab-cloze')">
+        <span id="lbl-tab-cloze">📝 采分点填空大师</span> <span class="tab-count" id="count-cloze">0</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-sort" onclick="openTab('tab-sort')">
+        <span id="lbl-tab-sort">🔄 生理时序接龙</span> <span class="tab-count" id="count-sort">0</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-explorer" onclick="openTab('tab-explorer')">
+        <span id="lbl-tab-explorer">📖 官方标准答案总库</span> <span class="tab-count" id="count-all">0</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-mistakes" onclick="openTab('tab-mistakes')">
+        <span id="lbl-tab-mistakes">📊 错题与学情统计</span> <span class="tab-count" id="count-mistakes">0</span>
+      </button>
+    </div>
+
+    <!-- ==================== TAB 1: MCQ ARENA ==================== -->
+    <div id="tab-mcq" class="tab-content active">
+      <div class="card">
+        <div class="mcq-header">
+          <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+            <div class="badge badge-primary" id="mcq-task-tag">Checkpoint MCQ</div>
+            <div class="session-mode-switch" title="选择答题模式：正式练习计入统计；调试试测可标记为测试数据">
+              <button type="button" class="session-mode-btn active" id="btn-mode-formal" onclick="setSessionMode('formal')">🟢 正式练习</button>
+              <button type="button" class="session-mode-btn mode-trial" id="btn-mode-trial" onclick="setSessionMode('trial')">🧪 调试试测</button>
+            </div>
+          </div>
+          <div class="mcq-stats">
+            <span class="mcq-timer-badge" id="mcq-timer-badge">
+              ⏱️ <span id="lbl-mcq-time">用时</span>: <strong id="mcq-elapsed-time">00:00</strong>
+            </span>
+            <span><span id="lbl-mcq-qnum">题号</span>: <span id="mcq-current-idx">1</span> / <span id="mcq-total-count">0</span></span>
+            <span style="color:var(--success);"><span id="lbl-mcq-score">得分</span>: <span id="mcq-score">0</span></span>
+            <span style="color:var(--accent);"><span id="lbl-mcq-streak">连击</span>: 🔥 <span id="mcq-streak">0</span></span>
+          </div>
+        </div>
+        <div class="mcq-progress-bar">
+          <div class="mcq-progress-fill" id="mcq-progress-fill"></div>
+        </div>
+
+        <div id="mcq-container">
+          <div class="mcq-question-box">
+            <h3 class="mcq-q-title" id="mcq-prompt-en">Loading question...</h3>
+            <p class="mcq-q-cn" id="mcq-prompt-cn">加载题目中文中...</p>
+            <div id="mcq-diagram-container" style="display:none; margin: 1rem auto; text-align: center; background: #f8fafc; border: 1.5px solid #cbd5e1; border-radius: 10px; padding: 0.85rem; max-width: 600px;">
+              <img id="mcq-diagram-img" src="" alt="Question Diagram" style="max-width: 100%; max-height: 380px; height: auto; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); object-fit: contain;">
+              <div id="mcq-diagram-caption" style="font-size: 0.85rem; color: #1e3a8a; margin-top: 0.5rem; font-weight: 700;"></div>
+              <div id="mcq-diagram-desc" style="font-size: 0.8rem; color: #475569; margin-top: 0.35rem; line-height: 1.45; text-align: left; background: #fff; padding: 0.5rem 0.75rem; border-radius: 6px; border: 1px dashed #cbd5e1;"></div>
+            </div>
+          </div>
+
+          <div class="mcq-options" id="mcq-options-container">
+            <!-- Options dynamically rendered here -->
+          </div>
+
+          <div class="mcq-feedback" id="mcq-feedback-box">
+            <h4 id="mcq-feedback-title" style="margin-bottom:0.4rem;"></h4>
+            <div id="mcq-feedback-rationale" style="font-size:0.92rem;"></div>
+            <div class="citation-tag" id="mcq-citation-tag"></div>
+
+            <!-- Option-by-Option Distractor Breakdown -->
+            <div id="mcq-options-breakdown" class="options-breakdown-box" style="display:none;">
+              <div class="breakdown-header">
+                <span class="breakdown-title" id="mcq-breakdown-title">💡 选项逐项深度辨析与考点诊断 (Option-by-Option Distractor Analysis)</span>
+              </div>
+              <div class="breakdown-cards" id="breakdown-cards-container">
+                <!-- Breakdown cards rendered dynamically -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mcq-nav-actions">
+          <button class="btn btn-secondary" id="btn-mcq-prev" onclick="prevMcq()">⬅️ 上一题</button>
+          <button class="btn btn-primary" id="btn-mcq-next" onclick="nextMcq()">下一题 ➡️</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 2: CONCEPT MATCHING ==================== -->
+    <div id="tab-match" class="tab-content">
+      <div class="card">
+        <div class="mcq-header">
+          <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+            <div class="badge badge-primary" id="match-task-tag">Concept Matching</div>
+            <div class="session-mode-switch" title="选择答题模式：正式练习计入统计；调试试测可标记为测试数据">
+              <button type="button" class="session-mode-btn active" id="btn-match-mode-formal" onclick="setSessionMode('formal')">🟢 正式练习</button>
+              <button type="button" class="session-mode-btn mode-trial" id="btn-match-mode-trial" onclick="setSessionMode('trial')">🧪 调试试测</button>
+            </div>
+          </div>
+          <div class="mcq-stats">
+            <span class="mcq-timer-badge">
+              ⏱️ <span id="lbl-match-time">用时</span>: <strong id="match-elapsed-time">00:00</strong>
+            </span>
+            <span><span id="lbl-match-qnum">题号</span>: <span id="match-current-idx">1</span> / <span id="match-total-count">0</span></span>
+            <span style="color:var(--success);"><span id="lbl-match-score">得分</span>: <span id="match-score">0</span></span>
+            <span style="color:var(--accent);"><span id="lbl-match-remaining">待配对</span>: <span id="match-remaining-pairs">0</span> / <span id="match-total-pairs">0</span></span>
+          </div>
+        </div>
+        <div class="mcq-progress-bar">
+          <div class="mcq-progress-fill" id="match-progress-fill"></div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
+          <div>
+            <h3 id="match-task-title" style="font-size:1.15rem; font-weight:700;">🧩 概念与功能连线大作战</h3>
+            <p id="match-task-subtitle" style="font-size:0.85rem; color:var(--text-muted);">点击左侧或右侧项目，再点击另一侧对应匹配项；配对成功即可消除！支持点击已选中卡片取消选择。</p>
+          </div>
+          <div style="display:flex; gap:0.5rem;">
+            <button class="btn btn-secondary btn-sm" id="btn-match-prev" onclick="prevMatchItem()">◀ 上一组</button>
+            <button class="btn btn-secondary btn-sm" id="btn-match-next" onclick="nextMatchItem()">下一组 ▶</button>
+            <button class="btn btn-primary btn-sm" id="btn-match-reset" onclick="initCurrentMatchGame()">🔄 重置打乱</button>
+          </div>
+        </div>
+
+        <div class="match-container">
+          <div class="match-col" id="match-left-col">
+            <!-- Left cards -->
+          </div>
+          <div class="match-col" id="match-right-col">
+            <!-- Right cards -->
+          </div>
+        </div>
+
+        <div id="match-complete-banner" style="display:none; margin-top:1.5rem; padding:1.25rem; background:#ecfdf5; border-radius:10px; border:1px solid #a7f3d0; text-align:center;">
+          <h4 id="match-complete-heading" style="color:#065f46; font-size:1.1rem; margin-bottom:0.25rem;">🎉 恭喜全部配对成功！(+1分)</h4>
+          <p id="match-citation-hint" style="font-size:0.85rem; color:#047857;"></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 3: CLOZE MASTER ==================== -->
+    <div id="tab-cloze" class="tab-content">
+      <div class="card">
+        <div class="mcq-header">
+          <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+            <div class="badge badge-primary" id="cloze-task-tag">Cloze Master</div>
+            <div class="session-mode-switch" title="选择答题模式：正式练习计入统计；调试试测可标记为测试数据">
+              <button type="button" class="session-mode-btn active" id="btn-cloze-mode-formal" onclick="setSessionMode('formal')">🟢 正式练习</button>
+              <button type="button" class="session-mode-btn mode-trial" id="btn-cloze-mode-trial" onclick="setSessionMode('trial')">🧪 调试试测</button>
+            </div>
+          </div>
+          <div class="mcq-stats">
+            <span class="mcq-timer-badge">
+              ⏱️ <span id="lbl-cloze-time">用时</span>: <strong id="cloze-elapsed-time">00:00</strong>
+            </span>
+            <span><span id="lbl-cloze-qnum">题号</span>: <span id="cloze-current-idx">1</span> / <span id="cloze-total-count">0</span></span>
+            <span style="color:var(--success);"><span id="lbl-cloze-score">得分</span>: <span id="cloze-score">0</span></span>
+          </div>
+        </div>
+        <div class="mcq-progress-bar">
+          <div class="mcq-progress-fill" id="cloze-progress-fill"></div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
+          <div>
+            <h3 id="cloze-task-title" style="font-size:1.15rem; font-weight:700;">📝 核心采分点完形填空</h3>
+            <p id="cloze-subtitle" style="font-size:0.85rem; color:var(--text-muted);">从备选词库选词点击填入，或直接输入术语（支持大小写/标点容错，失焦自动验证）：</p>
+          </div>
+          <div style="display:flex; gap:0.5rem;">
+            <button class="btn btn-secondary btn-sm" id="btn-cloze-prev" onclick="prevClozeItem()">◀ 上一题</button>
+            <button class="btn btn-secondary btn-sm" id="btn-cloze-next" onclick="nextClozeItem()">下一题 ▶</button>
+          </div>
+        </div>
+
+        <div class="word-bank-box">
+          <div class="word-bank-title" id="cloze-wb-title">💡 备选词库 (Word Bank / 点击词条自动填入当前空格并聚焦下一空)</div>
+          <div class="word-chips" id="cloze-word-bank">
+            <!-- Word chips -->
+          </div>
+        </div>
+
+        <div class="cloze-passage" id="cloze-passage-container">
+          <!-- Sentences with blanks -->
+        </div>
+
+        <div style="margin-top:1.5rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <button class="btn btn-success" id="btn-cloze-check" onclick="checkClozeAnswers()">✔️ 检验我的答案</button>
+          <button class="btn btn-secondary" id="btn-cloze-reveal" onclick="revealClozeAnswers()">👁️ 显示官方参考采分词</button>
+        </div>
+
+        <div id="cloze-feedback-box" style="display:none; margin-top:1.25rem; padding:1rem; border-radius:10px; background:#f8fafc; border:1px solid var(--border);">
+          <div id="cloze-rationale-text" style="font-size:0.92rem;"></div>
+          <div class="citation-tag" id="cloze-citation-tag" style="margin-top:0.5rem;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 4: CHRONO-SORT ==================== -->
+    <div id="tab-sort" class="tab-content">
+      <div class="card">
+        <div class="mcq-header">
+          <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+            <div class="badge badge-primary" id="sort-task-tag">Chrono-Sort</div>
+            <div class="session-mode-switch" title="选择答题模式：正式练习计入统计；调试试测可标记为测试数据">
+              <button type="button" class="session-mode-btn active" id="btn-sort-mode-formal" onclick="setSessionMode('formal')">🟢 正式练习</button>
+              <button type="button" class="session-mode-btn mode-trial" id="btn-sort-mode-trial" onclick="setSessionMode('trial')">🧪 调试试测</button>
+            </div>
+          </div>
+          <div class="mcq-stats">
+            <span class="mcq-timer-badge">
+              ⏱️ <span id="lbl-sort-time">用时</span>: <strong id="sort-elapsed-time">00:00</strong>
+            </span>
+            <span><span id="lbl-sort-qnum">题号</span>: <span id="sort-current-idx">1</span> / <span id="sort-total-count">0</span></span>
+            <span style="color:var(--success);"><span id="lbl-sort-score">得分</span>: <span id="sort-score">0</span></span>
+          </div>
+        </div>
+        <div class="mcq-progress-bar">
+          <div class="mcq-progress-fill" id="sort-progress-fill"></div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
+          <div>
+            <h3 id="sort-task-title" style="font-size:1.15rem; font-weight:700;">🔄 生理时序与流向接龙</h3>
+            <p id="sort-subtitle" style="font-size:0.85rem; color:var(--text-muted);">拖拽卡片或点击 ⬆️ / ⬇️ 调整各步骤次序，将生理过程按时间先后正确排列：</p>
+          </div>
+          <div style="display:flex; gap:0.5rem;">
+            <button class="btn btn-secondary btn-sm" id="btn-sort-prev" onclick="prevSortItem()">◀ 上一题</button>
+            <button class="btn btn-secondary btn-sm" id="btn-sort-next" onclick="nextSortItem()">下一题 ▶</button>
+            <button class="btn btn-primary btn-sm" id="btn-sort-reset" onclick="resetCurrentSortGame()">🔄 重新打乱</button>
+          </div>
+        </div>
+
+        <div class="sort-list" id="sort-items-container">
+          <!-- Sort items -->
+        </div>
+
+        <div style="margin-top:1.5rem; display:flex; gap:0.75rem;">
+          <button class="btn btn-success" id="btn-sort-check" onclick="checkSortOrder()">✔️ 提交排列结果</button>
+        </div>
+
+        <div id="sort-feedback-box" style="display:none; margin-top:1.25rem; padding:1.25rem; border-radius:10px;">
+          <!-- Feedback -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== TAB 5: MODEL ANSWERS EXPLORER ==================== -->
+    <div id="tab-explorer" class="tab-content">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <p id="explorer-intro-text" style="font-size:0.9rem; color:var(--text-muted);">
+          共收录 <strong id="explorer-total-count" style="color:var(--primary);">0</strong> 道权威大题，支持全文中英文双语搜索与教材出处定位：
+        </p>
+        <button class="btn btn-secondary btn-sm" id="btn-exp-expand" onclick="toggleAllExplorer(true)">展开全部</button>
+        <button class="btn btn-secondary btn-sm" id="btn-exp-collapse" onclick="toggleAllExplorer(false)">折叠全部</button>
+      </div>
+
+      <div id="explorer-list-container">
+        <!-- Rendered Accordion Cards -->
+      </div>
+    </div>
+
+    <!-- ==================== TAB 6: MISTAKE BANK & LEARNING ANALYTICS ==================== -->
+    <div id="tab-mistakes" class="tab-content">
+      <!-- 1. Executive Analytics Header -->
+      <div class="analytics-header-box">
+        <div>
+          <h2 id="analytics-heading">📊 学情统计与错题全景看板</h2>
+          <p id="analytics-subtitle">全景记录答题用时、正确率与章节考点掌握度，支持甄别、排除与编辑调试测试数据</p>
+        </div>
+        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+          <button class="btn btn-primary" id="btn-mistake-drill" onclick="drillMistakesOnly()">🎯 立即专项重做错题</button>
+          <button class="btn btn-secondary" id="btn-mistake-clear" onclick="clearMistakeBank()">🗑️ 清空错题本</button>
+        </div>
+      </div>
+
+      <!-- 2. KPI Cards Grid -->
+      <div class="stats-kpi-grid">
+        <!-- KPI 1: Valid Attempts -->
+        <div class="kpi-card">
+          <div class="kpi-card-top">
+            <span class="kpi-title" id="lbl-kpi-attempts">有效计入作答总数</span>
+            <span class="kpi-icon">📝</span>
+          </div>
+          <div class="kpi-val" id="stat-total-attempts">0</div>
+          <div class="kpi-sub" id="stat-sub-attempts">历史总提交: 0 次 | 排除试测: 0 条</div>
+        </div>
+
+        <!-- KPI 2: Overall Accuracy -->
+        <div class="kpi-card">
+          <div class="kpi-card-top">
+            <span class="kpi-title" id="lbl-kpi-accuracy">综合答题正确率</span>
+            <span class="kpi-icon">🎯</span>
+          </div>
+          <div class="kpi-val" id="stat-accuracy-rate">0.0%</div>
+          <div class="kpi-sub" id="stat-sub-accuracy">做对: 0 题 | 做错: 0 题</div>
+        </div>
+
+        <!-- KPI 3: Avg Duration -->
+        <div class="kpi-card">
+          <div class="kpi-card-top">
+            <span class="kpi-title" id="lbl-kpi-duration">平均每题作答耗时</span>
+            <span class="kpi-icon">⏱️</span>
+          </div>
+          <div class="kpi-val" id="stat-avg-duration">0.0s</div>
+          <div class="kpi-sub" id="stat-sub-time">累计有效答题时长: 0秒</div>
+        </div>
+
+        <!-- KPI 4: Pending Mistakes -->
+        <div class="kpi-card">
+          <div class="kpi-card-top">
+            <span class="kpi-title" id="lbl-kpi-mistakes">待攻克错题总数</span>
+            <span class="kpi-icon">🔥</span>
+          </div>
+          <div class="kpi-val" style="color:var(--danger);" id="stat-pending-mistakes">0</div>
+          <div class="kpi-sub" id="stat-sub-mistakes">
+            <span id="mistake-pending-label">待攻克错题</span>: <strong id="mistake-count-display">0</strong> 道
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Unit Mastery Breakdown & Top Mistakes Grid -->
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:1.5rem;">
+        <!-- Unit Mastery Card -->
+        <div class="mastery-card">
+          <div class="mastery-header">
+            <span id="mastery-heading">📈 各单元掌握度与正确率分布</span>
+            <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);" id="lbl-mastery-sub">（基于有效作答）</span>
+          </div>
+          <div class="mastery-list" id="mastery-list-container">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Top Mistakes Leaderboard Card -->
+        <div class="mastery-card">
+          <div class="mastery-header">
+            <span id="top-mistakes-heading">⚠️ 高频易错题突破排行榜</span>
+            <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);" id="lbl-top-mistakes-sub">（TOP 5）</span>
+          </div>
+          <div id="top-mistakes-container">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Sub-Navigation: Mistakes vs History -->
+      <div class="sub-tabs-bar">
+        <button class="sub-tab-btn active" id="subtab-btn-mistakes" onclick="switchMistakesSubTab('mistakes')">
+          🔥 待攻克错题突破本 (<span id="sub-mistake-count">0</span>)
+        </button>
+        <button class="sub-tab-btn" id="subtab-btn-history" onclick="switchMistakesSubTab('history')">
+          📋 答题流水明细与数据甄别排除 (<span id="sub-history-count">0</span>)
+        </button>
+      </div>
+
+      <!-- View 1: Active Mistake Bank -->
+      <div id="view-mistake-bank">
+        <div class="mistake-header-box" style="margin-bottom:1rem;">
+          <div>
+            <h2 id="mistake-heading" style="font-size:1.15rem; color:#991b1b; margin-bottom:0.25rem;">🔥 智能错题突破本 (Mistake Bank)</h2>
+            <p id="mistake-subtitle" style="font-size:0.86rem; color:#b91c1c;">单选闯关中答错的题目已自动收录，支持专项靶向重练与知识点巩固</p>
+          </div>
+        </div>
+        <div id="mistake-list-container">
+          <!-- Mistake cards rendered here -->
+        </div>
+      </div>
+
+      <!-- View 2: Attempt History & Trial Data Management -->
+      <div id="view-attempt-history" style="display:none;">
+        <div class="history-card">
+          <div class="history-toolbar">
+            <div class="filter-pills">
+              <button class="pill-btn active" data-filter="all" id="pill-filter-all" onclick="setHistoryFilter('all')">全部作答流水</button>
+              <button class="pill-btn" data-filter="formal" id="pill-filter-formal" onclick="setHistoryFilter('formal')">🟢 正式有效数据</button>
+              <button class="pill-btn" data-filter="excluded" id="pill-filter-excluded" onclick="setHistoryFilter('excluded')">🚫 已排除/测试数据</button>
+              <button class="pill-btn" data-filter="wrong" id="pill-filter-wrong" onclick="setHistoryFilter('wrong')">❌ 仅看做错记录</button>
+            </div>
+            <div class="history-actions">
+              <button class="btn-xs btn-xs-warning" id="btn-hist-exclude-trial" onclick="excludeAllTrialAttempts()" title="将所有试测模式答题记录标记为排除">🚫 一键排除全部试测</button>
+              <button class="btn-xs btn-xs-primary" id="btn-hist-include-all" onclick="includeAllAttempts()" title="恢复全部答题数据纳入统计">✅ 一键恢复全部纳入</button>
+              <button class="btn-xs btn-xs-secondary" id="btn-hist-clear-excluded" onclick="clearExcludedAttempts()" title="永久清理已被排除的废弃记录">🗑️ 清除已排除数据</button>
+              <button class="btn-xs btn-xs-danger" id="btn-hist-clear-all" onclick="clearAllAttempts()" title="清空全部历史作答流水">⚠️ 清空全部答题记录</button>
+            </div>
+          </div>
+
+          <div class="table-responsive">
+            <table class="attempt-table">
+              <thead>
+                <tr>
+                  <th style="width:40px;">#</th>
+                  <th id="th-time">作答时间</th>
+                  <th id="th-q">题目与考点</th>
+                  <th id="th-ans">学生选择 vs 答案</th>
+                  <th id="th-result">判定</th>
+                  <th id="th-time-spent">作答耗时</th>
+                  <th id="th-mode">数据模式</th>
+                  <th id="th-status">统计状态</th>
+                  <th id="th-actions">操作管理</th>
+                </tr>
+              </thead>
+              <tbody id="history-table-body">
+                <!-- Rendered dynamically -->
+              </tbody>
+            </table>
+          </div>
+          <div id="history-empty-message" style="display:none; text-align:center; padding:2rem; color:var(--text-muted); font-size:0.9rem;"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==================== CORE INTERACTIVE ENGINE SCRIPT ==================== -->
+  <script>
+    // State management
+    let currentPart = 1; // 1: Autumn, 2: Physiology
+    let currentExercises = [];
+    let activeFilteredExercises = [];
+    
+    // Language Mode State: 'bilingual' | 'en'
+    const LANG_STORAGE_KEY = 'sky_science_lang_mode';
+    let currentLangMode = localStorage.getItem(LANG_STORAGE_KEY) || 'bilingual';
+
+    // MCQ State
+    let mcqPool = [];
+    let currentMcqIdx = 0;
+    let mcqScore = 0;
+    let mcqStreak = 0;
+    let isCurrentMcqAnswered = false;
+    let mcqAnsweredMap = {};
+    let mcqQuestionStartTime = Date.now();
+    let mcqTimerInterval = null;
+
+    // Matching State
+    let matchPool = [];
+    let currentMatchIdx = 0;
+    let matchScore = 0;
+    let matchAnsweredMap = {};
+    let matchQuestionStartTime = Date.now();
+    let matchTimerInterval = null;
+    let selectedLeftCard = null;
+    let selectedRightCard = null;
+    let matchedPairsCount = 0;
+    let currentMatchPairsTotal = 0;
+    let isMatchEvaluating = false;
+
+    // Cloze State
+    let clozePool = [];
+    let currentClozeIdx = 0;
+    let clozeScore = 0;
+    let clozeAnsweredMap = {};
+    let clozeQuestionStartTime = Date.now();
+    let clozeTimerInterval = null;
+    let lastFocusedInput = null;
+
+    // Sort State
+    let sortPool = [];
+    let currentSortIdx = 0;
+    let sortScore = 0;
+    let sortAnsweredMap = {};
+    let sortQuestionStartTime = Date.now();
+    let sortTimerInterval = null;
+    let currentSortOrder = [];
+    let draggedSortIndex = null;
+
+    // LocalStorage for mistakes
+    const STORAGE_KEY = 'sky_science_mistakes_v1';
+    let mistakeBank = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+
+    // Session Practice Mode: 'formal' (计入统计) | 'trial' (调试试测，默认排除)
+    const SESSION_MODE_KEY = 'sky_science_session_mode';
+    let currentSessionMode = localStorage.getItem(SESSION_MODE_KEY) || 'formal';
+
+    // Attempts Log & Analytics State
+    const ATTEMPTS_STORAGE_KEY = 'sky_science_attempts_log_v1';
+    let attemptsLog = JSON.parse(localStorage.getItem(ATTEMPTS_STORAGE_KEY) || '[]');
+    let currentHistoryFilter = 'all'; // 'all' | 'formal' | 'excluded' | 'wrong'
+    let currentMistakesSubTab = 'mistakes'; // 'mistakes' | 'history'
+
+    // ==================== INITIALIZATION ====================
+    window.addEventListener('DOMContentLoaded', () => {
+      // Check data availability
+      if (!window.SCIENCE_DATA_PART1 || !window.SCIENCE_DATA_PART2) {
+        console.error('Science data not loaded!');
+        alert('无法加载习题数据库，请确认 science_exercises_data.js 是否存在！');
+        return;
+      }
+      setSessionMode(currentSessionMode);
+      setLanguageMode(currentLangMode, false);
+      switchCoursePart(1);
+      updateAnalyticsUI();
+    });
+
+    // Session Mode Switcher
+    function setSessionMode(mode) {
+      currentSessionMode = mode;
+      localStorage.setItem(SESSION_MODE_KEY, mode);
+      ['btn-mode-formal', 'btn-match-mode-formal', 'btn-cloze-mode-formal', 'btn-sort-mode-formal'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('active', mode === 'formal');
+      });
+      ['btn-mode-trial', 'btn-match-mode-trial', 'btn-cloze-mode-trial', 'btn-sort-mode-trial'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('active', mode === 'trial');
+      });
+    }
+
+    // Language Mode Switcher
+    function setLanguageMode(mode, refresh = true) {
+      currentLangMode = mode;
+      localStorage.setItem(LANG_STORAGE_KEY, mode);
+
+      const isEn = mode === 'en';
+      const btnBi = document.getElementById('btn-lang-bilingual');
+      const btnEn = document.getElementById('btn-lang-en');
+      if (btnBi) btnBi.classList.toggle('active', !isEn);
+      if (btnEn) btnEn.classList.toggle('active', isEn);
+      document.body.classList.toggle('lang-mode-en', isEn);
+      document.body.classList.toggle('lang-mode-bilingual', !isEn);
+
+      updateLanguageLabels();
+
+      if (refresh) {
+        const savedMcq = currentMcqIdx;
+        const savedMatch = currentMatchIdx;
+        const savedCloze = currentClozeIdx;
+        const savedSort = currentSortIdx;
+
+        populateLessonDropdown();
+        rebuildGamePools();
+
+        if (savedMcq < mcqPool.length) { currentMcqIdx = savedMcq; initMcq(); }
+        if (savedMatch < matchPool.length) { currentMatchIdx = savedMatch; initCurrentMatchGame(); }
+        if (savedCloze < clozePool.length) { currentClozeIdx = savedCloze; initCurrentClozeGame(); }
+        if (savedSort < sortPool.length) { currentSortIdx = savedSort; initCurrentSortGame(); }
+
+        updateAnalyticsUI();
+      }
+    }
+
+    function updateLanguageLabels() {
+      const isEn = currentLangMode === 'en';
+      // Header subtitle
+      const sub = document.getElementById('header-subtitle');
+      if (sub) sub.textContent = isEn
+        ? 'Cambridge Checkpoint & IGCSE Science Exercise Lab · Exam Practice · Mistake Breaker · Syllabus Citations'
+        : '剑桥 G8 科学课后练习官方全解析 · 题库闯关 · 错题突破 · 考点溯源';
+
+      // Vocab Lab link
+      const vocabLink = document.getElementById('btn-nav-vocab');
+      if (vocabLink) vocabLink.textContent = isEn ? '🔤 Switch to Word Lab' : '🔤 切换至词汇实验室 (Word Lab)';
+
+      // Part buttons
+      const p1 = document.getElementById('lbl-part-1');
+      if (p1) p1.textContent = isEn ? '🍂 Part 1: Autumn (91 Qs)' : '🍂 第一部分：秋季学期 (L01–L18)';
+      const p2 = document.getElementById('lbl-part-2');
+      if (p2) p2.textContent = isEn ? '🫀 Part 2: Human Physiology (176 Qs)' : '🫀 第二部分：人体生理学 (L19–L32 + 统考)';
+      const pAll = document.getElementById('lbl-part-all');
+      if (pAll) pAll.textContent = isEn ? '🌐 Full Bank (267 Qs)' : '🌐 全量总库 (267 题)';
+
+      // Search placeholder
+      const sInput = document.getElementById('search-input');
+      if (sInput) sInput.placeholder = isEn ? '🔍 Search concepts, questions, organs, or textbook pages...' : '🔍 搜索考点 / 题目 / 关键词...';
+
+      // Tab labels
+      const lMcq = document.getElementById('lbl-tab-mcq');
+      if (lMcq) lMcq.textContent = isEn ? '🎯 MCQ Arena' : '🎯 单选真题闯关';
+      const lMatch = document.getElementById('lbl-tab-match');
+      if (lMatch) lMatch.textContent = isEn ? '🧩 Concept Match' : '🧩 概念连线大作战';
+      const lCloze = document.getElementById('lbl-tab-cloze');
+      if (lCloze) lCloze.textContent = isEn ? '📝 Cloze Master' : '📝 采分点填空大师';
+      const lSort = document.getElementById('lbl-tab-sort');
+      if (lSort) lSort.textContent = isEn ? '🔄 Chrono-Sort' : '🔄 生理时序接龙';
+      const lExp = document.getElementById('lbl-tab-explorer');
+      if (lExp) lExp.textContent = isEn ? '📖 Model Answers' : '📖 官方标准答案总库';
+      const lMis = document.getElementById('lbl-tab-mistakes');
+      if (lMis) lMis.textContent = isEn ? '📊 Mistakes & Analytics' : '📊 错题与学情统计';
+
+      // Stats Headers & Navigation Labels across All Tabs
+      ['lbl-mcq-time', 'lbl-match-time', 'lbl-cloze-time', 'lbl-sort-time'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = isEn ? 'Time' : '用时';
+      });
+      ['lbl-mcq-qnum', 'lbl-match-qnum', 'lbl-cloze-qnum', 'lbl-sort-qnum'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = isEn ? 'Question' : '题号';
+      });
+      ['lbl-mcq-score', 'lbl-match-score', 'lbl-cloze-score', 'lbl-sort-score'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = isEn ? 'Score' : '得分';
+      });
+      const lStreak = document.getElementById('lbl-mcq-streak');
+      if (lStreak) lStreak.textContent = isEn ? 'Streak' : '连击';
+      const lMatchRem = document.getElementById('lbl-match-remaining');
+      if (lMatchRem) lMatchRem.textContent = isEn ? 'Remaining' : '待配对';
+
+      const btnPrev = document.getElementById('btn-mcq-prev');
+      if (btnPrev) btnPrev.textContent = isEn ? '⬅️ Previous' : '⬅️ 上一题';
+      const btnNext = document.getElementById('btn-mcq-next');
+      if (btnNext) btnNext.textContent = isEn ? 'Next ➡️' : '下一题 ➡️';
+
+      // Tab 2: Matching
+      const matchSub = document.getElementById('match-task-subtitle');
+      if (matchSub) matchSub.textContent = isEn ? 'Click an item on the left or right, then click its counterpart to eliminate pairs! Click again to deselect.' : '点击左侧或右侧项目，再点击另一侧对应匹配项；配对成功即可消除！支持点击已选中卡片取消选择。';
+      const btnMatchPrev = document.getElementById('btn-match-prev');
+      if (btnMatchPrev) btnMatchPrev.textContent = isEn ? '◀ Previous Set' : '◀ 上一组';
+      const btnMatchNext = document.getElementById('btn-match-next');
+      if (btnMatchNext) btnMatchNext.textContent = isEn ? 'Next Set ▶' : '下一组 ▶';
+      const btnMatchReset = document.getElementById('btn-match-reset');
+      if (btnMatchReset) btnMatchReset.textContent = isEn ? '🔄 Reshuffle' : '🔄 重置打乱';
+      const matchCompH = document.getElementById('match-complete-heading');
+      if (matchCompH) matchCompH.textContent = isEn ? '🎉 All Pairs Successfully Matched! (+1 point)' : '🎉 恭喜全部配对成功！(+1分)';
+
+      // Tab 3: Cloze
+      const clozeSub = document.getElementById('cloze-subtitle');
+      if (clozeSub) clozeSub.textContent = isEn ? 'Click word bank chips to auto-fill blanks, or type scientific terms directly (auto-validated on blur, case-insensitive):' : '从备选词库选词点击填入，或直接输入术语（支持大小写/标点容错，失焦自动验证）：';
+      const clozeWb = document.getElementById('cloze-wb-title');
+      if (clozeWb) clozeWb.textContent = isEn ? '💡 Word Bank (Click word to fill active blank & auto-advance)' : '💡 备选词库 (Word Bank / 点击词条自动填入当前空格并聚焦下一空)';
+      const btnClozePrev = document.getElementById('btn-cloze-prev');
+      if (btnClozePrev) btnClozePrev.textContent = isEn ? '◀ Previous' : '◀ 上一题';
+      const btnClozeNext = document.getElementById('btn-cloze-next');
+      if (btnClozeNext) btnClozeNext.textContent = isEn ? 'Next ▶' : '下一题 ▶';
+      const btnClozeCheck = document.getElementById('btn-cloze-check');
+      if (btnClozeCheck) btnClozeCheck.textContent = isEn ? '✔️ Check Answers' : '✔️ 检验我的答案';
+      const btnClozeReveal = document.getElementById('btn-cloze-reveal');
+      if (btnClozeReveal) btnClozeReveal.textContent = isEn ? '👁️ Reveal Model Answers' : '👁️ 显示官方参考采分词';
+
+      // Tab 4: Sort
+      const sortSub = document.getElementById('sort-subtitle');
+      if (sortSub) sortSub.textContent = isEn ? 'Drag items or click ⬆️ / ⬇️ to arrange physiological steps in chronological order:' : '拖拽卡片或点击 ⬆️ / ⬇️ 调整各步骤次序，将生理过程按时间先后正确排列：';
+      const btnSortPrev = document.getElementById('btn-sort-prev');
+      if (btnSortPrev) btnSortPrev.textContent = isEn ? '◀ Previous' : '◀ 上一题';
+      const btnSortNext = document.getElementById('btn-sort-next');
+      if (btnSortNext) btnSortNext.textContent = isEn ? 'Next ▶' : '下一题 ▶';
+      const btnSortReset = document.getElementById('btn-sort-reset');
+      if (btnSortReset) btnSortReset.textContent = isEn ? '🔄 Reshuffle' : '🔄 重新打乱';
+      const btnSortCheck = document.getElementById('btn-sort-check');
+      if (btnSortCheck) btnSortCheck.textContent = isEn ? '✔️ Submit Sequence' : '✔️ 提交排列结果';
+
+      // Tab 5: Explorer
+      const expIntro = document.getElementById('explorer-intro-text');
+      if (expIntro) {
+        expIntro.innerHTML = isEn
+          ? `Total <strong id="explorer-total-count" style="color:var(--primary);">${activeFilteredExercises.length}</strong> official exercises recorded. Bilingual search & official textbook citations enabled:`
+          : `共收录 <strong id="explorer-total-count" style="color:var(--primary);">${activeFilteredExercises.length}</strong> 道权威大题，支持全文中英文双语搜索与教材出处定位：`;
+      }
+      const btnExpEx = document.getElementById('btn-exp-expand');
+      if (btnExpEx) btnExpEx.textContent = isEn ? 'Expand All' : '展开全部';
+      const btnExpCol = document.getElementById('btn-exp-collapse');
+      if (btnExpCol) btnExpCol.textContent = isEn ? 'Collapse All' : '折叠全部';
+
+      // Tab 6: Mistakes & Analytics
+      const anHead = document.getElementById('analytics-heading');
+      if (anHead) anHead.textContent = isEn ? '📊 Learning Analytics & Mistake Diagnosis' : '📊 学情统计与错题全景看板';
+      const anSub = document.getElementById('analytics-subtitle');
+      if (anSub) anSub.textContent = isEn 
+        ? 'Comprehensive tracking of practice time, accuracy, and unit mastery. Easily inspect, exclude, or clear trial/debug test data.' 
+        : '全景记录答题用时、正确率与章节考点掌握度，支持甄别、排除与编辑调试测试数据';
+      
+      const lblKpiAtt = document.getElementById('lbl-kpi-attempts');
+      if (lblKpiAtt) lblKpiAtt.textContent = isEn ? 'Valid Practice Attempts' : '有效计入作答总数';
+      const lblKpiAcc = document.getElementById('lbl-kpi-accuracy');
+      if (lblKpiAcc) lblKpiAcc.textContent = isEn ? 'Overall Accuracy Rate' : '综合答题正确率';
+      const lblKpiDur = document.getElementById('lbl-kpi-duration');
+      if (lblKpiDur) lblKpiDur.textContent = isEn ? 'Avg Time per Question' : '平均每题作答耗时';
+      const lblKpiMis = document.getElementById('lbl-kpi-mistakes');
+      if (lblKpiMis) lblKpiMis.textContent = isEn ? 'Active Mistakes in Bank' : '待攻克错题总数';
+      const lblMastSub = document.getElementById('lbl-mastery-sub');
+      if (lblMastSub) lblMastSub.textContent = isEn ? '(Based on valid attempts)' : '（基于有效作答）';
+      const lblTopSub = document.getElementById('lbl-top-mistakes-sub');
+      if (lblTopSub) lblTopSub.textContent = isEn ? '(Top 5)' : '（TOP 5）';
+      const mastHead = document.getElementById('mastery-heading');
+      if (mastHead) mastHead.textContent = isEn ? '📈 Unit Mastery & Accuracy Breakdown' : '📈 各单元掌握度与正确率分布';
+      const topHead = document.getElementById('top-mistakes-heading');
+      if (topHead) topHead.textContent = isEn ? '⚠️ Top Challenging Questions Ranking' : '⚠️ 高频易错题突破排行榜';
+
+      // Sub-tabs
+      const btnSubMis = document.getElementById('subtab-btn-mistakes');
+      if (btnSubMis) {
+        const countSpan = document.getElementById('sub-mistake-count');
+        const c = countSpan ? countSpan.textContent : '0';
+        btnSubMis.innerHTML = isEn ? `🔥 Active Mistake Bank (<span id="sub-mistake-count">${c}</span>)` : `🔥 待攻克错题突破本 (<span id="sub-mistake-count">${c}</span>)`;
+      }
+      const btnSubHist = document.getElementById('subtab-btn-history');
+      if (btnSubHist) {
+        const countSpan = document.getElementById('sub-history-count');
+        const c = countSpan ? countSpan.textContent : '0';
+        btnSubHist.innerHTML = isEn ? `📋 Attempt Log & Trial Data Management (<span id="sub-history-count">${c}</span>)` : `📋 答题流水明细与数据甄别排除 (<span id="sub-history-count">${c}</span>)`;
+      }
+
+      // History Filters & Action Buttons
+      const pAllHist = document.getElementById('pill-filter-all');
+      if (pAllHist) pAllHist.textContent = isEn ? 'All Attempts' : '全部作答流水';
+      const pFormal = document.getElementById('pill-filter-formal');
+      if (pFormal) pFormal.textContent = isEn ? '🟢 Valid Formal' : '🟢 正式有效数据';
+      const pExcl = document.getElementById('pill-filter-excluded');
+      if (pExcl) pExcl.textContent = isEn ? '🚫 Excluded / Trial' : '🚫 已排除/测试数据';
+      const pWrong = document.getElementById('pill-filter-wrong');
+      if (pWrong) pWrong.textContent = isEn ? '❌ Mistakes Only' : '❌ 仅看做错记录';
+
+      const bExclTrial = document.getElementById('btn-hist-exclude-trial');
+      if (bExclTrial) bExclTrial.textContent = isEn ? '🚫 Exclude All Trial Runs' : '🚫 一键排除全部试测';
+      const bIncAll = document.getElementById('btn-hist-include-all');
+      if (bIncAll) bIncAll.textContent = isEn ? '✅ Include All Data' : '✅ 一键恢复全部纳入';
+      const bClrExcl = document.getElementById('btn-hist-clear-excluded');
+      if (bClrExcl) bClrExcl.textContent = isEn ? '🗑️ Delete Excluded' : '🗑️ 清除已排除数据';
+      const bClrAll = document.getElementById('btn-hist-clear-all');
+      if (bClrAll) bClrAll.textContent = isEn ? '⚠️ Clear All History' : '⚠️ 清空全部答题记录';
+
+      // Table Headers
+      const thTime = document.getElementById('th-time');
+      if (thTime) thTime.textContent = isEn ? 'Timestamp' : '作答时间';
+      const thQ = document.getElementById('th-q');
+      if (thQ) thQ.textContent = isEn ? 'Question & Topic' : '题目与考点';
+      const thAns = document.getElementById('th-ans');
+      if (thAns) thAns.textContent = isEn ? 'Choice vs Key' : '学生选择 vs 答案';
+      const thRes = document.getElementById('th-result');
+      if (thRes) thRes.textContent = isEn ? 'Result' : '判定';
+      const thSpent = document.getElementById('th-time-spent');
+      if (thSpent) thSpent.textContent = isEn ? 'Duration' : '作答耗时';
+      const thMode = document.getElementById('th-mode');
+      if (thMode) thMode.textContent = isEn ? 'Data Mode' : '数据模式';
+      const thStat = document.getElementById('th-status');
+      if (thStat) thStat.textContent = isEn ? 'Audit Status' : '统计状态';
+      const thAct = document.getElementById('th-actions');
+      if (thAct) thAct.textContent = isEn ? 'Actions' : '操作管理';
+
+      // Mistake header box inside view-mistake-bank
+      const misHead = document.getElementById('mistake-heading');
+      if (misHead) misHead.textContent = isEn ? '🔥 Smart Mistake Bank' : '🔥 智能错题突破本 (Mistake Bank)';
+      const misSub = document.getElementById('mistake-subtitle');
+      if (misSub) misSub.textContent = isEn ? 'Incorrectly answered questions are automatically logged here for targeted revision and mastery.' : '单选闯关中答错的题目已自动收录，支持专项靶向重练与知识点巩固';
+      const misLabel = document.getElementById('mistake-pending-label');
+      if (misLabel) misLabel.textContent = isEn ? 'Pending Review' : '待攻克错题';
+      const btnMisDrill = document.getElementById('btn-mistake-drill');
+      if (btnMisDrill) btnMisDrill.textContent = isEn ? '🎯 Drill Mistakes Only' : '🎯 立即专项重做错题';
+      const btnMisClear = document.getElementById('btn-mistake-clear');
+      if (btnMisClear) btnMisClear.textContent = isEn ? '🗑️ Clear Mistake Bank' : '🗑️ 清空错题本';
+    }
+
+    // Switch between Part 1, Part 2, or All 267
+    function switchCoursePart(partNum) {
+      currentPart = partNum;
+      document.getElementById('btn-part-1').classList.toggle('active', partNum === 1);
+      document.getElementById('btn-part-2').classList.toggle('active', partNum === 2);
+      const btnAll = document.getElementById('btn-part-all');
+      if (btnAll) btnAll.classList.toggle('active', partNum === 'all');
+
+      if (partNum === 1) {
+        currentExercises = window.SCIENCE_DATA_PART1 || [];
+      } else if (partNum === 2) {
+        currentExercises = window.SCIENCE_DATA_PART2 || [];
+      } else {
+        currentExercises = [...(window.SCIENCE_DATA_PART1 || []), ...(window.SCIENCE_DATA_PART2 || [])];
+      }
+      
+      // Populate Lesson Dropdown
+      populateLessonDropdown();
+      
+      // Filter & Re-initialize games
+      filterCurrentExercises();
+    }
+
+    // Populate dropdown with lessons in active part
+    function populateLessonDropdown() {
+      const select = document.getElementById('select-lesson');
+      const isEn = currentLangMode === 'en';
+      select.innerHTML = isEn ? '<option value="all">📚 All Lessons & Topics</option>' : '<option value="all">📚 查看全部单元练习</option>';
+
+      // Extract unique lessons
+      const lessonMap = new Map();
+      currentExercises.forEach(item => {
+        if (!lessonMap.has(item.lesson_id)) {
+          lessonMap.set(item.lesson_id, {
+            id: item.lesson_id,
+            title_en: item.lesson_title_en,
+            title_cn: item.lesson_title_cn
+          });
+        }
+      });
+
+      lessonMap.forEach(info => {
+        const opt = document.createElement('option');
+        opt.value = info.id;
+        const title = isEn ? info.title_en : (info.title_cn || info.title_en);
+        opt.textContent = `${info.id === 99 ? '🏆' : '📖'} L${info.id < 10 ? '0' : ''}${info.id}: ${title}`;
+        select.appendChild(opt);
+      });
+    }
+
+    // Filter exercises based on selected lesson
+    function filterCurrentExercises() {
+      const selectedLesson = document.getElementById('select-lesson').value;
+      if (!selectedLesson || selectedLesson === 'all') {
+        activeFilteredExercises = [...currentExercises];
+      } else {
+        const lid = parseInt(selectedLesson, 10);
+        activeFilteredExercises = currentExercises.filter(ex => ex.lesson_id === lid);
+      }
+      
+      rebuildGamePools();
+    }
+
+    // Free text search
+    function searchExercises() {
+      const query = document.getElementById('search-input').value.trim().toLowerCase();
+      if (!query) {
+        filterCurrentExercises();
+        return;
+      }
+
+      activeFilteredExercises = currentExercises.filter(ex => {
+        const pEn = (ex.prompt_en || ex.task_title_en || ex.content_en || '').toLowerCase();
+        const pCn = (ex.prompt_cn || ex.task_title_cn || '').toLowerCase();
+        const aEn = (ex.answer_en || ex.content_en || '').toLowerCase();
+        const aCn = (ex.answer_cn || '').toLowerCase();
+        const tEn = (ex.task_title_en || '').toLowerCase();
+        const tCn = (ex.task_title_cn || '').toLowerCase();
+        const cit = (ex.citation_textbook || '').toLowerCase();
+        return pEn.includes(query) || pCn.includes(query) || aEn.includes(query) || aCn.includes(query) || tEn.includes(query) || tCn.includes(query) || cit.includes(query);
+      });
+
+      rebuildGamePools();
+    }
+
+    // Rebuild game pools for each tab
+    function rebuildGamePools() {
+      // 1. MCQ Pool: 4-choice individual MCQs
+      mcqPool = activeFilteredExercises.filter(ex => ex.game_type === 'mcq' && ex.prompt_en && ex.prompt_en.includes('A)'));
+      if (mcqPool.length === 0) {
+        mcqPool = currentExercises.filter(ex => ex.game_type === 'mcq' && ex.prompt_en && ex.prompt_en.includes('A)'));
+      }
+      // If still empty (e.g. in Part 1 where MCQs are in table format), fallback to Part 2 MCQs so the Arena is always active
+      if (mcqPool.length === 0 && window.SCIENCE_DATA_PART2) {
+        mcqPool = window.SCIENCE_DATA_PART2.filter(ex => ex.game_type === 'mcq' && ex.prompt_en && ex.prompt_en.includes('A)'));
+      }
+      currentMcqIdx = 0;
+      initMcq();
+
+      // 2. Matching Pool
+      matchPool = activeFilteredExercises.filter(ex => 
+        (ex.interactive_meta && ex.interactive_meta.matching_pairs && ex.interactive_meta.matching_pairs.length > 0) ||
+        ex.game_type === 'matching'
+      );
+      if (matchPool.length === 0) {
+        matchPool = currentExercises.filter(ex => 
+          (ex.interactive_meta && ex.interactive_meta.matching_pairs && ex.interactive_meta.matching_pairs.length > 0) ||
+          ex.game_type === 'matching'
+        );
+      }
+      if (matchPool.length === 0 && window.SCIENCE_DATA_PART2) {
+        matchPool = window.SCIENCE_DATA_PART2.filter(ex => 
+          (ex.interactive_meta && ex.interactive_meta.matching_pairs && ex.interactive_meta.matching_pairs.length > 0) ||
+          ex.game_type === 'matching'
+        );
+      }
+      currentMatchIdx = 0;
+      initCurrentMatchGame();
+
+      // 3. Cloze Pool
+      clozePool = activeFilteredExercises.filter(ex => 
+        (ex.interactive_meta && ex.interactive_meta.cloze_data) ||
+        ex.game_type === 'cloze'
+      );
+      if (clozePool.length === 0) {
+        clozePool = currentExercises.filter(ex => 
+          (ex.interactive_meta && ex.interactive_meta.cloze_data) ||
+          ex.game_type === 'cloze'
+        );
+      }
+      if (clozePool.length === 0 && window.SCIENCE_DATA_PART2) {
+        clozePool = window.SCIENCE_DATA_PART2.filter(ex => 
+          (ex.interactive_meta && ex.interactive_meta.cloze_data) ||
+          ex.game_type === 'cloze'
+        );
+      }
+      currentClozeIdx = 0;
+      initCurrentClozeGame();
+
+      // 4. Sort Pool
+      sortPool = activeFilteredExercises.filter(ex => 
+        (ex.interactive_meta && ex.interactive_meta.sort_steps && ex.interactive_meta.sort_steps.length > 0) ||
+        ex.game_type === 'sorting'
+      );
+      if (sortPool.length === 0) {
+        sortPool = currentExercises.filter(ex => 
+          (ex.interactive_meta && ex.interactive_meta.sort_steps && ex.interactive_meta.sort_steps.length > 0) ||
+          ex.game_type === 'sorting'
+        );
+      }
+      if (sortPool.length === 0 && window.SCIENCE_DATA_PART2) {
+        sortPool = window.SCIENCE_DATA_PART2.filter(ex => 
+          (ex.interactive_meta && ex.interactive_meta.sort_steps && ex.interactive_meta.sort_steps.length > 0) ||
+          ex.game_type === 'sorting'
+        );
+      }
+      currentSortIdx = 0;
+      initCurrentSortGame();
+
+      // Update counters
+      document.getElementById('count-mcq').textContent = mcqPool.length;
+      document.getElementById('count-match').textContent = matchPool.length;
+      document.getElementById('count-cloze').textContent = clozePool.length;
+      document.getElementById('count-sort').textContent = sortPool.length;
+      document.getElementById('count-all').textContent = activeFilteredExercises.length;
+
+      // Re-render Explorer
+      renderExplorerList();
+    }
+
+    // Tab switching
+    function openTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
+      });
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.toggle('active', content.id === tabId);
+      });
+
+      if (tabId === 'tab-mcq') {
+        if (!isCurrentMcqAnswered && !mcqTimerInterval && mcqPool.length > 0) {
+          mcqQuestionStartTime = Date.now();
+          mcqTimerInterval = setInterval(() => {
+            if (isCurrentMcqAnswered) return;
+            const elapsedSec = Math.floor((Date.now() - mcqQuestionStartTime) / 1000);
+            updateTimerDisplay(elapsedSec);
+          }, 1000);
+        }
+      } else if (tabId === 'tab-match') {
+        if (!matchTimerInterval && matchPool.length > 0) {
+          matchQuestionStartTime = Date.now();
+          matchTimerInterval = setInterval(() => {
+            const elapsedSec = Math.floor((Date.now() - matchQuestionStartTime) / 1000);
+            updateMatchTimer(elapsedSec);
+          }, 1000);
+        }
+      } else if (tabId === 'tab-cloze') {
+        if (!clozeTimerInterval && clozePool.length > 0) {
+          clozeQuestionStartTime = Date.now();
+          clozeTimerInterval = setInterval(() => {
+            const elapsedSec = Math.floor((Date.now() - clozeQuestionStartTime) / 1000);
+            updateClozeTimer(elapsedSec);
+          }, 1000);
+        }
+      } else if (tabId === 'tab-sort') {
+        if (!sortTimerInterval && sortPool.length > 0) {
+          sortQuestionStartTime = Date.now();
+          sortTimerInterval = setInterval(() => {
+            const elapsedSec = Math.floor((Date.now() - sortQuestionStartTime) / 1000);
+            updateSortTimer(elapsedSec);
+          }, 1000);
+        }
+      } else if (tabId === 'tab-explorer') {
+        renderExplorerList();
+      }
+    }
+
+    // ==================== 1. MCQ ARENA ENGINE ====================
+    function initMcq() {
+      const isEn = currentLangMode === 'en';
+      if (mcqPool.length === 0) {
+        document.getElementById('mcq-prompt-en').textContent = isEn ? 'No multiple-choice questions available for this unit.' : '当前分类下暂无单选题。';
+        document.getElementById('mcq-prompt-cn').textContent = isEn ? '' : '请切换至全部单元或选择有选择题的课时。';
+        document.getElementById('mcq-options-container').innerHTML = '';
+        return;
+      }
+
+      const q = mcqPool[currentMcqIdx];
+      isCurrentMcqAnswered = false;
+
+      // Start Stopwatch Timer
+      mcqQuestionStartTime = Date.now();
+      if (mcqTimerInterval) {
+        clearInterval(mcqTimerInterval);
+        mcqTimerInterval = null;
+      }
+      updateTimerDisplay(0);
+      mcqTimerInterval = setInterval(() => {
+        if (isCurrentMcqAnswered) return;
+        const elapsedSec = Math.floor((Date.now() - mcqQuestionStartTime) / 1000);
+        updateTimerDisplay(elapsedSec);
+      }, 1000);
+
+      document.getElementById('mcq-current-idx').textContent = currentMcqIdx + 1;
+      document.getElementById('mcq-total-count').textContent = mcqPool.length;
+      document.getElementById('mcq-task-tag').textContent = isEn 
+        ? `${q.task_code} (Lesson ${q.lesson_id})` 
+        : `${q.task_code} (${q.lesson_title_cn || q.lesson_title_en})`;
+      
+      const pct = ((currentMcqIdx + 1) / mcqPool.length) * 100;
+      document.getElementById('mcq-progress-fill').style.width = pct + '%';
+
+      // Hide feedback and option breakdown
+      const fbBox = document.getElementById('mcq-feedback-box');
+      fbBox.className = 'mcq-feedback';
+      fbBox.style.display = 'none';
+
+      const breakdownBox = document.getElementById('mcq-options-breakdown');
+      if (breakdownBox) breakdownBox.style.display = 'none';
+
+      // Parse question and options from prompt
+      parseAndRenderMcq(q);
+    }
+
+    function parseAndRenderMcq(q) {
+      let promptEn = q.prompt_en || q.content_en || '';
+      let promptCn = q.prompt_cn || q.task_title_cn || '';
+      const isEn = currentLangMode === 'en';
+
+      // Extract options from EN prompt: e.g. A) ... B) ... C) ... D) ...
+      const optRegex = /([A-D]\))\s*([^\n]+)/g;
+      let match;
+      let cleanPromptEn = promptEn;
+      let cleanPromptCn = promptCn;
+
+      // Collect English options
+      const rawOptionsEn = [];
+      while ((match = optRegex.exec(promptEn)) !== null) {
+        rawOptionsEn.push({ letter: match[1][0], textEn: match[2].trim() });
+      }
+
+      // Collect Chinese options if present
+      const rawOptionsCn = [];
+      const optRegexCn = /([A-D]\))\s*([^\n]+)/g;
+      while ((match = optRegexCn.exec(promptCn)) !== null) {
+        rawOptionsCn.push({ letter: match[1][0], textCn: match[2].trim() });
+      }
+
+      // Determine correct letter from answer
+      let correctLetter = 'A';
+      const ansMatch = (q.answer_en || '').match(/([A-D])\)/) || (q.answer_en || '').match(/^([A-D])\b/);
+      if (ansMatch) {
+        correctLetter = ansMatch[1];
+      }
+
+      // Cut off options from prompt display
+      if (rawOptionsEn.length > 0) {
+        const firstOptPos = promptEn.indexOf(rawOptionsEn[0].letter + ')');
+        if (firstOptPos > 0) cleanPromptEn = promptEn.substring(0, firstOptPos).trim();
+      }
+      if (rawOptionsCn.length > 0) {
+        const firstOptPosCn = promptCn.indexOf(rawOptionsCn[0].letter + ')');
+        if (firstOptPosCn > 0) cleanPromptCn = promptCn.substring(0, firstOptPosCn).trim();
+      }
+
+      document.getElementById('mcq-prompt-en').textContent = cleanPromptEn;
+      const cnPromptElem = document.getElementById('mcq-prompt-cn');
+      if (isEn) {
+        cnPromptElem.style.display = 'none';
+      } else {
+        cnPromptElem.style.display = 'block';
+        cnPromptElem.textContent = cleanPromptCn;
+      }
+
+      // Render question diagram if image_url exists
+      const diagramBox = document.getElementById('mcq-diagram-container');
+      const diagramImg = document.getElementById('mcq-diagram-img');
+      const diagramCaption = document.getElementById('mcq-diagram-caption');
+      const diagramDesc = document.getElementById('mcq-diagram-desc');
+
+      if (diagramBox) {
+        if (q.image_url) {
+          diagramBox.style.display = 'block';
+          diagramImg.src = q.image_url;
+          const cap = isEn 
+            ? (q.diagram_caption_en || 'Figure Diagram') 
+            : (q.diagram_caption_cn ? `${q.diagram_caption_cn} (${q.diagram_caption_en || ''})` : q.diagram_caption_en);
+          diagramCaption.textContent = cap;
+          if (q.diagram_description_en || q.diagram_description_cn) {
+            diagramDesc.style.display = 'block';
+            diagramDesc.innerHTML = isEn 
+              ? `<strong>Diagram Context:</strong> ${q.diagram_description_en || ''}` 
+              : `<strong>【图解指引】:</strong> ${q.diagram_description_cn || ''}<br><span style="color:#64748b;font-size:0.75rem;"><strong>[EN Context]:</strong> ${q.diagram_description_en || ''}</span>`;
+          } else {
+            diagramDesc.style.display = 'none';
+          }
+        } else {
+          diagramBox.style.display = 'none';
+        }
+      }
+
+      // Render option buttons
+      const container = document.getElementById('mcq-options-container');
+      container.innerHTML = '';
+
+      if (rawOptionsEn.length === 0) {
+        rawOptionsEn.push(
+          { letter: 'A', textEn: 'Option A' },
+          { letter: 'B', textEn: 'Option B' },
+          { letter: 'C', textEn: 'Option C' },
+          { letter: 'D', textEn: 'Option D' }
+        );
+      }
+
+      rawOptionsEn.forEach((opt, idx) => {
+        const optCn = rawOptionsCn[idx] ? rawOptionsCn[idx].textCn : '';
+        const btn = document.createElement('button');
+        btn.className = 'mcq-option-btn';
+        btn.setAttribute('data-letter', opt.letter);
+        btn.innerHTML = `
+          <span class="opt-letter">${opt.letter}</span>
+          <div style="flex:1;">
+            <div style="font-weight:600;">${opt.textEn}</div>
+            ${(!isEn && optCn) ? `<div class="cn-text" style="font-size:0.85rem; color:var(--text-muted); margin-top:0.2rem;">${optCn}</div>` : ''}
+          </div>
+        `;
+        btn.onclick = () => selectMcqOption(opt.letter, correctLetter, q);
+        container.appendChild(btn);
+      });
+    }
+
+    function selectMcqOption(selectedLetter, correctLetter, q) {
+      if (isCurrentMcqAnswered) return;
+      isCurrentMcqAnswered = true;
+
+      // Stop Stopwatch Timer & Compute Duration
+      if (mcqTimerInterval) {
+        clearInterval(mcqTimerInterval);
+        mcqTimerInterval = null;
+      }
+      const elapsedMs = Math.max(500, Date.now() - mcqQuestionStartTime);
+      const durationSec = Math.round(elapsedMs / 100) / 10; // e.g. 14.5s
+
+      const isEn = currentLangMode === 'en';
+
+      const buttons = document.querySelectorAll('.mcq-option-btn');
+      buttons.forEach(btn => {
+        btn.classList.add('disabled');
+        const letter = btn.getAttribute('data-letter');
+        if (letter === correctLetter) {
+          btn.classList.add('correct');
+        } else if (letter === selectedLetter && selectedLetter !== correctLetter) {
+          btn.classList.add('wrong');
+        }
+      });
+
+      const fbBox = document.getElementById('mcq-feedback-box');
+      const fbTitle = document.getElementById('mcq-feedback-title');
+      const fbRat = document.getElementById('mcq-feedback-rationale');
+      const fbCit = document.getElementById('mcq-citation-tag');
+
+      const isCorrect = selectedLetter === correctLetter;
+
+      if (isCorrect) {
+        if (!mcqAnsweredMap[q.id]) {
+          mcqAnsweredMap[q.id] = true;
+          mcqScore += 1;
+        }
+        mcqStreak += 1;
+        fbBox.className = 'mcq-feedback correct-box';
+        fbTitle.innerHTML = isEn ? '🎉 Correct Answer! (+1 pt)' : '🎉 回答完全正确！(+1分)';
+        fbTitle.style.color = 'var(--success)';
+        // Remove from mistake bank if present
+        removeMistake(q.id);
+      } else {
+        mcqStreak = 0;
+        fbBox.className = 'mcq-feedback wrong-box';
+        fbTitle.innerHTML = isEn ? `❌ Incorrect! Correct answer is: <strong>${correctLetter}</strong>` : `❌ 回答错误！正确答案是: <strong>${correctLetter}</strong>`;
+        fbTitle.style.color = 'var(--danger)';
+        // Add to mistake bank
+        addMistake(q);
+      }
+
+      // Log Attempt Record
+      const padZero = (n) => (n < 10 ? '0' + n : n);
+      const now = new Date();
+      const timeStr = `${now.getFullYear()}-${padZero(now.getMonth()+1)}-${padZero(now.getDate())} ${padZero(now.getHours())}:${padZero(now.getMinutes())}:${padZero(now.getSeconds())}`;
+      
+      const attemptItem = {
+        id: 'att_' + Date.now() + '_' + Math.random().toString(36).substr(2, 6),
+        questionId: q.id,
+        lessonId: q.lesson_id,
+        taskCode: q.task_code,
+        promptEn: (q.prompt_en || q.content_en || '').substring(0, 120),
+        promptCn: (q.prompt_cn || q.task_title_cn || '').substring(0, 120),
+        selectedOption: selectedLetter,
+        correctOption: correctLetter,
+        isCorrect: isCorrect,
+        timeSpentSeconds: durationSec,
+        timestamp: Date.now(),
+        timeString: timeStr,
+        sessionMode: currentSessionMode,
+        isExcluded: currentSessionMode === 'trial'
+      };
+      saveAttemptRecord(attemptItem);
+
+      fbRat.innerHTML = `
+        <div style="margin-bottom:${isEn ? '0' : '0.35rem'}; font-weight:600; color:#1e293b;">${q.rationale_en || ''}</div>
+        ${(!isEn && q.rationale_cn) ? `<div style="color:#047857; font-size:0.9rem;">${q.rationale_cn}</div>` : ''}
+      `;
+      fbCit.innerHTML = (isEn 
+        ? `📖 Textbook Reference: <strong>${q.citation_textbook}</strong> | Syllabus Notes: ${q.citation_notes || 'Part 2 Notes'}`
+        : `📖 官方教材精确定位: <strong>${q.citation_textbook}</strong> | 讲义/课件: ${q.citation_notes || 'Part 2 Notes'}`)
+        + `<div style="margin-top:0.5rem; display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap; font-size:0.8rem;">
+            <span class="mcq-timer-badge">⏱️ ${isEn ? 'Time spent' : '本题作答耗时'}: <strong>${durationSec}s</strong></span>
+            <span class="badge ${currentSessionMode === 'formal' ? 'badge-formal' : 'badge-trial'}">${currentSessionMode === 'formal' ? (isEn ? '🟢 Formal Practice' : '🟢 正式练习') : (isEn ? '🧪 Trial Run (Excluded)' : '🧪 调试试测 (已默认排除)')}</span>
+          </div>`;
+
+      fbBox.style.display = 'block';
+
+      // Render Option-by-Option Distractor Breakdown!
+      renderMcqOptionBreakdown(q, selectedLetter, correctLetter);
+
+      document.getElementById('mcq-score').textContent = mcqScore;
+      document.getElementById('mcq-streak').textContent = mcqStreak;
+      updateAnalyticsUI();
+    }
+
+    function formatDistractorText(text) {
+      if (!text) return '';
+      return text
+        .replace(/\[Concept\]:\s*/g, '<span class="distractor-tag tag-concept">🎯 Concept</span> ')
+        .replace(/\[Comparison\]:\s*/g, '<span class="distractor-tag tag-diff">⚖️ Comparison</span> ')
+        .replace(/\[Comparison\/Mechanism\]:\s*/g, '<span class="distractor-tag tag-diff">⚖️ Mechanism</span> ')
+        .replace(/\[Mechanism\/Comparison\]:\s*/g, '<span class="distractor-tag tag-diff">⚖️ Mechanism</span> ')
+        .replace(/\[Confusion Trap\]:\s*/g, '<span class="distractor-tag tag-trap">⚠️ Confusion Trap</span> ')
+        .replace(/\[Key Criteria\]:\s*/g, '<span class="distractor-tag tag-correct">🔑 Key Criteria</span> ')
+        .replace(/【涉及知识点】\s*/g, '<span class="distractor-tag tag-concept">🎯 涉及知识点</span> ')
+        .replace(/【异同辨析】\s*/g, '<span class="distractor-tag tag-diff">⚖️ 异同辨析</span> ')
+        .replace(/【异同辨析\/生理机理】\s*/g, '<span class="distractor-tag tag-diff">⚖️ 生理机理</span> ')
+        .replace(/【生理机理】\s*/g, '<span class="distractor-tag tag-diff">⚖️ 生理机理</span> ')
+        .replace(/【混淆陷阱】\s*/g, '<span class="distractor-tag tag-trap">⚠️ 混淆陷阱</span> ')
+        .replace(/【核心考点】\s*/g, '<span class="distractor-tag tag-correct">🔑 核心考点</span> ')
+        .replace(/【核心考点\/生理机理】\s*/g, '<span class="distractor-tag tag-correct">🔑 核心考点</span> ');
+    }
+
+    function renderMcqOptionBreakdown(q, selectedLetter, correctLetter) {
+      const breakdownBox = document.getElementById('mcq-options-breakdown');
+      const container = document.getElementById('breakdown-cards-container');
+      const titleElem = document.getElementById('mcq-breakdown-title');
+      if (!breakdownBox || !container) return;
+
+      container.innerHTML = '';
+      const isEn = currentLangMode === 'en';
+
+      if (titleElem) {
+        titleElem.textContent = isEn 
+          ? '💡 Option-by-Option Distractor Analysis & Key Concepts' 
+          : '💡 选项逐项深度辨析与考点诊断 (Option-by-Option Distractor Analysis)';
+      }
+
+      // Extract raw option lines
+      const optRegex = /([A-D]\))\s*([^\n]+)/g;
+      let match;
+      const optTextMap = {};
+      while ((match = optRegex.exec(q.prompt_en || '')) !== null) {
+        optTextMap[match[1][0]] = match[2].trim();
+      }
+
+      const breakdownData = q.options_breakdown;
+      const letters = ['A', 'B', 'C', 'D'];
+
+      letters.forEach(letter => {
+        const optInfo = breakdownData && breakdownData[letter];
+        const isCorrect = letter === correctLetter;
+        const isSelected = letter === selectedLetter;
+
+        const reasonEn = optInfo ? optInfo.en : (isCorrect ? '[Concept]: Core syllabus specification fulfilled.' : '[Concept]: Option evaluated against curriculum requirements.');
+        const reasonCn = optInfo ? optInfo.cn : (isCorrect ? '【核心考点】符合官方教材核心考点要求。' : '【异同辨析】该选项概念与本题考查要点不符。');
+        const formattedEn = formatDistractorText(reasonEn);
+        const formattedCn = formatDistractorText(reasonCn);
+        const optText = optTextMap[letter] || `Option ${letter}`;
+
+        const card = document.createElement('div');
+        card.className = `breakdown-card ${isCorrect ? 'correct-card' : 'incorrect-card'}`;
+        if (isSelected) {
+          card.style.boxShadow = '0 0 0 2px ' + (isCorrect ? '#10b981' : '#ef4444');
+        }
+
+        let statusTag = '';
+        if (isCorrect) {
+          statusTag = isEn ? '✔️ Correct Answer' : '✔️ 正确选项 (Correct)';
+        } else {
+          statusTag = isEn 
+            ? (isSelected ? '❌ Your Choice (Incorrect)' : '❌ Incorrect Distractor')
+            : (isSelected ? '❌ 你的选择 (错误选项)' : '❌ 错误选项辨析 (Incorrect)');
+        }
+
+        card.innerHTML = `
+          <div class="breakdown-card-top">
+            <span class="breakdown-letter-badge">${letter}</span>
+            <span class="breakdown-status-tag">${statusTag}</span>
+          </div>
+          <div class="breakdown-opt-text">${letter}) ${optText}</div>
+          <div class="breakdown-reason-en" style="font-size:0.88rem; line-height:1.55; color:#1e293b; margin-top:0.35rem;">
+            ${formattedEn}
+          </div>
+          ${(!isEn && formattedCn) ? `<div class="breakdown-reason-cn" style="font-size:0.86rem; line-height:1.5; color:#334155; margin-top:0.45rem; border-top:1px dashed rgba(0,0,0,0.08); padding-top:0.35rem;">${formattedCn}</div>` : ''}
+        `;
+        container.appendChild(card);
+      });
+
+      breakdownBox.style.display = 'block';
+    }
+
+    function nextMcq() {
+      if (currentMcqIdx < mcqPool.length - 1) {
+        currentMcqIdx++;
+        initMcq();
+      } else {
+        alert(`🏁 恭喜！当前题库已全部刷完！最终得分: ${mcqScore}`);
+      }
+    }
+
+    function prevMcq() {
+      if (currentMcqIdx > 0) {
+        currentMcqIdx--;
+        initMcq();
+      }
+    }
+
+    // ==================== 2. CONCEPT MATCHING ENGINE ====================
+    function updateMatchTimer(totalSeconds) {
+      const m = Math.floor(totalSeconds / 60);
+      const s = totalSeconds % 60;
+      const str = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+      const el = document.getElementById('match-elapsed-time');
+      if (el) el.textContent = str;
+    }
+
+    function initCurrentMatchGame() {
+      const isEn = currentLangMode === 'en';
+      if (matchPool.length === 0) {
+        document.getElementById('match-left-col').innerHTML = `<p>${isEn ? 'No matching exercises available for this unit.' : '当前分类下暂无连线题。'}</p>`;
+        document.getElementById('match-right-col').innerHTML = '';
+        return;
+      }
+
+      const item = matchPool[currentMatchIdx];
+      const title = isEn ? (item.task_title_en || item.task_code) : (item.task_title_cn || item.task_title_en);
+      document.getElementById('match-task-title').textContent = `🧩 ${item.task_code}: ${title} (${currentMatchIdx + 1} / ${matchPool.length})`;
+      const tagEl = document.getElementById('match-task-tag');
+      if (tagEl) {
+        tagEl.textContent = isEn ? `${item.task_code} (L${item.lesson_id})` : `${item.task_code} (${item.lesson_title_cn || item.lesson_title_en})`;
+      }
+      document.getElementById('match-complete-banner').style.display = 'none';
+
+      // Stopwatch Timer
+      matchQuestionStartTime = Date.now();
+      if (matchTimerInterval) {
+        clearInterval(matchTimerInterval);
+        matchTimerInterval = null;
+      }
+      updateMatchTimer(0);
+      matchTimerInterval = setInterval(() => {
+        const elapsedSec = Math.floor((Date.now() - matchQuestionStartTime) / 1000);
+        updateMatchTimer(elapsedSec);
+      }, 1000);
+
+      document.getElementById('match-current-idx').textContent = currentMatchIdx + 1;
+      document.getElementById('match-total-count').textContent = matchPool.length;
+      document.getElementById('match-score').textContent = matchScore;
+      const pct = ((currentMatchIdx + 1) / matchPool.length) * 100;
+      document.getElementById('match-progress-fill').style.width = pct + '%';
+
+      // Parse pairs from interactive_meta or prompt/answer
+      const pairs = parseMatchingPairs(item);
+      renderMatchingCards(pairs, item);
+    }
+
+    function parseMatchingPairs(item) {
+      const isEn = currentLangMode === 'en';
+      // Priority 1: Structured matching_pairs
+      if (item.interactive_meta && Array.isArray(item.interactive_meta.matching_pairs) && item.interactive_meta.matching_pairs.length > 0) {
+        return item.interactive_meta.matching_pairs.map(p => ({
+          left: isEn ? p.left_en : (p.left_cn ? `${p.left_en} / ${p.left_cn}` : p.left_en),
+          right: isEn ? p.right_en : (p.right_cn ? `${p.right_en} / ${p.right_cn}` : p.right_en)
+        }));
+      }
+
+      // Priority 2: Unstructured parsing
+      const pairs = [];
+      const lines = ((item.answer_en || '') + '\n' + (item.prompt_en || '') + '\n' + (item.content_en || '')).split('\n');
+      
+      lines.forEach(line => {
+        const m1 = line.match(/[•\-]?\s*([^–\->:→]+)\s*(?:->|–|:|→)\s*([^\n]+)/);
+        if (m1 && m1[1].trim() && m1[2].trim() && m1[1].length < 40 && !m1[1].includes('http')) {
+          let left = m1[1].trim();
+          let right = m1[2].trim();
+          if (isEn) {
+            left = left.replace(/\s*[\(（][^\)）]*[\u4e00-\u9fa5]+[^\)）]*[\)）]/g, '').trim();
+            right = right.replace(/\s*[\(（][^\)）]*[\u4e00-\u9fa5]+[^\)）]*[\)）]/g, '').trim();
+          }
+          if (left && right) {
+            pairs.push({ left, right });
+          }
+        }
+      });
+
+      return pairs.slice(0, 6);
+    }
+
+    function renderMatchingCards(pairs, item) {
+      selectedLeftCard = null;
+      selectedRightCard = null;
+      matchedPairsCount = 0;
+      currentMatchPairsTotal = pairs.length;
+
+      document.getElementById('match-remaining-pairs').textContent = pairs.length;
+      document.getElementById('match-total-pairs').textContent = pairs.length;
+
+      const leftCol = document.getElementById('match-left-col');
+      const rightCol = document.getElementById('match-right-col');
+      leftCol.innerHTML = '';
+      rightCol.innerHTML = '';
+
+      if (pairs.length === 0) {
+        const isEn = currentLangMode === 'en';
+        leftCol.innerHTML = `<p style="color:var(--text-muted); padding:1rem;">${isEn ? 'No paired concepts detected for this question.' : '本题暂无结构化连线对。'}</p>`;
+        return;
+      }
+
+      // Shuffle right side while preserving left order
+      const shuffledRight = pairs.map((p, idx) => ({ ...p, pairId: idx })).sort(() => Math.random() - 0.5);
+
+      pairs.forEach((pair, idx) => {
+        const leftCard = document.createElement('div');
+        leftCard.className = 'match-card';
+        leftCard.textContent = pair.left;
+        leftCard.setAttribute('data-side', 'left');
+        leftCard.setAttribute('data-pair-id', idx);
+        leftCard.onclick = () => handleCardClick('left', leftCard, idx, item, pairs.length);
+        leftCol.appendChild(leftCard);
+      });
+
+      shuffledRight.forEach(pair => {
+        const rightCard = document.createElement('div');
+        rightCard.className = 'match-card';
+        rightCard.textContent = pair.right;
+        rightCard.setAttribute('data-side', 'right');
+        rightCard.setAttribute('data-pair-id', pair.pairId);
+        rightCard.onclick = () => handleCardClick('right', rightCard, pair.pairId, item, pairs.length);
+        rightCol.appendChild(rightCard);
+      });
+    }
+
+    function handleCardClick(side, card, id, item, totalPairs) {
+      if (card.classList.contains('matched') || isMatchEvaluating) return;
+
+      if (side === 'left') {
+        // Toggle deselection if already selected
+        if (selectedLeftCard && selectedLeftCard.card === card) {
+          card.classList.remove('selected');
+          selectedLeftCard = null;
+          return;
+        }
+        if (selectedLeftCard) {
+          selectedLeftCard.card.classList.remove('selected');
+        }
+        card.classList.add('selected');
+        selectedLeftCard = { card, id };
+      } else if (side === 'right') {
+        // Toggle deselection if already selected
+        if (selectedRightCard && selectedRightCard.card === card) {
+          card.classList.remove('selected');
+          selectedRightCard = null;
+          return;
+        }
+        if (selectedRightCard) {
+          selectedRightCard.card.classList.remove('selected');
+        }
+        card.classList.add('selected');
+        selectedRightCard = { card, id };
+      }
+
+      // If both sides have a selection, evaluate the pair!
+      if (selectedLeftCard && selectedRightCard) {
+        evaluateMatchPair(item, totalPairs);
+      }
+    }
+
+    function evaluateMatchPair(item, totalPairs) {
+      const left = selectedLeftCard;
+      const right = selectedRightCard;
+
+      if (left.id === right.id) {
+        // MATCH SUCCESS!
+        left.card.classList.remove('selected');
+        right.card.classList.remove('selected');
+        left.card.classList.add('matched');
+        right.card.classList.add('matched');
+        selectedLeftCard = null;
+        selectedRightCard = null;
+        matchedPairsCount++;
+
+        const remaining = totalPairs - matchedPairsCount;
+        document.getElementById('match-remaining-pairs').textContent = remaining;
+
+        if (matchedPairsCount === totalPairs) {
+          if (matchTimerInterval) {
+            clearInterval(matchTimerInterval);
+            matchTimerInterval = null;
+          }
+          if (!matchAnsweredMap[item.id]) {
+            matchAnsweredMap[item.id] = true;
+            matchScore += 1;
+            document.getElementById('match-score').textContent = matchScore;
+          }
+
+          const banner = document.getElementById('match-complete-banner');
+          const isEn = currentLangMode === 'en';
+          const heading = document.getElementById('match-complete-heading');
+          if (heading) {
+            heading.textContent = isEn ? '🎉 Excellent! All pairs matched successfully! (+1 pt)' : '🎉 恭喜全部配对成功！(+1分)';
+          }
+          document.getElementById('match-citation-hint').innerHTML = `
+            ${isEn ? `📖 Official Textbook Reference: ${item.citation_textbook}` : `📖 教材权威出处: ${item.citation_textbook}`}<br>
+            <span style="font-size:0.85rem; color:#047857; margin-top:0.35rem; display:inline-block;">${isEn ? (item.rationale_en || 'Syllabus criteria verified.') : (item.rationale_cn || item.rationale_en || '依据剑桥教学大纲知识点。')}</span>
+          `;
+          banner.style.display = 'block';
+        }
+      } else {
+        // MATCH ERROR!
+        isMatchEvaluating = true;
+        left.card.classList.add('error-shake');
+        right.card.classList.add('error-shake');
+        setTimeout(() => {
+          left.card.classList.remove('error-shake');
+          right.card.classList.remove('error-shake');
+          left.card.classList.remove('selected');
+          right.card.classList.remove('selected');
+          selectedLeftCard = null;
+          selectedRightCard = null;
+          isMatchEvaluating = false;
+        }, 350);
+      }
+    }
+
+    function nextMatchItem() {
+      if (currentMatchIdx < matchPool.length - 1) {
+        currentMatchIdx++;
+        initCurrentMatchGame();
+      }
+    }
+    function prevMatchItem() {
+      if (currentMatchIdx > 0) {
+        currentMatchIdx--;
+        initCurrentMatchGame();
+      }
+    }
+
+    // ==================== 3. CLOZE MASTER ENGINE ====================
+    function updateClozeTimer(totalSeconds) {
+      const m = Math.floor(totalSeconds / 60);
+      const s = totalSeconds % 60;
+      const str = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+      const el = document.getElementById('cloze-elapsed-time');
+      if (el) el.textContent = str;
+    }
+
+    function normalizeClozeText(text) {
+      if (!text) return '';
+      return String(text)
+        .toLowerCase()
+        .replace(/[\(\)\[\]\{\}\.,;!?:'"“”‘’`\/\\~—–\-]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function isClozeAnswerMatch(userVal, acceptedList) {
+      const normUser = normalizeClozeText(userVal);
+      if (!normUser) return false;
+
+      const getVariants = (str) => {
+        const list = [str];
+        if (str.endsWith('ies')) list.push(str.slice(0, -3) + 'y');
+        else if (str.endsWith('es')) list.push(str.slice(0, -2));
+        else if (str.endsWith('s') && !str.endsWith('ss')) list.push(str.slice(0, -1));
+        else {
+          list.push(str + 's');
+          list.push(str + 'es');
+        }
+        if (str.includes('haemo')) list.push(str.replace(/haemo/g, 'hemo'));
+        if (str.includes('hemo')) list.push(str.replace(/hemo/g, 'haemo'));
+        if (str.includes('oesoph')) list.push(str.replace(/oesoph/g, 'esoph'));
+        if (str.includes('esoph')) list.push(str.replace(/esoph/g, 'oesoph'));
+        if (str.includes('anaerob')) list.push(str.replace(/anaerob/g, 'anerob'));
+        return list;
+      };
+
+      const userVariants = getVariants(normUser);
+
+      for (const acc of acceptedList) {
+        if (!acc) continue;
+        const normAcc = normalizeClozeText(acc);
+        if (!normAcc) continue;
+
+        if (normUser === normAcc) return true;
+
+        const accVariants = getVariants(normAcc);
+        if (userVariants.some(uv => accVariants.includes(uv))) return true;
+
+        if (normAcc.length >= 4 && normUser.length >= 4) {
+          if (normAcc.includes(normUser) || normUser.includes(normAcc)) return true;
+        }
+      }
+      return false;
+    }
+
+    function initCurrentClozeGame() {
+      const isEn = currentLangMode === 'en';
+      if (clozePool.length === 0) {
+        document.getElementById('cloze-passage-container').innerHTML = `<p>${isEn ? 'No cloze exercises available for this unit.' : '当前分类下暂无填空题。'}</p>`;
+        return;
+      }
+      const item = clozePool[currentClozeIdx];
+      const title = isEn ? (item.task_title_en || item.task_code) : (item.task_title_cn || item.task_title_en);
+      document.getElementById('cloze-task-title').textContent = `📝 ${item.task_code}: ${title} (${currentClozeIdx + 1} / ${clozePool.length})`;
+      const tagEl = document.getElementById('cloze-task-tag');
+      if (tagEl) {
+        tagEl.textContent = isEn ? `${item.task_code} (L${item.lesson_id})` : `${item.task_code} (${item.lesson_title_cn || item.lesson_title_en})`;
+      }
+      document.getElementById('cloze-feedback-box').style.display = 'none';
+
+      // Stopwatch Timer
+      clozeQuestionStartTime = Date.now();
+      if (clozeTimerInterval) {
+        clearInterval(clozeTimerInterval);
+        clozeTimerInterval = null;
+      }
+      updateClozeTimer(0);
+      clozeTimerInterval = setInterval(() => {
+        const elapsedSec = Math.floor((Date.now() - clozeQuestionStartTime) / 1000);
+        updateClozeTimer(elapsedSec);
+      }, 1000);
+
+      document.getElementById('cloze-current-idx').textContent = currentClozeIdx + 1;
+      document.getElementById('cloze-total-count').textContent = clozePool.length;
+      document.getElementById('cloze-score').textContent = clozeScore;
+      const pct = ((currentClozeIdx + 1) / clozePool.length) * 100;
+      document.getElementById('cloze-progress-fill').style.width = pct + '%';
+
+      const chipsContainer = document.getElementById('cloze-word-bank');
+      chipsContainer.innerHTML = '';
+      const passageContainer = document.getElementById('cloze-passage-container');
+      lastFocusedInput = null;
+
+      // Priority 1: Structured Cloze Data
+      if (item.interactive_meta && item.interactive_meta.cloze_data) {
+        const cd = item.interactive_meta.cloze_data;
+        const wordsEn = cd.word_bank_en || [];
+        const wordsCn = cd.word_bank_cn || [];
+
+        // Build word bank chips
+        const bankItems = wordsEn.map((wEn, idx) => ({
+          en: wEn,
+          display: isEn ? wEn : (wordsCn[idx] ? `${wEn} (${wordsCn[idx]})` : wEn)
+        }));
+        
+        // Shuffle bank items
+        const shuffledBank = [...bankItems].sort(() => Math.random() - 0.5);
+        shuffledBank.forEach(b => {
+          const chip = document.createElement('div');
+          chip.className = 'word-chip';
+          chip.textContent = b.display;
+          chip.onmousedown = (e) => e.preventDefault();
+          chip.onclick = () => insertWordToActiveInput(b.en);
+          chipsContainer.appendChild(chip);
+        });
+
+        // Format passage
+        let template = cd.passage_en;
+        (cd.blanks || []).forEach(b => {
+          const exp = b.answer_en;
+          const acceptedArr = (b.accepted || [exp]).concat([exp, b.answer_cn]).filter(Boolean);
+          const acceptedStr = JSON.stringify(acceptedArr).replace(/"/g, '&quot;');
+          const inputHtml = `<input type="text" class="cloze-input" data-blank-id="${b.id}" data-ans="${encodeURIComponent(exp)}" data-accepted="${acceptedStr}" placeholder="${isEn ? 'click chip or type' : '点击词库或输入'}" onfocus="lastFocusedInput = this" onblur="handleClozeInputBlur(this)" oninput="if(this.classList.contains('invalid')) handleClozeInputBlur(this);">`;
+          template = template.replace(new RegExp('\\{' + b.id + '\\}', 'g'), inputHtml);
+        });
+
+        let fullHtml = `<div class="cloze-en-passage" style="line-height:1.9; font-size:1.02rem;">${template.replace(/\n/g, '<br>')}</div>`;
+        if (!isEn && cd.passage_cn) {
+          fullHtml += `
+            <div class="cloze-cn-guidance" style="margin-top:1.25rem; padding:0.85rem 1.1rem; background:#f8fafc; border-radius:8px; font-size:0.88rem; color:#475569; border-left:4px solid var(--primary);">
+              <strong style="color:var(--text-main); display:block; margin-bottom:0.25rem;">🇨🇳 中文解析与译文导读：</strong>
+              ${cd.passage_cn.replace(/\n/g, '<br>')}
+            </div>
+          `;
+        }
+        passageContainer.innerHTML = fullHtml;
+        return;
+      }
+
+      // Priority 2: Unstructured Fallback
+      const rawText = item.prompt_en || item.content_en || '';
+      const bankMatch = rawText.match(/Word bank:\s*([^–\n]+)/i);
+      const bankWords = bankMatch ? bankMatch[1].split(',').map(w => w.trim()) : [];
+
+      bankWords.forEach(word => {
+        const chip = document.createElement('div');
+        chip.className = 'word-chip';
+        chip.textContent = word;
+        chip.onmousedown = (e) => e.preventDefault();
+        chip.onclick = () => insertWordToActiveInput(word);
+        chipsContainer.appendChild(chip);
+      });
+
+      let passageHtml = rawText
+        .replace(/Word bank:[^\n]+\n?/i, '')
+        .replace(/_{3,}/g, `<input type="text" class="cloze-input" data-ans="" placeholder="${isEn ? 'click or type' : '点击或输入'}" onfocus="lastFocusedInput = this" onblur="handleClozeInputBlur(this)">`);
+
+      passageContainer.innerHTML = passageHtml;
+    }
+
+    document.addEventListener('focusin', (e) => {
+      if (e.target.classList.contains('cloze-input')) {
+        lastFocusedInput = e.target;
+      }
+    });
+
+    function handleClozeInputBlur(input) {
+      const val = input.value.trim();
+      if (!val) {
+        // Neutral when empty: do not penalize prematurely
+        input.classList.remove('valid', 'invalid');
+        return;
+      }
+      let accepted = [];
+      try {
+        const accAttr = input.getAttribute('data-accepted');
+        if (accAttr) accepted = JSON.parse(accAttr);
+      } catch(e) {}
+      const exp = decodeURIComponent(input.getAttribute('data-ans') || '');
+      if (exp && !accepted.includes(exp)) accepted.push(exp);
+
+      if (isClozeAnswerMatch(val, accepted)) {
+        input.classList.remove('invalid');
+        input.classList.add('valid');
+      } else {
+        input.classList.remove('valid');
+        input.classList.add('invalid');
+      }
+
+      // Check if all inputs are valid
+      const allInputs = Array.from(document.querySelectorAll('.cloze-input'));
+      const allValid = allInputs.length > 0 && allInputs.every(inp => inp.classList.contains('valid'));
+      if (allValid) {
+        triggerClozeSuccess();
+      }
+    }
+
+    function triggerClozeSuccess() {
+      const item = clozePool[currentClozeIdx];
+      const isEn = currentLangMode === 'en';
+      const fbBox = document.getElementById('cloze-feedback-box');
+
+      if (clozeTimerInterval) {
+        clearInterval(clozeTimerInterval);
+        clozeTimerInterval = null;
+      }
+
+      if (!clozeAnsweredMap[item.id]) {
+        clozeAnsweredMap[item.id] = true;
+        clozeScore += 1;
+        document.getElementById('cloze-score').textContent = clozeScore;
+      }
+
+      const rationale = isEn 
+        ? (item.rationale_en || item.rationale_cn || 'Key syllabus criteria verified.')
+        : (item.rationale_cn || item.rationale_en || '依据剑桥G8教学大纲采分点标准。');
+
+      document.getElementById('cloze-rationale-text').innerHTML = `
+        <strong style="color:#065f46;">${isEn ? '🎉 All Blanks Correct! (+1 pt)' : '🎉 全部填空正确！(+1分)'}</strong><br>
+        <span style="font-size:0.9rem; color:var(--text-main); margin-top:0.35rem; display:inline-block;">${rationale}</span>
+      `;
+      document.getElementById('cloze-citation-tag').textContent = isEn 
+        ? `📖 Official Textbook Reference: ${item.citation_textbook}`
+        : `📖 教材权威依据: ${item.citation_textbook}`;
+      fbBox.style.display = 'block';
+    }
+
+    function insertWordToActiveInput(word) {
+      const inputs = Array.from(document.querySelectorAll('.cloze-input'));
+      let targetInput = lastFocusedInput;
+      if (!targetInput || !document.contains(targetInput)) {
+        targetInput = inputs.find(inp => !inp.value.trim()) || inputs[0];
+      }
+      if (!targetInput) return;
+
+      targetInput.value = word;
+      handleClozeInputBlur(targetInput);
+
+      // Auto-advance focus to next empty blank
+      const currentIndex = inputs.indexOf(targetInput);
+      const nextEmpty = inputs.slice(currentIndex + 1).find(inp => !inp.value.trim()) || inputs.find(inp => !inp.value.trim());
+      if (nextEmpty) {
+        nextEmpty.focus();
+        lastFocusedInput = nextEmpty;
+      } else {
+        targetInput.focus();
+        lastFocusedInput = targetInput;
+      }
+    }
+
+    function checkClozeAnswers() {
+      const inputs = Array.from(document.querySelectorAll('.cloze-input'));
+      let allCorrect = true;
+
+      inputs.forEach(input => {
+        const val = input.value.trim();
+        let accepted = [];
+        try {
+          const accAttr = input.getAttribute('data-accepted');
+          if (accAttr) accepted = JSON.parse(accAttr);
+        } catch(e) {}
+        const exp = decodeURIComponent(input.getAttribute('data-ans') || '');
+        if (exp && !accepted.includes(exp)) accepted.push(exp);
+
+        if (val && isClozeAnswerMatch(val, accepted)) {
+          input.classList.remove('invalid');
+          input.classList.add('valid');
+        } else {
+          input.classList.remove('valid');
+          input.classList.add('invalid');
+          allCorrect = false;
+        }
+      });
+
+      const item = clozePool[currentClozeIdx];
+      const isEn = currentLangMode === 'en';
+      const fbBox = document.getElementById('cloze-feedback-box');
+
+      if (allCorrect) {
+        triggerClozeSuccess();
+      } else {
+        const rationale = isEn 
+          ? (item.rationale_en || item.rationale_cn || 'Key syllabus criteria verified.')
+          : (item.rationale_cn || item.rationale_en || '依据剑桥G8教学大纲采分点标准。');
+
+        document.getElementById('cloze-rationale-text').innerHTML = `
+          <strong style="color:#991b1b;">${isEn ? '⚠️ Some blanks need revision. Review syllabus criteria:' : '⚠️ 存在空缺或错误词条，请参考采分依据调整:'}</strong><br>
+          <span style="font-size:0.9rem; color:var(--text-main); margin-top:0.35rem; display:inline-block;">${rationale}</span>
+        `;
+        document.getElementById('cloze-citation-tag').textContent = isEn 
+          ? `📖 Official Textbook Reference: ${item.citation_textbook}`
+          : `📖 教材权威依据: ${item.citation_textbook}`;
+        fbBox.style.display = 'block';
+      }
+    }
+
+    function revealClozeAnswers() {
+      const inputs = document.querySelectorAll('.cloze-input');
+      inputs.forEach(input => {
+        const expected = decodeURIComponent(input.getAttribute('data-ans') || '');
+        if (expected) {
+          input.value = expected;
+          input.classList.remove('invalid');
+          input.classList.add('valid');
+        }
+      });
+      checkClozeAnswers();
+    }
+
+    function nextClozeItem() {
+      if (currentClozeIdx < clozePool.length - 1) {
+        currentClozeIdx++;
+        initCurrentClozeGame();
+      }
+    }
+    function prevClozeItem() {
+      if (currentClozeIdx > 0) {
+        currentClozeIdx--;
+        initCurrentClozeGame();
+      }
+    }
+
+    // ==================== 4. CHRONO-SORT ENGINE ====================
+    function updateSortTimer(totalSeconds) {
+      const m = Math.floor(totalSeconds / 60);
+      const s = totalSeconds % 60;
+      const str = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+      const el = document.getElementById('sort-elapsed-time');
+      if (el) el.textContent = str;
+    }
+
+    function initCurrentSortGame() {
+      const isEn = currentLangMode === 'en';
+      if (sortPool.length === 0) {
+        document.getElementById('sort-items-container').innerHTML = `<p>${isEn ? 'No ordering exercises available for this unit.' : '当前分类下暂无排序接龙题。'}</p>`;
+        return;
+      }
+      const item = sortPool[currentSortIdx];
+      const title = isEn ? (item.task_title_en || item.task_code) : (item.task_title_cn || item.task_title_en);
+      document.getElementById('sort-task-title').textContent = `🔄 ${item.task_code}: ${title} (${currentSortIdx + 1} / ${sortPool.length})`;
+      const tagEl = document.getElementById('sort-task-tag');
+      if (tagEl) {
+        tagEl.textContent = isEn ? `${item.task_code} (L${item.lesson_id})` : `${item.task_code} (${item.lesson_title_cn || item.lesson_title_en})`;
+      }
+      document.getElementById('sort-feedback-box').style.display = 'none';
+
+      // Stopwatch Timer
+      sortQuestionStartTime = Date.now();
+      if (sortTimerInterval) {
+        clearInterval(sortTimerInterval);
+        sortTimerInterval = null;
+      }
+      updateSortTimer(0);
+      sortTimerInterval = setInterval(() => {
+        const elapsedSec = Math.floor((Date.now() - sortQuestionStartTime) / 1000);
+        updateSortTimer(elapsedSec);
+      }, 1000);
+
+      document.getElementById('sort-current-idx').textContent = currentSortIdx + 1;
+      document.getElementById('sort-total-count').textContent = sortPool.length;
+      document.getElementById('sort-score').textContent = sortScore;
+      const pct = ((currentSortIdx + 1) / sortPool.length) * 100;
+      document.getElementById('sort-progress-fill').style.width = pct + '%';
+
+      // Priority 1: Structured sort_steps
+      if (item.interactive_meta && Array.isArray(item.interactive_meta.sort_steps) && item.interactive_meta.sort_steps.length > 0) {
+        const steps = item.interactive_meta.sort_steps.map((s, idx) => ({
+          text: isEn ? s.text_en : `${s.text_en}<span style="display:block; font-size:0.84rem; color:#64748b; font-weight:normal; margin-top:3px;">${s.text_cn || ''}</span>`,
+          correctOrder: idx
+        }));
+
+        currentSortOrder = [...steps].sort(() => Math.random() - 0.5);
+        renderSortList();
+        return;
+      }
+
+      // Priority 2: Unstructured Fallback
+      const steps = [];
+      const lines = (item.answer_en || item.content_en || '').split('\n');
+      lines.forEach(l => {
+        const m = l.match(/(?:Order\s*\d+|步骤\s*\d+|\d+\.)\s*[:：]?\s*([^\n]+)/i);
+        if (m) steps.push(m[1].trim());
+      });
+
+      if (steps.length === 0 && (item.answer_en || '').includes('→')) {
+        const parts = item.answer_en.split('→').map(p => p.trim()).filter(Boolean);
+        if (parts.length >= 3) {
+          parts.forEach(p => steps.push(p));
+        }
+      }
+
+      currentSortOrder = steps.map((text, idx) => ({ text, correctOrder: idx }))
+                              .sort(() => Math.random() - 0.5);
+
+      renderSortList();
+    }
+
+    function renderSortList() {
+      const container = document.getElementById('sort-items-container');
+      container.innerHTML = '';
+
+      if (currentSortOrder.length === 0) {
+        const isEn = currentLangMode === 'en';
+        container.innerHTML = `<p style="color:var(--text-muted); padding:1rem;">${isEn ? 'No sequence steps found for this question.' : '本题暂无排序步骤。'}</p>`;
+        return;
+      }
+
+      currentSortOrder.forEach((step, idx) => {
+        const div = document.createElement('div');
+        div.className = 'sort-item';
+        div.setAttribute('draggable', 'true');
+        div.setAttribute('data-index', idx);
+        div.setAttribute('data-correct-order', step.correctOrder);
+
+        div.innerHTML = `
+          <div class="sort-drag-handle" title="按住拖拽排序">☰</div>
+          <div class="sort-num">${idx + 1}</div>
+          <div class="sort-text">${step.text}</div>
+          <div class="sort-ctrls">
+            <button type="button" class="btn-sort" onclick="moveSortItem(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} title="向上移动">⬆️</button>
+            <button type="button" class="btn-sort" onclick="moveSortItem(${idx}, 1)" ${idx === currentSortOrder.length - 1 ? 'disabled' : ''} title="向下移动">⬇️</button>
+          </div>
+        `;
+
+        // HTML5 Drag and Drop Handlers
+        div.addEventListener('dragstart', (e) => {
+          draggedSortIndex = idx;
+          div.classList.add('dragging');
+          e.dataTransfer.effectAllowed = 'move';
+          e.dataTransfer.setData('text/plain', String(idx));
+        });
+
+        div.addEventListener('dragend', () => {
+          div.classList.remove('dragging');
+          document.querySelectorAll('.sort-item').forEach(el => el.classList.remove('drag-over'));
+          draggedSortIndex = null;
+        });
+
+        div.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'move';
+          div.classList.add('drag-over');
+        });
+
+        div.addEventListener('dragleave', () => {
+          div.classList.remove('drag-over');
+        });
+
+        div.addEventListener('drop', (e) => {
+          e.preventDefault();
+          div.classList.remove('drag-over');
+          const rawIdx = e.dataTransfer.getData('text/plain');
+          const fromIdx = draggedSortIndex !== null ? draggedSortIndex : parseInt(rawIdx, 10);
+          const toIdx = idx;
+          if (isNaN(fromIdx) || fromIdx === toIdx) return;
+          reorderSortList(fromIdx, toIdx);
+        });
+
+        container.appendChild(div);
+      });
+    }
+
+    function reorderSortList(fromIdx, toIdx) {
+      if (fromIdx < 0 || fromIdx >= currentSortOrder.length || toIdx < 0 || toIdx >= currentSortOrder.length) return;
+      const movedItem = currentSortOrder.splice(fromIdx, 1)[0];
+      currentSortOrder.splice(toIdx, 0, movedItem);
+      renderSortList();
+    }
+
+    function moveSortItem(fromIdx, direction) {
+      const toIdx = fromIdx + direction;
+      if (toIdx < 0 || toIdx >= currentSortOrder.length) return;
+      const temp = currentSortOrder[fromIdx];
+      currentSortOrder[fromIdx] = currentSortOrder[toIdx];
+      currentSortOrder[toIdx] = temp;
+      renderSortList();
+    }
+
+    function checkSortOrder() {
+      const items = Array.from(document.querySelectorAll('.sort-item'));
+      let isAllCorrect = true;
+
+      items.forEach((itemEl, idx) => {
+        const itemData = currentSortOrder[idx];
+        const isCorrectPos = itemData && itemData.correctOrder === idx;
+        itemEl.classList.remove('correct-pos', 'incorrect-pos');
+        if (isCorrectPos) {
+          itemEl.classList.add('correct-pos');
+        } else {
+          itemEl.classList.add('incorrect-pos');
+          isAllCorrect = false;
+        }
+      });
+
+      const isEn = currentLangMode === 'en';
+      const fb = document.getElementById('sort-feedback-box');
+      const item = sortPool[currentSortIdx];
+
+      if (isAllCorrect) {
+        if (sortTimerInterval) {
+          clearInterval(sortTimerInterval);
+          sortTimerInterval = null;
+        }
+        if (!sortAnsweredMap[item.id]) {
+          sortAnsweredMap[item.id] = true;
+          sortScore += 1;
+          document.getElementById('sort-score').textContent = sortScore;
+        }
+        fb.style.background = '#ecfdf5';
+        fb.style.border = '1px solid #6ee7b7';
+        fb.innerHTML = `
+          <h4 style="color:#065f46; margin-bottom:0.4rem;">${isEn ? '🎉 Perfect Sequence! 100% Correct! (+1 pt)' : '🎉 完美接龙！排序 100% 正确！(+1分)'}</h4>
+          <p style="font-size:0.9rem; color:#047857;">${isEn ? (item.rationale_en || item.rationale_cn) : (item.rationale_cn || item.rationale_en)}</p>
+          <div style="font-size:0.82rem; color:#065f46; margin-top:0.35rem;">📖 ${isEn ? 'Textbook Reference: ' : '教材出处: '}${item.citation_textbook}</div>
+        `;
+      } else {
+        fb.style.background = '#fef2f2';
+        fb.style.border = '1px solid #fecaca';
+        fb.innerHTML = `
+          <h4 style="color:#991b1b; margin-bottom:0.4rem;">${isEn ? '⚠️ Order is not quite right. Review sequence:' : '⚠️ 次序尚有偏差，绿色为正确位置，请参考标准生理时序调整:'}</h4>
+          <p style="font-size:0.9rem; color:#7f1d1d; white-space:pre-line;">${isEn ? (item.answer_en || item.answer_cn) : (item.answer_cn || item.answer_en)}</p>
+        `;
+      }
+      fb.style.display = 'block';
+    }
+
+    function resetCurrentSortGame() {
+      initCurrentSortGame();
+    }
+    function nextSortItem() {
+      if (currentSortIdx < sortPool.length - 1) {
+        currentSortIdx++;
+        initCurrentSortGame();
+      }
+    }
+    function prevSortItem() {
+      if (currentSortIdx > 0) {
+        currentSortIdx--;
+        initCurrentSortGame();
+      }
+    }
+
+    // ==================== 5. MODEL ANSWERS EXPLORER ====================
+    function renderExplorerList() {
+      const container = document.getElementById('explorer-list-container');
+      container.innerHTML = '';
+      const isEn = currentLangMode === 'en';
+
+      if (activeFilteredExercises.length === 0) {
+        container.innerHTML = `<p style="text-align:center; padding:2rem; color:var(--text-muted);">${isEn ? 'No exercises found matching criteria.' : '未找到符合条件的题目。'}</p>`;
+        return;
+      }
+
+      activeFilteredExercises.forEach((item, idx) => {
+        const card = document.createElement('div');
+        card.className = 'explorer-item';
+
+        const title = isEn 
+          ? (item.task_title_en || item.task_code)
+          : (item.task_title_cn ? `${item.task_title_en} (${item.task_title_cn})` : item.task_title_en);
+        const subTitle = isEn
+          ? (item.lesson_title_en || '')
+          : (item.lesson_title_cn ? `${item.lesson_title_cn} · ${item.lesson_title_en}` : item.lesson_title_en);
+
+        let breakdownHtml = '';
+        if (item.options_breakdown) {
+          const letters = ['A', 'B', 'C', 'D'];
+          let cardsHtml = '';
+          letters.forEach(letter => {
+            const optInfo = item.options_breakdown[letter];
+            if (!optInfo) return;
+            const isCorrect = optInfo.correct;
+            const statusTag = isCorrect 
+              ? (isEn ? '✔️ Correct' : '✔️ 正确选项 (Correct)') 
+              : (isEn ? '❌ Incorrect' : '❌ 错误选项 (Distractor)');
+            cardsHtml += `
+              <div class="breakdown-card ${isCorrect ? 'correct-card' : 'incorrect-card'}" style="padding:0.6rem 0.85rem; font-size:0.86rem; margin-top:0.4rem;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.25rem;">
+                  <span class="breakdown-letter-badge" style="width:20px; height:20px; font-size:0.75rem;">${letter}</span>
+                  <span class="breakdown-status-tag" style="font-size:0.75rem;">${statusTag}</span>
+                </div>
+                <div style="font-size:0.86rem; color:#1e293b; line-height:1.5; margin-top:0.25rem;">${formatDistractorText(optInfo.en)}</div>
+                ${(!isEn && optInfo.cn) ? `<div class="breakdown-reason-cn" style="font-size:0.84rem; color:#334155; margin-top:0.35rem; border-top:1px dashed rgba(0,0,0,0.06); padding-top:0.3rem; line-height:1.5;">${formatDistractorText(optInfo.cn)}</div>` : ''}
+              </div>
+            `;
+          });
+          breakdownHtml = `
+            <div class="options-breakdown-box" style="margin-top:0.85rem; padding:0.85rem 1rem;">
+              <div class="breakdown-title" style="font-size:0.88rem; margin-bottom:0.5rem; color:#4338ca;">
+                ${isEn ? '💡 Option-by-Option Distractor Analysis & Concepts' : '💡 选项逐项深度辨析与考点诊断 (Option-by-Option Distractor Analysis)'}
+              </div>
+              <div style="display:grid; grid-template-columns:1fr; gap:0.4rem;">
+                ${cardsHtml}
+              </div>
+            </div>
+          `;
+        }
+
+        let diagramHtml = '';
+        if (item.image_url) {
+          const cap = isEn 
+            ? (item.diagram_caption_en || 'Figure Diagram') 
+            : (item.diagram_caption_cn ? `${item.diagram_caption_cn} (${item.diagram_caption_en || ''})` : item.diagram_caption_en);
+          const descEn = item.diagram_description_en || '';
+          const descCn = item.diagram_description_cn || '';
+          diagramHtml = `
+            <div style="margin:0.85rem 0; padding:0.75rem; background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:8px; text-align:center;">
+              <img src="${item.image_url}" alt="${cap}" style="max-width:100%; max-height:340px; height:auto; border-radius:4px; box-shadow:0 1px 6px rgba(0,0,0,0.06); object-fit:contain;">
+              <div style="font-size:0.85rem; font-weight:700; color:#1e3a8a; margin-top:0.4rem;">${cap}</div>
+              ${(descEn || descCn) ? `
+                <div style="font-size:0.8rem; color:#475569; margin-top:0.35rem; line-height:1.45; text-align:left; background:#fff; padding:0.5rem 0.75rem; border-radius:6px; border:1px dashed #cbd5e1;">
+                  ${(!isEn && descCn) ? `<strong>【图解指引】:</strong> ${descCn}<br>` : ''}
+                  ${descEn ? `<span style="color:#64748b; font-size:0.78rem;"><strong>[Context]:</strong> ${descEn}</span>` : ''}
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }
+
+        card.innerHTML = `
+          <div class="explorer-header" onclick="this.parentElement.classList.toggle('open')">
+            <div class="explorer-title-box">
+              <span class="badge badge-secondary">${item.task_code}</span>
+              <div>
+                <strong style="font-size:1rem;">${title}</strong>
+                <div style="font-size:0.8rem; color:var(--text-muted);">${subTitle}</div>
+              </div>
+            </div>
+            <span class="exp-arrow">▼</span>
+          </div>
+          <div class="explorer-body">
+            <div class="prompt-box">
+              <strong style="color:var(--primary); display:block; margin-bottom:0.25rem;">${isEn ? '[Question Prompt]' : '[题目 Prompt / Question Prompt]'}</strong>
+              <div style="font-weight:600; margin-bottom:0.35rem;">${item.prompt_en || item.task_title_en || ''}</div>
+              ${(!isEn && item.prompt_cn) ? `<div style="color:var(--text-muted); font-size:0.9rem;">${item.prompt_cn}</div>` : ''}
+              ${diagramHtml}
+            </div>
+
+            <div class="answer-box">
+              <strong style="color:#065f46; display:block; margin-bottom:0.25rem;">${isEn ? '[Official Mark Scheme & Model Answer]' : '[官方标准答案 & 评分细则 Mark Scheme]'}</strong>
+              <div style="white-space:pre-line; font-weight:600; margin-bottom:${(!isEn && item.answer_cn) ? '0.5rem' : '0'};">${item.answer_en || item.content_en || ''}</div>
+              ${(!isEn && item.answer_cn) ? `<div style="white-space:pre-line; color:#047857; font-size:0.92rem;">${item.answer_cn}</div>` : ''}
+            </div>
+
+            <div class="rationale-box">
+              <strong style="color:#92400e; display:block; margin-bottom:0.25rem;">${isEn ? '[Physiological Rationale & Syllabus Insights]' : '[生理机制深度剖析与考点分析]'}</strong>
+              ${isEn 
+                ? `<div style="margin-bottom:0.35rem;">${item.rationale_en || item.rationale_cn || 'Based on Cambridge Checkpoint Science syllabus core standards.'}</div>`
+                : `
+                  <div style="font-weight:600; margin-bottom:0.25rem; color:#1e293b;">${item.rationale_en || ''}</div>
+                  <div style="color:#92400e; font-size:0.92rem;">${item.rationale_cn || '依据剑桥G8科学教学大纲核心概念要求。'}</div>
+                `}
+            </div>
+
+            ${breakdownHtml}
+
+            <div class="citation-tag">
+              ${isEn 
+                ? `📖 Textbook Reference: <strong>${item.citation_textbook}</strong> | Syllabus Notes: ${item.citation_notes || item.citation_ppt || 'Course Material'}`
+                : `📖 官方教材精确定位: <strong>${item.citation_textbook}</strong> | 讲义/课件: ${item.citation_notes || item.citation_ppt || 'Course Material'}`}
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function toggleAllExplorer(open) {
+      document.querySelectorAll('.explorer-item').forEach(card => {
+        card.classList.toggle('open', open);
+      });
+    }
+
+    // ==================== 6. LEARNING ANALYTICS & MISTAKE BANK ENGINE ====================
+    function updateTimerDisplay(totalSeconds) {
+      const m = Math.floor(totalSeconds / 60);
+      const s = totalSeconds % 60;
+      const str = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+      const el = document.getElementById('mcq-elapsed-time');
+      if (el) el.textContent = str;
+    }
+
+    function saveAttemptRecord(attemptItem) {
+      attemptsLog.unshift(attemptItem);
+      localStorage.setItem(ATTEMPTS_STORAGE_KEY, JSON.stringify(attemptsLog));
+    }
+
+    function toggleAttemptExclude(recordId) {
+      const item = attemptsLog.find(a => a.id === recordId);
+      if (item) {
+        item.isExcluded = !item.isExcluded;
+        localStorage.setItem(ATTEMPTS_STORAGE_KEY, JSON.stringify(attemptsLog));
+        updateAnalyticsUI();
+      }
+    }
+
+    function deleteAttempt(recordId) {
+      const isEn = currentLangMode === 'en';
+      const msg = isEn ? 'Delete this attempt record permanently?' : '确定要彻底删除该条作答记录吗？';
+      if (confirm(msg)) {
+        attemptsLog = attemptsLog.filter(a => a.id !== recordId);
+        localStorage.setItem(ATTEMPTS_STORAGE_KEY, JSON.stringify(attemptsLog));
+        updateAnalyticsUI();
+      }
+    }
+
+    function excludeAllTrialAttempts() {
+      const isEn = currentLangMode === 'en';
+      let changed = 0;
+      attemptsLog.forEach(a => {
+        if (a.sessionMode === 'trial' && !a.isExcluded) {
+          a.isExcluded = true;
+          changed++;
+        }
+      });
+      if (changed > 0) {
+        localStorage.setItem(ATTEMPTS_STORAGE_KEY, JSON.stringify(attemptsLog));
+        updateAnalyticsUI();
+        alert(isEn ? `Successfully excluded ${changed} trial attempt(s)!` : `已成功将 ${changed} 条试测记录标记为排除！`);
+      } else {
+        alert(isEn ? 'No active trial attempts found to exclude.' : '未发现需要排除的有效试测记录。');
+      }
+    }
+
+    function includeAllAttempts() {
+      const isEn = currentLangMode === 'en';
+      let changed = 0;
+      attemptsLog.forEach(a => {
+        if (a.isExcluded) {
+          a.isExcluded = false;
+          changed++;
+        }
+      });
+      if (changed > 0) {
+        localStorage.setItem(ATTEMPTS_STORAGE_KEY, JSON.stringify(attemptsLog));
+        updateAnalyticsUI();
+        alert(isEn ? `Restored ${changed} attempt(s) into statistics!` : `已恢复 ${changed} 条记录重新计入统计！`);
+      } else {
+        alert(isEn ? 'All attempts are already included.' : '当前所有记录均已在统计中。');
+      }
+    }
+
+    function clearExcludedAttempts() {
+      const isEn = currentLangMode === 'en';
+      const beforeCount = attemptsLog.length;
+      attemptsLog = attemptsLog.filter(a => !a.isExcluded);
+      const deletedCount = beforeCount - attemptsLog.length;
+      if (deletedCount > 0) {
+        localStorage.setItem(ATTEMPTS_STORAGE_KEY, JSON.stringify(attemptsLog));
+        updateAnalyticsUI();
+        alert(isEn ? `Deleted ${deletedCount} excluded record(s)!` : `已清空 ${deletedCount} 条已排除的测试记录！`);
+      } else {
+        alert(isEn ? 'No excluded records to delete.' : '当前没有已排除的记录可供清理。');
+      }
+    }
+
+    function clearAllAttempts() {
+      const isEn = currentLangMode === 'en';
+      const msg = isEn ? 'Are you sure you want to CLEAR ALL attempt records? This action cannot be undone!' : '确定要清空全部作答流水历史吗？此操作无法撤销！';
+      if (confirm(msg)) {
+        attemptsLog = [];
+        localStorage.removeItem(ATTEMPTS_STORAGE_KEY);
+        updateAnalyticsUI();
+      }
+    }
+
+    function setHistoryFilter(filterType) {
+      currentHistoryFilter = filterType;
+      document.querySelectorAll('.filter-pills .pill-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-filter') === filterType);
+      });
+      renderAttemptHistoryTable();
+    }
+
+    function switchMistakesSubTab(subTabName) {
+      currentMistakesSubTab = subTabName;
+      const btnMis = document.getElementById('subtab-btn-mistakes');
+      const btnHist = document.getElementById('subtab-btn-history');
+      const viewMis = document.getElementById('view-mistake-bank');
+      const viewHist = document.getElementById('view-attempt-history');
+
+      if (btnMis) btnMis.classList.toggle('active', subTabName === 'mistakes');
+      if (btnHist) btnHist.classList.toggle('active', subTabName === 'history');
+      if (viewMis) viewMis.style.display = subTabName === 'mistakes' ? 'block' : 'none';
+      if (viewHist) viewHist.style.display = subTabName === 'history' ? 'block' : 'none';
+    }
+
+    function updateAnalyticsUI() {
+      const isEn = currentLangMode === 'en';
+
+      const validAttempts = attemptsLog.filter(a => !a.isExcluded);
+      const excludedAttempts = attemptsLog.filter(a => a.isExcluded);
+      const correctAttempts = validAttempts.filter(a => a.isCorrect);
+      const wrongAttempts = validAttempts.filter(a => !a.isCorrect);
+
+      const totalCount = attemptsLog.length;
+      const validCount = validAttempts.length;
+      const excludedCount = excludedAttempts.length;
+      const accuracyPct = validCount > 0 ? ((correctAttempts.length / validCount) * 100).toFixed(1) : '0.0';
+
+      const totalDurationSec = validAttempts.reduce((acc, a) => acc + (a.timeSpentSeconds || 0), 0);
+      const avgDurationSec = validCount > 0 ? (totalDurationSec / validCount).toFixed(1) : '0.0';
+
+      const totalMin = Math.floor(totalDurationSec / 60);
+      const remSec = Math.round(totalDurationSec % 60);
+      const totalTimeFormatted = totalMin > 0 
+        ? (isEn ? `${totalMin}m ${remSec}s` : `${totalMin}分${remSec}秒`)
+        : (isEn ? `${remSec}s` : `${remSec}秒`);
+
+      // KPI 1: Attempts
+      const elTotalVal = document.getElementById('stat-total-attempts');
+      if (elTotalVal) elTotalVal.textContent = validCount;
+      const elSubAtt = document.getElementById('stat-sub-attempts');
+      if (elSubAtt) {
+        elSubAtt.innerHTML = isEn
+          ? `Total: <strong>${totalCount}</strong> | Excluded: <strong style="color:#d97706;">${excludedCount}</strong>`
+          : `历史总提交: <strong>${totalCount}</strong> 次 | 排除试测: <strong style="color:#d97706;">${excludedCount}</strong> 条`;
+      }
+
+      // KPI 2: Accuracy
+      const elAccVal = document.getElementById('stat-accuracy-rate');
+      if (elAccVal) {
+        elAccVal.textContent = `${accuracyPct}%`;
+        if (validCount === 0) elAccVal.style.color = 'var(--text)';
+        else if (accuracyPct >= 80) elAccVal.style.color = 'var(--success)';
+        else if (accuracyPct >= 60) elAccVal.style.color = 'var(--accent)';
+        else elAccVal.style.color = 'var(--danger)';
+      }
+      const elSubAcc = document.getElementById('stat-sub-accuracy');
+      if (elSubAcc) {
+        elSubAcc.innerHTML = isEn
+          ? `Correct: <strong style="color:var(--success);">${correctAttempts.length}</strong> | Incorrect: <strong style="color:var(--danger);">${wrongAttempts.length}</strong>`
+          : `做对: <strong style="color:var(--success);">${correctAttempts.length}</strong> 题 | 做错: <strong style="color:var(--danger);">${wrongAttempts.length}</strong> 题`;
+      }
+
+      // KPI 3: Avg Duration
+      const elTimeVal = document.getElementById('stat-avg-duration');
+      if (elTimeVal) elTimeVal.textContent = `${avgDurationSec}s`;
+      const elSubTime = document.getElementById('stat-sub-time');
+      if (elSubTime) {
+        elSubTime.innerHTML = isEn
+          ? `Total practice time: <strong>${totalTimeFormatted}</strong>`
+          : `累计有效答题时长: <strong>${totalTimeFormatted}</strong>`;
+      }
+
+      // KPI 4: Pending Mistakes
+      const elMisVal = document.getElementById('stat-pending-mistakes');
+      if (elMisVal) elMisVal.textContent = mistakeBank.length;
+      const elMisCountBadge = document.getElementById('count-mistakes');
+      if (elMisCountBadge) elMisCountBadge.textContent = mistakeBank.length;
+      const elMisDisp = document.getElementById('mistake-count-display');
+      if (elMisDisp) elMisDisp.textContent = mistakeBank.length;
+
+      const subMisCount = document.getElementById('sub-mistake-count');
+      if (subMisCount) subMisCount.textContent = mistakeBank.length;
+      const subHistCount = document.getElementById('sub-history-count');
+      if (subHistCount) subHistCount.textContent = totalCount;
+
+      // Render Breakdown components
+      renderLessonMastery(validAttempts);
+      renderTopMistakesLeaderboard(wrongAttempts);
+      renderMistakeBankCards();
+      renderAttemptHistoryTable();
+    }
+
+    function renderLessonMastery(validAttempts) {
+      const container = document.getElementById('mastery-list-container');
+      if (!container) return;
+      const isEn = currentLangMode === 'en';
+
+      if (validAttempts.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:1.5rem; color:var(--text-muted); font-size:0.9rem;">${isEn ? 'No practice attempts recorded yet. Start answering MCQs to see your mastery by topic!' : '暂无有效答题数据。快去单选真题闯关中做题，查看各课时掌握度！'}</div>`;
+        return;
+      }
+
+      const lessonStats = {};
+      validAttempts.forEach(a => {
+        const lid = a.lessonId || 'Other';
+        if (!lessonStats[lid]) {
+          lessonStats[lid] = { lessonId: lid, total: 0, correct: 0, wrong: 0 };
+        }
+        lessonStats[lid].total++;
+        if (a.isCorrect) lessonStats[lid].correct++;
+        else lessonStats[lid].wrong++;
+      });
+
+      const sortedLessons = Object.values(lessonStats).sort((a, b) => {
+        return (Number(a.lessonId) || 0) - (Number(b.lessonId) || 0);
+      });
+
+      let html = '';
+      sortedLessons.forEach(ls => {
+        const rate = Math.round((ls.correct / ls.total) * 100);
+        const color = rate >= 80 ? '#10b981' : (rate >= 60 ? '#f59e0b' : '#ef4444');
+        const lessonTitle = ls.lessonId === 99 || ls.lessonId === '99'
+          ? (isEn ? 'Comprehensive Exam' : '综合统考复习 (Rev 99)')
+          : (isEn ? `Lesson ${ls.lessonId}` : `第 ${ls.lessonId} 课 (L${ls.lessonId < 10 ? '0' : ''}${ls.lessonId})`);
+
+        html += `
+          <div class="mastery-row">
+            <div style="font-weight:700; color:#1e293b; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">
+              ${lessonTitle}
+            </div>
+            <div>
+              <div class="mastery-bar-bg">
+                <div class="mastery-bar-fill" style="width:${rate}%; background:${color};"></div>
+              </div>
+            </div>
+            <div style="text-align:right; font-weight:700; color:${color};">
+              ${rate}% <span style="font-weight:400; font-size:0.75rem; color:#64748b;">(${ls.correct}/${ls.total})</span>
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function renderTopMistakesLeaderboard(wrongAttempts) {
+      const container = document.getElementById('top-mistakes-container');
+      if (!container) return;
+      const isEn = currentLangMode === 'en';
+
+      if (wrongAttempts.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:1.5rem; color:var(--text-muted); font-size:0.9rem;">${isEn ? '🌟 Zero mistakes recorded in valid practice! Outstanding performance!' : '🌟 有效练习中暂无错题记录！表现无可挑剔！'}</div>`;
+        return;
+      }
+
+      const errMap = {};
+      wrongAttempts.forEach(a => {
+        if (!errMap[a.questionId]) {
+          errMap[a.questionId] = {
+            questionId: a.questionId,
+            taskCode: a.taskCode,
+            lessonId: a.lessonId,
+            promptEn: a.promptEn,
+            promptCn: a.promptCn,
+            count: 0
+          };
+        }
+        errMap[a.questionId].count++;
+      });
+
+      const sortedList = Object.values(errMap).sort((a, b) => b.count - a.count).slice(0, 5);
+
+      let html = '<div style="display:flex; flex-direction:column; gap:0.6rem;">';
+      sortedList.forEach((item, idx) => {
+        const medal = idx === 0 ? '🥇' : (idx === 1 ? '🥈' : (idx === 2 ? '🥉' : '📌'));
+        html += `
+          <div style="display:flex; justify-content:space-between; align-items:center; background:#fef2f2; border:1px solid #fee2e2; border-radius:8px; padding:0.6rem 0.85rem; font-size:0.86rem;">
+            <div style="display:flex; align-items:center; gap:0.5rem; flex:1; min-width:0;">
+              <span style="font-size:1.1rem;">${medal}</span>
+              <span class="badge badge-danger" style="font-size:0.75rem;">${item.taskCode}</span>
+              <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#334155; flex:1;">${isEn ? item.promptEn : (item.promptCn || item.promptEn)}</span>
+            </div>
+            <div style="font-weight:700; color:#b91c1c; margin-left:0.75rem; white-space:nowrap;">
+              ${isEn ? `Failed ${item.count} time(s)` : `答错 ${item.count} 次`}
+            </div>
+          </div>
+        `;
+      });
+      html += '</div>';
+      container.innerHTML = html;
+    }
+
+    function renderAttemptHistoryTable() {
+      const container = document.getElementById('history-table-body');
+      if (!container) return;
+      const isEn = currentLangMode === 'en';
+
+      let list = [...attemptsLog];
+      if (currentHistoryFilter === 'formal') {
+        list = list.filter(a => !a.isExcluded);
+      } else if (currentHistoryFilter === 'excluded') {
+        list = list.filter(a => a.isExcluded);
+      } else if (currentHistoryFilter === 'wrong') {
+        list = list.filter(a => !a.isCorrect);
+      }
+
+      const emptyMsg = document.getElementById('history-empty-message');
+      if (list.length === 0) {
+        container.innerHTML = '';
+        if (emptyMsg) {
+          emptyMsg.style.display = 'block';
+          emptyMsg.textContent = isEn ? 'No attempt records match the selected filter.' : '当前筛选条件下暂无作答记录。';
+        }
+        return;
+      }
+      if (emptyMsg) emptyMsg.style.display = 'none';
+
+      let html = '';
+      list.forEach((att, idx) => {
+        const isExcluded = att.isExcluded;
+        const modeBadge = att.sessionMode === 'trial'
+          ? `<span class="badge-trial">🧪 ${isEn ? 'Trial' : '试测'}</span>`
+          : `<span class="badge-formal">🟢 ${isEn ? 'Formal' : '正式'}</span>`;
+        
+        const statusBadge = isExcluded
+          ? `<span class="badge-excluded">🚫 ${isEn ? 'Excluded' : '已排除'}</span>`
+          : `<span class="badge-included">✅ ${isEn ? 'Included' : '计入统计'}</span>`;
+
+        const resultBadge = att.isCorrect
+          ? `<span style="color:#059669; font-weight:700;">✔️ ${isEn ? 'Correct' : '正确'}</span>`
+          : `<span style="color:#dc2626; font-weight:700;">❌ ${isEn ? 'Wrong' : '做错'}</span>`;
+
+        const actionExcludeBtn = isExcluded
+          ? `<button class="btn-xs btn-xs-primary" onclick="toggleAttemptExclude('${att.id}')" title="${isEn ? 'Include into statistics' : '重新纳入统计'}">✅ ${isEn ? 'Include' : '纳入'}</button>`
+          : `<button class="btn-xs btn-xs-warning" onclick="toggleAttemptExclude('${att.id}')" title="${isEn ? 'Exclude from statistics' : '排除不计入统计'}">🚫 ${isEn ? 'Exclude' : '排除'}</button>`;
+
+        const actionDeleteBtn = `<button class="btn-xs btn-xs-danger" onclick="deleteAttempt('${att.id}')" title="${isEn ? 'Delete permanently' : '彻底删除此条记录'}">🗑️</button>`;
+
+        html += `
+          <tr class="attempt-row ${isExcluded ? 'excluded' : ''}">
+            <td style="font-weight:600; color:#64748b;">${idx + 1}</td>
+            <td style="white-space:nowrap; font-size:0.8rem; color:#475569;">${att.timeString || att.dateStr || ''}</td>
+            <td>
+              <div style="font-weight:700; color:#1e293b;">${att.taskCode}</div>
+              <div style="font-size:0.75rem; color:#64748b;">L${att.lessonId || ''} · ${(att.promptEn || '').substring(0, 35)}...</div>
+            </td>
+            <td style="font-weight:700; white-space:nowrap;">
+              <span style="color:${att.isCorrect ? '#059669' : '#dc2626'};">${att.selectedOption}</span> 
+              <span style="color:#94a3b8;">vs</span> 
+              <span style="color:#059669;">${att.correctOption}</span>
+            </td>
+            <td>${resultBadge}</td>
+            <td style="white-space:nowrap; font-weight:600; color:#1e40af;">⏱️ ${att.timeSpentSeconds}s</td>
+            <td>${modeBadge}</td>
+            <td>${statusBadge}</td>
+            <td style="white-space:nowrap;">
+              <div style="display:flex; gap:0.35rem;">
+                ${actionExcludeBtn}
+                ${actionDeleteBtn}
+              </div>
+            </td>
+          </tr>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function renderMistakeBankCards() {
+      const isEn = currentLangMode === 'en';
+      const container = document.getElementById('mistake-list-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (mistakeBank.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:3rem; color:var(--text-muted); background:#fff; border-radius:12px; border:1px solid var(--border);">
+            <div style="font-size:3rem; margin-bottom:0.5rem;">✨</div>
+            <h3>${isEn ? 'Awesome! Mistake bank is currently empty!' : '太棒了！错题本目前空空如也！'}</h3>
+            <p style="font-size:0.9rem;">${isEn ? 'Keep it up! Questions answered incorrectly in the MCQ Arena will automatically appear here.' : '继续保持，在单选题闯关中答错的题目会自动收集到这里。'}</p>
+          </div>
+        `;
+        return;
+      }
+
+      mistakeBank.forEach(m => {
+        const item = document.createElement('div');
+        item.className = 'card';
+        item.style.borderColor = '#fecaca';
+        item.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.75rem;">
+            <span class="badge badge-danger">${m.task_code}</span>
+            <button class="btn btn-secondary btn-sm" onclick="removeMistake('${m.id}')">${isEn ? '✅ Mark as Mastered' : '✅ 标记已攻克'}</button>
+          </div>
+          <div style="font-weight:700; margin-bottom:0.35rem;">${m.prompt_en}</div>
+          ${(!isEn && m.prompt_cn) ? `<div style="font-size:0.9rem; color:var(--text-muted); margin-bottom:0.75rem;">${m.prompt_cn}</div>` : ''}
+          <div style="background:#fef2f2; padding:0.75rem; border-radius:8px; font-size:0.9rem; color:#991b1b; margin-bottom:0.5rem;">
+            <strong>${isEn ? 'Correct Answer:' : '正确参考答案:'}</strong> ${isEn ? (m.answer_en || m.answer_cn) : (m.answer_cn || m.answer_en)}
+          </div>
+          <div class="citation-tag">${isEn ? '📖 Citation:' : '📖 出处:'} ${m.citation}</div>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    // Keep backwards compatibility for any external or test callers
+    function updateMistakeUI() {
+      updateAnalyticsUI();
+    }
+
+    function addMistake(q) {
+      if (!mistakeBank.some(m => m.id === q.id)) {
+        mistakeBank.push({
+          id: q.id,
+          task_code: q.task_code,
+          prompt_en: q.prompt_en || q.content_en || q.task_title_en || '',
+          prompt_cn: q.prompt_cn || q.task_title_cn || '',
+          answer_en: q.answer_en || q.content_en || '',
+          answer_cn: q.answer_cn || '',
+          citation: q.citation_textbook || '',
+          time: new Date().toLocaleDateString()
+        });
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(mistakeBank));
+        updateAnalyticsUI();
+      }
+    }
+
+    function removeMistake(id) {
+      mistakeBank = mistakeBank.filter(m => m.id !== id);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(mistakeBank));
+      updateAnalyticsUI();
+    }
+
+    function clearMistakeBank() {
+      const msg = currentLangMode === 'en' ? 'Are you sure you want to clear all mistake records?' : '确定要清空全部错题记录吗？';
+      if (confirm(msg)) {
+        mistakeBank = [];
+        localStorage.removeItem(STORAGE_KEY);
+        updateAnalyticsUI();
+      }
+    }
+
+    function drillMistakesOnly() {
+      if (mistakeBank.length === 0) {
+        alert(currentLangMode === 'en' ? 'No mistakes to practice currently!' : '当前没有错题可以重练！');
+        return;
+      }
+      // Build temporary MCQ pool with mistakes
+      mcqPool = currentExercises.filter(ex => mistakeBank.some(m => m.id === ex.id));
+      if (mcqPool.length === 0) {
+        // Look in both parts
+        mcqPool = [...window.SCIENCE_DATA_PART1, ...window.SCIENCE_DATA_PART2].filter(ex => mistakeBank.some(m => m.id === ex.id));
+      }
+      currentMcqIdx = 0;
+      openTab('tab-mcq');
+      initMcq();
+    }
+  </script>
+</body>
+</html>

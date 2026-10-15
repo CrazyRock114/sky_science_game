@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Topic 1 · Direction B: 3Blue1Brown (Ventilation Mechanics)</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #000000; overflow: hidden; font-family: 'CMU-rm', 'NotoSansSC-500', serif; }
+    #wrapper { position: relative; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+    canvas { display: block; max-width: 100%; max-height: 100%; aspect-ratio: 16/9; box-shadow: 0 16px 60px rgba(0,0,0,0.95); }
+    #ui {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: rgba(18, 18, 18, 0.95); border: 1px solid rgba(88, 196, 221, 0.45);
+      padding: 10px 24px; border-radius: 40px; display: flex; align-items: center; gap: 16px;
+      color: #eeeeee; box-shadow: 0 8px 32px rgba(0,0,0,0.8); z-index: 100; backdrop-filter: blur(12px);
+    }
+    body.render #ui { display: none; }
+    button {
+      background: #58c4dd; border: none; color: #000000; font-weight: 700; padding: 6px 18px;
+      border-radius: 20px; cursor: pointer; transition: all 0.2s; font-family: sans-serif;
+    }
+    button:hover { background: #ffff00; transform: scale(1.05); }
+    input[type=range] { width: 520px; accent-color: #ffff00; cursor: pointer; }
+    #timer { font-family: monospace; font-size: 14px; min-width: 90px; text-align: center; color: #58c4dd; }
+    .badge {
+      background: rgba(255, 255, 0, 0.15); border: 1px solid #ffff00; color: #ffff00;
+      font-size: 12px; padding: 2px 10px; border-radius: 12px; text-transform: uppercase; font-family: sans-serif;
+    }
+  </style>
+</head>
+<body>
+<div id="wrapper">
+  <canvas id="c" width="1920" height="1080"></canvas>
+</div>
+
+<div id="ui">
+  <span class="badge">3Blue1Brown Logic</span>
+  <button id="playBtn">Play / Pause</button>
+  <input id="scrub" type="range" min="0" max="29.18" step="0.0166" value="0">
+  <span id="timer">00:00.00</span>
+</div>
+
+<audio id="audio" src="audio/t1_ventilation_ryan.wav" preload="auto"></audio>
+
+<script src="lib/fonts.js"></script>
+<script src="lib/util.js"></script>
+<script src="lib/motion.js"></script>
+<script src="lib/camera.js"></script>
+<script src="lib/diagram.js"></script>
+<script src="lib/typo.js"></script>
+<script src="lib/chart.js"></script>
+<script src="lib/paint.js"></script>
+<script src="lib/kit.js"></script>
+
+<script>
+(() => {
+  const W = 1920, H = 1080;
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  window.__canvas = canvas;
+  window.__total = 29.18;
+
+  const audio = document.getElementById('audio');
+  const scrub = document.getElementById('scrub');
+  const timer = document.getElementById('timer');
+  const playBtn = document.getElementById('playBtn');
+
+  // 3b1b Manim Color Palette
+  const BLUE_C  = '#58C4DD';
+  const YELLOW  = '#FFFF00';
+  const RED_C   = '#FC6255';
+  const GREEN_C = '#83C167';
+  const GREY_A  = '#DDDDDD';
+  const GREY_C  = '#888888';
+  const GREY_E  = '#222222';
+
+  // Subtitles / Cues aligned with Ryan's audio
+  const CUES = [
+    {
+      t0: 0.0, t1: 7.6,
+      text: "Inhalation begins as the diaphragm contracts and flattens downward, while the external intercostal muscles pull the ribcage up and outward.",
+      phase: "ACTIVE CONTRACTION: ΔV > 0",
+      sub: "Muscular Work: Diaphragm (↓) · External Intercostals Pull Ribs Up & Out (↑)"
+    },
+    {
+      t0: 7.6, t1: 14.5,
+      text: "This expansion increases thoracic volume, causing internal pressure to drop below atmospheric pressure.",
+      phase: "BOYLE'S LAW: P ∝ 1/V ⟹ INTRAPULMONARY PRESSURE DROPS",
+      sub: "Thorax Volume Expands (ΔV > 0) ⟹ Internal Pressure P_alv < P_atm (Negative ΔP)"
+    },
+    {
+      t0: 14.5, t1: 19.2,
+      text: "Consequently, air rushes down the pressure gradient into the lungs.",
+      phase: "PRESSURE GRADIENT INFLOW: ∇P < 0",
+      sub: "Flux Vector: Net Atmospheric Inflow Driven by ΔP = P_alv - P_atm = -0.5 kPa"
+    },
+    {
+      t0: 19.2, t1: 29.18,
+      text: "During exhalation, these muscles relax: the diaphragm domes upward, thoracic volume decreases, and the rising internal pressure forces air out.",
+      phase: "PASSIVE RECOIL: ΔV < 0 ⟹ P_alv > P_atm FORCES AIR OUT",
+      sub: "Elastic Recoil: Diaphragm Domes (↑) · V Shrinks · P_alv > P_atm Drives Outflow"
+    }
+  ];
+
+  async function initFonts() {
+    if (window.FONT_FACES) {
+      for (const f of window.FONT_FACES) {
+        try {
+          const ff = new FontFace(f.family, `url(${f.url})`, f.desc || {});
+          await ff.load();
+          document.fonts.add(ff);
+        } catch (e) {}
+      }
+    }
+    await document.fonts.ready;
+    window.__ready = true;
+    renderFrame(0);
+  }
+
+  // Draw 3b1b vector arrow helper
+  function drawVector(c, x0, y0, x1, y1, color = GREEN_C, lw = 3, headSize = 14) {
+    const dx = x1 - x0, dy = y1 - y0;
+    const len = Math.hypot(dx, dy);
+    if (len < 2) return;
+    const ux = dx / len, uy = dy / len;
+    c.save();
+    c.strokeStyle = color;
+    c.fillStyle = color;
+    c.lineWidth = lw;
+    c.lineCap = 'round';
+    c.beginPath();
+    c.moveTo(x0, y0);
+    c.lineTo(x1 - ux * (headSize * 0.5), y1 - uy * (headSize * 0.5));
+    c.stroke();
+
+    // Arrowhead
+    const nx = -uy, ny = ux;
+    c.beginPath();
+    c.moveTo(x1, y1);
+    c.lineTo(x1 - ux * headSize + nx * (headSize * 0.45), y1 - uy * headSize + ny * (headSize * 0.45));
+    c.lineTo(x1 - ux * headSize - nx * (headSize * 0.45), y1 - uy * headSize - ny * (headSize * 0.45));
+    c.closePath();
+    c.fill();
+    c.restore();
+  }
+
+  function renderFrame(t) {
+    ctx.clearRect(0, 0, W, H);
+
+    // 1. Pure 3b1b Deep Slate/Black Background
+    ctx.fillStyle = '#0f0f0f';
+    ctx.fillRect(0, 0, W, H);
+
+    // 2. 3b1b Coordinate Grid Background
+    const UNIT = 120;
+    ctx.save();
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+    ctx.lineWidth = 1;
+    for (let x = 0; x <= W; x += UNIT) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+    }
+    for (let y = 0; y <= H; y += UNIT) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    }
+    ctx.restore();
+
+    // Inhalation Progress Parameter
+    let inhaleP = 0;
+    const isInhaling = t < 19.2;
+    if (t < 7.6) {
+      inhaleP = MO.smooth(MO.at(t, 0.4, 6.6));
+    } else if (t < 14.5) {
+      inhaleP = 0.88 + 0.12 * MO.smooth(MO.at(t, 7.6, 6.0));
+    } else if (t < 19.2) {
+      inhaleP = 1.0 - 0.02 * Math.sin((t - 14.5) * 1.5);
+    } else if (t < 26.5) {
+      inhaleP = 1.0 - MO.smooth(MO.at(t, 19.2, 6.5));
+    } else {
+      inhaleP = 0.0 + 0.02 * Math.sin((t - 26.5) * 1.8);
+    }
+
+    // Top Mathematical Header in Computer Modern
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.fillStyle = GREY_A;
+    ctx.font = '36px "CMU-rm", serif';
+    ctx.fillText("Boyle's Law:   P · V = constant   ⟹   P ∝ 1 / V", W / 2, 80);
+
+    // Dynamic state equation indicator
+    ctx.font = '26px "CMU-it", serif';
+    if (isInhaling) {
+      ctx.fillStyle = BLUE_C;
+      ctx.fillText("Inhalation:  ΔV > 0 (Volume Increases)", W / 2 - 260, 125);
+      ctx.fillStyle = GREY_C;
+      ctx.fillText("⟹", W / 2 + 30, 125);
+      ctx.fillStyle = YELLOW;
+      ctx.fillText("P_alveolar < P_atm (Negative Pressure ΔP)", W / 2 + 330, 125);
+    } else {
+      ctx.fillStyle = RED_C;
+      ctx.fillText("Exhalation:  ΔV < 0 (Volume Decreases)", W / 2 - 260, 125);
+      ctx.fillStyle = GREY_C;
+      ctx.fillText("⟹", W / 2 + 30, 125);
+      ctx.fillStyle = YELLOW;
+      ctx.fillText("P_alveolar > P_atm (Positive Pressure ΔP)", W / 2 + 330, 125);
+    }
+    ctx.restore();
+
+    // 3. Thoracic Geometric Cylinder/Piston Model (Left Stage: cx = 700)
+    const cx = 700, cy = 520;
+    const chestW = 280 + inhaleP * 55;
+    const chestTopY = 300 - inhaleP * 30; // Elevates UP!
+    const diaBaseY = 700 + inhaleP * 80;  // Pulls DOWN!
+    const diaArch = (1.0 - inhaleP) * 120; // Doming curvature
+
+    // Shaded Thoracic Volume interior (Cyan for low pressure, Red/Orange for high pressure)
+    ctx.save();
+    const volAlpha = 0.15 + inhaleP * 0.15;
+    ctx.fillStyle = isInhaling ? `rgba(88, 196, 221, ${volAlpha})` : `rgba(252, 98, 85, ${volAlpha})`;
+    ctx.beginPath();
+    ctx.moveTo(cx - chestW, chestTopY + 120);
+    ctx.quadraticCurveTo(cx - chestW - 25, chestTopY + 280, cx - chestW * 0.88, diaBaseY);
+    ctx.quadraticCurveTo(cx, diaBaseY - diaArch, cx + chestW * 0.88, diaBaseY);
+    ctx.quadraticCurveTo(cx + chestW + 25, chestTopY + 280, cx + chestW, chestTopY + 120);
+    ctx.quadraticCurveTo(cx, chestTopY + 30, cx - chestW, chestTopY + 120);
+    ctx.closePath();
+    ctx.fill();
+
+    // Geometric outline
+    ctx.strokeStyle = isInhaling ? BLUE_C : RED_C;
+    ctx.lineWidth = 4;
+    ctx.stroke();
+    ctx.restore();
+
+    // Trachea Airway Conduit
+    ctx.save();
+    ctx.strokeStyle = GREY_A;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(cx - 22, 170); ctx.lineTo(cx - 22, chestTopY + 50);
+    ctx.moveTo(cx + 22, 170); ctx.lineTo(cx + 22, chestTopY + 50);
+    // Bifurcation branches
+    ctx.lineTo(cx + 90, chestTopY + 120);
+    ctx.moveTo(cx - 22, chestTopY + 50);
+    ctx.lineTo(cx - 90, chestTopY + 120);
+    ctx.stroke();
+    ctx.restore();
+
+    // Diaphragm Mathematical Curve: y = f(x)
+    ctx.save();
+    ctx.strokeStyle = RED_C;
+    ctx.lineWidth = 6;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    const diaLeft = cx - chestW * 0.88;
+    const diaRight = cx + chestW * 0.88;
+    ctx.moveTo(diaLeft, diaBaseY);
+    ctx.quadraticCurveTo(cx, diaBaseY - diaArch * 1.5, diaRight, diaBaseY);
+    ctx.stroke();
+
+    // Diaphragm text label
+    ctx.fillStyle = RED_C;
+    ctx.font = '22px "CMU-rm", serif';
+    ctx.textAlign = 'center';
+    const diaStateText = isInhaling ? "Diaphragm: Flattened & Contracted (↓)" : "Diaphragm: Domed & Relaxed (↑)";
+    ctx.fillText(diaStateText, cx, diaBaseY + 45);
+    ctx.restore();
+
+    // 4. Force & Vector Field Arrows (Manim style)
+    // Lateral Ribcage Muscle Vectors
+    const arrowCol = isInhaling ? GREEN_C : RED_C;
+    for (let s of [-1, 1]) {
+      for (let k = 0; k < 5; k++) {
+        const ry = chestTopY + 130 + k * 65;
+        const rx = cx + s * (chestW + 6);
+        const fLen = 38 + inhaleP * 24;
+        const fx = rx + s * (isInhaling ? fLen : -fLen);
+        const fy = ry + (isInhaling ? -28 : 22);
+        drawVector(ctx, rx, ry, fx, fy, arrowCol, 3, 12);
+      }
+    }
+
+    // Velocity Vector Field inside trachea
+    const airFlowDir = isInhaling ? 1 : -1;
+    for (let step = 0; step < 5; step++) {
+      const vy0 = 190 + step * 40;
+      const vy1 = vy0 + airFlowDir * (30 + Math.sin(t * 6 + step) * 8);
+      drawVector(ctx, cx, isInhaling ? vy0 : vy1, cx, isInhaling ? vy1 : vy0, YELLOW, 3.5, 12);
+    }
+
+    // 5. Dynamic Boyle's Law P-V Hyperbolic Phase Graph (Right Stage: gx0 = 1320)
+    const gx0 = 1320, gy0 = 260, gW = 440, gH = 400;
+    ctx.save();
+    // Coordinate Axes
+    drawVector(ctx, gx0, gy0 + gH, gx0, gy0 - 30, GREY_A, 2.5, 12);
+    drawVector(ctx, gx0, gy0 + gH, gx0 + gW + 40, gy0 + gH, GREY_A, 2.5, 12);
+
+    // Axis Labels
+    ctx.fillStyle = YELLOW;
+    ctx.font = '24px "CMU-it", serif';
+    ctx.textAlign = 'center';
+    ctx.fillText("P (Pressure)", gx0, gy0 - 45);
+
+    ctx.fillStyle = BLUE_C;
+    ctx.fillText("V (Thoracic Volume)", gx0 + gW - 20, gy0 + gH + 45);
+
+    // Baseline Atmospheric Pressure line: P_atm
+    const pAtmY = gy0 + gH * 0.52;
+    ctx.strokeStyle = 'rgba(220, 220, 220, 0.45)';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([6, 6]);
+    ctx.beginPath();
+    ctx.moveTo(gx0, pAtmY);
+    ctx.lineTo(gx0 + gW, pAtmY);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = GREY_A;
+    ctx.font = '18px "CMU-rm", serif';
+    ctx.textAlign = 'right';
+    ctx.fillText("P_atm (101.3 kPa)", gx0 - 14, pAtmY + 6);
+
+    // Hyperbolic Curve: P = k / V (Boyle's Isotherm)
+    ctx.strokeStyle = '#444444';
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    for (let vx = 40; vx <= gW; vx += 8) {
+      // P relative to V
+      const py = gy0 + gH - (11000 / (vx + 45));
+      if (vx === 40) ctx.moveTo(gx0 + vx, py);
+      else ctx.lineTo(gx0 + vx, py);
+    }
+    ctx.stroke();
+
+    // Hyperbola Label
+    ctx.fillStyle = GREY_C;
+    ctx.font = '20px "CMU-it", serif';
+    ctx.textAlign = 'left';
+    ctx.fillText("P = k / V (Isotherm)", gx0 + gW - 140, gy0 + 40);
+
+    // Dynamic Operating Point moving on curve
+    const currentV_offset = 60 + inhaleP * (gW - 120);
+    const currentP_y = gy0 + gH - (11000 / (currentV_offset + 45));
+
+    // Dynamic Projection Dashed Lines
+    ctx.strokeStyle = isInhaling ? BLUE_C : RED_C;
+    ctx.lineWidth = 2;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(gx0 + currentV_offset, gy0 + gH);
+    ctx.lineTo(gx0 + currentV_offset, currentP_y);
+    ctx.lineTo(gx0, currentP_y);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Glowing Operating Point Dot
+    ctx.fillStyle = YELLOW;
+    ctx.shadowBlur = 18;
+    ctx.shadowColor = YELLOW;
+    ctx.beginPath();
+    ctx.arc(gx0 + currentV_offset, currentP_y, 8, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Tangent Vector: dP/dV
+    const tangentLen = 50;
+    const slope = (11000 / Math.pow(currentV_offset + 45, 2));
+    drawVector(
+      ctx,
+      gx0 + currentV_offset - tangentLen * 0.5,
+      currentP_y - tangentLen * 0.5 * slope,
+      gx0 + currentV_offset + tangentLen * 0.5,
+      currentP_y + tangentLen * 0.5 * slope,
+      GREEN_C, 2.5, 10
+    );
+
+    // Point Coordinates Label
+    ctx.fillStyle = YELLOW;
+    ctx.font = '20px "CMU-rm", serif';
+    ctx.textAlign = 'left';
+    const curP_val = isInhaling ? (101.3 - inhaleP * 0.5) : (101.3 + (1.0 - inhaleP) * 0.6);
+    const curV_val = 2.5 + inhaleP * 0.7;
+    ctx.fillText(`(V = ${curV_val.toFixed(2)} L,  P = ${curP_val.toFixed(2)} kPa)`, gx0 + currentV_offset + 16, currentP_y - 12);
+    ctx.restore();
+
+    // 6. 3Blue1Brown Subtitle & Rigorous Logic Banner (Bottom Center)
+    const activeCue = CUES.find(c => t >= c.t0 && t < c.t1) || CUES[CUES.length - 1];
+
+    ctx.save();
+    const subW = 1440;
+    const subH = 120;
+    const subX = (W - subW) / 2;
+    const subY = 910;
+
+    ctx.fillStyle = 'rgba(15, 15, 15, 0.95)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.roundRect(subX, subY, subW, subH, 16);
+    ctx.fill();
+    ctx.stroke();
+
+    // Phase Indicator
+    ctx.fillStyle = YELLOW;
+    ctx.font = 'bold 15px sans-serif';
+    ctx.fillText(`●  ${activeCue.phase}`, subX + 36, subY + 34);
+
+    ctx.fillStyle = BLUE_C;
+    ctx.font = '15px "CMU-rm", serif';
+    ctx.fillText(`|   ${activeCue.sub}`, subX + 440, subY + 34);
+
+    // Subtitle Text
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '22px "CMU-rm", serif';
+    ctx.fillText(activeCue.text, subX + 36, subY + 80);
+
+    // Animated Logic Progress Bar
+    const cueDur = activeCue.t1 - activeCue.t0;
+    const cueProgress = U.clamp((t - activeCue.t0) / cueDur, 0, 1);
+    ctx.fillStyle = YELLOW;
+    ctx.fillRect(subX, subY + subH - 3, subW * cueProgress, 3);
+
+    ctx.restore();
+  }
+
+  function updateUI(t) {
+    scrub.value = t;
+    const m = Math.floor(t / 60);
+    const s = Math.floor(t % 60);
+    const ms = Math.floor((t % 1) * 100);
+    timer.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}.${String(ms).padStart(2, '0')}`;
+  }
+
+  let isPlaying = false;
+  let animId = null;
+
+  function loop() {
+    if (!isPlaying) return;
+    const cur = audio.currentTime;
+    renderFrame(cur);
+    updateUI(cur);
+    if (cur >= window.__total) {
+      pause();
+      return;
+    }
+    animId = requestAnimationFrame(loop);
+  }
+
+  function play() {
+    isPlaying = true;
+    audio.play();
+    animId = requestAnimationFrame(loop);
+  }
+
+  function pause() {
+    isPlaying = false;
+    audio.pause();
+    if (animId) cancelAnimationFrame(animId);
+  }
+
+  playBtn.onclick = () => {
+    if (isPlaying) pause();
+    else play();
+  };
+
+  scrub.oninput = (e) => {
+    const t = parseFloat(e.target.value);
+    audio.currentTime = t;
+    renderFrame(t);
+    updateUI(t);
+  };
+
+  window.renderFrame = (t) => {
+    renderFrame(t);
+    updateUI(t);
+  };
+
+  initFonts();
+})();
+</script>
+</body>
+</html>

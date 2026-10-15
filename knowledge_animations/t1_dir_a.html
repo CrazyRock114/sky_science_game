@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Topic 1 · Direction A: Kurzgesagt (Ventilation Mechanics)</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #050212; overflow: hidden; font-family: 'Poppins-600', 'Inter', -apple-system, sans-serif; }
+    #wrapper { position: relative; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+    canvas { display: block; max-width: 100%; max-height: 100%; aspect-ratio: 16/9; box-shadow: 0 16px 60px rgba(0,0,0,0.9); }
+    #ui {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: rgba(13, 8, 38, 0.94); border: 1px solid rgba(0, 240, 255, 0.35);
+      padding: 10px 24px; border-radius: 40px; display: flex; align-items: center; gap: 16px;
+      color: #f9fcfb; box-shadow: 0 8px 32px rgba(0,0,0,0.7); z-index: 100; backdrop-filter: blur(14px);
+    }
+    body.render #ui { display: none; }
+    button {
+      background: #00f0ff; border: none; color: #050212; font-weight: 700; padding: 6px 18px;
+      border-radius: 20px; cursor: pointer; transition: all 0.2s;
+    }
+    button:hover { background: #38bdf8; transform: scale(1.05); }
+    input[type=range] { width: 520px; accent-color: #f43f5e; cursor: pointer; }
+    #timer { font-family: monospace; font-size: 14px; min-width: 90px; text-align: center; color: #38bdf8; }
+    .badge {
+      background: rgba(244, 63, 94, 0.2); border: 1px solid #f43f5e; color: #fb7185;
+      font-size: 12px; padding: 2px 10px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+<div id="wrapper">
+  <canvas id="c" width="1920" height="1080"></canvas>
+</div>
+
+<div id="ui">
+  <span class="badge">Kurzgesagt Premium</span>
+  <button id="playBtn">Play / Pause</button>
+  <input id="scrub" type="range" min="0" max="29.18" step="0.0166" value="0">
+  <span id="timer">00:00.00</span>
+</div>
+
+<audio id="audio" src="audio/t1_ventilation_ryan.wav" preload="auto"></audio>
+
+<script src="lib/fonts.js"></script>
+<script src="lib/util.js"></script>
+<script src="lib/motion.js"></script>
+<script src="lib/camera.js"></script>
+<script src="lib/diagram.js"></script>
+<script src="lib/typo.js"></script>
+<script src="lib/chart.js"></script>
+<script src="lib/ui.js"></script>
+<script src="lib/paint.js"></script>
+<script src="lib/toon.js"></script>
+<script src="lib/kit.js"></script>
+
+<script>
+(() => {
+  const W = 1920, H = 1080;
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  window.__canvas = canvas;
+  window.__total = 29.18;
+
+  const audio = document.getElementById('audio');
+  const scrub = document.getElementById('scrub');
+  const timer = document.getElementById('timer');
+  const playBtn = document.getElementById('playBtn');
+
+  // Load fonts
+  async function initFonts() {
+    if (window.FONT_FACES) {
+      for (const f of window.FONT_FACES) {
+        try {
+          const ff = new FontFace(f.family, `url(${f.url})`, f.desc || {});
+          await ff.load();
+          document.fonts.add(ff);
+        } catch (e) {}
+      }
+    }
+    await document.fonts.ready;
+    window.__ready = true;
+    renderFrame(0);
+  }
+
+  // Pre-generate background stars
+  const STARS = [];
+  const rStar = U.rng(88);
+  for (let i = 0; i < 110; i++) {
+    STARS.push({
+      x: rStar() * W,
+      y: rStar() * H,
+      r: 1 + rStar() * 2.4,
+      baseAlpha: 0.15 + rStar() * 0.65,
+      twinkleFreq: 1 + rStar() * 2.8
+    });
+  }
+
+  // Airflow particles (Deterministic)
+  const PARTICLES = [];
+  const rPart = U.rng(42);
+  for (let i = 0; i < 180; i++) {
+    PARTICLES.push({
+      seed: rPart(),
+      side: rPart() > 0.5 ? 1 : -1,
+      speed: 0.6 + rPart() * 0.8,
+      size: 3 + rPart() * 3.5,
+      offsetAngle: (rPart() - 0.5) * 0.5
+    });
+  }
+
+  // Alveoli cluster nodes
+  const ALVEOLI = [];
+  const rAlv = U.rng(333);
+  const alvCenters = [
+    { x: -160, y: 30, r: 24 }, { x: -210, y: 70, r: 26 }, { x: -140, y: 110, r: 28 },
+    { x: -190, y: 160, r: 25 }, { x: -110, y: 170, r: 24 }, { x: -150, y: 220, r: 22 },
+    { x: 160, y: 30, r: 24 }, { x: 210, y: 70, r: 26 }, { x: 140, y: 110, r: 28 },
+    { x: 190, y: 160, r: 25 }, { x: 110, y: 170, r: 24 }, { x: 150, y: 220, r: 22 }
+  ];
+  alvCenters.forEach(c => {
+    ALVEOLI.push(c);
+  });
+
+  // Precise Subtitles / Cues aligned with Ryan's audio
+  const CUES = [
+    {
+      t0: 0.0, t1: 7.6,
+      text: "Inhalation begins as the diaphragm contracts and flattens downward, while the external intercostal muscles pull the ribcage up and outward.",
+      phase: "INHALATION: ACTIVE CONTRACTION",
+      sub: "Diaphragm Flattens (↓) · External Intercostals Contract · Ribcage Moves Up & Out (↑)"
+    },
+    {
+      t0: 7.6, t1: 14.5,
+      text: "This expansion increases thoracic volume, causing internal pressure to drop below atmospheric pressure.",
+      phase: "THORACIC EXPANSION & BOYLE'S LAW",
+      sub: "Thorax Volume Expands (ΔV > 0) · Intrapulmonary Pressure P_alv < P_atm (-0.5 kPa)"
+    },
+    {
+      t0: 14.5, t1: 19.2,
+      text: "Consequently, air rushes down the pressure gradient into the lungs.",
+      phase: "NET INFLOW DOWN PRESSURE GRADIENT",
+      sub: "Atmospheric Air Inflow (101.3 kPa → 100.8 kPa) · Bronchial Inrush to Alveoli"
+    },
+    {
+      t0: 19.2, t1: 29.18,
+      text: "During exhalation, these muscles relax: the diaphragm domes upward, thoracic volume decreases, and the rising internal pressure forces air out.",
+      phase: "EXHALATION: PASSIVE ELASTIC RECOIL",
+      sub: "Muscles Relax · Diaphragm Domes Up (↑) · Thorax Volume Shrinks · P_alv > P_atm Forces Air Out"
+    }
+  ];
+
+  // Helper: Draw smooth organic anatomical lung with Bezier splines
+  function drawAnatomicalLung(ctx, side, scaleX, scaleY) {
+    ctx.save();
+    ctx.scale(side * scaleX, scaleY);
+
+    // Outer Lung Gradient Fill (Kurzgesagt 3-tone magenta/violet)
+    const lungGrad = ctx.createLinearGradient(0, -180, 0, 240);
+    lungGrad.addColorStop(0, '#f43f5e');   // Coral rose apex
+    lungGrad.addColorStop(0.5, '#be185d'); // Deep berry mid-body
+    lungGrad.addColorStop(1, '#831843');   // Wine base
+    ctx.fillStyle = lungGrad;
+
+    // Organic lung contour
+    ctx.beginPath();
+    ctx.moveTo(25, -170); // Apex
+    // Lateral rib border (smooth broad curve)
+    ctx.bezierCurveTo(90, -130, 165, -40, 175, 50);
+    ctx.bezierCurveTo(185, 130, 160, 210, 110, 235); // Base lateral
+    // Inferior diaphragmatic surface (concave base resting on diaphragm)
+    ctx.bezierCurveTo(60, 245, -20, 220, -55, 195);
+    // Medial mediastinal surface & cardiac notch
+    ctx.bezierCurveTo(-75, 160, -70, 80, -50, 20); // Cardiac notch indentation
+    ctx.bezierCurveTo(-35, -50, -15, -120, 25, -170); // Return to apex
+    ctx.closePath();
+    ctx.fill();
+
+    // Volumetric 2-Tone Shadow (Inner shading)
+    ctx.save();
+    ctx.clip();
+    ctx.fillStyle = 'rgba(15, 5, 45, 0.42)';
+    ctx.beginPath();
+    ctx.ellipse(30, 120, 140, 160, 0.2, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Luminous rim highlight (Kurzgesagt signature rim light)
+    ctx.strokeStyle = 'rgba(255, 180, 220, 0.45)';
+    ctx.lineWidth = 10;
+    ctx.stroke();
+    ctx.restore();
+
+    // Anatomical Interlobar Fissure line
+    ctx.strokeStyle = 'rgba(120, 15, 60, 0.6)';
+    ctx.lineWidth = 4;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(170, 40);
+    ctx.bezierCurveTo(110, 60, 40, 110, -50, 150);
+    ctx.stroke();
+
+    ctx.restore();
+  }
+
+  // Render Frame function
+  function renderFrame(t) {
+    ctx.clearRect(0, 0, W, H);
+
+    // 1. Deep Space Cinematic Atmospheric Background
+    const bgGrad = ctx.createRadialGradient(960, 520, 80, 960, 540, 1150);
+    bgGrad.addColorStop(0, '#1a0b38');
+    bgGrad.addColorStop(0.4, '#0c0522');
+    bgGrad.addColorStop(1, '#050210');
+    ctx.fillStyle = bgGrad;
+    ctx.fillRect(0, 0, W, H);
+
+    // Starfield twinkle
+    for (const s of STARS) {
+      const a = s.baseAlpha + Math.sin(t * s.twinkleFreq + s.x) * 0.2;
+      ctx.fillStyle = `rgba(240, 246, 255, ${U.clamp(a, 0.05, 0.95)})`;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Determine Breathing Stage & Progress
+    // Inhalation: t in [0.0, 19.2], expands from 0.0 to 1.0 (peaks around 14.5 - 18.5)
+    // Exhalation: t in [19.2, 29.18], contracts back to 0.0
+    let inhaleP = 0;
+    let isInhaling = t < 19.2;
+    if (t < 7.6) {
+      inhaleP = MO.smooth(MO.at(t, 0.5, 6.5));
+    } else if (t < 14.5) {
+      inhaleP = 0.85 + 0.15 * MO.smooth(MO.at(t, 7.6, 6.0));
+    } else if (t < 19.2) {
+      inhaleP = 1.0 - 0.03 * Math.sin((t - 14.5) * 1.5); // sustained max expansion with breathing float
+    } else if (t < 26.5) {
+      inhaleP = 1.0 - MO.smooth(MO.at(t, 19.2, 6.5));
+    } else {
+      inhaleP = 0.0 + 0.02 * Math.sin((t - 26.5) * 1.8); // resting relaxed
+    }
+
+    // Camera Breathing Float (Kurzgesagt subtle zoom & sway)
+    const camZoom = 1.0 + 0.03 * inhaleP + 0.005 * Math.sin(t * 1.2);
+    const camY = 540 + Math.sin(t * 1.1) * 8;
+
+    ctx.save();
+    ctx.translate(960, camY);
+    ctx.scale(camZoom, camZoom);
+    ctx.translate(-960, -540);
+
+    // 2. Thoracic Rib Cage (Moves UP and OUT on inhalation)
+    const ribExpandX = inhaleP * 46;
+    const ribExpandY = -inhaleP * 32;
+
+    // Draw Rib Bones (Behind lungs)
+    ctx.save();
+    ctx.strokeStyle = '#251b68';
+    ctx.lineWidth = 16;
+    ctx.lineCap = 'round';
+    for (let i = 0; i < 6; i++) {
+      const baseY = 350 + i * 58 + ribExpandY * (0.35 + i * 0.12);
+      const spanX = 230 + i * 32 + ribExpandX * (0.45 + i * 0.12);
+      // Left Rib
+      ctx.beginPath();
+      ctx.moveTo(960 - 20, baseY - 22);
+      ctx.quadraticCurveTo(960 - spanX * 0.65, baseY - 38 - inhaleP * 14, 960 - spanX, baseY + 18);
+      ctx.stroke();
+      // Right Rib
+      ctx.beginPath();
+      ctx.moveTo(960 + 20, baseY - 22);
+      ctx.quadraticCurveTo(960 + spanX * 0.65, baseY - 38 - inhaleP * 14, 960 + spanX, baseY + 18);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // 3. Trachea & Cartilaginous Rings
+    const tracheaX = 960;
+    const tracheaY0 = 120;
+    const tracheaY1 = 370;
+
+    // Outer neon glow
+    ctx.save();
+    ctx.strokeStyle = isInhaling ? 'rgba(0, 240, 255, 0.35)' : 'rgba(251, 146, 60, 0.3)';
+    ctx.lineWidth = 44;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(tracheaX, tracheaY0);
+    ctx.lineTo(tracheaX, tracheaY1);
+    ctx.stroke();
+
+    // Main trachea cylinder
+    ctx.strokeStyle = '#1e1654';
+    ctx.lineWidth = 32;
+    ctx.stroke();
+
+    // Cartilage C-rings
+    ctx.strokeStyle = '#4334a6';
+    ctx.lineWidth = 5;
+    for (let y = tracheaY0 + 20; y < tracheaY1 - 10; y += 18) {
+      ctx.beginPath();
+      ctx.moveTo(tracheaX - 14, y);
+      ctx.lineTo(tracheaX + 14, y);
+      ctx.stroke();
+    }
+
+    // Primary Bronchi bifurcation
+    ctx.strokeStyle = '#1e1654';
+    ctx.lineWidth = 22;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(tracheaX, tracheaY1);
+    ctx.quadraticCurveTo(960 - 65, 400, 960 - 150, 450);
+    ctx.moveTo(tracheaX, tracheaY1);
+    ctx.quadraticCurveTo(960 + 65, 400, 960 + 150, 450);
+    ctx.stroke();
+    ctx.restore();
+
+    // 4. Anatomical Lungs (Left & Right Organic Bezier Shapes)
+    const lungScaleX = 1.0 + inhaleP * 0.24;
+    const lungScaleY = 1.0 + inhaleP * 0.22;
+
+    // Left Lung (Viewer's left)
+    ctx.save();
+    ctx.translate(960 - 180 - ribExpandX * 0.35, 520 + ribExpandY * 0.3);
+    drawAnatomicalLung(ctx, -1, lungScaleX, lungScaleY);
+    ctx.restore();
+
+    // Right Lung (Viewer's right)
+    ctx.save();
+    ctx.translate(960 + 180 + ribExpandX * 0.35, 520 + ribExpandY * 0.3);
+    drawAnatomicalLung(ctx, 1, lungScaleX, lungScaleY);
+    ctx.restore();
+
+    // 5. Glowing Bronchial Tree & Alveoli Clusters (Inside lungs)
+    ctx.save();
+    ctx.translate(960, 520 + ribExpandY * 0.3);
+
+    // Glowing branch splines
+    ctx.strokeStyle = isInhaling ? 'rgba(0, 240, 255, 0.65)' : 'rgba(251, 146, 60, 0.5)';
+    ctx.lineWidth = 4;
+    ctx.lineCap = 'round';
+    ctx.shadowBlur = 16;
+    ctx.shadowColor = isInhaling ? '#00f0ff' : '#f97316';
+
+    const branchLines = [
+      // Left side branches
+      [[-150, -70], [-190, -10], [-220, 50]],
+      [[-170, 0], [-210, 80], [-180, 150]],
+      [[-150, 40], [-130, 120], [-160, 190]],
+      // Right side branches
+      [[150, -70], [190, -10], [220, 50]],
+      [[170, 0], [210, 80], [180, 150]],
+      [[150, 40], [130, 120], [160, 190]]
+    ];
+    branchLines.forEach(pts => {
+      ctx.beginPath();
+      ctx.moveTo(pts[0][0] * lungScaleX, pts[0][1] * lungScaleY);
+      ctx.quadraticCurveTo(pts[1][0] * lungScaleX, pts[1][1] * lungScaleY, pts[2][0] * lungScaleX, pts[2][1] * lungScaleY);
+      ctx.stroke();
+    });
+
+    // Alveoli Sac Clusters (Pulse & expand with inhalation)
+    const alvPulse = 1.0 + inhaleP * 0.45;
+    ALVEOLI.forEach(a => {
+      const ax = a.x * lungScaleX;
+      const ay = a.y * lungScaleY;
+      const ar = a.r * alvPulse;
+
+      const alvGrad = ctx.createRadialGradient(ax, ay, 2, ax, ay, ar);
+      if (isInhaling) {
+        alvGrad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+        alvGrad.addColorStop(0.5, 'rgba(0, 240, 255, 0.7)');
+        alvGrad.addColorStop(1, 'rgba(0, 100, 220, 0.05)');
+      } else {
+        alvGrad.addColorStop(0, 'rgba(255, 240, 200, 0.9)');
+        alvGrad.addColorStop(0.5, 'rgba(251, 146, 60, 0.65)');
+        alvGrad.addColorStop(1, 'rgba(180, 50, 20, 0.05)');
+      }
+      ctx.fillStyle = alvGrad;
+      ctx.beginPath();
+      ctx.arc(ax, ay, ar, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.restore();
+
+    // 6. High-Speed Fluidic Airflow Particles (Streaming into/out of airways)
+    ctx.save();
+    PARTICLES.forEach(p => {
+      // Progression along airway tree (0 = top of trachea, 1 = deep alveoli)
+      let prog = ((t * p.speed * 0.45 + p.seed) % 1.0);
+      if (!isInhaling) prog = 1.0 - prog; // Reverses on exhalation!
+
+      let px = 960, py = 120 + prog * 600;
+      if (prog < 0.4) {
+        // In trachea
+        px = 960 + (p.seed - 0.5) * 16;
+        py = 130 + (prog / 0.4) * 240;
+      } else {
+        // Bifurcated in bronchi / lungs
+        const bProg = (prog - 0.4) / 0.6;
+        const side = p.side;
+        px = 960 + side * (50 + bProg * (180 + p.seed * 60)) * lungScaleX;
+        py = 370 + bProg * (260 + p.seed * 80) * lungScaleY;
+      }
+
+      // Particle streak line
+      const streakLen = isInhaling ? (12 + p.speed * 14) : -(12 + p.speed * 14);
+      ctx.strokeStyle = isInhaling ? '#00f0ff' : '#fb923c';
+      ctx.lineWidth = p.size;
+      ctx.lineCap = 'round';
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = isInhaling ? '#00f0ff' : '#f97316';
+
+      ctx.beginPath();
+      ctx.moveTo(px, py - streakLen * 0.5);
+      ctx.lineTo(px, py + streakLen * 0.5);
+      ctx.stroke();
+    });
+    ctx.restore();
+
+    // 7. Diaphragm Muscle (Flattens down when inhaling, Domes up when exhaling)
+    const diaY0 = 730 + inhaleP * 85; // Moves DOWN when inhaling!
+    const diaArch = (1.0 - inhaleP) * 135; // Domes upward when relaxing
+    const diaLeftX = 620 - ribExpandX * 0.9;
+    const diaRightX = 1300 + ribExpandX * 0.9;
+
+    ctx.save();
+    // Diaphragm curved body
+    ctx.beginPath();
+    ctx.moveTo(diaLeftX, diaY0 + 25);
+    ctx.bezierCurveTo(diaLeftX + 160, diaY0 - diaArch * 0.85, 960 - 140, diaY0 - diaArch, 960, diaY0 - diaArch);
+    ctx.bezierCurveTo(960 + 140, diaY0 - diaArch, diaRightX - 160, diaY0 - diaArch * 0.85, diaRightX, diaY0 + 25);
+    ctx.lineTo(diaRightX, diaY0 + 75);
+    ctx.bezierCurveTo(diaRightX - 160, diaY0 - diaArch * 0.85 + 45, 960 + 140, diaY0 - diaArch + 45, 960, diaY0 - diaArch + 45);
+    ctx.bezierCurveTo(960 - 140, diaY0 - diaArch + 45, diaLeftX + 160, diaY0 - diaArch * 0.85 + 45, diaLeftX, diaY0 + 75);
+    ctx.closePath();
+
+    const diaGrad = ctx.createLinearGradient(0, diaY0 - diaArch, 0, diaY0 + 75);
+    diaGrad.addColorStop(0, '#f43f5e');
+    diaGrad.addColorStop(0.6, '#9f1239');
+    diaGrad.addColorStop(1, '#4c0519');
+    ctx.fillStyle = diaGrad;
+    ctx.fill();
+
+    // Muscular striations
+    ctx.strokeStyle = 'rgba(255, 200, 220, 0.35)';
+    ctx.lineWidth = 3;
+    for (let x = diaLeftX + 50; x < diaRightX - 40; x += 36) {
+      const archAtX = Math.cos((x - 960) / 360) * diaArch;
+      ctx.beginPath();
+      ctx.moveTo(x, diaY0 - archAtX);
+      ctx.lineTo(x + (x - 960) * 0.08, diaY0 - archAtX + 40);
+      ctx.stroke();
+    }
+
+    // Diaphragm Motion Vector Arrows
+    ctx.shadowBlur = 12;
+    ctx.shadowColor = '#f43f5e';
+    ctx.strokeStyle = '#f43f5e';
+    ctx.fillStyle = '#f43f5e';
+    ctx.lineWidth = 5;
+    const arrowDir = isInhaling ? 1 : -1;
+    const arrowCenterY = diaY0 - diaArch * 0.4;
+    [800, 960, 1120].forEach(ax => {
+      ctx.beginPath();
+      ctx.moveTo(ax, arrowCenterY - 20 * arrowDir);
+      ctx.lineTo(ax, arrowCenterY + 20 * arrowDir);
+      ctx.stroke();
+      // Arrow head
+      ctx.beginPath();
+      ctx.moveTo(ax, arrowCenterY + 28 * arrowDir);
+      ctx.lineTo(ax - 10, arrowCenterY + 12 * arrowDir);
+      ctx.lineTo(ax + 10, arrowCenterY + 12 * arrowDir);
+      ctx.closePath();
+      ctx.fill();
+    });
+    ctx.restore();
+
+    ctx.restore(); // Restore camera breathing transform
+
+    // 8. Cinematic Glassmorphism Telemetry HUD Cards (Left & Right)
+    // Left HUD: Boyle's Law & Real-time Pressure Manometer
+    const pAlv = isInhaling ? (101.3 - inhaleP * 0.5) : (101.3 + (1.0 - inhaleP) * 0.6);
+    const vThorax = 2.5 + inhaleP * 0.7;
+
+    ctx.save();
+    ctx.fillStyle = 'rgba(10, 5, 30, 0.85)';
+    ctx.strokeStyle = 'rgba(0, 240, 255, 0.35)';
+    ctx.lineWidth = 2;
+    ctx.shadowBlur = 24;
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
+
+    // Card 1: Pressure & Volume HUD
+    UI.panel(ctx, 60, 180, 420, 290, { r: 18 });
+    ctx.stroke();
+
+    ctx.fillStyle = '#38bdf8';
+    ctx.font = '600 14px "Poppins-600", Inter, sans-serif';
+    ctx.fillText("PHYSIOLOGICAL TELEMETRY", 90, 220);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '700 24px "Poppins-600", Inter, sans-serif';
+    ctx.fillText("Boyle's Law Mechanics", 90, 255);
+
+    // Intrapulmonary Pressure Readout
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '500 15px Inter, sans-serif';
+    ctx.fillText("Alveolar Pressure (P_alv):", 90, 300);
+    ctx.fillStyle = isInhaling ? '#00f0ff' : '#fb923c';
+    ctx.font = '700 28px "Poppins-600", Inter, sans-serif';
+    ctx.fillText(`${pAlv.toFixed(2)} kPa`, 90, 335);
+
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '500 13px Inter, sans-serif';
+    const deltaP = pAlv - 101.3;
+    ctx.fillText(`Atmospheric: 101.3 kPa (ΔP: ${deltaP >= 0 ? '+' : ''}${deltaP.toFixed(2)} kPa)`, 90, 360);
+
+    // Thorax Volume Bar
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '500 14px Inter, sans-serif';
+    ctx.fillText(`Thorax Volume (V): ${vThorax.toFixed(2)} L`, 90, 405);
+
+    ctx.fillStyle = '#1e1b4b';
+    ctx.beginPath();
+    ctx.roundRect(90, 420, 350, 14, 7);
+    ctx.fill();
+
+    const volPct = (vThorax - 2.5) / 0.7;
+    ctx.fillStyle = isInhaling ? '#00f0ff' : '#f43f5e';
+    ctx.beginPath();
+    ctx.roundRect(90, 420, 350 * volPct, 14, 7);
+    ctx.fill();
+
+    // Right HUD: Muscular Coordination State
+    UI.panel(ctx, 1440, 180, 420, 270, { r: 18 });
+    ctx.stroke();
+
+    ctx.fillStyle = '#f43f5e';
+    ctx.font = '600 14px "Poppins-600", Inter, sans-serif';
+    ctx.fillText("MUSCLE COORDINATION", 1470, 220);
+
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '700 22px "Poppins-600", Inter, sans-serif';
+    ctx.fillText(isInhaling ? "Active Inhalation (↑)" : "Passive Exhalation (↓)", 1470, 255);
+
+    // Muscle states
+    const items = [
+      { name: "Diaphragm:", val: isInhaling ? "CONTRACTS & FLATTENS (↓)" : "RELAXES & DOMES UP (↑)", c: isInhaling ? '#00f0ff' : '#94a3b8' },
+      { name: "External Intercostals:", val: isInhaling ? "CONTRACT (Ribs Up & Out)" : "RELAX (Ribs In & Down)", c: isInhaling ? '#00f0ff' : '#94a3b8' },
+      { name: "Net Pressure Gradient:", val: isInhaling ? "P_atm > P_alv → INFLOW" : "P_alv > P_atm → OUTFLOW", c: isInhaling ? '#38bdf8' : '#fb923c' }
+    ];
+    items.forEach((it, idx) => {
+      ctx.fillStyle = '#94a3b8';
+      ctx.font = '500 13px Inter, sans-serif';
+      ctx.fillText(it.name, 1470, 305 + idx * 46);
+      ctx.fillStyle = it.c;
+      ctx.font = '700 15px "Poppins-600", Inter, sans-serif';
+      ctx.fillText(it.val, 1470, 325 + idx * 46);
+    });
+    ctx.restore();
+
+    // 9. Subtitle Box & Phase Indicator (Bottom Center)
+    const activeCue = CUES.find(c => t >= c.t0 && t < c.t1) || CUES[CUES.length - 1];
+
+    ctx.save();
+    // Subtitle Container
+    const subW = 1200;
+    const subH = 110;
+    const subX = (W - subW) / 2;
+    const subY = 920;
+
+    ctx.fillStyle = 'rgba(7, 3, 24, 0.94)';
+    ctx.strokeStyle = isInhaling ? 'rgba(0, 240, 255, 0.45)' : 'rgba(251, 146, 60, 0.45)';
+    ctx.lineWidth = 2;
+    ctx.shadowBlur = 30;
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+    ctx.beginPath();
+    ctx.roundRect(subX, subY, subW, subH, 20);
+    ctx.fill();
+    ctx.stroke();
+
+    // Phase Pill
+    ctx.fillStyle = isInhaling ? '#00f0ff' : '#fb923c';
+    ctx.font = '700 13px "Poppins-600", Inter, sans-serif';
+    ctx.fillText(`● ${activeCue.phase}`, subX + 36, subY + 34);
+
+    ctx.fillStyle = '#38bdf8';
+    ctx.font = '500 13px Inter, sans-serif';
+    ctx.fillText(`|  ${activeCue.sub}`, subX + 360, subY + 34);
+
+    // Spoken Text
+    ctx.fillStyle = '#ffffff';
+    ctx.font = '600 20px "Poppins-600", Inter, sans-serif';
+    ctx.fillText(activeCue.text, subX + 36, subY + 76);
+
+    // Progress Bar across subtitle card
+    const cueDur = activeCue.t1 - activeCue.t0;
+    const cueProgress = U.clamp((t - activeCue.t0) / cueDur, 0, 1);
+    ctx.fillStyle = isInhaling ? '#00f0ff' : '#f43f5e';
+    ctx.fillRect(subX, subY + subH - 4, subW * cueProgress, 4);
+
+    ctx.restore();
+  }
+
+  // Interactive controls
+  function updateUI(t) {
+    scrub.value = t;
+    const m = Math.floor(t / 60);
+    const s = Math.floor(t % 60);
+    const ms = Math.floor((t % 1) * 100);
+    timer.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}.${String(ms).padStart(2, '0')}`;
+  }
+
+  let isPlaying = false;
+  let animId = null;
+
+  function loop() {
+    if (!isPlaying) return;
+    const cur = audio.currentTime;
+    renderFrame(cur);
+    updateUI(cur);
+    if (cur >= window.__total) {
+      pause();
+      return;
+    }
+    animId = requestAnimationFrame(loop);
+  }
+
+  function play() {
+    isPlaying = true;
+    audio.play();
+    animId = requestAnimationFrame(loop);
+  }
+
+  function pause() {
+    isPlaying = false;
+    audio.pause();
+    if (animId) cancelAnimationFrame(animId);
+  }
+
+  playBtn.onclick = () => {
+    if (isPlaying) pause();
+    else play();
+  };
+
+  scrub.oninput = (e) => {
+    const t = parseFloat(e.target.value);
+    audio.currentTime = t;
+    renderFrame(t);
+    updateUI(t);
+  };
+
+  window.renderFrame = (t) => {
+    renderFrame(t);
+    updateUI(t);
+  };
+
+  initFonts();
+})();
+</script>
+</body>
+</html>

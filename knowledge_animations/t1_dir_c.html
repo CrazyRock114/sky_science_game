@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Topic 1 · Direction C: Whiteboard & Notebook (Ventilation Mechanics)</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #eae5d8; overflow: hidden; font-family: 'Kalam-700', 'Caveat-600', 'GochiHand-400', 'LXGWWenKai-500', cursive, sans-serif; }
+    #wrapper { position: relative; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+    canvas { display: block; max-width: 100%; max-height: 100%; aspect-ratio: 16/9; box-shadow: 0 16px 50px rgba(0,0,0,0.25); }
+    #ui {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.96); border: 2px solid #2c3e50;
+      padding: 10px 24px; border-radius: 40px; display: flex; align-items: center; gap: 16px;
+      color: #2c3e50; box-shadow: 0 8px 32px rgba(0,0,0,0.15); z-index: 100; backdrop-filter: blur(10px);
+    }
+    body.render #ui { display: none; }
+    button {
+      background: #e67e22; border: 2px solid #d35400; color: #ffffff; font-weight: 700; padding: 6px 18px;
+      border-radius: 20px; cursor: pointer; transition: all 0.2s; font-family: sans-serif;
+    }
+    button:hover { background: #d35400; transform: scale(1.05); }
+    input[type=range] { width: 520px; accent-color: #e67e22; cursor: pointer; }
+    #timer { font-family: monospace; font-size: 14px; min-width: 90px; text-align: center; color: #2c3e50; font-weight: bold; }
+    .badge {
+      background: #fdedec; border: 1px solid #e74c3c; color: #c0392b;
+      font-size: 12px; padding: 2px 10px; border-radius: 12px; text-transform: uppercase; font-family: sans-serif; font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div id="wrapper">
+  <canvas id="c" width="1920" height="1080"></canvas>
+</div>
+
+<div id="ui">
+  <span class="badge">Cambridge Notebook</span>
+  <button id="playBtn">Play / Pause</button>
+  <input id="scrub" type="range" min="0" max="29.18" step="0.0166" value="0">
+  <span id="timer">00:00.00</span>
+</div>
+
+<audio id="audio" src="audio/t1_ventilation_ryan.wav" preload="auto"></audio>
+
+<script src="lib/fonts.js"></script>
+<script src="lib/util.js"></script>
+<script src="lib/motion.js"></script>
+<script src="lib/camera.js"></script>
+<script src="lib/diagram.js"></script>
+<script src="lib/typo.js"></script>
+<script src="lib/chart.js"></script>
+<script src="lib/paint.js"></script>
+<script src="lib/kit.js"></script>
+
+<script>
+(() => {
+  const W = 1920, H = 1080;
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  window.__canvas = canvas;
+  window.__total = 29.18;
+
+  const audio = document.getElementById('audio');
+  const scrub = document.getElementById('scrub');
+  const timer = document.getElementById('timer');
+  const playBtn = document.getElementById('playBtn');
+
+  // Subtitles / Cues aligned with Ryan's audio
+  const CUES = [
+    {
+      t0: 0.0, t1: 7.6,
+      text: "Inhalation begins as the diaphragm contracts and flattens downward, while the external intercostal muscles pull the ribcage up and outward.",
+      phase: "STEP 1: ACTIVE CONTRACTION",
+      sub: "Diaphragm Flattens (↓) · External Intercostals Contract · Ribs Move UP & OUT (↑)"
+    },
+    {
+      t0: 7.6, t1: 14.5,
+      text: "This expansion increases thoracic volume, causing internal pressure to drop below atmospheric pressure.",
+      phase: "STEP 2: VOLUME & PRESSURE DROP",
+      sub: "Thorax Volume Expands (ΔV > 0) ⟹ Internal Pressure Drops: P_pulm < P_atm (-0.5 kPa)"
+    },
+    {
+      t0: 14.5, t1: 19.2,
+      text: "Consequently, air rushes down the pressure gradient into the lungs.",
+      phase: "STEP 3: AIR RUSHES IN",
+      sub: "Net Airflow Inrush Down Pressure Gradient into Lungs & Alveoli"
+    },
+    {
+      t0: 19.2, t1: 29.18,
+      text: "During exhalation, these muscles relax: the diaphragm domes upward, thoracic volume decreases, and the rising internal pressure forces air out.",
+      phase: "STEP 4: PASSIVE EXHALATION",
+      sub: "Muscles Relax · Diaphragm Domes Up (↑) · Thorax Volume Drops ⟹ Air Forced Out"
+    }
+  ];
+
+  async function initFonts() {
+    if (window.FONT_FACES) {
+      for (const f of window.FONT_FACES) {
+        try {
+          const ff = new FontFace(f.family, `url(${f.url})`, f.desc || {});
+          await ff.load();
+          document.fonts.add(ff);
+        } catch (e) {}
+      }
+    }
+    await document.fonts.ready;
+    window.__ready = true;
+    renderFrame(0);
+  }
+
+  // Hand-drawn sketch jitter helper
+  function drawHandLine(c, x0, y0, x1, y1, color = '#1e293b', lw = 3.5) {
+    c.save();
+    c.strokeStyle = color;
+    c.lineWidth = lw;
+    c.lineCap = 'round';
+    c.beginPath();
+    const midX = (x0 + x1) / 2 + Math.sin((x0 + y0) * 0.05) * 2;
+    const midY = (y0 + y1) / 2 + Math.cos((x1 + y1) * 0.05) * 2;
+    c.moveTo(x0, y0);
+    c.quadraticCurveTo(midX, midY, x1, y1);
+    c.stroke();
+    c.restore();
+  }
+
+  function drawHandArrow(c, x0, y0, x1, y1, color = '#0284c7', lw = 4) {
+    const dx = x1 - x0, dy = y1 - y0;
+    const len = Math.hypot(dx, dy);
+    if (len < 4) return;
+    const ux = dx / len, uy = dy / len;
+    c.save();
+    c.strokeStyle = color;
+    c.fillStyle = color;
+    c.lineWidth = lw;
+    c.lineCap = 'round';
+    c.lineJoin = 'round';
+    c.beginPath();
+    c.moveTo(x0, y0);
+    c.lineTo(x1, y1);
+    c.stroke();
+    // Hand-drawn asymmetrical arrow head
+    const nx = -uy, ny = ux;
+    c.beginPath();
+    c.moveTo(x1, y1);
+    c.lineTo(x1 - ux * 18 + nx * 10, y1 - uy * 18 + ny * 10);
+    c.moveTo(x1, y1);
+    c.lineTo(x1 - ux * 16 - nx * 8, y1 - uy * 16 - ny * 8);
+    c.stroke();
+    c.restore();
+  }
+
+  function renderFrame(t) {
+    ctx.clearRect(0, 0, W, H);
+
+    // 1. Photorealistic Spiral Notebook Paper Background
+    // Outer wooden desk border
+    ctx.fillStyle = '#dcd5c4';
+    ctx.fillRect(0, 0, W, H);
+
+    // Notebook page with soft drop shadow
+    const pageX = 60, pageY = 40, pageW = 1800, pageH = 1000;
+    ctx.save();
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.22)';
+    ctx.shadowBlur = 35;
+    ctx.shadowOffsetX = 8;
+    ctx.shadowOffsetY = 12;
+    ctx.fillStyle = '#faf8f2';
+    ctx.fillRect(pageX, pageY, pageW, pageH);
+    ctx.restore();
+
+    // Subtle blue ruled lines
+    ctx.save();
+    ctx.strokeStyle = 'rgba(186, 215, 233, 0.45)';
+    ctx.lineWidth = 1.2;
+    for (let y = pageY + 80; y < pageY + pageH - 40; y += 38) {
+      ctx.beginPath();
+      ctx.moveTo(pageX + 110, y);
+      ctx.lineTo(pageX + pageW - 40, y);
+      ctx.stroke();
+    }
+
+    // Red left margin line
+    ctx.strokeStyle = 'rgba(239, 68, 68, 0.55)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pageX + 180, pageY);
+    ctx.lineTo(pageX + 180, pageY + pageH);
+    ctx.stroke();
+
+    // Metallic Spiral Ring Bindings along left edge
+    for (let y = pageY + 45; y < pageY + pageH - 30; y += 50) {
+      // Ring shadow
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
+      ctx.beginPath();
+      ctx.ellipse(pageX + 40, y + 5, 26, 8, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Metallic ring loop
+      const ringGrad = ctx.createLinearGradient(pageX + 10, y, pageX + 70, y);
+      ringGrad.addColorStop(0, '#71717a');
+      ringGrad.addColorStop(0.5, '#f4f4f5');
+      ringGrad.addColorStop(1, '#52525b');
+      ctx.strokeStyle = ringGrad;
+      ctx.lineWidth = 8;
+      ctx.beginPath();
+      ctx.ellipse(pageX + 40, y, 28, 9, 0, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Perforated hole
+      ctx.fillStyle = '#27272a';
+      ctx.beginPath();
+      ctx.arc(pageX + 40, y, 5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // Inhalation Progress Parameter
+    let inhaleP = 0;
+    const isInhaling = t < 19.2;
+    if (t < 7.6) {
+      inhaleP = MO.smooth(MO.at(t, 0.4, 6.6));
+    } else if (t < 14.5) {
+      inhaleP = 0.88 + 0.12 * MO.smooth(MO.at(t, 7.6, 6.0));
+    } else if (t < 19.2) {
+      inhaleP = 1.0 - 0.02 * Math.sin((t - 14.5) * 1.5);
+    } else if (t < 26.5) {
+      inhaleP = 1.0 - MO.smooth(MO.at(t, 19.2, 6.5));
+    } else {
+      inhaleP = 0.0 + 0.02 * Math.sin((t - 26.5) * 1.8);
+    }
+
+    // 2. Notebook Page Header
+    ctx.save();
+    ctx.fillStyle = '#1e293b';
+    ctx.font = 'bold 36px "Kalam-700", cursive, sans-serif';
+    ctx.fillText("Topic 1: Mechanics of Breathing (Ventilation)", pageX + 220, pageY + 65);
+
+    ctx.fillStyle = '#64748b';
+    ctx.font = '22px "Caveat-600", cursive, sans-serif';
+    ctx.fillText("Cambridge Checkpoint & IGCSE Biology · Chapter B7 Revision Notes", pageX + 220, pageY + 98);
+
+    // Weathered Red Rubber Stamp: "CAMBRIDGE G8 CHECKPOINT VERIFIED"
+    ctx.save();
+    ctx.translate(pageX + pageW - 240, pageY + 70);
+    ctx.rotate(-0.12);
+    ctx.strokeStyle = 'rgba(220, 38, 38, 0.75)';
+    ctx.lineWidth = 3.5;
+    ctx.beginPath();
+    ctx.roundRect(-140, -32, 280, 64, 10);
+    ctx.stroke();
+
+    ctx.fillStyle = 'rgba(220, 38, 38, 0.8)';
+    ctx.font = 'bold 16px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText("CAMBRIDGE G8 CHECKPOINT", 0, -6);
+    ctx.font = 'bold 14px sans-serif';
+    ctx.fillText("★ OFFICIAL SYLLABUS ★", 0, 16);
+    ctx.restore();
+
+    ctx.restore();
+
+    // 3. Hand-Drawn Anatomical Illustration (Left Side Stage: cx = 640)
+    const cx = 640, cy = 500;
+    const ribExpandX = inhaleP * 44;
+    const ribExpandY = -inhaleP * 28;
+
+    // Soft watercolor lung background wash (Watercolor paint effect)
+    ctx.save();
+    ctx.globalCompositeOperation = 'multiply';
+    ctx.fillStyle = 'rgba(254, 205, 211, 0.75)'; // Soft pink wash
+    ctx.beginPath();
+    // Left lung wash
+    ctx.ellipse(cx - 150 - ribExpandX * 0.3, cy + ribExpandY * 0.2, 110 + inhaleP * 25, 160 + inhaleP * 25, -0.15, 0, Math.PI * 2);
+    ctx.fill();
+    // Right lung wash
+    ctx.beginPath();
+    ctx.ellipse(cx + 150 + ribExpandX * 0.3, cy + ribExpandY * 0.2, 110 + inhaleP * 25, 160 + inhaleP * 25, 0.15, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // Hand-drawn Trachea & Rings
+    ctx.save();
+    drawHandLine(ctx, cx - 18, 160, cx - 18, 360, '#1e293b', 4);
+    drawHandLine(ctx, cx + 18, 160, cx + 18, 360, '#1e293b', 4);
+    // Cartilage rings
+    for (let ry = 180; ry < 350; ry += 18) {
+      drawHandLine(ctx, cx - 16, ry, cx + 16, ry, '#475569', 2.5);
+    }
+    // Bronchi
+    drawHandLine(ctx, cx - 18, 360, cx - 120, 430, '#1e293b', 4);
+    drawHandLine(ctx, cx + 18, 360, cx + 120, 430, '#1e293b', 4);
+    ctx.restore();
+
+    // Hand-drawn Lung Contours with ink jitter
+    ctx.save();
+    const lungW = 120 + inhaleP * 28;
+    const lungH = 180 + inhaleP * 26;
+
+    // Left Lung Contour
+    ctx.strokeStyle = '#0f172a';
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(cx - 50, 370 + ribExpandY * 0.2);
+    ctx.bezierCurveTo(cx - 190 - ribExpandX * 0.5, 360, cx - 220 - ribExpandX * 0.5, 520, cx - 170 - ribExpandX * 0.3, 640);
+    ctx.bezierCurveTo(cx - 120, 680, cx - 50, 650, cx - 30, 560);
+    ctx.bezierCurveTo(cx - 30, 480, cx - 40, 410, cx - 50, 370 + ribExpandY * 0.2);
+    ctx.stroke();
+
+    // Right Lung Contour
+    ctx.beginPath();
+    ctx.moveTo(cx + 50, 370 + ribExpandY * 0.2);
+    ctx.bezierCurveTo(cx + 190 + ribExpandX * 0.5, 360, cx + 220 + ribExpandX * 0.5, 520, cx + 170 + ribExpandX * 0.3, 640);
+    ctx.bezierCurveTo(cx + 120, 680, cx + 50, 650, cx + 30, 560);
+    ctx.bezierCurveTo(cx + 30, 480, cx + 40, 410, cx + 50, 370 + ribExpandY * 0.2);
+    ctx.stroke();
+    ctx.restore();
+
+    // Ribcage pencil sketches around lungs
+    ctx.save();
+    ctx.strokeStyle = 'rgba(71, 85, 105, 0.7)';
+    ctx.lineWidth = 3;
+    for (let i = 0; i < 5; i++) {
+      const by = 350 + i * 55 + ribExpandY * (0.3 + i * 0.1);
+      const span = 200 + i * 28 + ribExpandX * (0.4 + i * 0.1);
+      drawHandLine(ctx, cx - 20, by, cx - span, by + 18, '#475569', 3);
+      drawHandLine(ctx, cx + 20, by, cx + span, by + 18, '#475569', 3);
+    }
+    ctx.restore();
+
+    // Diaphragm Muscle Sheet (Crimson marker + watercolor)
+    const diaY0 = 700 + inhaleP * 75;
+    const diaArch = (1.0 - inhaleP) * 115;
+    ctx.save();
+    ctx.fillStyle = 'rgba(239, 68, 68, 0.25)'; // Watercolor red wash
+    ctx.beginPath();
+    ctx.moveTo(cx - 240, diaY0 + 20);
+    ctx.quadraticCurveTo(cx, diaY0 - diaArch * 1.4, cx + 240, diaY0 + 20);
+    ctx.lineTo(cx + 240, diaY0 + 55);
+    ctx.quadraticCurveTo(cx, diaY0 - diaArch * 1.4 + 35, cx - 240, diaY0 + 55);
+    ctx.closePath();
+    ctx.fill();
+
+    // Diaphragm ink outline
+    ctx.strokeStyle = '#b91c1c';
+    ctx.lineWidth = 5;
+    ctx.stroke();
+
+    // Diaphragm directional arrows
+    const arrowDir = isInhaling ? 1 : -1;
+    [cx - 100, cx, cx + 100].forEach(ax => {
+      drawHandArrow(ctx, ax, diaY0 - diaArch * 0.5 - 20 * arrowDir, ax, diaY0 - diaArch * 0.5 + 20 * arrowDir, '#b91c1c', 3.5);
+    });
+    ctx.restore();
+
+    // Airflow Arrows in Trachea
+    const flowColor = isInhaling ? '#0284c7' : '#ea580c';
+    drawHandArrow(ctx, cx, isInhaling ? 180 : 320, cx, isInhaling ? 320 : 180, flowColor, 5);
+
+    // Anatomical Callout Labels (Handwritten with leader lines)
+    ctx.save();
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 22px "Kalam-700", cursive, sans-serif';
+
+    // Label 1: Trachea
+    drawHandLine(ctx, cx + 25, 230, cx + 180, 210, '#64748b', 2);
+    ctx.fillText("Trachea (Cartilage C-rings)", cx + 190, 215);
+
+    // Label 2: Lungs & Alveoli
+    drawHandLine(ctx, cx - 180 - ribExpandX * 0.4, 450, cx - 360, 420, '#64748b', 2);
+    ctx.fillText("Lungs (Elastic Tissue)", cx - 460, 410);
+    ctx.font = '18px "Caveat-600", cursive, sans-serif';
+    ctx.fillText("Alveoli inflate during inflow", cx - 460, 435);
+
+    // Label 3: Diaphragm
+    drawHandLine(ctx, cx + 220, diaY0 + 10, cx + 340, diaY0 - 20, '#b91c1c', 2);
+    ctx.font = 'bold 22px "Kalam-700", cursive, sans-serif';
+    ctx.fillStyle = '#b91c1c';
+    ctx.fillText(isInhaling ? "Diaphragm CONTRACTS (Flattens ⬇)" : "Diaphragm RELAXES (Domes UP ⬆)", cx + 350, diaY0 - 15);
+    ctx.restore();
+
+    // 4. Right Side: Cambridge Exam Marking Criteria Post-It Card
+    const noteX = 1200, noteY = 200, noteW = 580, noteH = 650;
+    ctx.save();
+    // Post-It Shadow
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.18)';
+    ctx.shadowBlur = 24;
+    ctx.shadowOffsetX = 8;
+    ctx.shadowOffsetY = 12;
+    // Canary Yellow Sticky Note
+    ctx.fillStyle = '#fef08a';
+    ctx.fillRect(noteX, noteY, noteW, noteH);
+    ctx.restore();
+
+    // Washi Tape at Top Center of Sticky Note
+    ctx.save();
+    ctx.fillStyle = 'rgba(251, 146, 60, 0.65)';
+    ctx.fillRect(noteX + noteW / 2 - 70, noteY - 14, 140, 28);
+    ctx.restore();
+
+    // Post-it Header
+    ctx.save();
+    ctx.fillStyle = '#854d0e';
+    ctx.font = 'bold 28px "Kalam-700", cursive, sans-serif';
+    ctx.fillText("📌 4-Step Examination Marking Criteria", noteX + 35, noteY + 55);
+
+    ctx.fillStyle = '#713f12';
+    ctx.font = '19px "Caveat-600", cursive, sans-serif';
+    ctx.fillText("Cambridge IGCSE Model Scoring Keywords & Causality Chain:", noteX + 35, noteY + 85);
+
+    // 4 Key Scoring Criteria Blocks
+    const criteria = [
+      {
+        num: "1",
+        title: "Muscular Action:",
+        desc: "Diaphragm contracts & flattens (moves down).\nExternal intercostal muscles contract, pulling ribcage UP & OUT.",
+        tActive: t < 7.6
+      },
+      {
+        num: "2",
+        title: "Volume Change:",
+        desc: "Thorax volume (capacity) increases / expands.\n(ΔV > 0 in pleural & thoracic cavities).",
+        tActive: t >= 7.6 && t < 14.5
+      },
+      {
+        num: "3",
+        title: "Boyle's Pressure Gradient:",
+        desc: "Intrapulmonary pressure drops below atmospheric.\n(Negative pressure: P_pulm < P_atm).",
+        tActive: t >= 14.5 && t < 19.2
+      },
+      {
+        num: "4",
+        title: "Exhalation Mechanism:",
+        desc: "Muscles relax; elastic recoil domes diaphragm UP.\nThorax volume decreases, high pressure forces air OUT.",
+        tActive: t >= 19.2
+      }
+    ];
+
+    criteria.forEach((cr, idx) => {
+      const cy = noteY + 130 + idx * 125;
+
+      // Realistic Fluorescent Highlighter Sweep for active criterion!
+      if (cr.tActive) {
+        ctx.save();
+        ctx.globalCompositeOperation = 'multiply';
+        ctx.fillStyle = idx === 3 ? 'rgba(254, 215, 170, 0.8)' : 'rgba(254, 240, 138, 0.9)'; // Fluorescent highlighter wash
+        ctx.beginPath();
+        ctx.roundRect(noteX + 25, cy - 18, noteW - 50, 110, 8);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      // Step Number Badge
+      ctx.fillStyle = cr.tActive ? '#b45309' : '#a1a1aa';
+      ctx.font = 'bold 24px "Kalam-700", cursive, sans-serif';
+      ctx.fillText(`[${cr.num}]`, noteX + 35, cy + 10);
+
+      // Title
+      ctx.fillStyle = cr.tActive ? '#1e293b' : '#52525b';
+      ctx.font = 'bold 22px "Kalam-700", cursive, sans-serif';
+      ctx.fillText(cr.title, noteX + 75, cy + 10);
+
+      // Description lines
+      ctx.fillStyle = cr.tActive ? '#0f172a' : '#71717a';
+      ctx.font = '19px "Caveat-600", cursive, sans-serif';
+      const lines = cr.desc.split('\n');
+      lines.forEach((l, li) => {
+        ctx.fillText(l, noteX + 75, cy + 38 + li * 24);
+      });
+    });
+    ctx.restore();
+
+    // 5. Bottom Subtitle & Narration Banner
+    const activeCue = CUES.find(c => t >= c.t0 && t < c.t1) || CUES[CUES.length - 1];
+
+    ctx.save();
+    const subW = 1440;
+    const subH = 115;
+    const subX = (W - subW) / 2;
+    const subY = 910;
+
+    // Subtitle Card with paper clip effect
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.15)';
+    ctx.shadowBlur = 20;
+    ctx.fillStyle = '#ffffff';
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(subX, subY, subW, subH, 16);
+    ctx.fill();
+    ctx.stroke();
+
+    // Phase Indicator
+    ctx.fillStyle = isInhaling ? '#0284c7' : '#ea580c';
+    ctx.font = 'bold 16px "Kalam-700", cursive, sans-serif';
+    ctx.fillText(`●  ${activeCue.phase}`, subX + 36, subY + 34);
+
+    ctx.fillStyle = '#64748b';
+    ctx.font = '16px "Caveat-600", cursive, sans-serif';
+    ctx.fillText(`|   ${activeCue.sub}`, subX + 340, subY + 34);
+
+    // Spoken Text
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 22px "Kalam-700", cursive, sans-serif';
+    ctx.fillText(activeCue.text, subX + 36, subY + 76);
+
+    // Ink progress line across bottom
+    const cueDur = activeCue.t1 - activeCue.t0;
+    const cueProgress = U.clamp((t - activeCue.t0) / cueDur, 0, 1);
+    ctx.fillStyle = isInhaling ? '#0284c7' : '#ea580c';
+    ctx.fillRect(subX, subY + subH - 4, subW * cueProgress, 4);
+
+    ctx.restore();
+  }
+
+  function updateUI(t) {
+    scrub.value = t;
+    const m = Math.floor(t / 60);
+    const s = Math.floor(t % 60);
+    const ms = Math.floor((t % 1) * 100);
+    timer.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}.${String(ms).padStart(2, '0')}`;
+  }
+
+  let isPlaying = false;
+  let animId = null;
+
+  function loop() {
+    if (!isPlaying) return;
+    const cur = audio.currentTime;
+    renderFrame(cur);
+    updateUI(cur);
+    if (cur >= window.__total) {
+      pause();
+      return;
+    }
+    animId = requestAnimationFrame(loop);
+  }
+
+  function play() {
+    isPlaying = true;
+    audio.play();
+    animId = requestAnimationFrame(loop);
+  }
+
+  function pause() {
+    isPlaying = false;
+    audio.pause();
+    if (animId) cancelAnimationFrame(animId);
+  }
+
+  playBtn.onclick = () => {
+    if (isPlaying) pause();
+    else play();
+  };
+
+  scrub.oninput = (e) => {
+    const t = parseFloat(e.target.value);
+    audio.currentTime = t;
+    renderFrame(t);
+    updateUI(t);
+  };
+
+  window.renderFrame = (t) => {
+    renderFrame(t);
+    updateUI(t);
+  };
+
+  initFonts();
+})();
+</script>
+</body>
+</html>

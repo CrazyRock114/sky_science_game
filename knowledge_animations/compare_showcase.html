@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cambridge IGCSE Science G8 · 知识点讲解动画对比评审台 (ABC三方向)</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: rgba(18, 24, 38, 0.85);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent-kurz: #32baee;
+      --accent-3b1b: #ffff00;
+      --accent-wb: #e67e22;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+    header {
+      background: linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, rgba(11, 15, 25, 0.95) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(16px);
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+      background: linear-gradient(90deg, #38bdf8, #818cf8, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 15px;
+      max-width: 840px;
+      margin: 0 auto 20px;
+    }
+    .topic-switch {
+      display: inline-flex;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border);
+      padding: 4px;
+      border-radius: 40px;
+      gap: 6px;
+    }
+    .topic-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 10px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topic-btn.active {
+      background: #2563eb;
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+    .topic-btn:hover:not(.active) {
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .container {
+      max-width: 1720px;
+      margin: 32px auto;
+      padding: 0 24px;
+    }
+    .topic-panel {
+      display: none;
+    }
+    .topic-panel.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .topic-header-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px 28px;
+      margin-bottom: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .topic-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .topic-meta {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .sync-controls {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .btn-sync {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+    .btn-sync:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.4);
+    }
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 1280px) {
+      .video-grid { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      transition: transform 0.25s, border-color 0.25s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+    }
+    .card.dir-a { border-top: 4px solid var(--accent-kurz); }
+    .card.dir-b { border-top: 4px solid var(--accent-3b1b); }
+    .card.dir-c { border-top: 4px solid var(--accent-wb); }
+    .card-head {
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-badge {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+    .dir-a .card-badge { background: rgba(50, 186, 238, 0.15); color: var(--accent-kurz); border: 1px solid var(--accent-kurz); }
+    .dir-b .card-badge { background: rgba(255, 255, 0, 0.15); color: var(--accent-3b1b); border: 1px solid var(--accent-3b1b); }
+    .dir-c .card-badge { background: rgba(230, 126, 34, 0.15); color: var(--accent-wb); border: 1px solid var(--accent-wb); }
+
+    .video-wrap {
+      position: relative;
+      background: #000;
+      aspect-ratio: 16/9;
+      width: 100%;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: contain;
+    }
+    .card-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .dna-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 13.5px;
+    }
+    .dna-title {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dna-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .dna-list li {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .dna-list li::before {
+      content: "•";
+      color: var(--text-muted);
+      font-weight: bold;
+    }
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: auto;
+    }
+    .btn-act {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-act:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+    .stills-gallery {
+      margin-top: 10px;
+    }
+    .stills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .stills-grid img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .stills-grid img:hover {
+      transform: scale(1.08);
+      z-index: 10;
+    }
+    .transcript-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin-top: 32px;
+    }
+    .transcript-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .transcript-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .cue-item {
+      display: flex;
+      gap: 16px;
+      padding: 10px 14px;
+      background: rgba(15, 23, 42, 0.5);
+      border-left: 3px solid #2563eb;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+    .cue-time {
+      font-family: monospace;
+      font-weight: 700;
+      color: #38bdf8;
+      min-width: 90px;
+    }
+    .cue-en {
+      font-weight: 600;
+      color: #f8fafc;
+    }
+    .cue-cn {
+      color: var(--text-muted);
+      margin-top: 2px;
+      font-size: 13px;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      z-index: 999;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal.active { display: flex; }
+    .modal img { max-width: 90vw; max-height: 90vh; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>剑桥科学 G8 核心考点动画对比评审台</h1>
+  <p class="subtitle">
+    采用 <code>huashu-art-motion</code> 动画语法与原生 Canvas 逐帧渲染引擎，配以纯正自然英音（British English Ryan Neural）纪录片质感口播。
+    同一核心考点，三种迥异的经典视觉呈现范式，供深度比对与教学评测。
+  </p>
+  <div class="topic-switch">
+    <button class="topic-btn active" onclick="switchTopic('t1')">
+      <span>🫁</span> 知识点 1 · 肺通气力学机制 (Breathing Mechanics)
+    </button>
+    <button class="topic-btn" onclick="switchTopic('t2')">
+      <span>🫀</span> 知识点 2 · 心脏单向阀门动力学 (Cardiac Cycle & Valves)
+    </button>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ================= TOPIC 1 PANEL ================= -->
+  <div id="panel-t1" class="topic-panel active">
+    <div class="topic-header-card">
+      <div>
+        <div class="topic-title">知识点 1 · 肺通气力学机制 (Mechanics of Breathing: Inhalation & Exhalation)</div>
+        <div class="topic-meta">剑桥教材对应：Stage 8 Chapter 8 · 题库考点：Rev_SecB_Q04、Q02 · 视频时长：29.18 秒 · 48kHz Ryan Neural 神经英音</div>
+      </div>
+      <div class="sync-controls">
+        <button class="btn-sync" onclick="syncPlayTopic('t1')">
+          <span>▶</span> 同时播放 3 个方向对比
+        </button>
+        <button class="btn-sync" style="background:#475569;" onclick="syncPauseTopic('t1')">
+          <span>⏸</span> 全部暂停
+        </button>
+      </div>
+    </div>
+
+    <div class="video-grid">
+      <!-- T1 DIR A -->
+      <div class="card dir-a">
+        <div class="card-head">
+          <div class="card-title">方向 A · Kurzgesagt 扁平发光流</div>
+          <span class="card-badge">现代扁平科普</span>
+        </div>
+        <div class="video-wrap">
+          <video id="vid-t1-a" controls preload="metadata" src="videos/t1_dir_a.mp4"></video>
+        </div>
+        <div class="card-body">
+          <div class="dna-box">
+            <div class="dna-title">🎨 视觉母题与运动机制</div>
+            <ul class="dna-list">
+              <li><strong>核心主动作</strong>：膈肌收缩平展下沉 / 呼气穹顶上拱；胸廓平滑扩张与弹性回缩。</li>
+              <li><strong>母题 1 (发光微流体粒子)</strong>：180 颗速度感渐变发光气流粒子顺气管激射入双侧细支气管与膨胀肺泡。</li>
+              <li><strong>母题 2 (波义耳气压计 HUD)</strong>：实时气压仪表盘动态显示肺内压 101.3 kPa ➔ 100.8 kPa (负压吸气) ➔ 101.9 kPa (正压呼气)。</li>
+              <li><strong>运镜风格</strong>：深空星海背景，呼吸式对数缩放微动，高饱和贝塞尔插画无描边分面。</li>
+            </ul>
+          </div>
+          <div class="stills-gallery">
+            <div class="dna-title">📸 关键帧采样</div>
+            <div class="stills-grid">
+              <img src="stills/t1_dir_a_still_3.5s.png" onclick="showModal(this.src)" alt="3.5s">
+              <img src="stills/t1_dir_a_still_11.0s.png" onclick="showModal(this.src)" alt="11.0s">
+              <img src="stills/t1_dir_a_still_16.5s.png" onclick="showModal(this.src)" alt="16.5s">
+              <img src="stills/t1_dir_a_still_24.0s.png" onclick="showModal(this.src)" alt="24.0s">
+            </div>
+          </div>
+          <div class="card-actions">
+            <a class="btn-act" href="t1_dir_a.html" target="_blank">🌐 交互式画布预览</a>
+            <a class="btn-act" href="videos/t1_dir_a.mp4" download>📥 下载 MP4</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- T1 DIR B -->
+      <div class="card dir-b">
+        <div class="card-head">
+          <div class="card-title">方向 B · 3Blue1Brown 极简几何逻辑流</div>
+          <span class="card-badge">数学物理可视化</span>
+        </div>
+        <div class="video-wrap">
+          <video id="vid-t1-b" controls preload="metadata" src="videos/t1_dir_b.mp4"></video>
+        </div>
+        <div class="card-body">
+          <div class="dna-box">
+            <div class="dna-title">🎨 视觉母题与运动机制</div>
+            <ul class="dna-list">
+              <li><strong>核心主动作</strong>：波义耳定律玻尔兹曼坐标建模，$P \propto 1/V$ 公式联动。</li>
+              <li><strong>母题 1 (几何力学活塞)</strong>：胸腔活塞模型配合肌力矢量箭头 $\vec{F}$ 与气道流速向量 $\vec{v}$。</li>
+              <li><strong>母题 2 (P-V 双曲线微积分切线)</strong>：右侧状态光标沿反比等温线动态游走，切线导数 $dP/dV$ 实时指示反比斜率。</li>
+              <li><strong>运镜风格</strong>：纯黑工程坐标网格、Computer Modern LaTeX 衬线公式、严谨状态机驱动。</li>
+            </ul>
+          </div>
+          <div class="stills-gallery">
+            <div class="dna-title">📸 关键帧采样</div>
+            <div class="stills-grid">
+              <img src="stills/t1_dir_b_still_3.5s.png" onclick="showModal(this.src)" alt="3.5s">
+              <img src="stills/t1_dir_b_still_11.0s.png" onclick="showModal(this.src)" alt="11.0s">
+              <img src="stills/t1_dir_b_still_16.5s.png" onclick="showModal(this.src)" alt="16.5s">
+              <img src="stills/t1_dir_b_still_24.0s.png" onclick="showModal(this.src)" alt="24.0s">
+            </div>
+          </div>
+          <div class="card-actions">
+            <a class="btn-act" href="t1_dir_b.html" target="_blank">🌐 交互式画布预览</a>
+            <a class="btn-act" href="videos/t1_dir_b.mp4" download>📥 下载 MP4</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- T1 DIR C -->
+      <div class="card dir-c">
+        <div class="card-head">
+          <div class="card-title">方向 C · Whiteboard & 教科书笔触流</div>
+          <span class="card-badge">RSA 白板手绘手账</span>
+        </div>
+        <div class="video-wrap">
+          <video id="vid-t1-c" controls preload="metadata" src="videos/t1_dir_c.mp4"></video>
+        </div>
+        <div class="card-body">
+          <div class="dna-box">
+            <div class="dna-title">🎨 视觉母题与运动机制</div>
+            <ul class="dna-list">
+              <li><strong>核心主动作</strong>：活页螺旋素描纸底纹，有机微抖动双线墨水笔触勾勒胸廓与支气管。</li>
+              <li><strong>母题 1 (便签纸荧光笔逐句扫光)</strong>：便签条四步剑桥核心采分考点，随口播念诵实时被半透明荧光笔扫过高亮。</li>
+              <li><strong>母题 2 (水彩叠色与印章)</strong>：软粉红水彩在吸气时向外晕染扩张，右下角盖上剑桥考点核准红章。</li>
+              <li><strong>运镜风格</strong>：米白打孔素描本、手写体标注、胶带贴纸、引线注释。</li>
+            </ul>
+          </div>
+          <div class="stills-gallery">
+            <div class="dna-title">📸 关键帧采样</div>
+            <div class="stills-grid">
+              <img src="stills/t1_dir_c_still_3.5s.png" onclick="showModal(this.src)" alt="3.5s">
+              <img src="stills/t1_dir_c_still_11.0s.png" onclick="showModal(this.src)" alt="11.0s">
+              <img src="stills/t1_dir_c_still_16.5s.png" onclick="showModal(this.src)" alt="16.5s">
+              <img src="stills/t1_dir_c_still_24.0s.png" onclick="showModal(this.src)" alt="24.0s">
+            </div>
+          </div>
+          <div class="card-actions">
+            <a class="btn-act" href="t1_dir_c.html" target="_blank">🌐 交互式画布预览</a>
+            <a class="btn-act" href="videos/t1_dir_c.mp4" download>📥 下载 MP4</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- T1 Transcript -->
+    <div class="transcript-box">
+      <div class="transcript-title">🎙️ 纯英口播逐句对齐字幕与剑桥大纲考点</div>
+      <div class="transcript-timeline">
+        <div class="cue-item">
+          <div class="cue-time">0.0s – 7.6s</div>
+          <div>
+            <div class="cue-en">"Inhalation begins as the diaphragm contracts and flattens downward, while the external intercostal muscles pull the ribcage up and outward."</div>
+            <div class="cue-cn">【考点对应】吸气初段：膈肌主动收缩并向下拉平，肋间外肌收缩带动肋骨向上向外移动。</div>
+          </div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-time">7.6s – 14.5s</div>
+          <div>
+            <div class="cue-en">"This expansion increases thoracic volume, causing internal pressure to drop below atmospheric pressure."</div>
+            <div class="cue-cn">【考点对应】胸腔扩张：胸腔容积增大，导致肺内气压降低并低于外界大气压（波义耳定律：容积增大 ➔ 气压降低）。</div>
+          </div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-time">14.5s – 19.2s</div>
+          <div>
+            <div class="cue-en">"Consequently, air rushes down the pressure gradient into the lungs."</div>
+            <div class="cue-cn">【考点对应】负压充盈：外界高压空气顺气压梯度经由气管和支气管快速灌入肺泡进行气体交换。</div>
+          </div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-time">19.2s – 29.18s</div>
+          <div>
+            <div class="cue-en">"During exhalation, these muscles relax: the diaphragm domes upward, thoracic volume decreases, and the rising internal pressure forces air out."</div>
+            <div class="cue-cn">【考点对应】呼气阶段：肌肉完全舒张，膈肌恢复隆起穹顶状，胸廓弹性回缩使容积变小、气压骤升，迫使废气排出体外。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= TOPIC 2 PANEL ================= -->
+  <div id="panel-t2" class="topic-panel">
+    <div class="topic-header-card">
+      <div>
+        <div class="topic-title">知识点 2 · 心脏泵血与单向阀门动力学 (Cardiac Cycle & Valve Dynamics)</div>
+        <div class="topic-meta">剑桥教材对应：Stage 8 Chapter 9 · 题库考点：Rev_SecA_Q09、Q01 · 视频时长：28.78 秒 · 48kHz Ryan Neural 神经英音</div>
+      </div>
+      <div class="sync-controls">
+        <button class="btn-sync" onclick="syncPlayTopic('t2')">
+          <span>▶</span> 同时播放 3 个方向对比
+        </button>
+        <button class="btn-sync" style="background:#475569;" onclick="syncPauseTopic('t2')">
+          <span>⏸</span> 全部暂停
+        </button>
+      </div>
+    </div>
+
+    <div class="video-grid">
+      <!-- T2 DIR A -->
+      <div class="card dir-a">
+        <div class="card-head">
+          <div class="card-title">方向 A · Kurzgesagt 扁平发光流</div>
+          <span class="card-badge">现代扁平科普</span>
+        </div>
+        <div class="video-wrap">
+          <video id="vid-t2-a" controls preload="metadata" src="videos/t2_dir_a.mp4"></video>
+        </div>
+        <div class="card-body">
+          <div class="dna-box">
+            <div class="dna-title">🎨 视觉母题与运动机制</div>
+            <ul class="dna-list">
+              <li><strong>核心主动作</strong>：贝塞尔曲线精修四腔心肌轮廓，左心室厚肌壁强力向心收缩射血。</li>
+              <li><strong>母题 1 (第一第二心音冲击波)</strong>：房室瓣骤闭爆发金黄 "Lub" 环形激波，半月瓣关闭爆发青蓝 "Dub" 激波。</li>
+              <li><strong>母题 2 (红蓝双循环微流体)</strong>：140+ 发光粒子分别从右心经肺动脉、从左心经主动脉弓三支头臂动脉激射。</li>
+              <li><strong>母题 3 (ECG 示波器与压强计)</strong>：右上角实时心电节律曲线同步跳动，心室内压动态数字表盘。</li>
+            </ul>
+          </div>
+          <div class="stills-gallery">
+            <div class="dna-title">📸 关键帧采样</div>
+            <div class="stills-grid">
+              <img src="stills/t2_dir_a_still_3.5s.png" onclick="showModal(this.src)" alt="3.5s">
+              <img src="stills/t2_dir_a_still_11.5s.png" onclick="showModal(this.src)" alt="11.5s">
+              <img src="stills/t2_dir_a_still_19.0s.png" onclick="showModal(this.src)" alt="19.0s">
+              <img src="stills/t2_dir_a_still_25.5s.png" onclick="showModal(this.src)" alt="25.5s">
+            </div>
+          </div>
+          <div class="card-actions">
+            <a class="btn-act" href="t2_dir_a.html" target="_blank">🌐 交互式画布预览</a>
+            <a class="btn-act" href="videos/t2_dir_a.mp4" download>📥 下载 MP4</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- T2 DIR B -->
+      <div class="card dir-b">
+        <div class="card-head">
+          <div class="card-title">方向 B · 3Blue1Brown 极简几何逻辑流</div>
+          <span class="card-badge">数学物理可视化</span>
+        </div>
+        <div class="video-wrap">
+          <video id="vid-t2-b" controls preload="metadata" src="videos/t2_dir_b.mp4"></video>
+        </div>
+        <div class="card-body">
+          <div class="dna-box">
+            <div class="dna-title">🎨 视觉母题与运动机制</div>
+            <ul class="dna-list">
+              <li><strong>核心主动作</strong>：流体力学拓扑腔室解构，铰链式单向门角度 $\theta(t)$ 动力学方程。</li>
+              <li><strong>母题 1 (压强差驱动条件)</strong>：$\Delta P = P_v - P_a$ 驱动房室瓣闭合，$\Delta P = P_v - P_{art}$ 冲开半月瓣。</li>
+              <li><strong>母题 2 (经典 Wiggers 心动相图)</strong>：右侧 Wiggers 压强曲线图，黄色激光游标随口播实时横扫相位并标出关键交点。</li>
+              <li><strong>母题 3 (零倒流力学约束)</strong>：倒流矢量被红色截断符号强制归零 $\vec{v}_{\text{reverse}} = 0$。</li>
+            </ul>
+          </div>
+          <div class="stills-gallery">
+            <div class="dna-title">📸 关键帧采样</div>
+            <div class="stills-grid">
+              <img src="stills/t2_dir_b_still_3.5s.png" onclick="showModal(this.src)" alt="3.5s">
+              <img src="stills/t2_dir_b_still_11.5s.png" onclick="showModal(this.src)" alt="11.5s">
+              <img src="stills/t2_dir_b_still_19.0s.png" onclick="showModal(this.src)" alt="19.0s">
+              <img src="stills/t2_dir_b_still_25.5s.png" onclick="showModal(this.src)" alt="25.5s">
+            </div>
+          </div>
+          <div class="card-actions">
+            <a class="btn-act" href="t2_dir_b.html" target="_blank">🌐 交互式画布预览</a>
+            <a class="btn-act" href="videos/t2_dir_b.mp4" download>📥 下载 MP4</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- T2 DIR C -->
+      <div class="card dir-c">
+        <div class="card-head">
+          <div class="card-title">方向 C · Whiteboard & 教科书笔触流</div>
+          <span class="card-badge">RSA 白板手绘手账</span>
+        </div>
+        <div class="video-wrap">
+          <video id="vid-t2-c" controls preload="metadata" src="videos/t2_dir_c.mp4"></video>
+        </div>
+        <div class="card-body">
+          <div class="dna-box">
+            <div class="dna-title">🎨 视觉母题与运动机制</div>
+            <ul class="dna-list">
+              <li><strong>核心主动作</strong>：剑桥教材经典冠状解剖剖面手绘，左右心室水彩透明叠色与微墨迹抖动。</li>
+              <li><strong>母题 1 (腱索与乳头肌手绘标示)</strong>：心室收缩时腱索绷直，手绘引线与荧光笔高亮核心解剖构件。</li>
+              <li><strong>母题 2 (防倒流红叉与便签要点)</strong>：右侧便签纸四步采分考点随口播同步扫光高亮。</li>
+              <li><strong>母题 3 (考点金律印章)</strong>：右下角“100% EXAM FOCUS · ONE-WAY FLOW”手绘红色核准印章。</li>
+            </ul>
+          </div>
+          <div class="stills-gallery">
+            <div class="dna-title">📸 关键帧采样</div>
+            <div class="stills-grid">
+              <img src="stills/t2_dir_c_still_3.5s.png" onclick="showModal(this.src)" alt="3.5s">
+              <img src="stills/t2_dir_c_still_11.5s.png" onclick="showModal(this.src)" alt="11.5s">
+              <img src="stills/t2_dir_c_still_19.0s.png" onclick="showModal(this.src)" alt="19.0s">
+              <img src="stills/t2_dir_c_still_25.5s.png" onclick="showModal(this.src)" alt="25.5s">
+            </div>
+          </div>
+          <div class="card-actions">
+            <a class="btn-act" href="t2_dir_c.html" target="_blank">🌐 交互式画布预览</a>
+            <a class="btn-act" href="videos/t2_dir_c.mp4" download>📥 下载 MP4</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- T2 Transcript -->
+    <div class="transcript-box">
+      <div class="transcript-title">🎙️ 纯英口播逐句对齐字幕与剑桥大纲考点</div>
+      <div class="transcript-timeline">
+        <div class="cue-item">
+          <div class="cue-time">0.0s – 7.2s</div>
+          <div>
+            <div class="cue-en">"During ventricular diastole, blood flows from the atria into the ventricles through open atrioventricular valves."</div>
+            <div class="cue-cn">【考点对应】心室舒张充盈期：心房血液顺压差经开放的三尖瓣与二尖瓣（房室瓣）快速充盈心室。</div>
+          </div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-time">7.2s – 15.8s</div>
+          <div>
+            <div class="cue-en">"As the ventricles contract in systole, ventricular pressure surges, snapping the AV valves shut to completely prevent backflow into the atria."</div>
+            <div class="cue-cn">【考点对应】心室等容收缩期：心室内压急剧飙升，房室瓣瞬间啪嗒闭合（产生第一心音 Lub），腱索牢固拉紧，绝对封死倒流途径。</div>
+          </div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-time">15.8s – 22.8s</div>
+          <div>
+            <div class="cue-en">"This rising pressure forces the semilunar valves open, ejecting blood into the aorta and pulmonary artery."</div>
+            <div class="cue-cn">【考点对应】快速射血期：心室超高压强顶开主动脉瓣与肺动脉瓣（半月瓣），血液高速射入体循环与肺循环。</div>
+          </div>
+        </div>
+        <div class="cue-item">
+          <div class="cue-time">22.8s – 28.78s</div>
+          <div>
+            <div class="cue-en">"These one-way valves ensure smooth, unidirectional circulation throughout the body."</div>
+            <div class="cue-cn">【考点对应】单向循环闭环：半月瓣顺压差关闭（产生第二心音 Dub），瓣膜力学彻底杜绝回流，维持生命高效单向灌注。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Fullscreen Still Modal -->
+<div id="modal" class="modal" onclick="closeModal()">
+  <img id="modalImg" src="" alt="Enlarged Still">
+</div>
+
+<script>
+  function switchTopic(tid) {
+    document.querySelectorAll('.topic-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.topic-panel').forEach(p => p.classList.remove('active'));
+    if (tid === 't1') {
+      document.querySelectorAll('.topic-btn')[0].classList.add('active');
+      document.getElementById('panel-t1').classList.add('active');
+    } else {
+      document.querySelectorAll('.topic-btn')[1].classList.add('active');
+      document.getElementById('panel-t2').classList.add('active');
+    }
+  }
+
+  function syncPlayTopic(tid) {
+    const vids = [
+      document.getElementById(`vid-${tid}-a`),
+      document.getElementById(`vid-${tid}-b`),
+      document.getElementById(`vid-${tid}-c`)
+    ];
+    vids.forEach(v => {
+      v.currentTime = 0;
+      v.play();
+    });
+  }
+
+  function syncPauseTopic(tid) {
+    const vids = [
+      document.getElementById(`vid-${tid}-a`),
+      document.getElementById(`vid-${tid}-b`),
+      document.getElementById(`vid-${tid}-c`)
+    ];
+    vids.forEach(v => v.pause());
+  }
+
+  function showModal(src) {
+    document.getElementById('modalImg').src = src;
+    document.getElementById('modal').classList.add('active');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('active');
+  }
+</script>
+
+</body>
+</html>

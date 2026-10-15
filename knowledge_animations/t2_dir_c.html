@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Topic 2 · Direction C: Whiteboard & Notebook (Cardiac Cycle & Valve Dynamics)</title>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: #eae5d8; overflow: hidden; font-family: 'Kalam-700', 'Caveat-600', 'GochiHand-400', 'LXGWWenKai-500', cursive, sans-serif; }
+    #wrapper { position: relative; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+    canvas { display: block; max-width: 100%; max-height: 100%; aspect-ratio: 16/9; box-shadow: 0 16px 50px rgba(0,0,0,0.25); }
+    #ui {
+      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.96); border: 2px solid #2c3e50;
+      padding: 10px 24px; border-radius: 40px; display: flex; align-items: center; gap: 16px;
+      color: #2c3e50; box-shadow: 0 8px 32px rgba(0,0,0,0.15); z-index: 100; backdrop-filter: blur(10px);
+    }
+    body.render #ui { display: none; }
+    button {
+      background: #e74c3c; border: 2px solid #c0392b; color: #ffffff; font-weight: 700; padding: 6px 18px;
+      border-radius: 20px; cursor: pointer; transition: all 0.2s; font-family: sans-serif;
+    }
+    button:hover { background: #c0392b; transform: scale(1.05); }
+    input[type=range] { width: 520px; accent-color: #e74c3c; cursor: pointer; }
+    #timer { font-family: monospace; font-size: 14px; min-width: 90px; text-align: center; color: #2c3e50; font-weight: bold; }
+    .badge {
+      background: #fdedec; border: 1px solid #e74c3c; color: #c0392b;
+      font-size: 12px; padding: 2px 10px; border-radius: 12px; text-transform: uppercase; font-family: sans-serif; font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div id="wrapper">
+  <canvas id="c" width="1920" height="1080"></canvas>
+</div>
+
+<div id="ui">
+  <span class="badge">Cambridge Notebook</span>
+  <button id="playBtn">Play / Pause</button>
+  <input id="scrub" type="range" min="0" max="28.78" step="0.0166" value="0">
+  <span id="timer">00:00.00</span>
+</div>
+
+<audio id="audio" src="audio/t2_cardiac_ryan.wav" preload="auto"></audio>
+
+<script src="lib/fonts.js"></script>
+<script src="lib/util.js"></script>
+<script src="lib/motion.js"></script>
+<script src="lib/camera.js"></script>
+<script src="lib/diagram.js"></script>
+<script src="lib/typo.js"></script>
+<script src="lib/chart.js"></script>
+<script src="lib/paint.js"></script>
+<script src="lib/kit.js"></script>
+
+<script>
+(() => {
+  const W = 1920, H = 1080;
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  window.__canvas = canvas;
+  window.__total = 28.78;
+
+  const audio = document.getElementById('audio');
+  const scrub = document.getElementById('scrub');
+  const timer = document.getElementById('timer');
+  const playBtn = document.getElementById('playBtn');
+
+  // Subtitles / Cues aligned with Ryan's audio
+  const CUES = [
+    {
+      t0: 0.0, t1: 7.2,
+      text: "During ventricular diastole, blood flows from the atria into the ventricles through open atrioventricular valves.",
+      phase: "STAGE 1: VENTRICULAR FILLING (DIASTOLE)",
+      sub: "Atria ➔ Ventricles · AV Valves (Tricuspid & Bicuspid) Hinge Open ⬇"
+    },
+    {
+      t0: 7.2, t1: 15.8,
+      text: "As the ventricles contract in systole, ventricular pressure surges, snapping the AV valves shut to completely prevent backflow into the atria.",
+      phase: "STAGE 2: AV VALVES SNAP SHUT ('LUB')",
+      sub: "Ventricles Contract ➔ AV Valves SNAP SHUT ✦ 'Lub' Sound · Zero Atrial Regurgitation"
+    },
+    {
+      t0: 15.8, t1: 22.8,
+      text: "This rising pressure forces the semilunar valves open, ejecting blood into the aorta and pulmonary artery.",
+      phase: "STAGE 3: SEMILUNAR EJECTION (SYSTOLE)",
+      sub: "High Pressure (P_v > 80 mmHg) Forces Semilunar Valves OPEN ➔ Aorta & Pulmonary Artery"
+    },
+    {
+      t0: 22.8, t1: 28.78,
+      text: "These one-way valves ensure smooth, unidirectional circulation throughout the body.",
+      phase: "STAGE 4: UNIDIRECTIONAL LAW ('DUB')",
+      sub: "Semilunar Valves Snap Shut ('Dub') ✦ 100% Unidirectional Forward Flow Guarantee"
+    }
+  ];
+
+  async function initFonts() {
+    if (window.FONT_FACES) {
+      for (const f of window.FONT_FACES) {
+        try {
+          const ff = new FontFace(f.family, `url(${f.url})`, f.desc || {});
+          await ff.load();
+          document.fonts.add(ff);
+        } catch (e) {}
+      }
+    }
+    await document.fonts.ready;
+    window.__ready = true;
+    renderFrame(0);
+  }
+
+  function drawHandLine(c, x0, y0, x1, y1, color = '#1e293b', lw = 3.5) {
+    c.save();
+    c.strokeStyle = color;
+    c.lineWidth = lw;
+    c.lineCap = 'round';
+    c.beginPath();
+    const midX = (x0 + x1) / 2 + Math.sin((x0 + y0) * 0.05) * 2;
+    const midY = (y0 + y1) / 2 + Math.cos((x1 + y1) * 0.05) * 2;
+    c.moveTo(x0, y0);
+    c.quadraticCurveTo(midX, midY, x1, y1);
+    c.stroke();
+    c.restore();
+  }
+
+  function drawHandArrow(c, x0, y0, x1, y1, color = '#0284c7', lw = 4) {
+    const dx = x1 - x0, dy = y1 - y0;
+    const len = Math.hypot(dx, dy);
+    if (len < 4) return;
+    const ux = dx / len, uy = dy / len;
+    c.save();
+    c.strokeStyle = color;
+    c.fillStyle = color;
+    c.lineWidth = lw;
+    c.lineCap = 'round';
+    c.lineJoin = 'round';
+    c.beginPath();
+    c.moveTo(x0, y0);
+    c.lineTo(x1, y1);
+    c.stroke();
+    const nx = -uy, ny = ux;
+    c.beginPath();
+    c.moveTo(x1, y1);
+    c.lineTo(x1 - ux * 18 + nx * 10, y1 - uy * 18 + ny * 10);
+    c.moveTo(x1, y1);
+    c.lineTo(x1 - ux * 16 - nx * 8, y1 - uy * 16 - ny * 8);
+    c.stroke();
+    c.restore();
+  }
+
+  function renderFrame(t) {
+    ctx.clearRect(0, 0, W, H);
+
+    // 1. Photorealistic Spiral Notebook Paper
+    ctx.fillStyle = '#dcd5c4';
+    ctx.fillRect(0, 0, W, H);
+
+    const pageX = 60, pageY = 40, pageW = 1800, pageH = 1000;
+    ctx.save();
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.22)';
+    ctx.shadowBlur = 35;
+    ctx.shadowOffsetX = 8;
+    ctx.shadowOffsetY = 12;
+    ctx.fillStyle = '#faf8f2';
+    ctx.fillRect(pageX, pageY, pageW, pageH);
+    ctx.restore();
+
+    // Ruled lines
+    ctx.save();
+    ctx.strokeStyle = 'rgba(186, 215, 233, 0.45)';
+    ctx.lineWidth = 1.2;
+    for (let y = pageY + 80; y < pageY + pageH - 40; y += 38) {
+      ctx.beginPath();
+      ctx.moveTo(pageX + 110, y);
+      ctx.lineTo(pageX + pageW - 40, y);
+      ctx.stroke();
+    }
+
+    // Red left margin line
+    ctx.strokeStyle = 'rgba(239, 68, 68, 0.55)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(pageX + 180, pageY);
+    ctx.lineTo(pageX + 180, pageY + pageH);
+    ctx.stroke();
+
+    // Metallic Spiral Ring Bindings along left edge
+    for (let y = pageY + 45; y < pageY + pageH - 30; y += 50) {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
+      ctx.beginPath();
+      ctx.ellipse(pageX + 40, y + 5, 26, 8, 0, 0, Math.PI * 2);
+      ctx.fill();
+
+      const ringGrad = ctx.createLinearGradient(pageX + 10, y, pageX + 70, y);
+      ringGrad.addColorStop(0, '#71717a');
+      ringGrad.addColorStop(0.5, '#f4f4f5');
+      ringGrad.addColorStop(1, '#52525b');
+      ctx.strokeStyle = ringGrad;
+      ctx.lineWidth = 8;
+      ctx.beginPath();
+      ctx.ellipse(pageX + 40, y, 28, 9, 0, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.fillStyle = '#27272a';
+      ctx.beginPath();
+      ctx.arc(pageX + 40, y, 5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // Phasing parameters
+    const isPhase1 = t < 7.2;
+    const isPhase2 = t >= 7.2 && t < 15.8;
+    const isPhase3 = t >= 15.8 && t < 22.8;
+    const isPhase4 = t >= 22.8;
+
+    let contractP = 0;
+    if (isPhase1) {
+      contractP = 0.04 * Math.sin(t * 3.5);
+    } else if (isPhase2) {
+      contractP = MO.smooth(MO.at(t, 7.2, 2.5));
+    } else if (isPhase3) {
+      contractP = 0.95 - 0.08 * MO.smooth(MO.at(t, 15.8, 5.0));
+    } else {
+      const cycleT = (t - 22.8) % 1.2;
+      contractP = cycleT < 0.45 ? MO.smooth(cycleT / 0.45) : 1.0 - MO.smooth((cycleT - 0.45) / 0.75);
+    }
+
+    let avOpen = 0;
+    if (isPhase1) {
+      avOpen = 1.0;
+    } else if (isPhase2) {
+      avOpen = 1.0 - MO.backOut(MO.at(t, 7.2, 0.8), 2.2);
+    } else if (isPhase3) {
+      avOpen = 0.0;
+    } else {
+      const cycleT = (t - 22.8) % 1.2;
+      avOpen = cycleT > 0.6 ? 1.0 : 0.0;
+    }
+    avOpen = U.clamp(avOpen, 0, 1);
+
+    let slOpen = 0;
+    if (isPhase1 || isPhase2) {
+      slOpen = 0.0;
+    } else if (isPhase3) {
+      slOpen = MO.smooth(MO.at(t, 15.8, 1.0));
+    } else {
+      const cycleT = (t - 22.8) % 1.2;
+      slOpen = cycleT <= 0.6 ? 1.0 : 0.0;
+    }
+    slOpen = U.clamp(slOpen, 0, 1);
+
+    // 2. Notebook Page Header
+    ctx.save();
+    ctx.fillStyle = '#1e293b';
+    ctx.font = 'bold 36px "Kalam-700", cursive, sans-serif';
+    ctx.fillText("Topic 2: The Cardiac Cycle & Heart Valves", pageX + 220, pageY + 65);
+
+    ctx.fillStyle = '#64748b';
+    ctx.font = '22px "Caveat-600", cursive, sans-serif';
+    ctx.fillText("Cambridge Checkpoint & IGCSE Biology · Chapter B7.03 Valve Mechanics", pageX + 220, pageY + 98);
+
+    // Weathered Red Rubber Stamp
+    ctx.save();
+    ctx.translate(pageX + pageW - 240, pageY + 70);
+    ctx.rotate(-0.1);
+    ctx.strokeStyle = 'rgba(220, 38, 38, 0.75)';
+    ctx.lineWidth = 3.5;
+    ctx.beginPath();
+    ctx.roundRect(-140, -32, 280, 64, 10);
+    ctx.stroke();
+
+    ctx.fillStyle = 'rgba(220, 38, 38, 0.8)';
+    ctx.font = 'bold 16px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText("CAMBRIDGE G8 CHECKPOINT", 0, -6);
+    ctx.font = 'bold 14px sans-serif';
+    ctx.fillText("★ 100% EXAM VERIFIED ★", 0, 16);
+    ctx.restore();
+
+    ctx.restore();
+
+    // 3. Hand-Drawn Heart Anatomical Cross-Section (Left Stage: cx = 640)
+    const cx = 640, cy = 510;
+    const vSqueeze = contractP * 25;
+
+    // Watercolor Heart Washes (Dual Circuit: Blue Deox right, Red Oxy left)
+    ctx.save();
+    ctx.globalCompositeOperation = 'multiply';
+    // Right Heart (Deox Cyan Wash)
+    ctx.fillStyle = 'rgba(186, 230, 253, 0.75)';
+    ctx.beginPath();
+    ctx.ellipse(cx - 100, cy + 20, 95 - vSqueeze * 0.4, 140, -0.1, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Left Heart (Oxy Crimson Wash)
+    ctx.fillStyle = 'rgba(254, 205, 211, 0.85)';
+    ctx.beginPath();
+    ctx.ellipse(cx + 90, cy + 20, 105 - vSqueeze * 0.4, 155, 0.15, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    // Hand-drawn Outer Myocardial Wall Silhouette
+    ctx.save();
+    ctx.strokeStyle = '#0f172a';
+    ctx.lineWidth = 4.5;
+    ctx.beginPath();
+    ctx.moveTo(cx - 200, cy - 80);
+    ctx.bezierCurveTo(cx - 260, cy, cx - 250 + vSqueeze * 0.4, cy + 180, cx - 180 + vSqueeze * 0.4, cy + 250);
+    ctx.bezierCurveTo(cx - 80, cy + 340 - contractP * 25, cx + 40, cy + 360 - contractP * 25, cx + 70, cy + 350 - contractP * 25);
+    ctx.bezierCurveTo(cx + 200 - vSqueeze * 0.5, cy + 290, cx + 270 - vSqueeze * 0.4, cy + 160, cx + 250, cy + 30);
+    ctx.bezierCurveTo(cx + 240, cy - 60, cx + 180, cy - 130, cx + 80, cy - 120);
+    ctx.bezierCurveTo(cx, cy - 130, cx - 130, cy - 120, cx - 200, cy - 80);
+    ctx.closePath();
+    ctx.stroke();
+
+    // Central Septum Divider
+    drawHandLine(ctx, cx - 15, cy - 20, cx - 15, cy + 300 - contractP * 20, '#0f172a', 4);
+    drawHandLine(ctx, cx + 15, cy - 20, cx + 15, cy + 300 - contractP * 20, '#0f172a', 4);
+    ctx.restore();
+
+    // Great Vessels (Aorta & Pulmonary Trunk)
+    ctx.save();
+    // Pulmonary Trunk (Left of viewer)
+    drawHandLine(ctx, cx - 55, cy - 20, cx - 130, cy - 220, '#0284c7', 6);
+    // Aorta Arch (Right of viewer, arches over)
+    drawHandLine(ctx, cx + 55, cy - 20, cx + 110, cy - 230, '#dc2626', 7);
+    ctx.restore();
+
+    // Hand-Drawn AV Valves (Tricuspid & Bicuspid)
+    const avAngle_c = avOpen * 0.85;
+    const rAvX = cx - 100, lAvX = cx + 100;
+    const vY = cy + 10;
+
+    ctx.save();
+    ctx.strokeStyle = '#ca8a04'; // Warm ochre ink
+    ctx.lineWidth = 5;
+    ctx.lineCap = 'round';
+
+    // Right AV (Tricuspid)
+    ctx.beginPath();
+    ctx.moveTo(rAvX - 45, vY); ctx.lineTo(rAvX - 45 + Math.cos(avAngle_c) * 44, vY + Math.sin(avAngle_c) * 44);
+    ctx.moveTo(rAvX + 45, vY); ctx.lineTo(rAvX + 45 - Math.cos(avAngle_c) * 44, vY + Math.sin(avAngle_c) * 44);
+    ctx.stroke();
+
+    // Left AV (Bicuspid / Mitral)
+    ctx.beginPath();
+    ctx.moveTo(lAvX - 45, vY); ctx.lineTo(lAvX - 45 + Math.cos(avAngle_c) * 44, vY + Math.sin(avAngle_c) * 44);
+    ctx.moveTo(lAvX + 45, vY); ctx.lineTo(lAvX + 45 - Math.cos(avAngle_c) * 44, vY + Math.sin(avAngle_c) * 44);
+    ctx.stroke();
+
+    // Chordae Tendineae (Heart strings)
+    ctx.strokeStyle = '#a16207';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    ctx.moveTo(rAvX - 45 + Math.cos(avAngle_c) * 44, vY + Math.sin(avAngle_c) * 44); ctx.lineTo(rAvX - 20, cy + 160);
+    ctx.moveTo(rAvX + 45 - Math.cos(avAngle_c) * 44, vY + Math.sin(avAngle_c) * 44); ctx.lineTo(rAvX + 20, cy + 160);
+    ctx.moveTo(lAvX - 45 + Math.cos(avAngle_c) * 44, vY + Math.sin(avAngle_c) * 44); ctx.lineTo(lAvX - 20, cy + 160);
+    ctx.moveTo(lAvX + 45 - Math.cos(avAngle_c) * 44, vY + Math.sin(avAngle_c) * 44); ctx.lineTo(lAvX + 20, cy + 160);
+    ctx.stroke();
+    ctx.restore();
+
+    // Semilunar Valves (Pulmonary & Aortic)
+    ctx.save();
+    ctx.strokeStyle = slOpen > 0.5 ? '#16a34a' : '#dc2626';
+    ctx.lineWidth = 5;
+    ctx.lineCap = 'round';
+    // Left semilunar (Aortic)
+    const slY = cy - 30;
+    ctx.beginPath();
+    ctx.moveTo(cx + 40, slY); ctx.lineTo(cx + 40 + (slOpen > 0.5 ? 12 : 28), slY - (slOpen > 0.5 ? 26 : 5));
+    ctx.moveTo(cx + 70, slY); ctx.lineTo(cx + 70 - (slOpen > 0.5 ? 12 : 28), slY - (slOpen > 0.5 ? 26 : 5));
+    ctx.stroke();
+    ctx.restore();
+
+    // Bloodflow ink arrows
+    if (avOpen > 0.4) {
+      drawHandArrow(ctx, rAvX, cy - 60, rAvX, cy + 70, '#0284c7', 4.5);
+      drawHandArrow(ctx, lAvX, cy - 60, lAvX, cy + 70, '#dc2626', 4.5);
+    }
+    if (slOpen > 0.4) {
+      drawHandArrow(ctx, cx - 60, cy + 10, cx - 110, cy - 170, '#0284c7', 5);
+      drawHandArrow(ctx, cx + 60, cy + 10, cx + 110, cy - 180, '#dc2626', 5);
+    }
+
+    // Hand-drawn Anatomical Labels with Leader Lines
+    ctx.save();
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 22px "Kalam-700", cursive, sans-serif';
+
+    // Label 1: Aorta
+    drawHandLine(ctx, cx + 100, cy - 200, cx + 220, cy - 180, '#dc2626', 2);
+    ctx.fillStyle = '#dc2626';
+    ctx.fillText("Aorta (To body tissues)", cx + 230, cy - 175);
+
+    // Label 2: AV Valves
+    drawHandLine(ctx, lAvX + 45, vY, cx + 240, vY + 20, '#ca8a04', 2);
+    ctx.fillStyle = '#854d0e';
+    ctx.fillText(avOpen > 0.5 ? "AV Valves OPEN (Diastole)" : "AV Valves SNAP SHUT ('Lub' / S1)", cx + 250, vY + 25);
+
+    // Label 3: Thick Left Ventricle Wall
+    drawHandLine(ctx, cx + 180, cy + 240, cx + 270, cy + 270, '#475569', 2);
+    ctx.fillStyle = '#0f172a';
+    ctx.fillText("Thick Left Ventricular Wall", cx + 280, cy + 275);
+    ctx.font = '18px "Caveat-600", cursive, sans-serif';
+    ctx.fillText("(Pumps high-pressure blood to body)", cx + 280, cy + 300);
+    ctx.restore();
+
+    // 4. Right Side: Cambridge Exam Marking Criteria Sticky Note
+    const noteX = 1200, noteY = 200, noteW = 580, noteH = 650;
+    ctx.save();
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.18)';
+    ctx.shadowBlur = 24;
+    ctx.shadowOffsetX = 8;
+    ctx.shadowOffsetY = 12;
+    ctx.fillStyle = '#fef08a'; // Canary yellow sticky note
+    ctx.fillRect(noteX, noteY, noteW, noteH);
+    ctx.restore();
+
+    // Washi Tape at Top Center
+    ctx.save();
+    ctx.fillStyle = 'rgba(239, 68, 68, 0.65)';
+    ctx.fillRect(noteX + noteW / 2 - 70, noteY - 14, 140, 28);
+    ctx.restore();
+
+    // Post-It Header
+    ctx.save();
+    ctx.fillStyle = '#854d0e';
+    ctx.font = 'bold 28px "Kalam-700", cursive, sans-serif';
+    ctx.fillText("📌 Cardiac Cycle Marking Points", noteX + 35, noteY + 55);
+
+    ctx.fillStyle = '#713f12';
+    ctx.font = '19px "Caveat-600", cursive, sans-serif';
+    ctx.fillText("Cambridge IGCSE Model Scoring Keywords & Causality Chain:", noteX + 35, noteY + 85);
+
+    // 4 Key Scoring Criteria Blocks
+    const criteria = [
+      {
+        num: "1",
+        title: "Ventricular Diastole:",
+        desc: "Heart muscle relaxes, atria contract.\nBlood flows past OPEN atrioventricular valves into ventricles.",
+        tActive: isPhase1
+      },
+      {
+        num: "2",
+        title: "Ventricular Systole & First Sound:",
+        desc: "Ventricles contract, pressure surges.\nAV valves SNAP SHUT ('Lub' sound), stopping atrial regurgitation.",
+        tActive: isPhase2
+      },
+      {
+        num: "3",
+        title: "Arterial Ejection:",
+        desc: "High ventricular pressure forces semilunar valves open.\nBlood is forcefully ejected into aorta and pulmonary artery.",
+        tActive: isPhase3
+      },
+      {
+        num: "4",
+        title: "Second Sound & Unidirectional Law:",
+        desc: "Semilunar valves snap shut ('Dub' sound).\nValves prevent backflow, ensuring 100% forward flow.",
+        tActive: isPhase4
+      }
+    ];
+
+    criteria.forEach((cr, idx) => {
+      const cy = noteY + 130 + idx * 125;
+
+      // Fluorescent Highlighter Sweep for active criterion!
+      if (cr.tActive) {
+        ctx.save();
+        ctx.globalCompositeOperation = 'multiply';
+        ctx.fillStyle = idx === 1 ? 'rgba(254, 215, 170, 0.85)' : 'rgba(254, 240, 138, 0.9)';
+        ctx.beginPath();
+        ctx.roundRect(noteX + 25, cy - 18, noteW - 50, 110, 8);
+        ctx.fill();
+        ctx.restore();
+      }
+
+      ctx.fillStyle = cr.tActive ? '#b45309' : '#a1a1aa';
+      ctx.font = 'bold 24px "Kalam-700", cursive, sans-serif';
+      ctx.fillText(`[${cr.num}]`, noteX + 35, cy + 10);
+
+      ctx.fillStyle = cr.tActive ? '#1e293b' : '#52525b';
+      ctx.font = 'bold 22px "Kalam-700", cursive, sans-serif';
+      ctx.fillText(cr.title, noteX + 75, cy + 10);
+
+      ctx.fillStyle = cr.tActive ? '#0f172a' : '#71717a';
+      ctx.font = '19px "Caveat-600", cursive, sans-serif';
+      const lines = cr.desc.split('\n');
+      lines.forEach((l, li) => {
+        ctx.fillText(l, noteX + 75, cy + 38 + li * 24);
+      });
+    });
+    ctx.restore();
+
+    // 5. Bottom Subtitle & Narration Banner
+    const activeCue = CUES.find(c => t >= c.t0 && t < c.t1) || CUES[CUES.length - 1];
+
+    ctx.save();
+    const subW = 1440;
+    const subH = 115;
+    const subX = (W - subW) / 2;
+    const subY = 910;
+
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.15)';
+    ctx.shadowBlur = 20;
+    ctx.fillStyle = '#ffffff';
+    ctx.strokeStyle = '#cbd5e1';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(subX, subY, subW, subH, 16);
+    ctx.fill();
+    ctx.stroke();
+
+    ctx.fillStyle = '#dc2626';
+    ctx.font = 'bold 16px "Kalam-700", cursive, sans-serif';
+    ctx.fillText(`●  ${activeCue.phase}`, subX + 36, subY + 34);
+
+    ctx.fillStyle = '#64748b';
+    ctx.font = '16px "Caveat-600", cursive, sans-serif';
+    ctx.fillText(`|   ${activeCue.sub}`, subX + 410, subY + 34);
+
+    ctx.fillStyle = '#0f172a';
+    ctx.font = 'bold 22px "Kalam-700", cursive, sans-serif';
+    ctx.fillText(activeCue.text, subX + 36, subY + 76);
+
+    const cueDur = activeCue.t1 - activeCue.t0;
+    const cueProgress = U.clamp((t - activeCue.t0) / cueDur, 0, 1);
+    ctx.fillStyle = '#dc2626';
+    ctx.fillRect(subX, subY + subH - 4, subW * cueProgress, 4);
+
+    ctx.restore();
+  }
+
+  function updateUI(t) {
+    scrub.value = t;
+    const m = Math.floor(t / 60);
+    const s = Math.floor(t % 60);
+    const ms = Math.floor((t % 1) * 100);
+    timer.textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}.${String(ms).padStart(2, '0')}`;
+  }
+
+  let isPlaying = false;
+  let animId = null;
+
+  function loop() {
+    if (!isPlaying) return;
+    const cur = audio.currentTime;
+    renderFrame(cur);
+    updateUI(cur);
+    if (cur >= window.__total) {
+      pause();
+      return;
+    }
+    animId = requestAnimationFrame(loop);
+  }
+
+  function play() {
+    isPlaying = true;
+    audio.play();
+    animId = requestAnimationFrame(loop);
+  }
+
+  function pause() {
+    isPlaying = false;
+    audio.pause();
+    if (animId) cancelAnimationFrame(animId);
+  }
+
+  playBtn.onclick = () => {
+    if (isPlaying) pause();
+    else play();
+  };
+
+  scrub.oninput = (e) => {
+    const t = parseFloat(e.target.value);
+    audio.currentTime = t;
+    renderFrame(t);
+    updateUI(t);
+  };
+
+  window.renderFrame = (t) => {
+    renderFrame(t);
+    updateUI(t);
+  };
+
+  initFonts();
+})();
+</script>
+</body>
+</html>
