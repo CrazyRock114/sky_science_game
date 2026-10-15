@@ -1,0 +1,1738 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>G8 Science Exam Rush (10.19) — 考前互动突击大练兵</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <style>
+    :root {
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --primary-light: #eff6ff;
+      --accent: #f59e0b;
+      --success: #10b981;
+      --success-light: #ecfdf5;
+      --danger: #ef4444;
+      --danger-light: #fef2f2;
+      --bg: #0b1120;
+      --card-bg: rgba(30, 41, 59, 0.85);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 50%, #020617 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Confetti Canvas */
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* Header & Navigation Bar */
+    .top-nav {
+      width: 100%;
+      max-width: 860px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-brand span.badge-rush {
+      background: linear-gradient(135deg, #ef4444, #f59e0b);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 0.2rem 0.55rem;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-nav {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-nav:hover {
+      background: rgba(255, 255, 255, 0.16);
+      transform: translateY(-1px);
+    }
+    .btn-nav.active {
+      background: var(--primary);
+      border-color: var(--primary-hover);
+    }
+
+    /* Main Container */
+    .main-container {
+      width: 100%;
+      max-width: 860px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    /* Level Selector & Indicator */
+    .level-pills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.65rem;
+    }
+
+    .level-pill {
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 0.65rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .level-pill:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      background: rgba(30, 41, 59, 0.9);
+    }
+    .level-pill.active {
+      border-color: #60a5fa;
+      background: linear-gradient(135deg, rgba(37, 99, 235, 0.25), rgba(30, 58, 138, 0.35));
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+    }
+    .level-pill .level-num {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #60a5fa;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .level-pill .level-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .level-pill .level-prog {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* Rush Arena Card */
+    .rush-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      border-radius: 20px;
+      padding: 1.75rem;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+
+    /* Arena Top HUD */
+    .arena-hud {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .hud-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .badge-topic {
+      background: rgba(99, 102, 241, 0.2);
+      border: 1px solid rgba(129, 140, 248, 0.4);
+      color: #a5b4fc;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .q-counter {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .q-counter strong {
+      color: #fff;
+      font-size: 1.05rem;
+    }
+
+    .hud-stats {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Streak & Combo Badge */
+    .streak-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #f59e0b;
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      transition: all 0.2s;
+    }
+    .streak-badge.fire {
+      animation: pulse-glow 0.8s infinite alternate;
+    }
+    @keyframes pulse-glow {
+      from { box-shadow: 0 0 5px rgba(245, 158, 11, 0.3); transform: scale(1); }
+      to { box-shadow: 0 0 15px rgba(239, 68, 68, 0.6); transform: scale(1.05); }
+    }
+
+    /* Score Indicator */
+    .score-badge {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #34d399;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    /* Countdown Bar & Timer */
+    .timer-container {
+      margin-bottom: 1.25rem;
+    }
+    .timer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+    .timer-seconds {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      color: #fff;
+      font-weight: 800;
+    }
+    .timer-seconds.urgent {
+      color: #ef4444;
+      animation: urgent-blink 0.5s infinite alternate;
+    }
+    @keyframes urgent-blink {
+      from { transform: scale(1); }
+      to { transform: scale(1.15); }
+    }
+
+    .timer-track {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 999px;
+      overflow: hidden;
+      position: relative;
+    }
+    .timer-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, #10b981 0%, #3b82f6 50%, #8b5cf6 100%);
+      border-radius: 999px;
+      transition: width 0.1s linear, background 0.3s;
+    }
+    .timer-fill.urgent {
+      background: linear-gradient(90deg, #f59e0b 0%, #ef4444 100%);
+    }
+
+    /* Question Prompt Box */
+    .q-prompt-box {
+      margin-bottom: 1.5rem;
+    }
+    .q-prompt-en {
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.6;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+    .q-prompt-cn {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #94a3b8;
+    }
+
+    /* Option Grid */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    @media (min-width: 640px) {
+      .options-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .option-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 0.95rem 1.1rem;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      color: var(--text-main);
+      user-select: none;
+      touch-action: manipulation;
+    }
+    .option-btn:hover:not(.disabled) {
+      border-color: #60a5fa;
+      background: rgba(59, 130, 246, 0.12);
+      transform: translateY(-2px);
+    }
+    .option-btn:active:not(.disabled) {
+      transform: scale(0.98);
+    }
+
+    .option-letter {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 0.95rem;
+      background: rgba(255, 255, 255, 0.1);
+      color: #93c5fd;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+
+    .option-content {
+      flex: 1;
+    }
+    .option-text-en {
+      font-size: 0.92rem;
+      font-weight: 600;
+      line-height: 1.45;
+      color: #f1f5f9;
+      margin-bottom: 0.2rem;
+    }
+    .option-text-cn {
+      font-size: 0.8rem;
+      line-height: 1.4;
+      color: #94a3b8;
+    }
+
+    /* Option States */
+    .option-btn.correct {
+      border-color: #10b981 !important;
+      background: rgba(16, 185, 129, 0.2) !important;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.35);
+    }
+    .option-btn.correct .option-letter {
+      background: #10b981;
+      color: #fff;
+    }
+
+    .option-btn.wrong {
+      border-color: #ef4444 !important;
+      background: rgba(239, 68, 68, 0.2) !important;
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.35);
+      animation: shake 0.4s ease-in-out;
+    }
+    .option-btn.wrong .option-letter {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    .option-btn.disabled {
+      cursor: default;
+      opacity: 0.75;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    /* Feedback & Post-Mortem Box */
+    .feedback-box {
+      display: none;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 1.25rem;
+      margin-top: 1rem;
+      animation: fadeIn 0.25s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .feedback-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .feedback-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .feedback-title.correct { color: #34d399; }
+    .feedback-title.wrong { color: #f87171; }
+
+    .feedback-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .feedback-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      line-height: 1.55;
+    }
+
+    .feedback-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .feedback-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .label-concept { color: #60a5fa; }
+    .label-trap { color: #fbbf24; }
+    .label-cite { color: #a78bfa; }
+
+    .btn-next-q {
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff;
+      border: none;
+      padding: 0.65rem 1.4rem;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+      transition: all 0.2s;
+    }
+    .btn-next-q:hover {
+      background: linear-gradient(135deg, #3b82f6, #2563eb);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.5);
+    }
+
+    /* Auto-advance Toggle Pill */
+    .auto-toggle {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+    }
+    .auto-toggle input {
+      cursor: pointer;
+    }
+
+    /* Completion View (Pass Certificate & Badges) */
+    .completion-view {
+      display: none;
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    .certificate-card {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+      border: 2px solid #f59e0b;
+      border-radius: 20px;
+      padding: 2.25rem 1.75rem;
+      max-width: 600px;
+      margin: 0 auto 1.75rem auto;
+      box-shadow: 0 0 35px rgba(245, 158, 11, 0.25);
+      position: relative;
+    }
+
+    .cert-icon {
+      font-size: 3.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .cert-heading {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.35rem;
+      letter-spacing: -0.02em;
+    }
+
+    .cert-subtitle {
+      font-size: 0.95rem;
+      color: #fbbf24;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+
+    .cert-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 1.25rem;
+      border-radius: 14px;
+      margin-bottom: 1.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .cert-stat-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+    .cert-stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .cert-stat-value {
+      font-family: var(--font-mono);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .cert-grade-badge {
+      display: inline-block;
+      padding: 0.4rem 1.1rem;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+    }
+    .grade-a-star { background: #10b981; color: #fff; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4); }
+    .grade-a { background: #3b82f6; color: #fff; box-shadow: 0 0 15px rgba(59, 130, 246, 0.4); }
+    .grade-pass { background: #f59e0b; color: #0f172a; box-shadow: 0 0 15px rgba(245, 158, 11, 0.4); }
+    .grade-retry { background: #ef4444; color: #fff; box-shadow: 0 0 15px rgba(239, 68, 68, 0.4); }
+
+    .cert-actions {
+      display: flex;
+      justify-content: center;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-cert {
+      padding: 0.75rem 1.6rem;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 0.92rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.2s;
+      border: none;
+    }
+    .btn-cert-copy {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35);
+    }
+    .btn-cert-copy:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+    }
+    .btn-cert-retry {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid var(--card-border);
+    }
+    .btn-cert-retry:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Sound Unlock Toast on iOS */
+    .sound-toast {
+      position: fixed;
+      bottom: 1.5rem;
+      background: #1e293b;
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 0.65rem 1.25rem;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Top Navigation -->
+  <header class="top-nav">
+    <div class="nav-brand">
+      <span>🎯 G8 考前冲刺突击大练兵</span>
+      <span class="badge-rush">10.19 考试专用</span>
+    </div>
+    <div class="nav-actions">
+      <button class="btn-nav" id="btn-sound-toggle" onclick="toggleSound()">🔊 声音</button>
+      <button class="btn-nav" id="btn-lang-toggle" onclick="toggleLanguage()">🇨🇳/🇬🇧 双语</button>
+      <a href="exercise_lab.html" class="btn-nav">🧬 题库总览</a>
+      <a href="index.html" class="btn-nav">🏠 返回主站</a>
+    </div>
+  </header>
+
+  <main class="main-container">
+    <!-- Level Selector Bar -->
+    <div class="level-pills">
+      <div class="level-pill active" id="pill-l1" onclick="switchLevel(1)">
+        <div class="level-num">Level 1 · 扩散与渗透</div>
+        <div class="level-title" id="pill-title-1">Movement in Cells</div>
+        <div class="level-prog" id="pill-prog-1">Q1 – Q6 · 6 题</div>
+      </div>
+      <div class="level-pill" id="pill-l2" onclick="switchLevel(2)">
+        <div class="level-num">Level 2 · 排泄与肾脏</div>
+        <div class="level-title" id="pill-title-2">Excretion & Kidney</div>
+        <div class="level-prog" id="pill-prog-2">Q7 – Q12 · 6 题</div>
+      </div>
+      <div class="level-pill" id="pill-l3" onclick="switchLevel(3)">
+        <div class="level-num">Level 3 · 血糖稳态</div>
+        <div class="level-title" id="pill-title-3">Glucose Homeostasis</div>
+        <div class="level-prog" id="pill-prog-3">Q13 – Q18 · 6 题</div>
+      </div>
+    </div>
+
+    <!-- Active Rush Arena Card -->
+    <div class="rush-card" id="rush-arena-box">
+      <!-- Arena HUD -->
+      <div class="arena-hud">
+        <div class="hud-meta">
+          <span class="badge-topic" id="rush-topic-tag">Topic</span>
+          <span class="q-counter">题号: <strong id="rush-current-idx">1</strong> / 18</span>
+        </div>
+        <div class="hud-stats">
+          <div class="streak-badge" id="rush-streak-badge">
+            <span id="streak-icon">⚡</span> <span id="streak-text">Streak x0</span>
+          </div>
+          <div class="score-badge">
+            🏆 <span id="rush-score">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 20s Countdown Timer Bar -->
+      <div class="timer-container">
+        <div class="timer-header">
+          <span id="lbl-timer-title">⏱️ 突击作答倒计时 (20s)</span>
+          <span class="timer-seconds" id="rush-timer-seconds">20s</span>
+        </div>
+        <div class="timer-track">
+          <div class="timer-fill" id="rush-timer-fill"></div>
+        </div>
+      </div>
+
+      <!-- Question Prompt Box -->
+      <div class="q-prompt-box">
+        <div class="q-prompt-en" id="rush-prompt-en">Loading question...</div>
+        <div class="q-prompt-cn" id="rush-prompt-cn">正在加载题目...</div>
+      </div>
+
+      <!-- 4 Option Buttons Grid -->
+      <div class="options-grid" id="rush-options-grid">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Feedback & Review Card -->
+      <div class="feedback-box" id="rush-feedback-box">
+        <div class="feedback-header">
+          <div class="feedback-title" id="fb-title">
+            <!-- Correct / Wrong Banner -->
+          </div>
+          <div class="feedback-controls">
+            <label class="auto-toggle">
+              <input type="checkbox" id="chk-auto-advance">
+              <span id="lbl-auto-advance">⚡ 2秒自动下一题</span>
+            </label>
+            <button class="btn-next-q" id="btn-next-q" onclick="advanceToNextQuestion()">下一题 ➔</button>
+          </div>
+        </div>
+
+        <div class="feedback-content">
+          <div class="feedback-row">
+            <span class="feedback-label label-concept">🎯 涉及核心考点 (Core Concept)</span>
+            <div id="fb-concept"></div>
+          </div>
+          <div class="feedback-row">
+            <span class="feedback-label label-trap">⚖️ 异同与混淆辨析 (Comparison & Trap)</span>
+            <div id="fb-trap"></div>
+          </div>
+          <div class="feedback-row">
+            <span class="feedback-label label-cite">📖 官方教材精确定位 (Reference)</span>
+            <div id="fb-citation" style="color:#c4b5fd;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Completion Certificate Card -->
+    <div class="completion-view" id="rush-completion-box">
+      <div class="certificate-card">
+        <div class="cert-icon" id="cert-icon">🏆</div>
+        <h2 class="cert-heading" id="cert-heading">G8 Science Exam Master</h2>
+        <div class="cert-subtitle" id="cert-subtitle">考前冲刺突击大练兵 · 官方认证结业战报</div>
+
+        <div class="cert-grade-badge" id="cert-grade-badge">🌟 A* Master 神级学霸 (Pass)</div>
+
+        <div class="cert-stats-grid">
+          <div class="cert-stat-item">
+            <span class="cert-stat-label">总得分 (Score)</span>
+            <span class="cert-stat-value" id="res-score">1800</span>
+          </div>
+          <div class="cert-stat-item">
+            <span class="cert-stat-label">正确率 (Accuracy)</span>
+            <span class="cert-stat-value" id="res-accuracy">100%</span>
+          </div>
+          <div class="cert-stat-item">
+            <span class="cert-stat-label">总耗时 (Duration)</span>
+            <span class="cert-stat-value" id="res-time">02:45</span>
+          </div>
+        </div>
+
+        <p style="font-size:0.88rem; color:#94a3b8; margin-bottom:1.5rem; line-height:1.5;" id="cert-evaluation-text">
+          恭喜你以远超 60% 及格线的优异成绩通关考前三大核心模块！生理机制与采分考点已完全掌握。
+        </p>
+
+        <div class="cert-actions">
+          <button class="btn-cert btn-cert-copy" onclick="copyScoreReport()">📋 一键复制考前战报</button>
+          <button class="btn-cert btn-cert-retry" onclick="restartRushGame()">🔄 重新冲刺特训</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // ==================== 1. FULL 18 HIGH-YIELD QUESTIONS DATA ====================
+    const RUSH_QUESTIONS = [
+      // ----------------- LEVEL 1: MOVEMENT IN AND OUT OF CELLS (Q1 - Q6) -----------------
+      {
+        id: 'rush_q1',
+        level: 1,
+        topic: 'Diffusion Principle',
+        prompt_en: 'Which statement correctly describes the net movement of particles during diffusion?',
+        prompt_cn: '下列关于扩散过程中微观粒子净移动的描述，哪一项是完全正确的？',
+        options: [
+          { letter: 'A', text_en: 'Movement from a region of lower concentration to higher concentration using metabolic ATP.', text_cn: '从低浓度向高浓度移动，消耗代谢能量 ATP。' },
+          { letter: 'B', text_en: 'Net movement of particles from a region of higher concentration to lower concentration down a concentration gradient as a result of their random kinetic motion.', text_cn: '由于粒子的随机热运动，粒子从高浓度区域向低浓度区域沿着浓度梯度的净移动。' },
+          { letter: 'C', text_en: 'Movement of water molecules only across a fully impermeable cell wall.', text_cn: '水分子穿过完全不透水细胞壁的单一方向移动。' },
+          { letter: 'D', text_en: 'Complete cessation of particle motion once dynamic equilibrium is attained.', text_cn: '一旦达到动态平衡，所有微观粒子的运动立即完全停止。' }
+        ],
+        correct: 'B',
+        concept_en: 'Diffusion is the passive net movement of particles down a concentration gradient driven entirely by random kinetic energy. It requires NO metabolic energy (ATP).',
+        concept_cn: '扩散是粒子完全由其自身的随机动能驱动、沿浓度梯度进行的被动净移动，不需要消耗任何细胞代谢能量（ATP）。',
+        trap_en: 'Option A describes active transport. Option D is a frequent misconception: at dynamic equilibrium, particles continue to move equally in all directions with zero NET change.',
+        trap_cn: '选项 A 混淆了主动运输。选项 D 是极高频陷阱：达到动态平衡时，粒子依然在各个方向以相等速率自由运动，只是“净移动为零”，绝非粒子停止运动。',
+        citation: '《G8 Science》Chapter 3.01 Diffusion (pp. 24-26)'
+      },
+      {
+        id: 'rush_q2',
+        level: 1,
+        topic: 'Factors Affecting Diffusion Rate',
+        prompt_en: 'A student investigates the diffusion of dye particles in water. Which modification would DECREASE the rate of diffusion?',
+        prompt_cn: '一名学生探究染料粒子在水中的扩散速率。下列哪项操作会**降低**扩散速率？',
+        options: [
+          { letter: 'A', text_en: 'Increasing the temperature of the water from 20°C to 50°C.', text_cn: '将水温从 20°C 升高至 50°C。' },
+          { letter: 'B', text_en: 'Increasing the surface area of the exchange barrier.', text_cn: '增大物质交换界面的表面积。' },
+          { letter: 'C', text_en: 'Increasing the diffusion distance by doubling the thickness of the gel membrane.', text_cn: '将凝胶膜厚度增加一倍，从而增加扩散距离。' },
+          { letter: 'D', text_en: 'Increasing the concentration gradient across the barrier.', text_cn: '增大界面两侧的溶质浓度梯度。' }
+        ],
+        correct: 'C',
+        concept_en: 'Diffusion rate is inversely proportional to distance: thicker barrier = longer pathway = slower diffusion rate. Rate increases with higher temperature, steeper gradient, and larger surface area.',
+        concept_cn: '扩散速率与扩散距离成反比：扩散距离越长（屏障越厚），粒子碰撞穿透所需时间越长，速率越慢。而升高温度、增大浓度梯度及增大表面积均能加速扩散。',
+        trap_en: 'Higher temperature increases kinetic energy and particle speed. Doubling membrane thickness increases distance, which retards diffusion.',
+        trap_cn: '升高温度赋予粒子更多微观动能；增大表面积提供更多通道。只有增加厚度（距离）会显著降低扩散速率。',
+        citation: '《G8 Science》Chapter 3.02 Factors Affecting Diffusion (pp. 26-27)'
+      },
+      {
+        id: 'rush_q3',
+        level: 1,
+        topic: 'Osmosis & Water Potential',
+        prompt_en: 'How is osmosis specifically distinguished from simple diffusion?',
+        prompt_cn: '渗透作用（Osmosis）与普通扩散（Simple diffusion）最根本的区别是什么？',
+        options: [
+          { letter: 'A', text_en: 'Osmosis refers exclusively to the movement of glucose down its concentration gradient.', text_cn: '渗透仅指葡萄糖分子顺浓度梯度的移动。' },
+          { letter: 'B', text_en: 'Osmosis is the net movement of water molecules from a region of higher water potential to lower water potential through a partially permeable membrane.', text_cn: '渗透特指水分子通过半透膜从高水势区域向低水势区域的净移动。' },
+          { letter: 'C', text_en: 'Osmosis requires carrier proteins and active hydrolysis of cellular ATP.', text_cn: '渗透需要载体蛋白和细胞内 ATP 的主动水解。' },
+          { letter: 'D', text_en: 'Osmosis only occurs in animal cells and is impossible in plant tissues.', text_cn: '渗透仅在动物细胞中发生，植物组织内不可能发生。' }
+        ],
+        correct: 'B',
+        concept_en: 'Osmosis is a specialized form of diffusion strictly limited to WATER molecules passing through a partially permeable membrane from high water potential (dilute) to low water potential (concentrated).',
+        concept_cn: '渗透是扩散的一种特殊形式：特指水分子穿过半透膜（部分透性膜），从高水势（稀溶液）向低水势（浓溶液）的净定向移动。',
+        trap_en: 'Pure water has the highest water potential (0 kPa). Osmosis moves WATER, never solute! It is completely passive and requires zero ATP.',
+        trap_cn: '纯水具有最高水势（0 kPa）。渗透运输的是水溶剂，绝非溶质分子；且它是被动过程，不需要消耗能量。',
+        citation: '《G8 Science》Chapter 3.03 Osmosis & Water Potential (pp. 28-30)'
+      },
+      {
+        id: 'rush_q4',
+        level: 1,
+        topic: 'Plant Cells & Turgor Pressure',
+        prompt_en: 'Fresh potato cylinders are placed into distilled water for 2 hours. What happens to the cells, and why do they NOT burst?',
+        prompt_cn: '将新鲜马铃薯条浸入蒸馏水中 2 小时。植物细胞会发生什么变化，为什么它们**不会破裂**？',
+        options: [
+          { letter: 'A', text_en: 'Water leaves the cells, causing plasmolysis and extreme flaccidity.', text_cn: '水分离开细胞，导致质壁分离和极度萎蔫。' },
+          { letter: 'B', text_en: 'Water enters by osmosis down the water potential gradient; cells become turgid, and the rigid cellulose cell wall prevents bursting.', text_cn: '水分通过渗透作用顺水势梯度进入细胞；细胞吸水膨胀变坚挺（Turgid），刚性纤维素细胞壁阻止细胞破裂。' },
+          { letter: 'C', text_en: 'Solute particles enter the cells by active transport, dissolving the vacuole membrane.', text_cn: '溶质粒子通过主动运输进入细胞，溶解了液泡膜。' },
+          { letter: 'D', text_en: 'Water enters the cells until the cell membrane ruptures (lysis).', text_cn: '水分不断进入细胞，直至细胞膜破裂（Lysis）。' }
+        ],
+        correct: 'B',
+        concept_en: 'In pure water (hypotonic), water enters the plant cell vacuole by osmosis. The cytoplasm expands and presses firmly against the rigid cellulose cell wall, generating turgor pressure (turgid state). The cell wall prevents lysis.',
+        concept_cn: '在纯水（低渗）中，水顺水势梯度渗入细胞，中央大液泡充盈膨胀，原生质体紧压坚韧的纤维素细胞壁，产生膨压使植物坚挺（Turgid），细胞壁承受壁张力从而阻止破裂。',
+        trap_en: 'Option D occurs only in animal cells lacking cell walls. Plasmolysis (Option A) occurs only in hypertonic concentrated solutions when water leaves.',
+        trap_cn: '破裂（Lysis）只会发生在无细胞壁的动物细胞身上。质壁分离（Plasmolysis）只在浓盐水/高糖水等高渗环境下失水时发生。',
+        citation: '《G8 Science》Chapter 3.04 Osmosis in Plant Tissues (pp. 31-33)'
+      },
+      {
+        id: 'rush_q5',
+        level: 1,
+        topic: 'Animal Cells (Lysis vs Crenation)',
+        prompt_en: 'A sample of human red blood cells is placed into a hypertonic (concentrated 10% NaCl) solution. What morphological change occurs?',
+        prompt_cn: '将一份人红细胞悬液置于高渗（10% 浓食盐水）溶液中。红细胞会发生什么形态变化？',
+        options: [
+          { letter: 'A', text_en: 'The cells absorb water and burst (haemolysis).', text_cn: '红细胞过度吸水而破裂溶血（Haemolysis）。' },
+          { letter: 'B', text_en: 'The cells lose water by osmosis down a water potential gradient, shrink, and become crenated / shrivelled.', text_cn: '红细胞通过渗透作用失水，体积缩小并发生皱缩（Crenated / Shrivelled）。' },
+          { letter: 'C', text_en: 'The cells remain completely unchanged due to their rigid cell walls.', text_cn: '红细胞因具有刚性细胞壁而保持体积完全不变。' },
+          { letter: 'D', text_en: 'The cells undergo plasmolysis where chloroplasts pull away from the wall.', text_cn: '红细胞发生质壁分离，叶绿体脱离细胞壁。' }
+        ],
+        correct: 'B',
+        concept_en: 'Animal cells lack a rigid cell wall. In a concentrated hypertonic solution, water leaves the cytoplasm by osmosis → cell shrivels and develops notched edges (crenated). In distilled water, they swell and burst (lysis).',
+        concept_cn: '动物细胞没有细胞壁。处于高渗溶液时，细胞内水势高于外界，水分渗透流出，细胞失水皱缩（Crenated）。置于纯水中才会吸水涨破（Lysis）。',
+        trap_en: 'Red blood cells NEVER have cell walls or chloroplasts! Plasmolysis is strictly limited to walled plant cells.',
+        trap_cn: '动物红细胞绝无细胞壁或叶绿体，绝不能用“质壁分离”描述动物细胞。',
+        citation: '《G8 Science》Chapter 3.05 Osmosis in Animal Cells (pp. 34-35)'
+      },
+      {
+        id: 'rush_q6',
+        level: 1,
+        topic: 'Active Transport vs Passive Transport',
+        prompt_en: 'How does active transport differ fundamentally from diffusion and osmosis?',
+        prompt_cn: '主动运输（Active Transport）与扩散及渗透作用的最根本区别是什么？',
+        options: [
+          { letter: 'A', text_en: 'It moves substances down their concentration gradient without using membrane proteins.', text_cn: '它顺浓度梯度运输物质，无需膜蛋白协助。' },
+          { letter: 'B', text_en: 'It moves particles against their concentration gradient (from low to high concentration) using cellular energy (ATP) and specific carrier proteins.', text_cn: '它利用细胞代谢能量（ATP）与专一载体蛋白，逆浓度梯度（从低浓度到高浓度）运输粒子。' },
+          { letter: 'C', text_en: 'It occurs only when cells are dead and membrane integrity is lost.', text_cn: '它只在细胞死亡、细胞膜完整性被破坏时发生。' },
+          { letter: 'D', text_en: 'It transports only water molecules through open phospholipid pores.', text_cn: '它仅通过开放的磷脂微孔运输水分子。' }
+        ],
+        correct: 'B',
+        concept_en: 'Active transport moves ions/molecules against a concentration gradient (low to high) using energy released from cellular respiration (ATP) via membrane carrier proteins (e.g. root hairs taking up nitrates, kidney tubules reabsorbing glucose).',
+        concept_cn: '主动运输依靠细胞呼吸产生的能量（ATP）以及膜上的特异性载体蛋白，逆浓度梯度将物质从低浓度泵入高浓度区域（例如根毛细胞逆浓度吸收矿质离子、肾小管100%重吸收葡萄糖）。',
+        trap_en: 'Diffusion and osmosis are passive (zero ATP). If a cell is deprived of oxygen or poisoned with cyanide, active transport immediately halts.',
+        trap_cn: '扩散与渗透是被动的；一旦细胞缺氧导致呼吸受阻（ATP缺乏），主动运输立即停滞。',
+        citation: '《G8 Science》Chapter 3.06 Active Transport (pp. 36-37)'
+      },
+
+      // ----------------- LEVEL 2: EXCRETION & KIDNEY FUNCTION (Q7 - Q12) -----------------
+      {
+        id: 'rush_q7',
+        level: 2,
+        topic: 'Excretion vs Egestion',
+        prompt_en: 'Why is the elimination of faeces classified as EGESTION rather than EXCRETION?',
+        prompt_cn: '为什么排出未消化的粪便被归类为“排遗（Egestion）”，而不是“排泄（Excretion）”？',
+        options: [
+          { letter: 'A', text_en: 'Faeces contain high concentrations of urea synthesized in the liver.', text_cn: '粪便中含有肝脏合成的高浓度尿素。' },
+          { letter: 'B', text_en: 'Faeces consist of undigested, unabsorbed dietary residue that never crossed into body cells or participated in metabolic reactions.', text_cn: '粪便由未消化、未吸收的食物残渣组成，从未穿过肠壁进入体细胞，也从未参与细胞代谢反应。' },
+          { letter: 'C', text_en: 'Egestion is performed solely by the urinary kidneys, whereas excretion is done by the anus.', text_cn: '排遗仅由肾脏执行，而排泄由肛门执行。' },
+          { letter: 'D', text_en: 'Faeces are toxic nitrogenous waste products generated by cellular aerobic respiration.', text_cn: '粪便是由细胞有氧呼吸产生的高毒性含氮废物。' }
+        ],
+        correct: 'B',
+        concept_en: 'Excretion is the removal of waste products of cellular metabolism (urea, CO2, bile pigments). Egestion is the passing out of undigested food (roughage/fibre) through the anus without ever entering body cells.',
+        concept_cn: '排泄是排出细胞代谢终产物（如尿素、CO2、水和无机盐）。排遗是指消化道未消化、未吸收的食物残渣通过肛门排出的过程，从未进入体液或参与内环境代谢。',
+        trap_en: 'The #1 classic Cambridge exam trap! Faeces = Egestion. Urine = Excretion.',
+        trap_cn: '剑桥考纲第一高频辨析题！粪便 = 排遗（Egestion）；尿液 = 排泄（Excretion）。',
+        citation: '《G8 Science》Chapter 13.01 Excretion vs Egestion (pp. 140-141)'
+      },
+      {
+        id: 'rush_q8',
+        level: 2,
+        topic: 'Urinary System Anatomy & Pathway',
+        prompt_en: 'Which sequence correctly traces the flow of urine from its site of formation to its exit from the body?',
+        prompt_cn: '下列哪一项正确追踪了尿液从生成部位到排出体外的生理通路？',
+        options: [
+          { letter: 'A', text_en: 'Kidney → Urethra → Bladder → Ureter.', text_cn: '肾脏 → 尿道 → 膀胱 → 输尿管。' },
+          { letter: 'B', text_en: 'Kidney → Ureter → Bladder → Urethra.', text_cn: '肾脏 → 输尿管（Ureter） → 膀胱（Bladder） → 尿道（Urethra）。' },
+          { letter: 'C', text_en: 'Renal vein → Ureter → Bladder → Renal artery.', text_cn: '肾静脉 → 输尿管 → 膀胱 → 肾动脉。' },
+          { letter: 'D', text_en: 'Bladder → Kidney → Ureter → Urethra.', text_cn: '膀胱 → 肾脏 → 输尿管 → 尿道。' }
+        ],
+        correct: 'B',
+        concept_en: 'Urine is formed in the kidney nephrons → passes down the URETER (one from each kidney) → stored in the muscular BLADDER → discharged via the single URETHRA during micturition.',
+        concept_cn: '肾单位形成的尿液流入肾盂 → 经两侧的输尿管（Ureter）流入膀胱（Bladder）暂存 → 排尿时经单根尿道（Urethra）排出体外。',
+        trap_en: 'Mnemonic: Uret-ER has 2 tubes (one from each kid-ney) and comes FIRST αbetically before Urethra.',
+        trap_cn: '记忆口诀：Ureter（输尿管）在上方连接肾脏与膀胱；Urethra（尿道）在下方连接膀胱向外排泄。千万不要颠倒！',
+        citation: '《G8 Science》Chapter 13.02 The Urinary System (pp. 142-143)'
+      },
+      {
+        id: 'rush_q9',
+        level: 2,
+        topic: 'Nephron Ultrafiltration',
+        prompt_en: 'During ultrafiltration in the glomerulus, which components of blood are FORBIDDEN from passing into the Bowman\'s capsule?',
+        prompt_cn: '在肾小球超滤（Ultrafiltration）过程中，血液中的哪些成分**被阻留**而不能进入肾小囊？',
+        options: [
+          { letter: 'A', text_en: 'Water and urea molecules.', text_cn: '水分子和尿素分子。' },
+          { letter: 'B', text_en: 'Glucose and dissolved mineral salts/ions.', text_cn: '葡萄糖和溶解的无机盐离子。' },
+          { letter: 'C', text_en: 'Red blood cells, white blood cells, platelets, and large plasma proteins (e.g., albumin).', text_cn: '红细胞、白细胞、血小板以及大分子血浆蛋白（如白蛋白）。' },
+          { letter: 'D', text_en: 'Small amino acids and vitamins.', text_cn: '小分子氨基酸与水溶性维生素。' }
+        ],
+        correct: 'C',
+        concept_en: 'High hydrostatic pressure in the glomerulus forces small molecules through capillary fenestrations and the basement membrane into the Bowman\'s capsule. Blood cells and large proteins (>68 kDa) are too big to filter and stay in the blood.',
+        concept_cn: '肾小球的高流体静压迫使小分子物质穿过滤过膜进入肾小囊形成原尿。红细胞、白细胞、血小板及大分子血浆蛋白分子过大，无法通过滤孔，完整留存于血液。',
+        trap_en: 'Glucose, amino acids, urea, and salts DO pass into the filtrate! The presence of protein or blood cells in urine indicates glomerular basement membrane damage.',
+        trap_cn: '葡萄糖、尿素、水和小离子是能够通过超滤的！尿液中出现蛋白质或红细胞是肾小球受损的病理指标。',
+        citation: '《G8 Science》Chapter 13.03 Nephron Ultrafiltration (pp. 144-145)'
+      },
+      {
+        id: 'rush_q10',
+        level: 2,
+        topic: 'Selective Reabsorption',
+        prompt_en: 'In a healthy human nephron, what percentage of glucose in the glomerular filtrate is reabsorbed, and by what mechanism?',
+        prompt_cn: '在健康的肾单位中，肾小囊滤液里的葡萄糖被重吸收的比例是多少，依靠何种机制？',
+        options: [
+          { letter: 'A', text_en: '0% is reabsorbed; all glucose is excreted in normal urine.', text_cn: '0% 被重吸收；所有葡萄糖都在正常尿液中排出。' },
+          { letter: 'B', text_en: '50% is reabsorbed by passive diffusion down a gradient.', text_cn: '50% 通过顺浓度梯度的被动扩散重吸收。' },
+          { letter: 'C', text_en: '100% of glucose is selectively reabsorbed back into blood capillaries, primarily by active transport in the proximal convoluted tubule.', text_cn: '100% 的葡萄糖被选择性重吸收回毛细血管，主要在近曲小管通过主动运输完成。' },
+          { letter: 'D', text_en: '100% is converted into glycogen within the loop of Henle.', text_cn: '100% 在亨利氏套内转化为糖原。' }
+        ],
+        correct: 'C',
+        concept_en: 'Glucose is a precious respiratory substrate. In the proximal convoluted tubule, 100% of filtered glucose is actively reabsorbed back into peritubular capillaries using active transport carrier proteins powered by ATP from abundant mitochondria.',
+        concept_cn: '葡萄糖是珍贵的细胞呼吸底物。在近曲小管，100% 的滤过葡萄糖通过富含线粒体提供的 ATP 经载体蛋白逆浓度主动运输重吸收回血液。',
+        trap_en: 'Healthy urine contains ZERO glucose. If blood glucose exceeds the renal threshold (e.g. in untreated diabetes), carrier proteins saturate, and excess glucose spills into urine.',
+        trap_cn: '健康人终尿中葡萄糖含量为 0。只有在血糖极高（如糖尿病）超过肾糖阈、载体蛋白饱和时，尿液才会检出葡萄糖。',
+        citation: '《G8 Science》Chapter 13.04 Selective Reabsorption (pp. 146-147)'
+      },
+      {
+        id: 'rush_q11',
+        level: 2,
+        topic: 'Fluid Composition Analysis',
+        prompt_en: 'A clinical lab tests 3 fluid samples (X, Y, Z). Sample X contains protein, glucose, and urea. Sample Y contains glucose and urea, but NO protein. Sample Z contains high urea, but NO protein and NO glucose. Identify the fluids:',
+        prompt_cn: '化验分析了三种体液样本（X, Y, Z）。样本 X 含有蛋白质、葡萄糖和尿素；样本 Y 含有葡萄糖和尿素，但**不含**蛋白质；样本 Z 含有高浓度尿素，但**不含**蛋白质和葡萄糖。这三种体液分别是：',
+        options: [
+          { letter: 'A', text_en: 'X = Glomerular filtrate; Y = Blood plasma; Z = Urine.', text_cn: 'X = 肾小囊滤液; Y = 血浆; Z = 尿液。' },
+          { letter: 'B', text_en: 'X = Blood plasma; Y = Glomerular filtrate; Z = Urine.', text_cn: 'X = 血浆; Y = 肾小囊滤液; Z = 尿液。' },
+          { letter: 'C', text_en: 'X = Urine; Y = Glomerular filtrate; Z = Blood plasma.', text_cn: 'X = 尿液; Y = 肾小囊滤液; Z = 血浆。' },
+          { letter: 'D', text_en: 'X = Dialysis fluid; Y = Urine; Z = Blood plasma.', text_cn: 'X = 透析液; Y = 尿液; Z = 血浆。' }
+        ],
+        correct: 'B',
+        concept_en: 'Blood plasma contains large proteins + glucose + urea. Glomerular filtrate lacks large proteins (blocked by ultrafiltration), but contains glucose + urea. Urine has concentrated urea, but zero protein and zero glucose.',
+        concept_cn: '血浆（X）含大分子蛋白质+葡萄糖+尿素；原尿滤液（Y）无大蛋白，但有葡萄糖与尿素；终尿（Z）尿素高度浓缩，但蛋白质和葡萄糖已被100%截留与重吸收（均为0）。',
+        trap_en: 'Key markers: Protein present = only Plasma. Glucose present but no protein = Filtrate. No glucose & high urea = Urine.',
+        trap_cn: '核心排查法：有蛋白 = 血浆；无蛋白有葡萄糖 = 原尿滤液；无蛋白无葡萄糖且尿素浓缩 = 终尿。',
+        citation: '《G8 Science》Chapter 13.05 Fluid Composition Analysis (p. 148)'
+      },
+      {
+        id: 'rush_q12',
+        level: 2,
+        topic: 'Kidney Dialysis Principle',
+        prompt_en: 'Why must the dialysis fluid in an artificial kidney machine contain a glucose concentration EQUAL to that of normal healthy blood?',
+        prompt_cn: '为什么人工肾透析机中的透析液必须配制与正常健康血液**相等浓度**的葡萄糖？',
+        options: [
+          { letter: 'A', text_en: 'To force excess glucose from the dialysate into the patient\'s blood.', text_cn: '为了将透析液中多余的葡萄糖强行注入患者血液。' },
+          { letter: 'B', text_en: 'To prevent any net loss of glucose from the patient\'s blood into the dialysis fluid by diffusion.', text_cn: '防止患者血液中的葡萄糖通过扩散净流失到透析液中。' },
+          { letter: 'C', text_en: 'To destroy toxic urea molecules through a chemical reaction with glucose.', text_cn: '通过葡萄糖与尿素发生化学反应，消灭毒性尿素分子。' },
+          { letter: 'D', text_en: 'To stimulate the dialysis membrane to actively transport red blood cells.', text_cn: '刺激透析膜主动运输红细胞。' }
+        ],
+        correct: 'B',
+        concept_en: 'Dialysis uses passive diffusion across a partially permeable membrane. If dialysate had 0% glucose, vital blood glucose would diffuse out into the fluid, inducing fatal hypoglycaemia. Equal concentration ensures no net movement.',
+        concept_cn: '透析依赖半透膜的被动扩散。若透析液无葡萄糖，血液葡萄糖会沿浓度梯度大量扩散流失，引发致命低血糖。保持等浓度可实现进出平衡、防止营养丢失。',
+        trap_en: 'Dialysis fluid has ZERO urea (ensuring steep gradient for urea removal), but NORMAL glucose and mineral ions.',
+        trap_cn: '透析液中尿素为零（利于体内尿素向外扩散清除），但葡萄糖和无机盐必须调配至正常健康生理浓度。',
+        citation: '《G8 Science》Chapter 13.06 Kidney Dialysis (pp. 149-151)'
+      },
+
+      // ----------------- LEVEL 3: BLOOD GLUCOSE REGULATION (Q13 - Q18) -----------------
+      {
+        id: 'rush_q13',
+        level: 3,
+        topic: 'Homeostasis & Negative Feedback',
+        prompt_en: 'What is the biological significance of Negative Feedback in maintaining homeostasis?',
+        prompt_cn: '负反馈调节（Negative Feedback）在维持机体内环境稳态（Homeostasis）中的核心生理意义是什么？',
+        options: [
+          { letter: 'A', text_en: 'Any change in a physiological condition triggers a corrective mechanism that reverses the change back to the normal set point.', text_cn: '任何偏离设定生理水平的变化都会触发相反方向的矫正机制，使指标逆转回归正常设定基准值。' },
+          { letter: 'B', text_en: 'It amplifies deviations continuously so physiological parameters reach extreme maximums.', text_cn: '它不断放大指标偏差，使生理参数达到极端最大值。' },
+          { letter: 'C', text_en: 'It permanently shuts down all endocrine glands to stop hormone production.', text_cn: '它永久关闭所有内分泌腺，完全停止激素分泌。' },
+          { letter: 'D', text_en: 'It ensures that body temperature and blood glucose fluctuate widely between night and day.', text_cn: '它确保人体体温和血糖水平在昼夜间剧烈波动。' }
+        ],
+        correct: 'A',
+        concept_en: 'Homeostasis is the maintenance of a constant internal environment. Negative feedback acts like a home thermostat: deviation from the set point (e.g. 5.0 mmol/L blood glucose) triggers responses that counteract and reverse the change.',
+        concept_cn: '稳态是维持内环境相对恒定。负反馈类似恒温器原理：一旦指标偏离基准（如血糖偏高或偏低），系统便启动对抗性调节，促使指标反向回归平衡设定点。',
+        trap_en: 'Option B is positive feedback (e.g. oxytocin in childbirth or blood clotting cascade), which amplifies change rather than maintaining stable homeostasis.',
+        trap_cn: '选项 B 是正反馈（如分娩宫缩或凝血级联），正反馈会放大改变，而负反馈才是维持内环境稳态的基石机制。',
+        citation: '《G8 Science》Chapter 14.01 Homeostasis & Feedback (pp. 154-155)'
+      },
+      {
+        id: 'rush_q14',
+        level: 3,
+        topic: 'High Blood Glucose & Insulin',
+        prompt_en: 'After eating a bowl of rice, blood glucose rises above the 5.0 mmol/L set point. Which sequence restores normal blood glucose levels?',
+        prompt_cn: '进食一碗米饭后，人体血糖升至正常设定基准值（5.0 mmol/L）之上。下列哪一生理调节通路能使血糖恢复正常？',
+        options: [
+          { letter: 'A', text_en: 'Liver secretes glucagon → pancreas converts glycogen into glucose.', text_cn: '肝脏分泌胰高血糖素 → 胰腺将糖原分解为葡萄糖。' },
+          { letter: 'B', text_en: 'Pancreas detects high glucose and secretes INSULIN → stimulates liver and muscle cells to absorb glucose and convert it into insoluble GLYCOGEN.', text_cn: '胰腺感应到高血糖并分泌**胰岛素（Insulin）** → 促使肝脏和肌肉细胞加速摄取葡萄糖，并将其脱水缩合为不溶性**糖原（Glycogen）**储存。' },
+          { letter: 'C', text_en: 'Kidneys filter all glucose directly into urine to reduce blood volume.', text_cn: '肾脏将全部葡萄糖直接排入尿液以减少血容量。' },
+          { letter: 'D', text_en: 'Pancreas secretes insulin to break down glycogen into glucose.', text_cn: '胰腺分泌胰岛素将体内的糖原分解为葡萄糖。' }
+        ],
+        correct: 'B',
+        concept_en: 'Stimulus: High blood glucose → Pancreatic β-cells secrete INSULIN → Target organs: Liver & Muscle cells → Effects: Glucose uptake ↑, Glucose converted to Glycogen (glycogenesis) → Blood glucose falls back to normal.',
+        concept_cn: '高血糖刺激胰岛 β 细胞分泌胰岛素 → 随血液流向靶器官（肝脏与肌肉） → 促进细胞摄取葡萄糖并合成糖原储存（葡萄糖 → 糖原） → 血糖回落至正常设定值。',
+        trap_en: 'Pancreas is the gland that secretes the hormone; Liver is the target organ that stores glycogen. Insulin converts Glucose INTO Glycogen, never the reverse!',
+        trap_cn: '胰腺是内分泌器官；肝脏是靶器官。胰岛素的作用是将可溶葡萄糖转化为不溶糖原储存，绝非分解糖原。',
+        citation: '《G8 Science》Chapter 14.02 High Blood Glucose & Insulin (pp. 156-157)'
+      },
+      {
+        id: 'rush_q15',
+        level: 3,
+        topic: 'Low Blood Glucose & Glucagon',
+        prompt_en: 'During a 10 km marathon, blood glucose drops below the set point. How does the body respond to prevent hypoglycaemia?',
+        prompt_cn: '在 10 公里长跑中，血液中葡萄糖浓度跌落至基准值以下。机体如何应对以防发生低血糖昏迷？',
+        options: [
+          { letter: 'A', text_en: 'Pancreas secretes insulin to convert glucose into fat.', text_cn: '胰腺分泌胰岛素将葡萄糖转化为脂肪。' },
+          { letter: 'B', text_en: 'Pancreas detects low glucose and secretes GLUCAGON → stimulates liver cells to break down stored GLYCOGEN into GLUCOSE and release it into the bloodstream.', text_cn: '胰腺感应到低血糖并分泌**胰高血糖素（Glucagon）** → 促使肝细胞将储备的**糖原（Glycogen）**分解为**葡萄糖（Glucose）**释放入血。' },
+          { letter: 'C', text_en: 'Stomach releases digestive amylase directly into circulatory vessels.', text_cn: '胃向血液循环管路中直接分泌消化性淀粉酶。' },
+          { letter: 'D', text_en: 'Red blood cells release their stored hemoglobin as an alternative carbohydrate.', text_cn: '红细胞释放其储备的血红蛋白作为替代碳水化合物。' }
+        ],
+        correct: 'B',
+        concept_en: 'Stimulus: Low blood glucose → Pancreatic α-cells secrete GLUCAGON → Target organ: Liver cells → Effect: Glycogen broken down into glucose (glycogenolysis) → Glucose diffuses into blood capillaries → Blood glucose rises to set point.',
+        concept_cn: '低血糖刺激胰岛 α 细胞分泌胰高血糖素 → 作用于肝脏靶细胞 → 催化肝糖原分解为葡萄糖并释放入血（糖原 → 葡萄糖） → 血糖上升回归平衡。',
+        trap_en: 'Glucagon is the hormone ("glucose gone? Call glucagon!"). Glycogen is the stored carbohydrate in the liver.',
+        trap_cn: '英语速记谐音：“Glucose is gone, so release Glucagon!”。胰高血糖素促进糖原分解释放葡萄糖。',
+        citation: '《G8 Science》Chapter 14.03 Low Blood Glucose & Glucagon (pp. 158-159)'
+      },
+      {
+        id: 'rush_q16',
+        level: 3,
+        topic: 'Terminology Disambiguation (3 Gs + 1 I)',
+        prompt_en: 'Which row correctly matches each term with its exact biochemical nature and physiological role?',
+        prompt_cn: '下列哪一组正确匹配了这三个高频易混术语的生化本质与生理功能？',
+        options: [
+          { letter: 'A', text_en: 'Glucose = Hormone; Glycogen = Monosaccharide; Glucagon = Storage polymer.', text_cn: 'Glucose = 调节激素; Glycogen = 单糖; Glucagon = 储存多糖。' },
+          { letter: 'B', text_en: 'Glucose = Soluble monosaccharide in blood; Glycogen = Insoluble storage polysaccharide in liver; Glucagon = Peptide hormone secreted by pancreas.', text_cn: 'Glucose = 血液中溶解的单糖; Glycogen = 肝脏与肌肉中不溶的储能多糖（糖原）; Glucagon = 胰腺分泌的肽类升高血糖激素（胰高血糖素）。' },
+          { letter: 'C', text_en: 'Glucose = Insoluble liver polymer; Glycogen = Hormone from thyroid; Glucagon = Blood sugar.', text_cn: 'Glucose = 肝脏不溶多糖; Glycogen = 甲状腺激素; Glucagon = 血糖。' },
+          { letter: 'D', text_en: 'Glucose = Digestive enzyme; Glycogen = Hormone; Glucagon = Monosaccharide.', text_cn: 'Glucose = 消化酶; Glycogen = 激素; Glucagon = 单糖。' }
+        ],
+        correct: 'B',
+        concept_en: 'The "3 Gs" of Biology: 1. Glucose: simple hexose monosaccharide (respiratory fuel in blood). 2. Glycogen: branched polymer of glucose (insoluble animal starch). 3. Glucagon: peptide hormone from pancreas.',
+        concept_cn: '生物学三大“G”开头的核心词汇区分：1. Glucose（葡萄糖）：血液中流动的可溶性单糖；2. Glycogen（糖原）：肝脏与骨骼肌中储存的不溶性多糖；3. Glucagon（胰高血糖素）：胰腺分泌升高血糖的内分泌激素。',
+        trap_en: 'Students perpetually confuse GlycoGEN (the stored substance) with GlucaGON (the hormone messenger).',
+        trap_cn: '考卷最高频拼写与概念混淆陷阱：Glycogen（糖原，被储存的多糖） vs Glucagon（胰高血糖素，信使激素）。',
+        citation: '《G8 Science》Chapter 14.04 Key Terminology Disambiguation (p. 160)'
+      },
+      {
+        id: 'rush_q17',
+        level: 3,
+        topic: 'Diabetes Mellitus: Type 1 vs Type 2',
+        prompt_en: 'Which statement accurately contrasts Type 1 and Type 2 diabetes mellitus?',
+        prompt_cn: '下列关于 1 型糖尿病与 2 型糖尿病的对照阐述，哪一项是准确无误的？',
+        options: [
+          { letter: 'A', text_en: 'Type 1 is caused by cell receptor insensitivity; Type 2 is an autoimmune destruction of pancreatic beta cells.', text_cn: '1 型由细胞受体不敏感引起；2 型是自身免疫破坏胰岛 β 细胞。' },
+          { letter: 'B', text_en: 'Type 1 results from the pancreas failing to produce sufficient insulin (autoimmune); Type 2 results from target cells becoming resistant/insensitive to insulin receptors (linked to diet and obesity).', text_cn: '1 型由胰腺无法分泌足够胰岛素所致（自身免疫攻击 β 细胞）；2 型由靶细胞对胰岛素受体产生抵抗/不敏感所致（与饮食肥胖紧密相关）。' },
+          { letter: 'C', text_en: 'Both types can be cured by taking oral sugar tablets before sleep.', text_cn: '两种类型的糖尿病都可以通过睡前服用口服糖片彻底治愈。' },
+          { letter: 'D', text_en: 'Type 1 never requires insulin injections, whereas Type 2 always requires bone marrow surgery.', text_cn: '1 型从不需要注射胰岛素，而 2 型必须进行骨髓手术。' }
+        ],
+        correct: 'B',
+        concept_en: 'Type 1 Diabetes: Autoimmune destruction of pancreatic β-cells → zero/low insulin → treated with daily insulin injections. Type 2 Diabetes: Target cells become insulin resistant (receptor insensitivity), strongly linked to obesity and inactivity → treated with diet, exercise, and oral drugs.',
+        concept_cn: '1型糖尿病：自身免疫破坏胰岛 β 细胞，无法合成胰岛素，必须每日注射胰岛素维持生命。2型糖尿病：胰腺可分泌胰岛素，但靶细胞膜受体不敏感产生胰岛素抵抗，与肥胖/饮食紧密相关，主要通过控糖运动与口服药治疗。',
+        trap_en: 'Injecting insulin into a typical Type 2 diabetic does not directly solve the root cause, which is receptor resistance, not hormone absence.',
+        trap_cn: '2型糖尿病的主要矛盾不是缺乏胰岛素，而是细胞“听不见”胰岛素信号（胰岛素抵抗）。',
+        citation: '《G8 Science》Chapter 14.05 Diabetes Mellitus (pp. 161-163)'
+      },
+      {
+        id: 'rush_q18',
+        level: 3,
+        topic: 'Glycosuria & Renal Threshold',
+        prompt_en: 'Why does glucose appear in the urine of an uncontrolled diabetic patient?',
+        prompt_cn: '为什么在未接受治疗的严重糖尿病患者尿液中会出现葡萄糖（糖尿现象）？',
+        options: [
+          { letter: 'A', text_en: 'Glomerular capillaries become impermeable to all glucose molecules.', text_cn: '肾小球毛细血管对所有葡萄糖分子完全变得不透。' },
+          { letter: 'B', text_en: 'The excessively high blood glucose concentration causes filtered glucose to exceed the maximum active transport reabsorption capacity of the kidney tubules (renal threshold).', text_cn: '血液中过高的葡萄糖浓度导致滤过的葡萄糖总量超过了肾小管主动运输重吸收的最大转运极限（肾糖阈），导致未重吸收的多余葡萄糖随尿排出。' },
+          { letter: 'C', text_en: 'The urinary bladder starts synthesizing its own glucose from urine urea.', text_cn: '膀胱本身开始利用尿液中的尿素自主合成新的葡萄糖。' },
+          { letter: 'D', text_en: 'Insulin binds directly to urine proteins, precipitating them out as glucose crystals.', text_cn: '胰岛素直接结合尿液蛋白，使其沉淀析出为葡萄糖晶体。' }
+        ],
+        correct: 'B',
+        concept_en: 'In diabetics, blood glucose exceeds the renal threshold (~10-12 mmol/L). Glomerulus filters vast amounts of glucose. The carrier proteins in the proximal convoluted tubule become completely saturated (Vmax reached), and excess unabsorbed glucose is excreted in urine (glycosuria).',
+        concept_cn: '高血糖导致肾小囊超滤出的葡萄糖总量大幅超过近曲小管上皮细胞载体蛋白的主动转运极限（肾糖阈）。由于载体全部饱和，多余无法被重吸收的葡萄糖滞留于原尿中最终排出（糖尿）。',
+        trap_en: 'The kidney tubules are NOT damaged here! They are simply overwhelmed because the glucose concentration is abnormally excessive.',
+        trap_cn: '并非肾脏本身受损坏死，而是由于进入肾单位的原尿葡萄糖泛滥，超过了载体蛋白的生理负荷上限。在临床上可用斐林/本尼迪特试剂检测尿液（蓝 → 砖红沉淀）。',
+        citation: '《G8 Science》Chapter 14.06 Clinical Diabetes & Kidneys (pp. 164-165)'
+      }
+    ];
+    window.RUSH_QUESTIONS = RUSH_QUESTIONS;
+
+    // ==================== 2. SOUND EFFECTS GENERATOR (WEB AUDIO API) ====================
+    let audioCtx = null;
+    let isSoundMuted = false;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playTone(freq, type = 'sine', duration = 0.15, gainVal = 0.2) {
+      if (isSoundMuted) return;
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, ctx.currentTime);
+        gain.gain.setValueAtTime(gainVal, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + duration);
+      } catch(e) {}
+    }
+
+    function playSoundCorrect() {
+      if (isSoundMuted) return;
+      // C Major Chord Chime (523Hz, 659Hz, 784Hz)
+      setTimeout(() => playTone(523.25, 'sine', 0.2, 0.25), 0);
+      setTimeout(() => playTone(659.25, 'sine', 0.25, 0.25), 80);
+      setTimeout(() => playTone(783.99, 'sine', 0.4, 0.3), 160);
+    }
+
+    function playSoundWrong() {
+      if (isSoundMuted) return;
+      // Low buzz / thud
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(140, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(60, ctx.currentTime + 0.35);
+        gain.gain.setValueAtTime(0.3, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.35);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.35);
+      } catch(e) {}
+    }
+
+    function playSoundStreak() {
+      if (isSoundMuted) return;
+      // High energetic fanfare
+      setTimeout(() => playTone(587.33, 'triangle', 0.12, 0.2), 0);
+      setTimeout(() => playTone(739.99, 'triangle', 0.15, 0.25), 80);
+      setTimeout(() => playTone(880.00, 'triangle', 0.3, 0.3), 160);
+    }
+
+    function playSoundTick() {
+      if (isSoundMuted) return;
+      playTone(880, 'sine', 0.04, 0.08);
+    }
+
+    function toggleSound() {
+      isSoundMuted = !isSoundMuted;
+      const btn = document.getElementById('btn-sound-toggle');
+      if (isSoundMuted) {
+        btn.textContent = '🔇 静音';
+        btn.classList.remove('active');
+      } else {
+        btn.textContent = '🔊 声音';
+        btn.classList.add('active');
+        playTone(600, 'sine', 0.1, 0.1);
+      }
+    }
+
+    // ==================== 3. GAME STATE & CONTROLLER ====================
+    var currentIdx = 0;
+    var score = 0;
+    var streak = 0;
+    var correctCount = 0;
+    var isAnswered = false;
+    var currentLang = 'bilingual'; // 'bilingual' | 'en'
+    var autoAdvance = false;
+    var autoAdvanceTimer = null;
+
+    // Timer variables
+    const QUESTION_TIME_LIMIT = 20; // 20s per question
+    let remainingSeconds = QUESTION_TIME_LIMIT;
+    let timerInterval = null;
+    let gameStartTime = Date.now();
+    let totalTimeSpent = 0;
+
+    // Initialize Game
+    window.addEventListener('DOMContentLoaded', () => {
+      initGame();
+      setupAutoAdvanceListener();
+    });
+
+    function initGame() {
+      currentIdx = 0;
+      score = 0;
+      streak = 0;
+      correctCount = 0;
+      gameStartTime = Date.now();
+      document.getElementById('rush-score').textContent = score;
+      updateStreakUI();
+      renderQuestion();
+    }
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'bilingual' ? 'en' : 'bilingual';
+      const btn = document.getElementById('btn-lang-toggle');
+      btn.textContent = currentLang === 'bilingual' ? '🇨🇳/🇬🇧 双语' : '🇬🇧 English';
+      btn.classList.toggle('active', currentLang === 'en');
+      renderQuestion(false); // rerender without resetting timer
+    }
+
+    function setupAutoAdvanceListener() {
+      const chk = document.getElementById('chk-auto-advance');
+      if (chk) {
+        chk.addEventListener('change', (e) => {
+          autoAdvance = e.target.checked;
+        });
+      }
+    }
+
+    function switchLevel(levelNum) {
+      if (timerInterval) clearInterval(timerInterval);
+      if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+      
+      const targetIdx = (levelNum - 1) * 6;
+      currentIdx = targetIdx;
+      renderQuestion();
+    }
+
+    function renderQuestion(resetTimer = true) {
+      if (currentIdx >= RUSH_QUESTIONS.length) {
+        showCompletionView();
+        return;
+      }
+
+      const q = RUSH_QUESTIONS[currentIdx];
+      isAnswered = false;
+
+      // Update Level Pills Active State
+      const currentLevel = q.level;
+      [1, 2, 3].forEach(l => {
+        const pill = document.getElementById(`pill-l${l}`);
+        if (pill) pill.classList.toggle('active', l === currentLevel);
+      });
+
+      // Update Arena HUD
+      document.getElementById('rush-current-idx').textContent = currentIdx + 1;
+      document.getElementById('rush-topic-tag').textContent = q.topic;
+
+      // Prompts
+      const isEn = currentLang === 'en';
+      document.getElementById('rush-prompt-en').textContent = q.prompt_en;
+      const cnElem = document.getElementById('rush-prompt-cn');
+      if (isEn) {
+        cnElem.style.display = 'none';
+      } else {
+        cnElem.style.display = 'block';
+        cnElem.textContent = q.prompt_cn;
+      }
+
+      // Hide Feedback Box
+      const fbBox = document.getElementById('rush-feedback-box');
+      fbBox.style.display = 'none';
+
+      // Render Option Buttons
+      const grid = document.getElementById('rush-options-grid');
+      grid.innerHTML = '';
+
+      q.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.setAttribute('data-letter', opt.letter);
+        btn.innerHTML = `
+          <div class="option-letter">${opt.letter}</div>
+          <div class="option-content">
+            <div class="option-text-en">${opt.text_en}</div>
+            ${!isEn && opt.text_cn ? `<div class="option-text-cn">${opt.text_cn}</div>` : ''}
+          </div>
+        `;
+        btn.onclick = () => selectOption(opt.letter, q);
+        grid.appendChild(btn);
+      });
+
+      // Reset and Start 20s Countdown
+      if (resetTimer) {
+        startTimer();
+      }
+    }
+
+    function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+
+      remainingSeconds = QUESTION_TIME_LIMIT;
+      updateTimerUI();
+
+      timerInterval = setInterval(() => {
+        if (isAnswered) {
+          clearInterval(timerInterval);
+          return;
+        }
+
+        remainingSeconds--;
+        updateTimerUI();
+
+        if (remainingSeconds <= 5 && remainingSeconds > 0) {
+          playSoundTick();
+        }
+
+        if (remainingSeconds <= 0) {
+          clearInterval(timerInterval);
+          handleTimeOut();
+        }
+      }, 1000);
+    }
+
+    function updateTimerUI() {
+      const secElem = document.getElementById('rush-timer-seconds');
+      const fillElem = document.getElementById('rush-timer-fill');
+
+      secElem.textContent = `${remainingSeconds}s`;
+      const pct = (remainingSeconds / QUESTION_TIME_LIMIT) * 100;
+      fillElem.style.width = `${Math.max(0, pct)}%`;
+
+      const isUrgent = remainingSeconds <= 5;
+      secElem.classList.toggle('urgent', isUrgent);
+      fillElem.classList.toggle('urgent', isUrgent);
+    }
+
+    function handleTimeOut() {
+      if (isAnswered) return;
+      isAnswered = true;
+      playSoundWrong();
+      streak = 0;
+      updateStreakUI();
+
+      const q = RUSH_QUESTIONS[currentIdx];
+      // Mark options
+      const buttons = document.querySelectorAll('.option-btn');
+      buttons.forEach(btn => {
+        btn.classList.add('disabled');
+        if (btn.getAttribute('data-letter') === q.correct) {
+          btn.classList.add('correct');
+        }
+      });
+
+      showFeedback(false, null, q, true);
+    }
+
+    function selectOption(selectedLetter, q) {
+      if (isAnswered) return;
+      isAnswered = true;
+      if (timerInterval) clearInterval(timerInterval);
+
+      const isCorrect = selectedLetter === q.correct;
+      const buttons = document.querySelectorAll('.option-btn');
+
+      buttons.forEach(btn => {
+        btn.classList.add('disabled');
+        const letter = btn.getAttribute('data-letter');
+        if (letter === q.correct) {
+          btn.classList.add('correct');
+        } else if (letter === selectedLetter && !isCorrect) {
+          btn.classList.add('wrong');
+        }
+      });
+
+      if (isCorrect) {
+        correctCount++;
+        streak++;
+        // Base score: 100 + time bonus (remainingSeconds * 5) + streak multiplier
+        const bonus = remainingSeconds * 5;
+        const streakBonus = Math.min(streak * 20, 100);
+        const pts = 100 + bonus + streakBonus;
+        score += pts;
+        document.getElementById('rush-score').textContent = score;
+
+        if (streak >= 3) {
+          playSoundStreak();
+        } else {
+          playSoundCorrect();
+        }
+      } else {
+        streak = 0;
+        playSoundWrong();
+      }
+
+      updateStreakUI();
+      showFeedback(isCorrect, selectedLetter, q, false);
+    }
+
+    function updateStreakUI() {
+      const badge = document.getElementById('rush-streak-badge');
+      const text = document.getElementById('streak-text');
+      const icon = document.getElementById('streak-icon');
+
+      if (streak >= 3) {
+        badge.className = 'streak-badge fire';
+        icon.textContent = '🔥';
+        text.textContent = `Streak x${streak}!`;
+      } else if (streak > 0) {
+        badge.className = 'streak-badge';
+        icon.textContent = '⚡';
+        text.textContent = `Streak x${streak}`;
+      } else {
+        badge.className = 'streak-badge';
+        icon.textContent = '⚡';
+        text.textContent = 'Streak x0';
+      }
+    }
+
+    function showFeedback(isCorrect, selectedLetter, q, isTimeOut = false) {
+      const fbBox = document.getElementById('rush-feedback-box');
+      const fbTitle = document.getElementById('fb-title');
+      const isEn = currentLang === 'en';
+
+      if (isCorrect) {
+        fbTitle.className = 'feedback-title correct';
+        fbTitle.innerHTML = isEn 
+          ? `🎉 Correct! (+${remainingSeconds * 5 + 100} pts)` 
+          : `🎉 回答正确！(+${remainingSeconds * 5 + 100} 分)`;
+      } else if (isTimeOut) {
+        fbTitle.className = 'feedback-title wrong';
+        fbTitle.innerHTML = isEn 
+          ? `⏰ Time's Up! Correct Answer: <strong>${q.correct}</strong>` 
+          : `⏰ 20秒倒计时耗尽！正确答案是: <strong>${q.correct}</strong>`;
+      } else {
+        fbTitle.className = 'feedback-title wrong';
+        fbTitle.innerHTML = isEn 
+          ? `❌ Incorrect! Correct Answer: <strong>${q.correct}</strong>` 
+          : `❌ 回答错误！正确答案是: <strong>${q.correct}</strong>`;
+      }
+
+      // Concept
+      document.getElementById('fb-concept').innerHTML = `
+        <div style="color:#f8fafc; font-weight:600;">${q.concept_en}</div>
+        ${!isEn ? `<div style="color:#6ee7b7; margin-top:0.25rem;">${q.concept_cn}</div>` : ''}
+      `;
+
+      // Trap
+      document.getElementById('fb-trap').innerHTML = `
+        <div style="color:#fde047;">${q.trap_en}</div>
+        ${!isEn ? `<div style="color:#fcd34d; margin-top:0.25rem;">${q.trap_cn}</div>` : ''}
+      `;
+
+      // Citation
+      document.getElementById('fb-citation').textContent = q.citation;
+
+      fbBox.style.display = 'block';
+
+      // Auto-advance if enabled and correct
+      if (autoAdvance && isCorrect) {
+        autoAdvanceTimer = setTimeout(() => {
+          advanceToNextQuestion();
+        }, 2000);
+      }
+    }
+
+    function advanceToNextQuestion() {
+      if (autoAdvanceTimer) clearTimeout(autoAdvanceTimer);
+      currentIdx++;
+      if (currentIdx >= RUSH_QUESTIONS.length) {
+        showCompletionView();
+      } else {
+        renderQuestion();
+      }
+    }
+
+    // ==================== 4. COMPLETION CERTIFICATE & CONFETTI ====================
+    function showCompletionView() {
+      if (timerInterval) clearInterval(timerInterval);
+      totalTimeSpent = Math.max(10, Math.floor((Date.now() - gameStartTime) / 1000));
+
+      document.getElementById('rush-arena-box').style.display = 'none';
+      const compBox = document.getElementById('rush-completion-box');
+      compBox.style.display = 'block';
+
+      const totalQ = RUSH_QUESTIONS.length; // 18
+      const accuracyPct = Math.round((correctCount / totalQ) * 100);
+
+      // Duration string mm:ss
+      const mins = Math.floor(totalTimeSpent / 60);
+      const secs = totalTimeSpent % 60;
+      const durationStr = `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+
+      document.getElementById('res-score').textContent = score;
+      document.getElementById('res-accuracy').textContent = `${accuracyPct}% (${correctCount}/${totalQ})`;
+      document.getElementById('res-time').textContent = durationStr;
+
+      const badgeElem = document.getElementById('cert-grade-badge');
+      const evalElem = document.getElementById('cert-evaluation-text');
+      const iconElem = document.getElementById('cert-icon');
+
+      if (accuracyPct >= 90) {
+        badgeElem.className = 'cert-grade-badge grade-a-star';
+        badgeElem.textContent = '🌟 A* Master 神级学霸 (Outstanding)';
+        evalElem.textContent = '太震撼了！全卷 18 题几乎全对，三大核心生理机制已融会贯通，下周一考试稳操胜券！';
+        iconElem.textContent = '👑';
+        launchConfetti();
+      } else if (accuracyPct >= 75) {
+        badgeElem.className = 'cert-grade-badge grade-a';
+        badgeElem.textContent = '🥇 A Grade 优秀通关 (Excellent)';
+        evalElem.textContent = '非常出色！成绩远超 60% 及格线，高频考点掌握牢固，建议针对做错的个别题目稍加复盘！';
+        iconElem.textContent = '🏆';
+        launchConfetti();
+      } else if (accuracyPct >= 60) {
+        badgeElem.className = 'cert-grade-badge grade-pass';
+        badgeElem.textContent = '🥈 Pass 达标通关 (Qualified)';
+        evalElem.textContent = '顺利达成 60% 课堂及格线！建议对照错题卡片，重点巩固排泄超滤与血糖负反馈调节细节。';
+        iconElem.textContent = '🎯';
+        launchConfetti();
+      } else {
+        badgeElem.className = 'cert-grade-badge grade-retry';
+        badgeElem.textContent = '💪 Needs Revision 尚未及格 (Below 60%)';
+        evalElem.textContent = '目前正确率未达到 60% 及格线（正确题数需 ≥ 11 题）。不要灰心，点击下方重做，逐题消灭薄弱点！';
+        iconElem.textContent = '📚';
+      }
+    }
+
+    function restartRushGame() {
+      document.getElementById('rush-completion-box').style.display = 'none';
+      document.getElementById('rush-arena-box').style.display = 'block';
+      initGame();
+    }
+
+    function copyScoreReport() {
+      const totalQ = RUSH_QUESTIONS.length;
+      const accuracyPct = Math.round((correctCount / totalQ) * 100);
+      const mins = Math.floor(totalTimeSpent / 60);
+      const secs = totalTimeSpent % 60;
+      const durationStr = `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+
+      let gradeTitle = 'A* Master';
+      if (accuracyPct < 60) gradeTitle = 'Needs Revision';
+      else if (accuracyPct < 75) gradeTitle = 'Pass Qualified';
+      else if (accuracyPct < 90) gradeTitle = 'A Grade';
+
+      const now = new Date();
+      const dateStr = `${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()} ${now.getHours()}:${now.getMinutes() < 10 ? '0' : ''}${now.getMinutes()}`;
+
+      const report = `🎯 【G8 科学 10.19 考前突击大练兵战报】
+━━━━━━━━━━━━━━━━━━
+👤 学生学员: Sky
+📅 练习时间: ${dateStr}
+🏅 认证评级: ${gradeTitle} (${accuracyPct >= 60 ? '✅ 达标及格' : '⚠️ 需复练'})
+📊 答题成绩: ${correctCount} / ${totalQ} 题正确 (${accuracyPct}%)
+🏆 突击总积分: ${score} pts
+⏱️ 作答总耗时: ${durationStr}
+📚 覆盖考纲:
+  1. 细胞物质运输与渗透 (Diffusion & Osmosis)
+  2. 排泄与肾脏功能 (Excretion & Kidney Nephron)
+  3. 血糖调节与稳态 (Blood Glucose & Homeostasis)
+🔗 突击练习网址: https://sky.igcse.xyz/g8_exam_rush.html
+━━━━━━━━━━━━━━━━━━`;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(report).then(() => {
+          alert('📋 考前冲刺成绩战报已成功复制到剪贴板！可直接发送给家长或老师。');
+        }).catch(() => fallbackCopy(report));
+      } else {
+        fallbackCopy(report);
+      }
+    }
+
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      alert('📋 战报已复制到剪贴板！');
+    }
+
+    // ==================== 5. CANVAS CONFETTI ENGINE ====================
+    function launchConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      const colors = ['#f59e0b', '#ef4444', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899', '#ffffff'];
+
+      for (let i = 0; i < 110; i++) {
+        particles.push({
+          x: canvas.width / 2,
+          y: canvas.height * 0.45,
+          vx: (Math.random() - 0.5) * 16,
+          vy: (Math.random() - 0.7) * 18,
+          size: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          vRot: (Math.random() - 0.5) * 10,
+          gravity: 0.35,
+          drag: 0.96,
+          life: 1
+        });
+      }
+
+      let animationFrameId;
+      function renderParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let activeCount = 0;
+
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += p.gravity;
+          p.vx *= p.drag;
+          p.vy *= p.drag;
+          p.rotation += p.vRot;
+          p.life -= 0.007;
+
+          if (p.life > 0 && p.y < canvas.height) {
+            activeCount++;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rotation * Math.PI) / 180);
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = Math.max(0, p.life);
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+            ctx.restore();
+          }
+        });
+
+        if (activeCount > 0) {
+          animationFrameId = requestAnimationFrame(renderParticles);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+
+      renderParticles();
+    }
+  </script>
+</body>
+</html>
