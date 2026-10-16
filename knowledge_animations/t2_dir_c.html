@@ -364,8 +364,15 @@
     ctx.strokeStyle = slOpen > 0.5 ? '#16a34a' : '#dc2626';
     ctx.lineWidth = 5;
     ctx.lineCap = 'round';
-    // Left semilunar (Aortic)
     const slY = cy - 30;
+
+    // Right semilunar (Pulmonary Valve at Pulmonary Trunk exit)
+    ctx.beginPath();
+    ctx.moveTo(cx - 70, slY); ctx.lineTo(cx - 70 + (slOpen > 0.5 ? 12 : 28), slY - (slOpen > 0.5 ? 26 : 5));
+    ctx.moveTo(cx - 40, slY); ctx.lineTo(cx - 40 - (slOpen > 0.5 ? 12 : 28), slY - (slOpen > 0.5 ? 26 : 5));
+    ctx.stroke();
+
+    // Left semilunar (Aortic Valve at Aorta exit)
     ctx.beginPath();
     ctx.moveTo(cx + 40, slY); ctx.lineTo(cx + 40 + (slOpen > 0.5 ? 12 : 28), slY - (slOpen > 0.5 ? 26 : 5));
     ctx.moveTo(cx + 70, slY); ctx.lineTo(cx + 70 - (slOpen > 0.5 ? 12 : 28), slY - (slOpen > 0.5 ? 26 : 5));
@@ -387,15 +394,24 @@
     ctx.fillStyle = '#0f172a';
     ctx.font = 'bold 22px "Kalam-700", cursive, sans-serif';
 
-    // Label 1: Aorta
+    // Label 1: Aorta & Pulmonary Artery
     drawHandLine(ctx, cx + 100, cy - 200, cx + 220, cy - 180, '#dc2626', 2);
     ctx.fillStyle = '#dc2626';
     ctx.fillText("Aorta (To body tissues)", cx + 230, cy - 175);
+
+    drawHandLine(ctx, cx - 100, cy - 180, cx - 210, cy - 160, '#0284c7', 2);
+    ctx.fillStyle = '#0284c7';
+    ctx.fillText("Pulmonary Artery (To lungs)", cx - 220, cy - 155);
 
     // Label 2: AV Valves
     drawHandLine(ctx, lAvX + 45, vY, cx + 240, vY + 20, '#ca8a04', 2);
     ctx.fillStyle = '#854d0e';
     ctx.fillText(avOpen > 0.5 ? "AV Valves OPEN (Diastole)" : "AV Valves SNAP SHUT ('Lub' / S1)", cx + 250, vY + 25);
+
+    // Label: Semilunar Valves
+    drawHandLine(ctx, cx + 65, slY, cx + 240, slY - 15, slOpen > 0.5 ? '#16a34a' : '#dc2626', 2);
+    ctx.fillStyle = slOpen > 0.5 ? '#15803d' : '#b91c1c';
+    ctx.fillText(slOpen > 0.5 ? "Semilunar Valves OPEN (Systole)" : "Semilunar Valves SNAP SHUT ('Dub' / S2)", cx + 250, slY - 10);
 
     // Label 3: Thick Left Ventricle Wall
     drawHandLine(ctx, cx + 180, cy + 240, cx + 270, cy + 270, '#475569', 2);

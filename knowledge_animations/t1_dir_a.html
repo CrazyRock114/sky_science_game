@@ -151,7 +151,9 @@
   ];
 
   // Helper: Draw smooth organic anatomical lung with Bezier splines
-  function drawAnatomicalLung(ctx, side, scaleX, scaleY) {
+  // isRightLung: Anatomical right lung (3 lobes, horizontal + oblique fissures, no cardiac notch)
+  //              Anatomical left lung (2 lobes, oblique fissure, distinct cardiac notch)
+  function drawAnatomicalLung(ctx, side, scaleX, scaleY, isRightLung) {
     ctx.save();
     ctx.scale(side * scaleX, scaleY);
 
@@ -170,9 +172,20 @@
     ctx.bezierCurveTo(185, 130, 160, 210, 110, 235); // Base lateral
     // Inferior diaphragmatic surface (concave base resting on diaphragm)
     ctx.bezierCurveTo(60, 245, -20, 220, -55, 195);
-    // Medial mediastinal surface & cardiac notch
-    ctx.bezierCurveTo(-75, 160, -70, 80, -50, 20); // Cardiac notch indentation
-    ctx.bezierCurveTo(-35, -50, -15, -120, 25, -170); // Return to apex
+
+    if (isRightLung) {
+      // Anatomical Right Lung: Medial border is gently convex/straight towards mediastinum (NO cardiac notch)
+      ctx.bezierCurveTo(-65, 150, -68, 70, -52, 10);
+      ctx.bezierCurveTo(-40, -45, -18, -115, 25, -170);
+    } else {
+      // Anatomical Left Lung: Medial border has deep concave Cardiac Notch (心切迹) accommodating heart apex
+      // Lingula below notch
+      ctx.bezierCurveTo(-52, 175, -45, 155, -30, 140);
+      // Cardiac Notch indentation scooping into lung substance
+      ctx.bezierCurveTo(-10, 115, -8, 55, -45, 15);
+      // Upper mediastinal surface to apex
+      ctx.bezierCurveTo(-38, -45, -18, -115, 25, -170);
+    }
     ctx.closePath();
     ctx.fill();
 
@@ -190,14 +203,31 @@
     ctx.stroke();
     ctx.restore();
 
-    // Anatomical Interlobar Fissure line
-    ctx.strokeStyle = 'rgba(120, 15, 60, 0.6)';
+    // Anatomical Fissures
+    ctx.strokeStyle = 'rgba(120, 15, 60, 0.75)';
     ctx.lineWidth = 4;
     ctx.lineCap = 'round';
-    ctx.beginPath();
-    ctx.moveTo(170, 40);
-    ctx.bezierCurveTo(110, 60, 40, 110, -50, 150);
-    ctx.stroke();
+
+    if (isRightLung) {
+      // Right Lung: 2 Fissures dividing into 3 Lobes
+      // 1. Oblique Fissure (斜裂) separating inferior lobe from middle/superior lobes
+      ctx.beginPath();
+      ctx.moveTo(155, -25);
+      ctx.bezierCurveTo(90, 45, 20, 115, -48, 175);
+      ctx.stroke();
+
+      // 2. Horizontal Fissure (水平裂) separating superior lobe from middle lobe
+      ctx.beginPath();
+      ctx.moveTo(172, 50);
+      ctx.bezierCurveTo(100, 52, 15, 56, -55, 60);
+      ctx.stroke();
+    } else {
+      // Left Lung: 1 Oblique Fissure (斜裂) dividing into 2 Lobes (Superior & Inferior)
+      ctx.beginPath();
+      ctx.moveTo(150, -35);
+      ctx.bezierCurveTo(80, 45, 15, 110, -42, 160);
+      ctx.stroke();
+    }
 
     ctx.restore();
   }
@@ -320,16 +350,40 @@
     const lungScaleX = 1.0 + inhaleP * 0.24;
     const lungScaleY = 1.0 + inhaleP * 0.22;
 
-    // Left Lung (Viewer's left)
+    // Anatomical Right Lung (Viewer's left: 3 Lobes, Horizontal & Oblique Fissures, No Cardiac Notch)
     ctx.save();
     ctx.translate(960 - 180 - ribExpandX * 0.35, 520 + ribExpandY * 0.3);
-    drawAnatomicalLung(ctx, -1, lungScaleX, lungScaleY);
+    drawAnatomicalLung(ctx, -1, lungScaleX, lungScaleY, true);
     ctx.restore();
 
-    // Right Lung (Viewer's right)
+    // Anatomical Left Lung (Viewer's right: 2 Lobes, Oblique Fissure, Cardiac Notch)
     ctx.save();
     ctx.translate(960 + 180 + ribExpandX * 0.35, 520 + ribExpandY * 0.3);
-    drawAnatomicalLung(ctx, 1, lungScaleX, lungScaleY);
+    drawAnatomicalLung(ctx, 1, lungScaleX, lungScaleY, false);
+    ctx.restore();
+
+    // Anatomical Sub-Labels
+    ctx.save();
+    ctx.font = '600 13px Inter, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillStyle = '#fda4af';
+    ctx.fillText("RIGHT LUNG (3 Lobes)", 960 - 180 - ribExpandX * 0.35, 305);
+    ctx.fillText("LEFT LUNG (2 Lobes · Cardiac Notch)", 960 + 180 + ribExpandX * 0.35, 305);
+
+    // Cardiac Notch Callout
+    const notchWorldX = 960 + 180 + ribExpandX * 0.35 - 35 * lungScaleX;
+    const notchWorldY = 520 + ribExpandY * 0.3 + 95 * lungScaleY;
+    ctx.strokeStyle = 'rgba(0, 240, 255, 0.45)';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(notchWorldX, notchWorldY);
+    ctx.lineTo(notchWorldX - 45, notchWorldY - 15);
+    ctx.lineTo(notchWorldX - 110, notchWorldY - 15);
+    ctx.stroke();
+    ctx.fillStyle = '#38bdf8';
+    ctx.font = '600 12px Inter, sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText("Cardiac Notch (心切迹)", notchWorldX - 115, notchWorldY - 11);
     ctx.restore();
 
     // 5. Glowing Bronchial Tree & Alveoli Clusters (Inside lungs)
@@ -481,7 +535,27 @@
 
     // 8. Cinematic Glassmorphism Telemetry HUD Cards (Left & Right)
     // Left HUD: Boyle's Law & Real-time Pressure Manometer
-    const pAlv = isInhaling ? (101.3 - inhaleP * 0.5) : (101.3 + (1.0 - inhaleP) * 0.6);
+    // Physiological physical model: Driving pressure ΔP = P_alv - P_atm is proportional to airflow (dV/dt)
+    // Endpoints (t=0, t=19.2 end of inhale, t=29.18 end of exhale) have zero flow, so ΔP = 0.00 kPa (P_alv = 101.30 kPa)
+    // Active inhalation (t in [0.5, 16.5]): chest expands rapidly, ΔP reaches peak negative -0.50 kPa at mid-inhalation (t ~ 8.5s)
+    // Active exhalation (t in [19.2, 26.5]): elastic recoil, ΔP reaches peak positive +0.60 kPa at mid-exhalation (t ~ 22.8s)
+    let deltaP = 0.0;
+    if (t < 18.0) {
+      if (t >= 0.5 && t < 16.5) {
+        const u = (t - 0.5) / 16.0;
+        deltaP = -0.50 * Math.sin(Math.PI * u);
+      } else {
+        deltaP = 0.0;
+      }
+    } else {
+      if (t >= 19.2 && t < 26.5) {
+        const u = (t - 19.2) / 7.3;
+        deltaP = 0.60 * Math.sin(Math.PI * u);
+      } else {
+        deltaP = 0.0;
+      }
+    }
+    const pAlv = 101.30 + deltaP;
     const vThorax = 2.5 + inhaleP * 0.7;
 
     ctx.save();
@@ -513,7 +587,6 @@
 
     ctx.fillStyle = '#94a3b8';
     ctx.font = '500 13px Inter, sans-serif';
-    const deltaP = pAlv - 101.3;
     ctx.fillText(`Atmospheric: 101.3 kPa (ΔP: ${deltaP >= 0 ? '+' : ''}${deltaP.toFixed(2)} kPa)`, 90, 360);
 
     // Thorax Volume Bar

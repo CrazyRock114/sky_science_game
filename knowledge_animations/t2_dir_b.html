@@ -171,14 +171,31 @@
     // Ventricular Pressure P_v(t) in mmHg
     let pVent = 10;
     if (isPhase1) {
+      // Phase 1 (0 -> 7.2s): Ventricular filling (Diastole)
       pVent = 8 + 3 * Math.sin(t * 3);
     } else if (isPhase2) {
-      pVent = 10 + 90 * MO.smooth(MO.at(t, 7.2, 2.5)); // surges to 100 mmHg!
+      // Phase 2 (7.2 -> 15.8s): Isovolumetric Contraction (AV valves snap shut at 7.2s)
+      // Pressure surges steeply from 10 mmHg to 80 mmHg (aortic diastolic threshold)
+      const u = (t - 7.2) / 8.6;
+      pVent = 10 + 70 * MO.smooth(u);
     } else if (isPhase3) {
-      pVent = 100 + 20 * Math.sin((t - 15.8) * 1.5); // sustained ejection ~120 mmHg
+      // Phase 3 (15.8 -> 22.8s): Rapid Ejection (Semilunar valves forced open at 15.8s)
+      // Rises from 80 mmHg to peak 120 mmHg at t ~ 18.8s, then gently declines to 98 mmHg at 22.8s
+      const u = (t - 15.8) / 7.0;
+      if (u <= 0.43) { // 15.8s to 18.8s (ejection surge to peak)
+        pVent = 80 + 40 * Math.sin((u / 0.43) * (Math.PI / 2));
+      } else { // 18.8s to 22.8s (ejection decline)
+        pVent = 98 + 22 * Math.cos(((u - 0.43) / 0.57) * (Math.PI / 2));
+      }
     } else {
-      const cycleT = (t - 22.8) % 1.2;
-      pVent = cycleT < 0.5 ? 10 + 110 * MO.smooth(cycleT / 0.45) : 120 - 110 * MO.smooth((cycleT - 0.5) / 0.7);
+      // Phase 4 (22.8 -> 28.78s): Isovolumetric Relaxation -> Diastolic filling
+      // Semilunar valves snap shut at 22.8s (Dub/S2), pressure plunges to baseline by 25.0s
+      if (t < 25.0) {
+        const u = (t - 22.8) / 2.2;
+        pVent = 98 - 88 * MO.smooth(u);
+      } else {
+        pVent = 8 + 2 * Math.sin((t - 25.0) * 3);
+      }
     }
 
     // AV Valve Open Progress (1 = Open downward, 0 = Snapped shut)
@@ -261,7 +278,8 @@
     ctx.font = '24px "CMU-rm", serif'; ctx.textAlign = 'center';
     ctx.fillText("Right Ventricle (RV)", cx - boxW / 2 - 20, cy + boxH / 2 + 40);
     ctx.font = '18px "CMU-it", serif';
-    ctx.fillText(`P_RV = ${Math.round(pVent * 0.4)} mmHg`, cx - boxW / 2 - 20, cy + boxH / 2 + 70);
+    const pRV = Math.round(Math.max(4, pVent * 0.2));
+    ctx.fillText(`P_RV = ${pRV} mmHg (Low Pressure)`, cx - boxW / 2 - 20, cy + boxH / 2 + 70);
     ctx.restore();
 
     // Left Heart (Oxy Red)
@@ -288,7 +306,7 @@
     ctx.font = '24px "CMU-rm", serif'; ctx.textAlign = 'center';
     ctx.fillText("Left Ventricle (LV)", cx + boxW / 2 + 20, cy + boxH / 2 + 40);
     ctx.font = '18px "CMU-it", serif';
-    ctx.fillText(`P_LV = ${Math.round(pVent)} mmHg`, cx + boxW / 2 + 20, cy + boxH / 2 + 70);
+    ctx.fillText(`P_LV = ${Math.round(pVent)} mmHg (High Pressure)`, cx + boxW / 2 + 20, cy + boxH / 2 + 70);
     ctx.restore();
 
     // Central Septum Divider
@@ -358,45 +376,89 @@
       ctx.fillText(`${val}`, wx0 - 12, ty + 5);
     });
 
+    // Phase demarcation vertical guidelines (Aligned with audio cues: T = 28.78s)
+    const x1 = wx0 + wW * 0.250; // t=7.2s Mitral Shuts (S1 Lub, Isovolumetric Contraction begins)
+    const x2 = wx0 + wW * 0.549; // t=15.8s Aortic Opens (Semilunar Ejection begins)
+    const xPeak = wx0 + wW * 0.653; // t=18.8s Peak Systole (120 mmHg)
+    const x3 = wx0 + wW * 0.792; // t=22.8s Aortic Shuts (S2 Dub, Dicrotic Notch, Isovolumetric Relaxation)
+    const x4 = wx0 + wW * 0.869; // t=25.0s Mitral Reopens (Ventricular Filling)
+
+    ctx.save();
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+    ctx.lineWidth = 1;
+    [x1, x2, x3, x4].forEach(gx => {
+      ctx.beginPath(); ctx.moveTo(gx, wy0); ctx.lineTo(gx, wy0 + wH); ctx.stroke();
+    });
+    ctx.restore();
+
+    // Phase Headers along top of Wiggers Diagram
+    ctx.save();
+    ctx.font = '13px "CMU-it", serif';
+    ctx.fillStyle = GREY_C;
+    ctx.textAlign = 'center';
+    ctx.fillText("Diastole", (wx0 + x1) / 2, wy0 - 10);
+    ctx.fillText("Isovol. Contr.", (x1 + x2) / 2, wy0 - 10);
+    ctx.fillText("Rapid Ejection", (x2 + x3) / 2, wy0 - 10);
+    ctx.fillText("Relax.", (x3 + x4) / 2, wy0 - 10);
+    ctx.restore();
+
     // Wiggers Curves Plot:
+    const yVal = (p) => wy0 + wH - (p / 140) * wH;
+
     // 1. Aortic Pressure (Amber curve)
     ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 3;
     ctx.beginPath();
-    ctx.moveTo(wx0, wy0 + wH - (80 / 140) * wH);
-    ctx.lineTo(wx0 + wW * 0.28, wy0 + wH - (76 / 140) * wH);
-    ctx.quadraticCurveTo(wx0 + wW * 0.45, wy0 + wH - (124 / 140) * wH, wx0 + wW * 0.65, wy0 + wH - (105 / 140) * wH);
-    ctx.lineTo(wx0 + wW * 0.70, wy0 + wH - (110 / 140) * wH); // Dicrotic notch
-    ctx.lineTo(wx0 + wW, wy0 + wH - (80 / 140) * wH);
+    ctx.moveTo(wx0, yVal(82));
+    ctx.lineTo(x1, yVal(81));
+    ctx.lineTo(x2, yVal(80)); // Diastolic runoff baseline 80 mmHg prior to aortic valve opening
+    // During ejection: tracks ventricular pressure to 120 mmHg, then recedes to 100 mmHg
+    ctx.quadraticCurveTo(xPeak, yVal(120), x3, yVal(100));
+    // Dicrotic notch (降中峡) at t=22.8s due to aortic valve closure rebound
+    ctx.lineTo(x3 + wW * 0.018, yVal(96));
+    ctx.lineTo(x3 + wW * 0.038, yVal(104));
+    ctx.quadraticCurveTo(wx0 + wW * 0.92, yVal(86), wx0 + wW, yVal(80));
     ctx.stroke();
 
     // 2. Left Ventricle Pressure (Red curve)
     ctx.strokeStyle = RED_C; ctx.lineWidth = 3.5;
     ctx.beginPath();
-    ctx.moveTo(wx0, wy0 + wH - (10 / 140) * wH);
-    ctx.lineTo(wx0 + wW * 0.22, wy0 + wH - (12 / 140) * wH);
-    // Surge during systole
-    ctx.lineTo(wx0 + wW * 0.32, wy0 + wH - (80 / 140) * wH); // Crosses aortic
-    ctx.quadraticCurveTo(wx0 + wW * 0.45, wy0 + wH - (128 / 140) * wH, wx0 + wW * 0.68, wy0 + wH - (80 / 140) * wH);
-    ctx.lineTo(wx0 + wW * 0.75, wy0 + wH - (10 / 140) * wH);
-    ctx.lineTo(wx0 + wW, wy0 + wH - (10 / 140) * wH);
+    ctx.moveTo(wx0, yVal(10));
+    ctx.lineTo(x1, yVal(10)); // Baseline diastolic filling
+    // Isovolumetric contraction (t: 7.2s -> 15.8s): surges steeply to 80 mmHg
+    ctx.bezierCurveTo(x1 + (x2 - x1) * 0.3, yVal(18), x1 + (x2 - x1) * 0.7, yVal(65), x2, yVal(80));
+    // Rapid Ejection (t: 15.8s -> 22.8s): crosses aortic line, peaks at 120 mmHg, drops to 96 mmHg
+    ctx.quadraticCurveTo(xPeak, yVal(124), x3, yVal(96));
+    // Isovolumetric Relaxation (t: 22.8s -> 25.0s): plunges vertically down to baseline
+    ctx.bezierCurveTo(x3 + (x4 - x3) * 0.3, yVal(60), x3 + (x4 - x3) * 0.7, yVal(18), x4, yVal(10));
+    // Diastolic Filling (t: 25.0s -> 28.78s)
+    ctx.lineTo(wx0 + wW, yVal(10));
     ctx.stroke();
 
     // 3. Left Atrial Pressure (Blue curve)
     ctx.strokeStyle = BLUE_C; ctx.lineWidth = 2.5;
     ctx.beginPath();
-    ctx.moveTo(wx0, wy0 + wH - (8 / 140) * wH);
-    ctx.quadraticCurveTo(wx0 + wW * 0.15, wy0 + wH - (16 / 140) * wH, wx0 + wW * 0.22, wy0 + wH - (10 / 140) * wH);
-    ctx.quadraticCurveTo(wx0 + wW * 0.65, wy0 + wH - (14 / 140) * wH, wx0 + wW, wy0 + wH - (8 / 140) * wH);
+    ctx.moveTo(wx0, yVal(8));
+    ctx.quadraticCurveTo(wx0 + (x1 - wx0) * 0.5, yVal(14), x1, yVal(9)); // a-wave (atrial contraction)
+    ctx.lineTo(x1 + wW * 0.02, yVal(14)); // c-wave (AV valve bulge)
+    ctx.lineTo(x1 + wW * 0.05, yVal(7));
+    ctx.quadraticCurveTo(x3 - wW * 0.05, yVal(15), x3, yVal(16)); // v-wave (venous filling)
+    ctx.lineTo(x4, yVal(8)); // y-descent (AV opening)
+    ctx.lineTo(wx0 + wW, yVal(8));
     ctx.stroke();
 
-    // Critical Valve Events Annotations
-    // S1 Mitral Shut: x = wx0 + wW * 0.22
-    ctx.fillStyle = YELLOW; ctx.font = '16px "CMU-rm", serif'; ctx.textAlign = 'center';
-    ctx.fillText("Mitral Shuts (Lub)", wx0 + wW * 0.22, wy0 + wH + 25);
+    // Critical Valve Events Annotations (Aligned with audio)
+    // S1 Mitral Shut: x1 (t = 7.2s)
+    ctx.fillStyle = YELLOW; ctx.font = '15px "CMU-rm", serif'; ctx.textAlign = 'center';
+    ctx.fillText("Mitral Shuts (Lub / S1)", x1, wy0 + wH + 24);
 
-    // S2 Aortic Shut: x = wx0 + wW * 0.70
+    // Semilunar Open: x2 (t = 15.8s)
+    ctx.fillStyle = '#22c55e';
+    ctx.fillText("Aortic Opens (Ejection)", x2, wy0 + wH + 42);
+
+    // S2 Aortic Shut: x3 (t = 22.8s)
     ctx.fillStyle = BLUE_C;
-    ctx.fillText("Aortic Shuts (Dub)", wx0 + wW * 0.70, wy0 + wH + 25);
+    ctx.fillText("Aortic Shuts (Dub / S2)", x3, wy0 + wH + 24);
 
     // Legend
     ctx.textAlign = 'left'; ctx.font = '16px "CMU-rm", serif';

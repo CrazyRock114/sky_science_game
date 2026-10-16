@@ -526,7 +526,8 @@
       letter-spacing: 0.1em;
       border: 2px solid var(--primary);
       border-radius: 10px;
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(30, 41, 59, 0.95);
+      color: #f8fafc;
     }
     .shooter-input:focus { outline: none; border-color: var(--accent); }
     .shooter-hint {
@@ -807,10 +808,11 @@
       height: 50vh;
       min-height: 320px;
       margin: 0 auto;
-      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      background: radial-gradient(circle at 50% 30%, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
       border-radius: 16px;
       overflow: hidden;
-      border: 2px solid var(--accent);
+      border: 2px solid rgba(245, 158, 11, 0.5);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
     }
     .speed-display {
       position: absolute;
@@ -823,12 +825,13 @@
     .speed-chinese {
       font-size: 2.5rem;
       font-weight: 800;
-      color: var(--text);
+      color: #f8fafc;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
       margin-bottom: 0.5rem;
     }
     .speed-phonetic {
-      font-size: 1rem;
-      color: var(--text-light);
+      font-size: 1.1rem;
+      color: #94a3b8;
       font-style: italic;
     }
     .speed-input-bar {
@@ -837,12 +840,19 @@
       left: 0;
       right: 0;
       padding: 1rem;
-      background: rgba(0, 0, 0, 0.1);
+      background: rgba(15, 23, 42, 0.85);
       backdrop-filter: blur(8px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
     .speed-input-bar .shooter-input {
       width: 100%;
-      background: white;
+      background: rgba(30, 41, 59, 0.95);
+      color: #f8fafc;
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+    }
+    .speed-input-bar .shooter-input:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
     }
     .speed-overlay {
       position: absolute;
