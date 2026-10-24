@@ -1,0 +1,709 @@
+window.CHEMISTRY_U2_DATA = [
+  {
+    "id": "CHEM_U2_MCQ_01",
+    "lesson_id": 34,
+    "lesson_title_en": "Lesson 34: Properties of Acids & Indicators",
+    "lesson_title_cn": "第34课：酸和碱的性质与指示剂显色",
+    "task_code": "MCQ 1",
+    "task_title_en": "Colour Changes of Acid-Base Indicators",
+    "task_title_cn": "常用酸碱指示剂颜色辨析",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "citation_textbook": "《G8 U2 Acids and Bases Glossary.pdf》pp. 10-13 (Litmus, Methyl orange, Thymolphthalein)",
+    "prompt_en": "Which row correctly shows the colours of litmus, methyl orange, and thymolphthalein in an alkaline solution (pH 12)?\nA) Litmus: Blue | Methyl orange: Yellow | Thymolphthalein: Blue\nB) Litmus: Red | Methyl orange: Orange | Thymolphthalein: Colourless\nC) Litmus: Blue | Methyl orange: Red | Thymolphthalein: Blue\nD) Litmus: Red | Methyl orange: Yellow | Thymolphthalein: Colourless",
+    "prompt_cn": "下列哪一行正确显示了石蕊 (Litmus)、甲基橙 (Methyl orange) 和百里酚酞 (Thymolphthalein) 在强碱性溶液（pH 12）中的显色？\nA) 石蕊: 蓝色 | 甲基橙: 黄色 | 百里酚酞: 蓝色\nB) 石蕊: 红色 | 甲基橙: 橙色 | 百里酚酞: 无色\nC) 石蕊: 蓝色 | 甲基橙: 红色 | 百里酚酞: 蓝色\nD) 石蕊: 红色 | 甲基橙: 黄色 | 百里酚酞: 无色",
+    "answer_en": "A) Litmus: Blue | Methyl orange: Yellow | Thymolphthalein: Blue",
+    "answer_cn": "A) 石蕊: 蓝色 | 甲基橙: 黄色 | 百里酚酞: 蓝色",
+    "rationale_en": "In an alkaline solution (pH > 7): Litmus turns blue (red in acid); Methyl orange turns yellow (red in acid, orange at neutral); Thymolphthalein turns blue (colourless in acid and neutral). Therefore Row A is completely correct.",
+    "rationale_cn": "在碱性溶液（pH > 7）中：石蕊呈蓝色（酸红中性紫碱蓝）；甲基橙呈黄色（酸红中性橙碱黄）；百里酚酞显蓝色（酸性和中性为无色，强碱性变蓝）。因此只有A选项完全正确。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Concept]: Perfectly matches Cambridge indicator rules in alkaline solution (Litmus=blue, Methyl orange=yellow, Thymolphthalein=blue).",
+        "cn": "【核心考点】完全符合剑桥考纲指示剂显色规则：碱中石蕊变蓝、甲基橙变黄、百里酚酞变深蓝。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Distractor]: Inverts litmus colour (red is in acid) and assumes methyl orange is orange in alkali.",
+        "cn": "【易混陷阱】混淆了酸性显色，石蕊在酸中才变红，中性才是橙色。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Distractor]: Confuses methyl orange acid colour (red) with alkaline colour (yellow).",
+        "cn": "【易混陷阱】将甲基橙在酸中的红色误当作在碱中的颜色。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Distractor]: Fails to recall that thymolphthalein turns sharply blue in alkaline media.",
+        "cn": "【易混陷阱】遗忘了百里酚酞在碱性溶液中呈现特征性蓝色（在酸和中性中才为无色）。",
+        "correct": false
+      }
+    },
+    "interactive_meta": {
+      "component": "mcq",
+      "label": "单选题",
+      "lesson_unit": 34
+    }
+  },
+  {
+    "id": "CHEM_U2_MCQ_02",
+    "lesson_id": 35,
+    "lesson_title_en": "Lesson 35: Proton Theory & Strength vs Concentration",
+    "lesson_title_cn": "第35课：质子理论与强弱酸本质区别",
+    "task_code": "MCQ 2",
+    "task_title_en": "Scientific Definition of a Weak Acid",
+    "task_title_cn": "弱酸的本质科学定义",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "citation_textbook": "《G8 U2 Acids and Bases Glossary.pdf》pp. 2-3, 12-13 (Dissociation, Weak acid, Strong acid)",
+    "prompt_en": "Which statement scientifically explains why ethanoic acid (vinegar) is classified as a weak acid compared to hydrochloric acid?\nA) Ethanoic acid only partially dissociates into ions in aqueous solution, leaving most molecules intact.\nB) Ethanoic acid is always diluted with large volumes of water and contains few acid molecules per dm³.\nC) Ethanoic acid cannot neutralise alkalis or conduct any electric current.\nD) Ethanoic acid does not contain any hydrogen ions (H+) in its chemical formula.",
+    "prompt_cn": "下列哪项陈述科学解释了为什么乙酸（醋酸）与盐酸相比被归类为“弱酸”？\nA) 乙酸在水溶液中仅部分电离成离子，绝大多数分子仍以完整分子形式存在。\nB) 乙酸总是被大量水稀释，每立方分米中含有的酸分子很少。\nC) 乙酸不能中和碱，且完全不能导电。\nD) 乙酸在其化学式中根本不含有氢离子（H+）。",
+    "answer_en": "A) Ethanoic acid only partially dissociates into ions in aqueous solution, leaving most molecules intact.",
+    "answer_cn": "A) 乙酸在水溶液中仅部分电离成离子，绝大多数分子仍以完整分子形式存在。",
+    "rationale_en": "Acid strength is determined strictly by the degree of dissociation (ionisation). A strong acid (HCl) completely dissociates (100% into H+ and Cl-). A weak acid (CH3COOH) partially dissociates (<5% into H+ and CH3COO-). Concentration relates to solute amount, NOT strength.",
+    "rationale_cn": "酸的强弱由其在水中的电离度（Dissociation）决定。强酸（如HCl）在水中100%完全电离出H+；而弱酸（如CH3COOH）在水中仅部分电离（通常小于5%），绝大部分保持未电离分子状态。浓度与强度是不同概念。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Concept]: Precise definition of weak acid: partial dissociation in water with dynamic equilibrium.",
+        "cn": "【核心考点】弱酸的严格科学定义：溶于水时仅部分电离，大多数分子保持完整。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Trap]: Confuses concentration (dilute vs concentrated) with acid strength (weak vs strong).",
+        "cn": "【概念混淆】混淆了溶液“浓度（浓/稀）”与酸的“强弱程度（电离完全度）”。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Distractor]: Weak acids CAN neutralise bases and DO conduct electricity, though less than strong acids.",
+        "cn": "【知识错误】弱酸仍能中和碱，且因为存在部分自由移动的H+离子也能导电，只是导电性较弱。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Distractor]: Ethanoic acid formula is CH3COOH; it definitely releases H+ from its carboxyl group.",
+        "cn": "【化学常识】乙酸化学式为CH3COOH，其羧基(-COOH)能够释放出H+。",
+        "correct": false
+      }
+    },
+    "interactive_meta": {
+      "component": "mcq",
+      "label": "单选题",
+      "lesson_unit": 35
+    }
+  },
+  {
+    "id": "CHEM_U2_MCQ_03",
+    "lesson_id": 35,
+    "lesson_title_en": "Lesson 35: Proton Theory & Strength vs Concentration",
+    "lesson_title_cn": "第35课：浓度与强度的辨析对比",
+    "task_code": "MCQ 3",
+    "task_title_en": "Concentrated Weak Acid vs Dilute Strong Acid",
+    "task_title_cn": "浓弱酸与稀强酸的性质辨析",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "citation_textbook": "《G8 U2 Acids and Bases Glossary.pdf》pp. 2, 12 (Concentrated, Conductivity)",
+    "prompt_en": "Beaker X contains 1.0 mol/dm³ ethanoic acid (CH3COOH). Beaker Y contains 0.001 mol/dm³ hydrochloric acid (HCl). Which statement correctly compares the two solutions?\nA) Beaker X is concentrated but weak; Beaker Y is dilute but strong.\nB) Beaker X is dilute and strong; Beaker Y is concentrated and weak.\nC) Both solutions are equally strong because both have pH 7.\nD) Beaker Y contains more dissolved acid molecules per unit volume than Beaker X.",
+    "prompt_cn": "烧杯X盛有 1.0 mol/dm³ 的乙酸（CH3COOH）；烧杯Y盛有 0.001 mol/dm³ 的盐酸（HCl）。下列关于两溶液的比较何者正确？\nA) 烧杯X是浓溶液但属于弱酸；烧杯Y是稀溶液但属于强酸。\nB) 烧杯X是稀溶液且属于强酸；烧杯Y是浓溶液且属于弱酸。\nC) 两溶液强度相同，因为它们的pH都为7。\nD) 烧杯Y单位体积内溶解的酸分子数量多于烧杯X。",
+    "answer_en": "A) Beaker X is concentrated but weak; Beaker Y is dilute but strong.",
+    "answer_cn": "A) 烧杯X是浓溶液但属于弱酸；烧杯Y是稀溶液但属于强酸。",
+    "rationale_en": "Concentration refers to the amount of solute in a given volume (1.0 mol/dm³ is concentrated; 0.001 mol/dm³ is dilute). Strength refers to ionisation completeness (HCl completely ionises so it is strong; CH3COOH partially ionises so it is weak).",
+    "rationale_cn": "浓度（Concentration）衡量单位体积内溶质物质的量：1.0 mol/dm³浓度高属于浓溶液，0.001 mol/dm³浓度极低属于稀溶液；酸的强度取决于电离程度：HCl完全电离是强酸，CH3COOH部分电离是弱酸。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Concept]: Accurately decouples concentration (solute density) from strength (dissociation fraction).",
+        "cn": "【核心考点】准确解耦浓度（溶质密度）与强度（解离比例），X为浓弱酸，Y为稀强酸。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Distractor]: Inverts both concentration and strength assignments.",
+        "cn": "【彻底颠倒】将两者的浓度与酸性强弱全盘颠倒。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Distractor]: Neither solution has pH 7; acids have pH < 7.",
+        "cn": "【知识错误】两者都是酸，pH均小于7，绝不可能是中性pH 7。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Distractor]: Beaker X has 1000 times higher molar concentration than Beaker Y.",
+        "cn": "【数量错误】烧杯X单位体积溶质数量是烧杯Y的1000倍。",
+        "correct": false
+      }
+    },
+    "interactive_meta": {
+      "component": "mcq",
+      "label": "单选题",
+      "lesson_unit": 35
+    }
+  },
+  {
+    "id": "CHEM_U2_MCQ_04",
+    "lesson_id": 36,
+    "lesson_title_en": "Lesson 36: Characteristic Reactions & Equations",
+    "lesson_title_cn": "第36课：金属活动性与酸的置换反应",
+    "task_code": "MCQ 4",
+    "task_title_en": "Reactivity of Metals with Dilute Hydrochloric Acid",
+    "task_title_cn": "不同金属与稀盐酸的反应性判断",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "citation_textbook": "《G8 U2 Acids and Bases Glossary.pdf》pp. 4, 12 (Reactivity series, Hydrogen, Squeaky pop)",
+    "prompt_en": "Four metal strips (Magnesium, Zinc, Iron, Copper) are placed into test tubes containing dilute hydrochloric acid. Which observation is correct?\nA) Magnesium fizzes most vigorously; Copper produces NO gas bubbles at all.\nB) Copper fizzes most vigorously and produces a loud squeaky pop.\nC) All four metals react at the exact same rate producing oxygen gas.\nD) Zinc does not react because it is below hydrogen in the reactivity series.",
+    "prompt_cn": "将四种金属片（镁、锌、铁、铜）分别放入盛有稀盐酸的试管中。下列观察现象何者正确？\nA) 镁剧烈冒泡反应最快；铜表面完全没有任何气泡产生。\nB) 铜剧烈冒泡并产生响亮的爆鸣声。\nC) 四种金属以完全相同的速率反应并释放氧气。\nD) 锌完全不反应，因为锌在金属活动性顺序中排在氢的后面。",
+    "answer_en": "A) Magnesium fizzes most vigorously; Copper produces NO gas bubbles at all.",
+    "answer_cn": "A) 镁剧烈冒泡反应最快；铜表面完全没有任何气泡产生。",
+    "rationale_en": "In the Reactivity Series: Mg > Zn > Fe > (H) > Cu. Metals above hydrogen react with acid to produce hydrogen gas (fizzing). Magnesium is highest and reacts fastest. Copper is below hydrogen, so it cannot displace hydrogen and produces zero reaction.",
+    "rationale_cn": "依据金属活动性顺序：Mg > Zn > Fe > (H) > Cu。排在氢前面的活泼金属能与酸反应置换出氢气（冒泡）；镁最活泼反应最剧烈；铜排在氢之后，无法置换出氢气，因此不发生任何反应。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Concept]: Matches the reactivity series sequence: Mg vigorously fizzes, Cu below H does not react.",
+        "cn": "【核心考点】准确遵循活动性顺序：镁剧烈反应释放H2，铜排在氢后不反应。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Trap]: Copper is unreactive with non-oxidising dilute acids; it cannot produce hydrogen.",
+        "cn": "【严重错误】铜是不活泼金属，与稀盐酸不反应，绝不会剧烈冒泡。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Distractor]: Acids and metals produce hydrogen gas (H2), NEVER oxygen gas (O2).",
+        "cn": "【产物错误】酸与金属反应生成的是氢气（H2），绝非氧气（O2）。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Distractor]: Zinc is above hydrogen and reacts moderately with acids.",
+        "cn": "【活动性错误】锌排在氢前面（...Mg, Al, Zn, Fe, H...），能稳定与酸反应。",
+        "correct": false
+      }
+    },
+    "interactive_meta": {
+      "component": "mcq",
+      "label": "单选题",
+      "lesson_unit": 36
+    }
+  },
+  {
+    "id": "CHEM_U2_MCQ_05",
+    "lesson_id": 34,
+    "lesson_title_en": "Lesson 34: Properties of Acids & Indicators",
+    "lesson_title_cn": "第34课：酸反应生成气体的检验方法",
+    "task_code": "MCQ 5",
+    "task_title_en": "Gas Tests: Hydrogen vs Carbon Dioxide",
+    "task_title_cn": "氢气与二氧化碳气体的检验判别",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "citation_textbook": "《G8 U2 Acids and Bases Glossary.pdf》pp. 2, 4, 12 (Limewater, Squeaky pop test)",
+    "prompt_en": "A student performs two experiments:\n1. Acid + Magnesium ribbon → Gas 1\n2. Acid + Calcium carbonate chips → Gas 2\nHow should Gas 1 and Gas 2 be verified experimentally?\nA) Gas 1 pops with a lit splint; Gas 2 turns limewater cloudy / milky.\nB) Gas 1 relights a glowing splint; Gas 2 burns with a blue flame.\nC) Gas 1 turns limewater milky; Gas 2 pops with a burning splint.\nD) Both gases bleach damp litmus paper white.",
+    "prompt_cn": "某学生进行了两个对比实验：\n1. 稀酸 + 镁带 → 气体 1\n2. 稀酸 + 碳酸钙小块 → 气体 2\n在实验中应如何分别检验气体 1 和气体 2？\nA) 气体 1 用点燃木条检验发出爆鸣声；气体 2 通入澄清石灰水变浑浊。\nB) 气体 1 使带火星木条复燃；气体 2 燃烧产生蓝色火焰。\nC) 气体 1 使澄清石灰水变浑浊；气体 2 用点燃木条检验发出爆鸣声。\nD) 两种气体均使湿润的石蕊试纸褪色漂白。",
+    "answer_en": "A) Gas 1 pops with a lit splint; Gas 2 turns limewater cloudy / milky.",
+    "answer_cn": "A) 气体 1 用点燃木条检验发出爆鸣声；气体 2 通入澄清石灰水变浑浊。",
+    "rationale_en": "Experiment 1 produces Hydrogen (Acid + Metal → Salt + H2), confirmed by squeaky pop test with a burning splint. Experiment 2 produces Carbon dioxide (Acid + Carbonate → Salt + H2O + CO2), confirmed by limewater turning milky (calcium carbonate precipitation).",
+    "rationale_cn": "实验1是酸与金属反应生成氢气（H2），检验方法是用燃着的木条靠近试管口，发出“爆鸣声”（squeaky pop）；实验2是酸与碳酸盐反应生成二氧化碳（CO2），检验方法是通入澄清石灰水，产生白色沉淀变浑浊。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Concept]: Standard Cambridge gas tests: H2 = squeaky pop test; CO2 = turns limewater cloudy.",
+        "cn": "【核心考点】剑桥经典气体检验：氢气爆鸣测试，二氧化碳石灰水变浑浊。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Distractor]: Relighting a glowing splint tests for oxygen (O2), not hydrogen.",
+        "cn": "【气体混淆】带火星木条复燃是氧气（O2）的特征检验方法。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Distractor]: Completely swaps the gas identification methods.",
+        "cn": "【前后颠倒】将氢气与二氧化碳的检验反应刚好调反。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Distractor]: Bleaching damp litmus paper is the test for chlorine gas (Cl2).",
+        "cn": "【气体混淆】漂白石蕊试纸是氯气（Cl2）的检验特征。",
+        "correct": false
+      }
+    },
+    "interactive_meta": {
+      "component": "mcq",
+      "label": "单选题",
+      "lesson_unit": 34
+    }
+  },
+  {
+    "id": "CHEM_U2_MCQ_06",
+    "lesson_id": 35,
+    "lesson_title_en": "Lesson 35: Proton Theory & Strength vs Concentration",
+    "lesson_title_cn": "第35课：pH值与对数浓度的数量级关系",
+    "task_code": "MCQ 6",
+    "task_title_en": "The Logarithmic Nature of the pH Scale",
+    "task_title_cn": "pH对数刻度中氢离子浓度的倍数变化",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "citation_textbook": "《G8 U2 Acids and Bases Glossary.pdf》pp. 3, 11 (Logarithmic scale, pH scale)",
+    "prompt_en": "Solution P has a pH of 3. Solution Q has a pH of 5. How does the hydrogen ion [H+] concentration in Solution P compare to that in Solution Q?\nA) Solution P has 100 times higher [H+] concentration than Solution Q.\nB) Solution P has 2 times higher [H+] concentration than Solution Q.\nC) Solution P has 10 times lower [H+] concentration than Solution Q.\nD) Solution P has the same [H+] concentration because both are below pH 7.",
+    "prompt_cn": "溶液P的pH值为3；溶液Q的pH值为5。溶液P中的氢离子[H+]浓度与溶液Q相比有何关系？\nA) 溶液P的[H+]浓度比溶液Q高 100 倍。\nB) 溶液P的[H+]浓度比溶液Q高 2 倍。\nC) 溶液P的[H+]浓度比溶液Q低 10 倍。\nD) 溶液P的[H+]浓度与溶液Q相同，因为二者都低于pH 7。",
+    "answer_en": "A) Solution P has 100 times higher [H+] concentration than Solution Q.",
+    "answer_cn": "A) 溶液P的[H+]浓度比溶液Q高 100 倍。",
+    "rationale_en": "The pH scale is logarithmic (base 10). Each decrease of 1 pH unit represents a 10-fold increase in [H+] ion concentration. A decrease of 2 units (from pH 5 down to pH 3) means 10 * 10 = 100 times higher [H+] concentration.",
+    "rationale_cn": "pH刻度是对数刻度（以10为底）。pH值每减小1个单位，[H+]离子浓度增加10倍。从pH 5降到pH 3，相差2个pH单位，因此氢离子浓度高出 10 × 10 = 100 倍。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Concept]: Correct logarithmic calculation: 10^(5 - 3) = 10^2 = 100 times.",
+        "cn": "【核心考点】对数计算：相差2个pH单位对应 10^2 = 100倍氢离子浓度。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Trap]: Treats pH as a linear arithmetic scale (5 - 3 = 2), overlooking the base-10 exponent.",
+        "cn": "【算术陷阱】把对数刻度误当作普通线性加减（误以为5-3=2倍）。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Distractor]: Lower pH values signify HIGHER acidity and higher [H+] concentrations.",
+        "cn": "【逻辑颠倒】pH值越低代表酸性越强、氢离子浓度越高，而非更低。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Distractor]: Different pH numbers indicate distinctly different hydrogen ion concentrations.",
+        "cn": "【常识错误】不同pH值代表截然不同的氢离子浓度。",
+        "correct": false
+      }
+    },
+    "interactive_meta": {
+      "component": "mcq",
+      "label": "单选题",
+      "lesson_unit": 35
+    }
+  },
+  {
+    "id": "CHEM_U2_MCQ_07",
+    "lesson_id": 37,
+    "lesson_title_en": "Lesson 37: Salt Preparation & Solubility",
+    "lesson_title_cn": "第37课：盐的溶解性规律与沉淀形成",
+    "task_code": "MCQ 7",
+    "task_title_en": "Predicting Insoluble Salt Precipitates",
+    "task_title_cn": "不溶性盐沉淀生成的预测判断",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "citation_textbook": "《G8 U2 Acids and Bases Glossary.pdf》pp. 3, 5, 12 (Precipitate, Solubility table, Insoluble salt)",
+    "prompt_en": "A student mixes aqueous barium chloride, BaCl2(aq), with aqueous sodium sulfate, Na2SO4(aq). A white solid immediately forms. What is the identity of this precipitate?\nA) Barium sulfate, BaSO4\nB) Sodium chloride, NaCl\nC) Barium sodium, BaNa2\nD) Chlorine gas, Cl2",
+    "prompt_cn": "学生将氯化钡水溶液 BaCl2(aq) 与硫酸钠水溶液 Na2SO4(aq) 混合，试管中立刻产生白色沉淀固体。该沉淀物的化学成分是？\nA) 硫酸钡，BaSO4\nB) 氯化钠，NaCl\nC) 钡化钠，BaNa2\nD) 氯气，Cl2",
+    "answer_en": "A) Barium sulfate, BaSO4",
+    "answer_cn": "A) 硫酸钡，BaSO4",
+    "rationale_en": "In this precipitation reaction: BaCl2(aq) + Na2SO4(aq) → BaSO4(s) + 2NaCl(aq). According to solubility rules, all common sodium salts and chlorides are soluble, but barium sulfate (BaSO4) is strictly insoluble in water, forming the dense white precipitate.",
+    "rationale_cn": "在该复分解沉淀反应中：BaCl2(aq) + Na2SO4(aq) → BaSO4(s) + 2NaCl(aq)。根据溶解性规律，钠盐和多数氯化物完全可溶，而硫酸钡（BaSO4）极难溶于水，故析出为不溶性白色沉淀。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Concept]: BaSO4 is insoluble in water and forms the classic diagnostic white precipitate.",
+        "cn": "【核心考点】BaSO4难溶于水，是检验硫酸根离子的经典致密白色沉淀。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Distractor]: NaCl (table salt) is highly soluble in water and remains dissolved in the filtrate.",
+        "cn": "【易混干扰】氯化钠易溶于水，仍以游离离子形态溶解在水溶液滤液中。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Distractor]: Two metals do not combine to form ionic salts in aqueous displacement.",
+        "cn": "【化学错误】两金属阳离子不会在水溶液中互相化合形成盐。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Distractor]: No redox reaction occurs; chlorine remains as chloride anions (Cl-).",
+        "cn": "【产物错误】此反应为非氧化还原复分解反应，氯始终以氯离子形式存在。",
+        "correct": false
+      }
+    },
+    "interactive_meta": {
+      "component": "mcq",
+      "label": "单选题",
+      "lesson_unit": 37
+    }
+  },
+  {
+    "id": "CHEM_U2_MCQ_08",
+    "lesson_id": 38,
+    "lesson_title_en": "Lesson 38: Volumetric Analysis & Experimental Skills",
+    "lesson_title_cn": "第38课：滴定实验仪器与凹液面读数规范",
+    "task_code": "MCQ 8",
+    "task_title_en": "Reading a Burette & Meniscus Observation",
+    "task_title_cn": "滴定管规范读数与凹液面视线准则",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "citation_textbook": "《G8 U2 Acids and Bases Glossary.pdf》pp. 2, 4, 11 (Burette, Meniscus, Titration)",
+    "prompt_en": "During an acid-base titration, how should the student correctly read the liquid volume on a glass burette?\nA) Eye level horizontally aligned with the bottom of the curved meniscus.\nB) Looking downward from above the meniscus to maximise the reading.\nC) Looking upward from below the meniscus to the top liquid rim.\nD) Averaging the highest and lowest water marks on the outer glass wall.",
+    "prompt_cn": "在进行酸碱滴定实验时，学生应当如何正确读取玻璃滴定管中的液体体积？\nA) 视线保持水平，平齐弯曲凹液面（Meniscus）的最底部。\nB) 从凹液面上方向下俯视读取刻度以获取最大读数。\nC) 从凹液面下方向上仰视观察管壁两边最高的液面边缘。\nD) 将滴定管外壁最高与最低的水痕取平均值。",
+    "answer_en": "A) Eye level horizontally aligned with the bottom of the curved meniscus.",
+    "answer_cn": "A) 视线保持水平，平齐弯曲凹液面（Meniscus）的最底部。",
+    "rationale_en": "Water adheres to glass walls, causing surface tension to form a concave meniscus. To avoid parallax error, readings on a burette or pipette must always be taken with the eye strictly level with the bottom of the meniscus.",
+    "rationale_cn": "水对玻璃管壁具有附着浸润作用，表面张力使液面呈现中央下凹的凹液面（Meniscus）。为避免视差（Parallax error），读取滴定管或移液管刻度时，视线必须与凹液面的最低点保持水平。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Concept]: Standard laboratory measurement protocol: eye level with the bottom of the meniscus.",
+        "cn": "【核心考点】剑桥化学实验规范：视线水平平齐凹液面最底部，杜绝视差。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Trap]: Looking down causes parallax error, leading to an artificially high reading.",
+        "cn": "【实验陷阱】俯视读数会产生向下视差，导致读取数值失真偏大。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Trap]: Looking up causes parallax error, reading the rim rather than the true fluid level.",
+        "cn": "【实验陷阱】仰视读数会读取到管壁挂壁边缘，导致读数偏小。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Distractor]: Outer wall marks are irrelevant splash droplets, not volumetric readings.",
+        "cn": "【常识错误】滴定管外壁水痕是飞溅杂质，与内部容积测量完全无关。",
+        "correct": false
+      }
+    },
+    "interactive_meta": {
+      "component": "mcq",
+      "label": "单选题",
+      "lesson_unit": 38
+    }
+  },
+  {
+    "id": "CHEM_U2_MCQ_09",
+    "lesson_id": 36,
+    "lesson_title_en": "Lesson 36: Characteristic Reactions & Equations",
+    "lesson_title_cn": "第36课：中和反应的热量变化特征",
+    "task_code": "MCQ 9",
+    "task_title_en": "Thermal Energy Change in Neutralisation Reactions",
+    "task_title_cn": "中和反应的热效应与能量特征",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "citation_textbook": "《G8 U2 Acids and Bases Glossary.pdf》pp. 3, 4, 10 (Exothermic, Neutralisation)",
+    "prompt_en": "A student adds 25 cm³ of dilute sodium hydroxide solution to 25 cm³ of dilute hydrochloric acid in an insulated polystyrene cup. A thermometer measures the mixture. What thermal observation is made?\nA) The temperature rises because neutralisation is an exothermic reaction.\nB) The temperature drops significantly because acids freeze bases.\nC) The temperature remains exactly 0°C because salt stops thermal motion.\nD) The mixture boils violently and disappears instantly.",
+    "prompt_cn": "学生在隔热泡沫塑料杯中将 25 cm³ 稀氢氧化钠溶液加入 25 cm³ 稀盐酸中，并用温度计实时监测混合液温度。能观察到什么热学现象？\nA) 温度计示数上升，因为中和反应是典型的放热反应（Exothermic）。\nB) 温度计示数明显下降，因为酸能使碱发生冷冻。\nC) 温度始终停留在 0°C，因为生成的盐抑制了热运动。\nD) 混合液剧烈沸腾并瞬间全部蒸发消失。",
+    "answer_en": "A) The temperature rises because neutralisation is an exothermic reaction.",
+    "answer_cn": "A) 温度计示数上升，因为中和反应是典型的放热反应（Exothermic）。",
+    "rationale_en": "Neutralisation (H+ + OH- → H2O) is an exothermic reaction that releases heat energy into the surrounding solution, raising the temperature of the reaction mixture.",
+    "rationale_cn": "中和反应本质是氢离子与氢氧根结合生成水分子（H+ + OH- → H2O），反应释放化学能转化为热能传递给溶液，是放热反应（Exothermic），因此温度计读数上升。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Concept]: Neutralisation releases thermal energy, causing the recorded temperature to rise.",
+        "cn": "【核心考点】中和反应向外界释放热量（Exothermic），导致混合液温度升高。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Distractor]: Inverts the energy change into an endothermic absorption.",
+        "cn": "【逻辑颠倒】误把放热升温当成吸热降温。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Distractor]: Dissolved salt does not freeze solutions at room temperature.",
+        "cn": "【知识错误】生成的盐溶液在室温下不会降至0°C。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Distractor]: Normal bench dilutions produce modest warming (e.g., +5°C), not violent boiling.",
+        "cn": "【夸大错误】常规稀溶液中和仅温和升温数度，绝不会剧烈沸腾蒸发。",
+        "correct": false
+      }
+    },
+    "interactive_meta": {
+      "component": "mcq",
+      "label": "单选题",
+      "lesson_unit": 36
+    }
+  },
+  {
+    "id": "CHEM_U2_MCQ_10",
+    "lesson_id": 34,
+    "lesson_title_en": "Lesson 34: Properties of Acids & Indicators",
+    "lesson_title_cn": "第34课：酸雨的成因与对建筑物的侵蚀机理",
+    "task_code": "MCQ 10",
+    "task_title_en": "Environmental Chemistry: Acid Rain & Limestone Damage",
+    "task_title_cn": "环境化学：酸雨对大理石建筑物的侵蚀机理",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "citation_textbook": "《G8 U2 Acids and Bases Glossary.pdf》pp. 1, 8 (Acid rain, Carbonate)",
+    "prompt_en": "Acid rain has a pH below 5.6 due to dissolved sulfur dioxide (SO2) and nitrogen oxides (NOx). Why does acid rain specifically erode historical buildings made of marble or limestone?\nA) Limestone is calcium carbonate (CaCO3), which chemically reacts with acid to produce soluble salts, water, and CO2.\nB) Marble is an unreactive noble metal that rusts when wet.\nC) Acid rain freezes the stones, causing them to shatter into dust.\nD) Acid rain contains universal indicator which stains the stones purple.",
+    "prompt_cn": "酸雨由于溶解了二氧化硫（SO2）和氮氧化物（NOx）使其pH值低于5.6。为什么酸雨会特异性腐蚀大理石或石灰石雕塑与历史建筑物？\nA) 石灰石主要成分是碳酸钙（CaCO3），能与酸发生特征反应生成易溶盐、水和二氧化碳气体而剥蚀。\nB) 大理石是一种不活泼贵金属，遇到水会发生生锈。\nC) 酸雨冷冻了岩石，使其在低温下碎裂成粉末。\nD) 酸雨中含有通用指示剂，将建筑物染成了紫色。",
+    "answer_en": "A) Limestone is calcium carbonate (CaCO3), which chemically reacts with acid to produce soluble salts, water, and CO2.",
+    "answer_cn": "A) 石灰石主要成分是碳酸钙（CaCO3），能与酸发生特征反应生成易溶盐、水和二氧化碳气体而剥蚀。",
+    "rationale_en": "Marble and limestone consist of calcium carbonate (CaCO3). Acid rain reacts according to: Acid + Carbonate → Salt + Water + Carbon dioxide. This dissolves the solid calcium carbonate into water-soluble calcium salts, washing away fine carvings.",
+    "rationale_cn": "石灰石和大理石的核心化学成分为碳酸钙（CaCO3）。酸雨中的酸与其发生特征反应：酸 + 碳酸盐 → 盐 + 水 + 二氧化碳。致密的碳酸钙被化学转化为可溶性盐并随雨水冲走，导致精细石雕被侵蚀损毁。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Concept]: Correct chemistry: CaCO3 + acid -> soluble calcium salt + H2O + CO2.",
+        "cn": "【核心考点】精确对应化学机理：碳酸盐被酸腐蚀转化并溶蚀剥落。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Distractor]: Limestone is a sedimentary mineral rock, not a noble metal.",
+        "cn": "【材料常识】大理石是碳酸盐矿石，绝不是金属材料。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Distractor]: Damage is chemical corrosion, not frost shattering.",
+        "cn": "【机制混淆】酸雨损害是化学反应溶解，而非物理冰冻碎裂。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Distractor]: Universal indicator is a man-made lab dye, not present in rain.",
+        "cn": "【荒谬干扰】指示剂是实验室人造试剂，自然界酸雨中绝不可能含有。",
+        "correct": false
+      }
+    },
+    "interactive_meta": {
+      "component": "mcq",
+      "label": "单选题",
+      "lesson_unit": 34
+    }
+  },
+  {
+    "id": "CHEM_U2_MATCH_01",
+    "lesson_id": 35,
+    "lesson_title_en": "Lesson 35: Proton Theory & Strength vs Concentration",
+    "lesson_title_cn": "第35课：质子理论与BAAD准则概念配对",
+    "task_code": "Match 1",
+    "task_title_en": "BAAD Mnemonic & Proton Transfer Mechanics",
+    "task_title_cn": "BAAD准则与质子转移机制双栏配对",
+    "game_type": "matching",
+    "game_type_cn": "双栏连线题 / 概念配对",
+    "citation_textbook": "《G8 U2 Acids and Bases Glossary.pdf》pp. 1, 8 (BAAD acronym, Proton, Amphoteric, Neutralisation)",
+    "prompt_en": "Match each chemical term or principle to its correct proton behaviour and definition:",
+    "prompt_cn": "将左侧的核心化学术语与右侧对应的质子转移机制和定义进行配对连线：",
+    "answer_en": "• Acid (BAAD principle) -> Proton donor (releases H+ in water)\n• Base (BAAD principle) -> Proton acceptor (accepts H+ from acid)\n• Amphoteric water (H2O) -> Can act as both proton donor and acceptor\n• Neutralisation ionic equation -> H+ + OH- -> H2O (proton transfer to form water)",
+    "answer_cn": "• 酸 (BAAD准则) -> 质子供体 (溶于水释放 H+ 离子)\n• 碱 (BAAD准则) -> 质子受体 (能从酸中接收 H+ 离子)\n• 两性水分子 (H2O) -> 既能作质子供体又能作质子受体\n• 中和反应离子方程式 -> H+ + OH- -> H2O (质子结合形成水分子)",
+    "rationale_en": "The Brønsted-Lowry / IGCSE proton definition is encapsulated in BAAD: Bases Accept, Acids Donate. H+ is a proton. Water is amphoteric. Neutralisation is the transfer of a proton from H+ to OH-.",
+    "rationale_cn": "剑桥考纲关于酸碱的质子理论核心总结在BAAD缩写中：Bases Accept（碱接收质子），Acids Donate（酸给出质子）。H+本质就是一个脱去电子的质子。水兼具双重属性属于两性物质。",
+    "interactive_meta": {
+      "component": "matching",
+      "label": "双栏连线题 / 概念配对",
+      "lesson_unit": 35,
+      "matching_pairs": [
+        {
+          "left_en": "Acid (BAAD principle)",
+          "left_cn": "酸 (BAAD准则)",
+          "right_en": "Proton donor (releases H+ in water)",
+          "right_cn": "质子供体 (溶于水释放 H+ 离子)"
+        },
+        {
+          "left_en": "Base (BAAD principle)",
+          "left_cn": "碱 (BAAD准则)",
+          "right_en": "Proton acceptor (accepts H+ from acid)",
+          "right_cn": "质子受体 (能从酸中接收 H+ 离子)"
+        },
+        {
+          "left_en": "Amphoteric water (H2O)",
+          "left_cn": "两性水分子 (H2O)",
+          "right_en": "Can act as both proton donor and acceptor",
+          "right_cn": "既能作质子供体又能作质子受体"
+        },
+        {
+          "left_en": "Neutralisation ionic equation",
+          "left_cn": "中和反应离子方程式",
+          "right_en": "H+ + OH- → H2O (proton transfers to water)",
+          "right_cn": "H+ + OH- → H2O (质子结合生成水分子)"
+        }
+      ]
+    }
+  },
+  {
+    "id": "CHEM_U2_MATCH_02",
+    "lesson_id": 36,
+    "lesson_title_en": "Lesson 36: Characteristic Reactions & Equations",
+    "lesson_title_cn": "第36课：酸根阴离子与来源母体酸配对",
+    "task_code": "Match 2",
+    "task_title_en": "Acid Radicals and Corresponding Source Acids",
+    "task_title_cn": "酸根阴离子与对应来源酸配对",
+    "game_type": "matching",
+    "game_type_cn": "双栏连线题 / 概念配对",
+    "citation_textbook": "《G8 U2 Acids and Bases Glossary.pdf》p. 14 (Common Ion Reference Table)",
+    "prompt_en": "Match each parent acid or base to its characteristic acid radical anion or cation:",
+    "prompt_cn": "将左侧的母体酸或碱与右侧生成的特征阴阳离子进行对应连线：",
+    "answer_en": "• Hydrochloric acid (HCl) -> Chloride ion (Cl-)\n• Sulfuric acid (H2SO4) -> Sulfate ion (SO4 2-)\n• Nitric acid (HNO3) -> Nitrate ion (NO3 -)\n• Carbonic acid (H2CO3) -> Carbonate ion (CO3 2-)\n• Ammonia solution (NH3) -> Ammonium ion (NH4 +)",
+    "answer_cn": "• 盐酸 (HCl) -> 氯离子 (Cl-)\n• 硫酸 (H2SO4) -> 硫酸根离子 (SO4 2-)\n• 硝酸 (HNO3) -> 硝酸根离子 (NO3 -)\n• 碳酸 (H2CO3) -> 碳酸根离子 (CO3 2-)\n• 氨水 (NH3) -> 铵根阳离子 (NH4 +)",
+    "rationale_en": "Naming and identifying salt radicals is vital in Cambridge chemistry. HCl yields chlorides (Cl-); H2SO4 yields sulfates (SO4 2-); HNO3 yields nitrates (NO3 -); H2CO3 yields carbonates (CO3 2-); NH3 accepts H+ to yield ammonium (NH4 +).",
+    "rationale_cn": "熟记不同酸对应的酸根是掌握盐类命名与书写化学方程式的基石：盐酸对应氯离子Cl-；硫酸对应硫酸根SO4 2-；硝酸对应硝酸根NO3 -；碳酸对应碳酸根CO3 2-；氨气接受质子生成铵根NH4 +。",
+    "interactive_meta": {
+      "component": "matching",
+      "label": "双栏连线题 / 概念配对",
+      "lesson_unit": 36,
+      "matching_pairs": [
+        {
+          "left_en": "Hydrochloric acid (HCl)",
+          "left_cn": "盐酸 (HCl)",
+          "right_en": "Chloride ion (Cl-)",
+          "right_cn": "氯离子 (Cl-)"
+        },
+        {
+          "left_en": "Sulfuric acid (H2SO4)",
+          "left_cn": "硫酸 (H2SO4)",
+          "right_en": "Sulfate ion (SO4 2-)",
+          "right_cn": "硫酸根离子 (SO4 2-)"
+        },
+        {
+          "left_en": "Nitric acid (HNO3)",
+          "left_cn": "硝酸 (HNO3)",
+          "right_en": "Nitrate ion (NO3 -)",
+          "right_cn": "硝酸根离子 (NO3 -)"
+        },
+        {
+          "left_en": "Carbonic acid (H2CO3)",
+          "left_cn": "碳酸 (H2CO3)",
+          "right_en": "Carbonate ion (CO3 2-)",
+          "right_cn": "碳酸根离子 (CO3 2-)"
+        },
+        {
+          "left_en": "Ammonia gas (NH3)",
+          "left_cn": "氨气 (NH3)",
+          "right_en": "Ammonium ion (NH4 +)",
+          "right_cn": "铵根阳离子 (NH4 +)"
+        }
+      ]
+    }
+  },
+  {
+    "id": "CHEM_U2_CLOZE_01",
+    "lesson_id": 36,
+    "lesson_title_en": "Lesson 36: Characteristic Reactions & Equations",
+    "lesson_title_cn": "第36课：酸的三大特征反应通式完形填空",
+    "task_code": "Cloze 1",
+    "task_title_en": "Three General Word Equations of Acids",
+    "task_title_cn": "酸的三大特征反应文字方程式完形填空",
+    "game_type": "cloze",
+    "game_type_cn": "完形填空 / 快速拖拽选词",
+    "citation_textbook": "《G8 U2 Acids and Bases Glossary.pdf》p. 14 (Key Word Equations to Remember)",
+    "prompt_en": "Complete the three fundamental word equations that define acid chemical behaviour in Cambridge G8 Science:\n1. Acid + Reactive Metal → Salt + Hydrogen\n2. Acid + Base (Neutralisation) → Salt + Water\n3. Acid + Carbonate → Salt + Water + Carbon dioxide",
+    "prompt_cn": "补全剑桥G8科学必考的酸的三大基础特征反应方程式：\n1. 酸 + 活泼金属 → 盐 + 氢气\n2. 酸 + 碱（中和反应） → 盐 + 水\n3. 酸 + 碳酸盐 → 盐 + 水 + 二氧化碳",
+    "answer_en": "1. Salt + Hydrogen\n2. Salt + Water\n3. Salt + Water + Carbon dioxide",
+    "answer_cn": "1. 盐 + 氢气\n2. 盐 + 水\n3. 盐 + 水 + 二氧化碳",
+    "rationale_en": "These three word equations represent the entire backbone of IGCSE acid chemistry. Memorise products: Metal gives Salt + Hydrogen; Base gives Salt + Water; Carbonate gives Salt + Water + Carbon dioxide.",
+    "rationale_cn": "这三大通式是剑桥IGCSE酸类化学的核心支柱：活泼金属产物为盐和氢气；碱类中和产物为盐和水；碳酸盐反应产物为盐、水和二氧化碳。",
+    "interactive_meta": {
+      "component": "cloze",
+      "label": "完形填空 / 快速拖拽选词",
+      "lesson_unit": 36,
+      "cloze_data": {
+        "passage_en": "Key General Word Equations of Acids:\nEquation 1 (Acid with Metal):\nAcid + Reactive Metal → {b1} + {b2}\n\nEquation 2 (Neutralisation):\nAcid + Base → {b3} + {b4}\n\nEquation 3 (Acid with Carbonate):\nAcid + Metal Carbonate → {b5} + {b6} + {b7}",
+        "passage_cn": "酸的三大核心反应文字通式：\n反应 1 (酸与金属):\n酸 + 活泼金属 → 盐 + 氢气\n\n反应 2 (酸碱中和反应):\n酸 + 碱 → 盐 + 水\n\n反应 3 (酸与碳酸盐):\n酸 + 金属碳酸盐 → 盐 + 水 + 二氧化碳",
+        "word_bank_en": [
+          "Salt",
+          "Hydrogen",
+          "Water",
+          "Carbon dioxide"
+        ],
+        "word_bank_cn": [
+          "盐",
+          "氢气",
+          "水",
+          "二氧化碳"
+        ],
+        "blanks": [
+          {
+            "id": "b1",
+            "answer_en": "Salt",
+            "answer_cn": "盐",
+            "accepted": [
+              "Salt",
+              "salt"
+            ]
+          },
+          {
+            "id": "b2",
+            "answer_en": "Hydrogen",
+            "answer_cn": "氢气",
+            "accepted": [
+              "Hydrogen",
+              "hydrogen",
+              "H2"
+            ]
+          },
+          {
+            "id": "b3",
+            "answer_en": "Salt",
+            "answer_cn": "盐",
+            "accepted": [
+              "Salt",
+              "salt"
+            ]
+          },
+          {
+            "id": "b4",
+            "answer_en": "Water",
+            "answer_cn": "水",
+            "accepted": [
+              "Water",
+              "water",
+              "H2O"
+            ]
+          },
+          {
+            "id": "b5",
+            "answer_en": "Salt",
+            "answer_cn": "盐",
+            "accepted": [
+              "Salt",
+              "salt"
+            ]
+          },
+          {
+            "id": "b6",
+            "answer_en": "Water",
+            "answer_cn": "水",
+            "accepted": [
+              "Water",
+              "water",
+              "H2O"
+            ]
+          },
+          {
+            "id": "b7",
+            "answer_en": "Carbon dioxide",
+            "answer_cn": "二氧化碳",
+            "accepted": [
+              "Carbon dioxide",
+              "carbon dioxide",
+              "CO2"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "CHEM_U2_SORT_01",
+    "lesson_id": 37,
+    "lesson_title_en": "Lesson 37: Salt Preparation & Solubility",
+    "lesson_title_cn": "第37课：可溶盐结晶制备5步法排序",
+    "task_code": "Sort 1",
+    "task_title_en": "Five Steps to Prepare Soluble Salt Crystals from Insoluble Oxide",
+    "task_title_cn": "由不溶性金属氧化物制备可溶性纯净盐晶体的5步实验接龙",
+    "game_type": "sorting",
+    "game_type_cn": "实验步骤排序 / 逻辑接龙",
+    "citation_textbook": "《G8 U2 Acids and Bases Glossary.pdf》pp. 2, 3, 10, 12 (Excess, Filtration, Evaporating basin, Crystallisation)",
+    "prompt_en": "Rearrange the following 5 experimental steps into the correct chronological order for preparing dry, pure copper(II) sulfate crystals from dilute sulfuric acid and insoluble copper(II) oxide powder:",
+    "prompt_cn": "将下列5个实验操作步骤按正确的先后时间顺序进行拖拽排序，完成利用稀硫酸与不溶性氧化铜粉末制备干燥纯净硫酸铜晶体的实验：",
+    "answer_en": "Step 1: Add excess insoluble copper(II) oxide to warm dilute sulfuric acid until no more dissolves.\nStep 2: Gently warm and stir the reaction mixture with a glass rod to ensure complete neutralisation.\nStep 3: Filter the mixture through filter paper and a funnel to remove the unreacted excess black copper oxide solid.\nStep 4: Pour filtrate into an evaporating basin and heat gently until the crystallisation point is reached (crystals form on a cold glass rod).\nStep 5: Allow solution to cool slowly to form large crystals, then filter and dry crystals between filter papers.",
+    "answer_cn": "第1步：向温热的稀硫酸中加入过量不溶性氧化铜黑粉，直至固体不再溶解。\n第2步：用玻璃棒微热并充分搅拌混合物，以保证酸完全被中和反应完毕。\n第3步：使用漏斗与滤纸过滤混合物，彻底滤除多余未反应的不溶性氧化铜固体残渣。\n第4步：将纯净蓝色滤液转移至蒸发皿中加热浓缩，直到溶液表面出现晶膜（达到结晶点）。\n第5步：停止加热并静置缓慢冷却析出大颗粒规则晶体，最后过滤并用滤纸吸干晶体表面水分。",
+    "rationale_en": "Standard Cambridge Paper 5/6 experimental practical procedure for making soluble salts from insoluble bases: Excess ensures all acid is consumed; Filtration removes excess solid; Evaporating to crystallisation point ensures hydration water is preserved; Slow cooling yields large regular crystals.",
+    "rationale_cn": "剑桥实验考（Paper 5/6）核心必考操作规程：加入“过量”不溶物确保酸完全消耗；“过滤”去除过量固体得到纯净滤液；“蒸发浓缩至结晶点”避免晶体被烧焦并保留结晶水；“静置冷却”促进规则大晶体析出。",
+    "interactive_meta": {
+      "component": "sorting",
+      "label": "实验步骤排序 / 逻辑接龙",
+      "lesson_unit": 37,
+      "sort_steps": [
+        {
+          "text_en": "1. Add excess insoluble metal oxide powder (e.g. CuO) to warm dilute acid until no more dissolves.",
+          "text_cn": "1. 向温热的稀酸中加入过量不溶性金属氧化物粉末（如氧化铜），确保酸完全反应。"
+        },
+        {
+          "text_en": "2. Gently warm and stir the mixture with a glass rod to ensure complete reaction.",
+          "text_cn": "2. 用玻璃棒微热并充分搅拌反应混合物，确保酸完全被反应消耗。"
+        },
+        {
+          "text_en": "3. Filter the mixture with filter paper and funnel to remove excess unreacted solid oxide.",
+          "text_cn": "3. 使用滤纸和漏斗进行过滤，彻底滤除多余未反应的固体氧化物残渣。"
+        },
+        {
+          "text_en": "4. Heat the clear filtrate in an evaporating basin until the crystallisation point is reached.",
+          "text_cn": "4. 将清澈滤液倒入蒸发皿中加热浓缩，直至溶液表面出现晶膜（达到结晶点）。"
+        },
+        {
+          "text_en": "5. Allow to cool slowly to form crystals, then filter and dry crystals between filter papers.",
+          "text_cn": "5. 停止加热静置缓慢冷却析出纯净晶体，最后过滤并用滤纸吸干表面水分。"
+        }
+      ]
+    }
+  }
+];

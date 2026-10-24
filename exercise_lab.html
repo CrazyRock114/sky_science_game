@@ -308,6 +308,66 @@
       max-width: 100%;
       box-sizing: border-box;
     }
+    /* Subject Switch Bar */
+    .subject-switch-bar {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 0.4rem;
+      border-radius: 16px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    }
+    .subject-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1.2rem;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .subject-btn:hover {
+      color: #f8fafc;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .subject-btn.active {
+      color: #ffffff;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.25) 0%, rgba(99, 102, 241, 0.25) 100%);
+      border-color: rgba(56, 189, 248, 0.5);
+      box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+    }
+    .subject-btn#btn-subj-chem.active {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(6, 182, 212, 0.25) 100%);
+      border-color: rgba(16, 185, 129, 0.5);
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.25);
+    }
+    .badge-new {
+      background: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
+      color: white;
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 0.15rem 0.55rem;
+      border-radius: 9999px;
+      letter-spacing: 0.03em;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+      animation: pulse-badge 2s infinite ease-in-out;
+    }
+    @keyframes pulse-badge {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.08); opacity: 0.85; }
+    }
+
     .part-switch {
       display: inline-flex;
       background: rgba(15, 23, 42, 0.7);
@@ -1333,6 +1393,14 @@
         flex-direction: column;
         align-items: stretch;
       }
+      .subject-switch-bar {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .subject-btn {
+        padding: 0.65rem 0.8rem;
+        font-size: 0.88rem;
+      }
       .part-switch {
         width: 100%;
         display: flex;
@@ -1366,6 +1434,7 @@
   </style>
   <!-- Load Bundled Science Data (Offline/file:// compatible) -->
   <script src="science_exercises_data.js"></script>
+  <script src="g8_chemistry_u2_exercises.js"></script>
 </head>
 <body>
   <!-- ==================== Mother-Ship Global TopBar ==================== -->
@@ -1398,10 +1467,21 @@
 
   <div class="container">
 
+    <!-- ==================== SUBJECT SWITCHER ==================== -->
+    <div class="subject-switch-bar" role="tablist" aria-label="学科选择">
+      <button class="subject-btn active" id="btn-subj-bio" onclick="switchSubject('bio')">
+        <span id="lbl-subj-bio">🧬 生物生理学 (267 题)</span>
+      </button>
+      <button class="subject-btn" id="btn-subj-chem" onclick="switchSubject('chem')">
+        <span id="lbl-subj-chem">🧪 G8 酸和碱化学</span>
+        <span class="badge-new">NEW · 单元2</span>
+      </button>
+    </div>
+
     <!-- ==================== CONTROL & UNIT SWITCHER ==================== -->
     <div class="control-panel">
       <!-- Part 1 vs Part 2 vs All Switch -->
-      <div class="part-switch">
+      <div class="part-switch" id="bio-part-switch">
         <button class="part-btn active" id="btn-part-1" onclick="switchCoursePart(1)">
           <span id="lbl-part-1">🍂 第一部分：秋季学期 (L01–L18)</span>
         </button>
@@ -1410,6 +1490,13 @@
         </button>
         <button class="part-btn" id="btn-part-all" onclick="switchCoursePart('all')">
           <span id="lbl-part-all">🌐 全量总库 (267 题)</span>
+        </button>
+      </div>
+
+      <!-- Chem Part Switch -->
+      <div class="part-switch" id="chem-part-switch" style="display: none;">
+        <button class="part-btn active" id="btn-chem-all" onclick="filterChemUnit('all')">
+          <span id="lbl-chem-all">🧪 G8 U2 酸和碱全套精练 (14 题)</span>
         </button>
       </div>
 
@@ -1835,6 +1922,7 @@
   <!-- ==================== CORE INTERACTIVE ENGINE SCRIPT ==================== -->
   <script>
     // State management
+    let currentSubject = 'bio'; // 'bio' | 'chem'
     let currentPart = 1; // 1: Autumn, 2: Physiology
     let currentExercises = [];
     let activeFilteredExercises = [];
@@ -1907,11 +1995,55 @@
         alert('无法加载习题数据库，请确认 science_exercises_data.js 是否存在！');
         return;
       }
+      if (!window.CHEMISTRY_U2_DATA) {
+        fetch('g8_chemistry_u2_exercises.json')
+          .then(r => r.json())
+          .then(data => {
+            window.CHEMISTRY_U2_DATA = data;
+            if (currentSubject === 'chem') {
+              switchSubject('chem');
+            }
+          })
+          .catch(err => console.warn('Could not fetch chemistry exercises json fallback', err));
+      }
       setSessionMode(currentSessionMode);
       setLanguageMode(currentLangMode, false);
       switchCoursePart(1);
       updateAnalyticsUI();
     });
+
+    // Subject Switcher: 'bio' | 'chem'
+    function switchSubject(subj) {
+      currentSubject = subj;
+      const btnBio = document.getElementById('btn-subj-bio');
+      const btnChem = document.getElementById('btn-subj-chem');
+      if (btnBio) btnBio.classList.toggle('active', subj === 'bio');
+      if (btnChem) btnChem.classList.toggle('active', subj === 'chem');
+
+      const bioPartSwitch = document.getElementById('bio-part-switch');
+      const chemPartSwitch = document.getElementById('chem-part-switch');
+
+      if (subj === 'bio') {
+        if (bioPartSwitch) bioPartSwitch.style.display = 'inline-flex';
+        if (chemPartSwitch) chemPartSwitch.style.display = 'none';
+        switchCoursePart(currentPart);
+      } else {
+        if (bioPartSwitch) bioPartSwitch.style.display = 'none';
+        if (chemPartSwitch) chemPartSwitch.style.display = 'inline-flex';
+        currentExercises = window.CHEMISTRY_U2_DATA || [];
+        populateLessonDropdown();
+        filterCurrentExercises();
+      }
+      updateLanguageLabels();
+    }
+
+    function filterChemUnit(unit) {
+      const select = document.getElementById('select-lesson');
+      if (select) {
+        select.value = unit;
+        filterCurrentExercises();
+      }
+    }
 
     // Session Mode Switcher
     function setSessionMode(mode) {
@@ -1962,11 +2094,28 @@
 
     function updateLanguageLabels() {
       const isEn = currentLangMode === 'en';
+
+      // Subject Switcher buttons
+      const lblBio = document.getElementById('lbl-subj-bio');
+      if (lblBio) lblBio.textContent = isEn ? '🧬 Biology & Physiology (267 Qs)' : '🧬 生物生理学 (267 题)';
+      const lblChem = document.getElementById('lbl-subj-chem');
+      if (lblChem) lblChem.textContent = isEn ? '🧪 G8 Acids & Bases' : '🧪 G8 酸和碱化学';
+      const lblChemAll = document.getElementById('lbl-chem-all');
+      if (lblChemAll) lblChemAll.textContent = isEn ? '🧪 G8 U2 Acids & Bases Full Drill (14 Qs)' : '🧪 G8 U2 酸和碱全套精练 (14 题)';
+
       // Header subtitle
       const sub = document.getElementById('header-subtitle');
-      if (sub) sub.textContent = isEn
-        ? 'Cambridge Checkpoint & IGCSE Science Exercise Lab · Exam Practice · Mistake Breaker · Syllabus Citations'
-        : '剑桥 G8 科学课后练习官方全解析 · 题库闯关 · 错题突破 · 考点溯源';
+      if (sub) {
+        if (currentSubject === 'chem') {
+          sub.textContent = isEn
+            ? 'Cambridge G8 Chemistry Unit 2: Acids & Bases · Formula Drills · Practical Skills · Mark Schemes'
+            : '剑桥 G8 化学 Unit 2: 酸和碱 (Acids & Bases) 考点精炼 · 核心反应通式 · 实验操作接龙';
+        } else {
+          sub.textContent = isEn
+            ? 'Cambridge Checkpoint & IGCSE Science Exercise Lab · Exam Practice · Mistake Breaker · Syllabus Citations'
+            : '剑桥 G8 科学课后练习官方全解析 · 题库闯关 · 错题突破 · 考点溯源';
+        }
+      }
 
       // Vocab Lab link
       const vocabLink = document.getElementById('btn-nav-vocab');
@@ -1982,20 +2131,33 @@
 
       // Search placeholder
       const sInput = document.getElementById('search-input');
-      if (sInput) sInput.placeholder = isEn ? '🔍 Search concepts, questions, organs, or textbook pages...' : '🔍 搜索考点 / 题目 / 关键词...';
+      if (sInput) {
+        sInput.placeholder = isEn 
+          ? (currentSubject === 'chem' ? '🔍 Search acids, bases, pH, salts, or equations...' : '🔍 Search concepts, questions, organs, or textbook pages...') 
+          : (currentSubject === 'chem' ? '🔍 搜索酸、碱、指示剂、盐制备或通式...' : '🔍 搜索考点 / 题目 / 关键词...');
+      }
 
       // Tab labels
       const lMcq = document.getElementById('lbl-tab-mcq');
-      if (lMcq) lMcq.textContent = isEn ? '🎯 MCQ Arena' : '🎯 单选真题闯关';
       const lMatch = document.getElementById('lbl-tab-match');
-      if (lMatch) lMatch.textContent = isEn ? '🧩 Concept Match' : '🧩 概念连线大作战';
       const lCloze = document.getElementById('lbl-tab-cloze');
-      if (lCloze) lCloze.textContent = isEn ? '📝 Cloze Master' : '📝 采分点填空大师';
       const lSort = document.getElementById('lbl-tab-sort');
-      if (lSort) lSort.textContent = isEn ? '🔄 Chrono-Sort' : '🔄 生理时序接龙';
       const lExp = document.getElementById('lbl-tab-explorer');
-      if (lExp) lExp.textContent = isEn ? '📖 Model Answers' : '📖 官方标准答案总库';
       const lMis = document.getElementById('lbl-tab-mistakes');
+
+      if (currentSubject === 'chem') {
+        if (lMcq) lMcq.textContent = isEn ? '🎯 Acid-Base MCQ Arena' : '🎯 酸碱单选真题闯关';
+        if (lMatch) lMatch.textContent = isEn ? '🧩 Proton & Radical Match' : '🧩 BAAD与酸根概念配对';
+        if (lCloze) lCloze.textContent = isEn ? '📝 Equation & Formula Cloze' : '📝 方程式与通式填空';
+        if (lSort) lSort.textContent = isEn ? '⚗️ Experimental Steps Sort' : '⚗️ 实验步骤排序接龙';
+        if (lExp) lExp.textContent = isEn ? '📖 Chemistry Model Answers' : '📖 化学官方解析总库';
+      } else {
+        if (lMcq) lMcq.textContent = isEn ? '🎯 MCQ Arena' : '🎯 单选真题闯关';
+        if (lMatch) lMatch.textContent = isEn ? '🧩 Concept Match' : '🧩 概念连线大作战';
+        if (lCloze) lCloze.textContent = isEn ? '📝 Cloze Master' : '📝 采分点填空大师';
+        if (lSort) lSort.textContent = isEn ? '🔄 Chrono-Sort' : '🔄 生理时序接龙';
+        if (lExp) lExp.textContent = isEn ? '📖 Model Answers' : '📖 官方标准答案总库';
+      }
       if (lMis) lMis.textContent = isEn ? '📊 Mistakes & Analytics' : '📊 错题与学情统计';
 
       // Stats Headers & Navigation Labels across All Tabs
@@ -2035,7 +2197,17 @@
 
       // Tab 3: Cloze
       const clozeSub = document.getElementById('cloze-subtitle');
-      if (clozeSub) clozeSub.textContent = isEn ? 'Click word bank chips to auto-fill blanks, or type scientific terms directly (auto-validated on blur, case-insensitive):' : '从备选词库选词点击填入，或直接输入术语（支持大小写/标点容错，失焦自动验证）：';
+      if (clozeSub) {
+        if (currentSubject === 'chem') {
+          clozeSub.textContent = isEn 
+            ? 'Click word bank chips to fill blanks, or type chemical terms directly to complete word equations:' 
+            : '从备选词库选词点击填入，或直接输入化学术语补全三大反应方程式：';
+        } else {
+          clozeSub.textContent = isEn 
+            ? 'Click word bank chips to auto-fill blanks, or type scientific terms directly (auto-validated on blur, case-insensitive):' 
+            : '从备选词库选词点击填入，或直接输入术语（支持大小写/标点容错，失焦自动验证）：';
+        }
+      }
       const clozeWb = document.getElementById('cloze-wb-title');
       if (clozeWb) clozeWb.textContent = isEn ? '💡 Word Bank (Click word to fill active blank & auto-advance)' : '💡 备选词库 (Word Bank / 点击词条自动填入当前空格并聚焦下一空)';
       const btnClozePrev = document.getElementById('btn-cloze-prev');
@@ -2049,7 +2221,17 @@
 
       // Tab 4: Sort
       const sortSub = document.getElementById('sort-subtitle');
-      if (sortSub) sortSub.textContent = isEn ? 'Drag items or click ⬆️ / ⬇️ to arrange physiological steps in chronological order:' : '拖拽卡片或点击 ⬆️ / ⬇️ 调整各步骤次序，将生理过程按时间先后正确排列：';
+      if (sortSub) {
+        if (currentSubject === 'chem') {
+          sortSub.textContent = isEn 
+            ? 'Drag items or click ⬆️ / ⬇️ to arrange experimental preparation steps in chronological order:' 
+            : '拖拽卡片或点击 ⬆️ / ⬇️ 调整各步骤次序，将实验制备操作按时间先后正确排列：';
+        } else {
+          sortSub.textContent = isEn 
+            ? 'Drag items or click ⬆️ / ⬇️ to arrange physiological steps in chronological order:' 
+            : '拖拽卡片或点击 ⬆️ / ⬇️ 调整各步骤次序，将生理过程按时间先后正确排列：';
+        }
+      }
       const btnSortPrev = document.getElementById('btn-sort-prev');
       if (btnSortPrev) btnSortPrev.textContent = isEn ? '◀ Previous' : '◀ 上一题';
       const btnSortNext = document.getElementById('btn-sort-next');
@@ -2162,6 +2344,12 @@
 
     // Switch between Part 1, Part 2, or All 267
     function switchCoursePart(partNum) {
+      if (currentSubject === 'chem') {
+        currentExercises = window.CHEMISTRY_U2_DATA || [];
+        populateLessonDropdown();
+        filterCurrentExercises();
+        return;
+      }
       currentPart = partNum;
       document.getElementById('btn-part-1').classList.toggle('active', partNum === 1);
       document.getElementById('btn-part-2').classList.toggle('active', partNum === 2);
@@ -2187,7 +2375,9 @@
     function populateLessonDropdown() {
       const select = document.getElementById('select-lesson');
       const isEn = currentLangMode === 'en';
-      select.innerHTML = isEn ? '<option value="all">📚 All Lessons & Topics</option>' : '<option value="all">📚 查看全部单元练习</option>';
+      select.innerHTML = isEn 
+        ? (currentSubject === 'chem' ? '<option value="all">🧪 All Chemistry Units & Topics</option>' : '<option value="all">📚 All Lessons & Topics</option>') 
+        : (currentSubject === 'chem' ? '<option value="all">🧪 查看全部化学单元练习</option>' : '<option value="all">📚 查看全部单元练习</option>');
 
       // Extract unique lessons
       const lessonMap = new Map();
@@ -2205,7 +2395,8 @@
         const opt = document.createElement('option');
         opt.value = info.id;
         const title = isEn ? info.title_en : (info.title_cn || info.title_en);
-        opt.textContent = `${info.id === 99 ? '🏆' : '📖'} L${info.id < 10 ? '0' : ''}${info.id}: ${title}`;
+        const icon = info.id === 99 ? '🏆' : (currentSubject === 'chem' ? '🧪' : '📖');
+        opt.textContent = `${icon} L${info.id < 10 ? '0' : ''}${info.id}: ${title}`;
         select.appendChild(opt);
       });
     }
@@ -2252,9 +2443,13 @@
       if (mcqPool.length === 0) {
         mcqPool = currentExercises.filter(ex => ex.game_type === 'mcq' && ex.prompt_en && ex.prompt_en.includes('A)'));
       }
-      // If still empty (e.g. in Part 1 where MCQs are in table format), fallback to Part 2 MCQs so the Arena is always active
-      if (mcqPool.length === 0 && window.SCIENCE_DATA_PART2) {
-        mcqPool = window.SCIENCE_DATA_PART2.filter(ex => ex.game_type === 'mcq' && ex.prompt_en && ex.prompt_en.includes('A)'));
+      // Fallback
+      if (mcqPool.length === 0) {
+        if (currentSubject === 'chem' && window.CHEMISTRY_U2_DATA) {
+          mcqPool = window.CHEMISTRY_U2_DATA.filter(ex => ex.game_type === 'mcq' && ex.prompt_en && ex.prompt_en.includes('A)'));
+        } else if (window.SCIENCE_DATA_PART2) {
+          mcqPool = window.SCIENCE_DATA_PART2.filter(ex => ex.game_type === 'mcq' && ex.prompt_en && ex.prompt_en.includes('A)'));
+        }
       }
       currentMcqIdx = 0;
       initMcq();
@@ -2270,11 +2465,18 @@
           ex.game_type === 'matching'
         );
       }
-      if (matchPool.length === 0 && window.SCIENCE_DATA_PART2) {
-        matchPool = window.SCIENCE_DATA_PART2.filter(ex => 
-          (ex.interactive_meta && ex.interactive_meta.matching_pairs && ex.interactive_meta.matching_pairs.length > 0) ||
-          ex.game_type === 'matching'
-        );
+      if (matchPool.length === 0) {
+        if (currentSubject === 'chem' && window.CHEMISTRY_U2_DATA) {
+          matchPool = window.CHEMISTRY_U2_DATA.filter(ex => 
+            (ex.interactive_meta && ex.interactive_meta.matching_pairs && ex.interactive_meta.matching_pairs.length > 0) ||
+            ex.game_type === 'matching'
+          );
+        } else if (window.SCIENCE_DATA_PART2) {
+          matchPool = window.SCIENCE_DATA_PART2.filter(ex => 
+            (ex.interactive_meta && ex.interactive_meta.matching_pairs && ex.interactive_meta.matching_pairs.length > 0) ||
+            ex.game_type === 'matching'
+          );
+        }
       }
       currentMatchIdx = 0;
       initCurrentMatchGame();
@@ -2290,11 +2492,18 @@
           ex.game_type === 'cloze'
         );
       }
-      if (clozePool.length === 0 && window.SCIENCE_DATA_PART2) {
-        clozePool = window.SCIENCE_DATA_PART2.filter(ex => 
-          (ex.interactive_meta && ex.interactive_meta.cloze_data) ||
-          ex.game_type === 'cloze'
-        );
+      if (clozePool.length === 0) {
+        if (currentSubject === 'chem' && window.CHEMISTRY_U2_DATA) {
+          clozePool = window.CHEMISTRY_U2_DATA.filter(ex => 
+            (ex.interactive_meta && ex.interactive_meta.cloze_data) ||
+            ex.game_type === 'cloze'
+          );
+        } else if (window.SCIENCE_DATA_PART2) {
+          clozePool = window.SCIENCE_DATA_PART2.filter(ex => 
+            (ex.interactive_meta && ex.interactive_meta.cloze_data) ||
+            ex.game_type === 'cloze'
+          );
+        }
       }
       currentClozeIdx = 0;
       initCurrentClozeGame();
@@ -2310,11 +2519,18 @@
           ex.game_type === 'sorting'
         );
       }
-      if (sortPool.length === 0 && window.SCIENCE_DATA_PART2) {
-        sortPool = window.SCIENCE_DATA_PART2.filter(ex => 
-          (ex.interactive_meta && ex.interactive_meta.sort_steps && ex.interactive_meta.sort_steps.length > 0) ||
-          ex.game_type === 'sorting'
-        );
+      if (sortPool.length === 0) {
+        if (currentSubject === 'chem' && window.CHEMISTRY_U2_DATA) {
+          sortPool = window.CHEMISTRY_U2_DATA.filter(ex => 
+            (ex.interactive_meta && ex.interactive_meta.sort_steps && ex.interactive_meta.sort_steps.length > 0) ||
+            ex.game_type === 'sorting'
+          );
+        } else if (window.SCIENCE_DATA_PART2) {
+          sortPool = window.SCIENCE_DATA_PART2.filter(ex => 
+            (ex.interactive_meta && ex.interactive_meta.sort_steps && ex.interactive_meta.sort_steps.length > 0) ||
+            ex.game_type === 'sorting'
+          );
+        }
       }
       currentSortIdx = 0;
       initCurrentSortGame();
@@ -4085,8 +4301,13 @@
       // Build temporary MCQ pool with mistakes
       mcqPool = currentExercises.filter(ex => mistakeBank.some(m => m.id === ex.id));
       if (mcqPool.length === 0) {
-        // Look in both parts
-        mcqPool = [...window.SCIENCE_DATA_PART1, ...window.SCIENCE_DATA_PART2].filter(ex => mistakeBank.some(m => m.id === ex.id));
+        // Look in all parts and chem data
+        const allPool = [
+          ...(window.SCIENCE_DATA_PART1 || []),
+          ...(window.SCIENCE_DATA_PART2 || []),
+          ...(window.CHEMISTRY_U2_DATA || [])
+        ];
+        mcqPool = allPool.filter(ex => mistakeBank.some(m => m.id === ex.id));
       }
       currentMcqIdx = 0;
       openTab('tab-mcq');
