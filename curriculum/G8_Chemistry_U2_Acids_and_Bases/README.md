@@ -1,6 +1,7 @@
-# G8 Chemistry Unit 2: Acids and Bases 课程与讲义档案
+# G8 Chemistry Unit 2: Acids and Bases 全量课程与讲义档案
 
-本目录归档了 Sky G8 接下来一个多月的化学核心单元 **Unit 2: Acids and Bases（酸和碱）** 的全部官方讲义、学生练习册与核心词汇表。
+本目录归档了 Sky G8 化学核心单元 **Unit 2: Acids and Bases（酸和碱）** 的全部官方讲义、学生练习册与核心词汇表。
+教学平台主母舰（`https://igcse.xyz`）已实现对**整本 163 页教学 PPT 和 156 页练习册讲义的 100% 形式化全覆盖与原版图示 1:1 接入**！
 
 ---
 
@@ -14,59 +15,41 @@
 
 ---
 
-## ⏱️ 今日 2 小时高强度课程内容切片与考点对齐 (Today's 2-Hour Intensive Session)
+## 🗺️ 全量课时与母舰主站（igcse.xyz）100% 映射矩阵
 
-根据今日 2 小时课程进度计划，核心授课内容锁定在 **Lesson 1 与 Lesson 2**（共涵盖约 30 页 PPT 与 20 页练习册），包含以下五大核心实验与考点模块：
+全书 16 个课时模块与主站两大官方考纲课程实现无缝对应：
 
-### 模块一：生活中的酸 vs 实验室中的酸 (Everyday Acids vs Lab Acids)
-- **核心生活实例**：
-  - 柠檬/柑橘类水果：柠檬酸 (Citric acid)
-  - 醋：乙酸 (Ethanoic acid)
-  - 碳酸饮料：碳酸 (Carbonic acid)
-  - 胃液消化：盐酸 (Hydrochloric acid)
-- **三大实验室强酸**：
-  - 盐酸 (Hydrochloric acid, $\text{HCl}$)
-  - 硫酸 (Sulfuric acid, $\text{H}_2\text{SO}_4$)
-  - 硝酸 (Nitric acid, $\text{HNO}_3$)
-
-### 模块二：酸与金属置换反应与氢气爆鸣测试 (Acids + Metals & Squeaky Pop Test)
-- **通用反应式**：
-  $$\text{Acid} + \text{Metal} \to \text{Salt} + \text{Hydrogen}$$
-- **实验现象**：金属逐渐溶解变小，剧烈产生无色气泡（冒泡/Effervescence），试管发热（放热/Exothermic）。
-- **氢气爆鸣检验 (Squeaky Pop Test 评分关键)**：
-  1. 用拇指堵住试管口收集氢气；
-  2. 将**点燃的木条 (Lighted/Burning splint)** 移至试管口；
-  3. 听到清脆的“噗”爆鸣声 (Squeaky "pop" sound)；
-  4. 反应机理：$2\text{H}_2 + \text{O}_2 \to 2\text{H}_2\text{O}$。
-
-### 模块三：金属活动性顺序与不反应金属 (Reactivity Series)
-- **活动性阶梯**：
-  $$\text{K} > \text{Na} > \text{Ca} > \text{Mg} > \text{Al} > \text{Zn} > \text{Fe} > (\text{H}) > \text{Cu} > \text{Ag} > \text{Au}$$
-- **考点辨析**：
-  - 排在氢 $(\text{H})$ 前面的金属能置换出酸中的氢；
-  - **铜 (Copper, $\text{Cu}$)** 排在氢之后，与稀盐酸/稀硫酸**不发生反应 (No reaction)**，溶液无气泡产生。
-
-### 模块四：酸碱中和反应与命名盐法则 (Neutralisation & Salt Naming)
-- **中和反应本质**：
-  $$\text{Acid} + \text{Base} \to \text{Salt} + \text{Water}$$
-  $$\text{H}^+ + \text{OH}^- \to \text{H}_2\text{O}$$
-- **两步命名盐铁律 (Naming Salts Rule)**：
-  - 第一部分：来自碱/金属的名称（例如 Sodium, Magnesium, Copper）；
-  - 第二部分：来自酸的酸根后缀（Hydrochloric acid $\to$ **Chloride**; Sulfuric acid $\to$ **Sulfate**; Nitric acid $\to$ **Nitrate**）。
-
-### 模块五：酸与碳酸盐反应与澄清石灰水二氧化碳检验 (Acids + Carbonates & Limewater Test)
-- **通用反应式**：
-  $$\text{Acid} + \text{Carbonate} \to \text{Salt} + \text{Water} + \text{Carbon Dioxide}$$
-- **二氧化碳检验 (Limewater Test 评分关键)**：
-  - 将产生的气体通入**澄清石灰水 (Limewater / Calcium hydroxide solution)**；
-  - 现象：澄清石灰水变浑浊/乳白色 (Turns cloudy / milky white)；
-  - 反应方程式：$\text{Ca(OH)}_2\text{(aq)} + \text{CO}_2\text{(g)} \to \text{CaCO}_3\text{(s)}\downarrow + \text{H}_2\text{O(l)}$。
-- **生活延伸**：泡打粉小苏打烘焙蛋糕松软多孔机理；酸雨对石灰石/大理石建筑与雕像的溶蚀风化。
+| 课时序号 | 课时主题 (Workbook & PPT) | 核心概念与实验技能 | 主站对应课时与交互工作台 | 嵌入原版图示编号 |
+| :--- | :--- | :--- | :--- | :--- |
+| **Lesson 1** | What Are Acids? (Acids + Metals) | 生活中的弱酸 vs 实验室强酸；酸与活泼金属反应；氢气木条爆鸣测试（Squeaky pop）；金属活动性顺序（铜不反应） | `/lesson/0620/7-1-acids-bases`<br>Module 1, 2, 3 | `fig-1-1-everyday-acids.jpg`<br>`fig-1-2-acid-metal-reaction.png`<br>`fig-1-3-hydrogen-pop-test.png`<br>`fig-1-4-reactivity-series.png` |
+| **Lesson 2** | Acids with Bases & Carbonates | 酸与碱中和反应（放热）；两步命名盐金法则；酸与碳酸盐反应；导气管澄清石灰水二氧化碳检验 | `/lesson/0620/7-1-acids-bases`<br>Module 4, 5 | `fig-1-8-acid-base-neutralisation.png`<br>`fig-1-5-acid-carbonate-limewater.png` |
+| **Lesson 3** | Testing with Indicators | 石蕊、甲基橙、百里酚酞变色范围；未知溶液分类比色法 | `/lesson/0620/7-1-acids-bases`<br>Module 6 | `fig-1-6-three-indicators.png` |
+| **Lesson 4** | What Are Bases and Alkalis? | 金属氧化物与氢氧化物；可溶性碱（OH⁻）；铵盐与碱反应释放氨气刺激性气体 | `/lesson/0620/7-1-acids-bases`<br>Module 4, 8 | `fig-1-8-acid-base-neutralisation.png`<br>`fig-1-11-proton-transfer-ammonia.png` |
+| **Lesson 5** | Indicator Colours in Alkalis | 指示剂在强碱与弱碱中的颜色显色及对比表 | `/lesson/0620/7-1-acids-bases`<br>Module 6 | `fig-1-6-three-indicators.png` |
+| **Lesson 6** | Mid-unit Review 1 | 阶段巩固与真题短答（Lessons 1–5 回归测试） | `/lesson/0620/7-1-acids-bases`<br>Checkpoints 1–5 | Checkpoint Quiz 1–5 |
+| **Lesson 7** | Understanding with Ions | 酸含 H⁺、碱含 OH⁻；自由移动离子微观导电模型（灯泡与电极装置） | `/lesson/0620/7-1-acids-bases`<br>Module 7 | `fig-1-9-ions-particles.png`<br>`fig-1-10-electrical-conductivity.png` |
+| **Lesson 8** | pH Scale and Universal Indicator | 广范指示剂彩虹全谱；0–14 标度体系；对数规律（每差 1 个 pH 氢离子浓度相差 10 倍） | `/lesson/0620/7-1-acids-bases`<br>Module 6 | `fig-1-7-ph-scale-spectrum.png` |
+| **Lesson 9** | Neutralisation & Particle Model | 粒子层面的中和反应：$\text{H}^+ + \text{OH}^- \to \text{H}_2\text{O}$；温度曲线（放热反应测温） | `/lesson/0620/7-1-acids-bases`<br>Module 4, 9 | `fig-1-8-acid-base-neutralisation.png`<br>`fig-1-13-exothermic-neutralisation-temp.png` |
+| **Lesson 10** | Proton Donors & Acceptors | 布朗斯特-劳里质子转移理论；氨气结合质子成铵根；$\text{NH}_3 + \text{HCl} \to \text{NH}_4\text{Cl}$ 气相扩散白烟环实验 | `/lesson/0620/7-1-acids-bases`<br>Module 8 | `fig-1-11-proton-transfer-ammonia.png` |
+| **Lesson 11** | Strong and Weak Acids | 完全电离（强酸） vs 部分电离（弱酸）；导电性强弱；与镁反应速率对比；同浓度氢气最终产量相同辨析 | `/lesson/0620/7-1-acids-bases`<br>Module 9 | `fig-1-12-strong-weak-dissociation.png` |
+| **Lesson 12** | Mid-unit Review 2 | 阶段巩固（Lessons 7–11 理论与离子方程式大考） | `/lesson/0620/7-1-acids-bases`<br>Checkpoints 6–8 | Checkpoint Quiz 6–8 |
+| **Lesson 13** | Making Soluble Salts | 路线一：过量难溶碱/金属/碳酸盐法（加热反应、过滤除去多余固体、蒸发皿水浴加热至结晶点、冷却结晶、滤纸吸干） | `/lesson/0620/7-3-salts`<br>Route 1, 2 | `fig-3-1-soluble-salt-prep-method.png`<br>`fig-3-4-crystallisation-basin.png` |
+| **Lesson 14** | Titration Method for Soluble Salts | 路线二：酸碱滴定法制备钠盐/钾盐/铵盐（移液管精确量取、滴定管平视凹液面读数、指示剂终点、无指示剂复现实验） | `/lesson/0620/7-3-salts`<br>Route 3 & TitrationLab | `fig-3-2-titration-apparatus.png`<br>`fig-3-3-titration-curve-endpoint.png` |
+| **Lesson 15** | Practical Assessment & Water Test | 结晶水合物与无水物；五水硫酸铜蓝白可逆相变检验水存在；检验纯水（沸点 100°C） | `/lesson/0620/7-3-salts`<br>Route 5 | `fig-3-4-crystallisation-basin.png` |
+| **Lesson 16** | Making Insoluble Salts (Precipitation) | 路线三：沉淀反应法制备难溶盐（两种可溶盐混合、过滤、蒸馏水充分洗涤除去旁观离子、烘箱干燥） | `/lesson/0620/7-3-salts`<br>Route 4 | `fig-3-5-precipitation-insoluble-salts.png`<br>`fig-3-6-filter-wash-dry-precipitate.png` |
 
 ---
 
-## 🔗 主站映射与双向穿梭
+## 🔗 主站直达与双向学习入口
 
-所有讲义原图与交互式模块已 1:1 接入教学主母舰：
-- **线上地址**：`https://igcse.xyz/lesson/0620/7-1-acids-bases`
-- **原图存放位置**：`public/figures/g8/0620-7-1-acids-bases/`
+- 🧪 **酸碱与 pH 微观精讲工作台 (Lessons 1–12)**：
+  `https://igcse.xyz/lesson/0620/7-1-acids-bases`
+  - 9 大核心实验与理论模块
+  - 13 幅 PPT & PDF 官方原图高清弹窗放大
+  - 随堂 6 道交互式自测题与中英考官避坑要诀
+
+- ⚗️ **三大盐类制备法与溶解度决策树工作台 (Lessons 13–16)**：
+  `https://igcse.xyz/lesson/0620/7-3-salts`
+  - 5 大制盐路径与沉淀提纯全景
+  - 6 幅官方装置与结晶水原图
+  - 涵盖沉淀洗涤、滴定重现性读数与无水硫酸铜检水
