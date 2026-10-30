@@ -1473,7 +1473,7 @@
         <span id="lbl-subj-bio">🧬 生物生理学 (267 题)</span>
       </button>
       <button class="subject-btn" id="btn-subj-chem" onclick="switchSubject('chem')">
-        <span id="lbl-subj-chem">🧪 G8 酸和碱化学</span>
+        <span id="lbl-subj-chem">🧪 G8 化学酸和碱练习 (40 题)</span>
         <span class="badge-new">NEW · 单元2</span>
       </button>
     </div>
@@ -1496,7 +1496,7 @@
       <!-- Chem Part Switch -->
       <div class="part-switch" id="chem-part-switch" style="display: none;">
         <button class="part-btn active" id="btn-chem-all" onclick="filterChemUnit('all')">
-          <span id="lbl-chem-all">🧪 G8 U2 酸和碱全套精练 (14 题)</span>
+          <span id="lbl-chem-all">🧪 G8 U2 酸和碱全套精练 (40 题)</span>
         </button>
       </div>
 
@@ -2099,9 +2099,9 @@
       const lblBio = document.getElementById('lbl-subj-bio');
       if (lblBio) lblBio.textContent = isEn ? '🧬 Biology & Physiology (267 Qs)' : '🧬 生物生理学 (267 题)';
       const lblChem = document.getElementById('lbl-subj-chem');
-      if (lblChem) lblChem.textContent = isEn ? '🧪 G8 Acids & Bases' : '🧪 G8 酸和碱化学';
+      if (lblChem) lblChem.textContent = isEn ? '🧪 G8 Acids & Bases Drills (40 Qs)' : '🧪 G8 化学酸和碱练习 (40 题)';
       const lblChemAll = document.getElementById('lbl-chem-all');
-      if (lblChemAll) lblChemAll.textContent = isEn ? '🧪 G8 U2 Acids & Bases Full Drill (14 Qs)' : '🧪 G8 U2 酸和碱全套精练 (14 题)';
+      if (lblChemAll) lblChemAll.textContent = isEn ? '🧪 G8 U2 Acids & Bases Full Drill (40 Qs)' : '🧪 G8 U2 酸和碱全套精练 (40 题)';
 
       // Header subtitle
       const sub = document.getElementById('header-subtitle');

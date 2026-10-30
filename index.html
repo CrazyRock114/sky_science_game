@@ -157,19 +157,18 @@
       box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
     }
 
-    /* ============ Unit Bar (Global) ============ */
+    /* ============ Unit Bar (Global) & Subject Filter ============ */
     .unit-bar {
       display: flex;
-      align-items: center;
-      gap: 0.75rem;
+      flex-direction: column;
+      gap: 0.6rem;
       background: rgba(15, 23, 42, 0.75);
       border: 1px solid var(--card-border);
       border-radius: 14px;
-      padding: 0.65rem 1rem;
+      padding: 0.75rem 1rem;
       margin-bottom: 1.25rem;
       font-size: 0.9rem;
       box-shadow: var(--shadow);
-      flex-wrap: wrap;
       backdrop-filter: blur(12px);
     }
     .unit-bar.hidden { display: none; }
@@ -193,8 +192,129 @@
       color: var(--text-light);
       font-size: 0.85rem;
       font-weight: 600;
+      white-space: nowrap;
     }
     .unit-bar .unit-stats .num { color: #38bdf8; font-size: 1.05rem; }
+
+    .unit-bar-select-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .subject-filter-group {
+      display: flex;
+      gap: 0.5rem;
+      width: 100%;
+      flex-wrap: wrap;
+      margin-bottom: 0.25rem;
+    }
+    .subj-pill-btn {
+      padding: 0.38rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(15, 23, 42, 0.65);
+      color: #94a3b8;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .subj-pill-btn:hover {
+      color: #f8fafc;
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+    .subj-pill-btn.active[data-subj="chem"] {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.35) 0%, rgba(6, 182, 212, 0.35) 100%);
+      border-color: rgba(16, 185, 129, 0.75);
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.35);
+    }
+    .subj-pill-btn.active[data-subj="bio"] {
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.35) 0%, rgba(99, 102, 241, 0.35) 100%);
+      border-color: rgba(56, 189, 248, 0.75);
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.35);
+    }
+    .subj-pill-btn.active[data-subj="all"] {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.35) 0%, rgba(217, 119, 6, 0.35) 100%);
+      border-color: rgba(245, 158, 11, 0.75);
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(245, 158, 11, 0.35);
+    }
+
+    /* Home Subject Hub */
+    .home-unit-hub {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 14px;
+      padding: 1.1rem 1.25rem;
+      margin: 1.25rem 0 1.5rem;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(12px);
+    }
+    .home-hub-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .hub-label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .hub-badge {
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.2rem 0.65rem;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+      color: #0f172a;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+    }
+    .home-unit-selector-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    .home-unit-selector-row select {
+      flex: 1;
+      min-width: 220px;
+      padding: 0.55rem 0.8rem;
+      border-radius: 10px;
+      background: #0f172a;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      color: #f8fafc;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .home-unit-selector-row select:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+    }
+    .home-unit-summary {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.88rem;
+      color: var(--text-light);
+    }
+    .home-unit-summary .summary-count strong {
+      color: #38bdf8;
+      font-size: 1.05rem;
+    }
 
     /* ============ Main Container ============ */
     main {
@@ -408,13 +528,21 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0.4rem;
+      padding: 0.3rem;
       border-radius: 10px;
       backface-visibility: hidden;
       text-align: center;
       font-weight: 600;
-      font-size: 0.85rem;
-      line-height: 1.2;
+      font-size: clamp(0.72rem, 2.2vw, 0.85rem);
+      line-height: 1.18;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+      hyphens: auto;
+    }
+    .memory-card.long-word .back {
+      font-size: clamp(0.62rem, 1.8vw, 0.72rem);
+      padding: 0.2rem;
+      line-height: 1.12;
     }
     .memory-card .front {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -830,9 +958,11 @@
       margin-bottom: 0.5rem;
     }
     .speed-phonetic {
-      font-size: 1.1rem;
-      color: #94a3b8;
+      font-size: 1.15rem;
+      color: #38bdf8;
       font-style: italic;
+      font-weight: 600;
+      letter-spacing: 0.02em;
     }
     .speed-input-bar {
       position: absolute;
@@ -1311,16 +1441,41 @@
   <main>
     <!-- ================ Global Unit Selector (hidden on Home) ================ -->
     <div class="unit-bar hidden" id="unit-bar">
-      <label>📚 单元:</label>
-      <select id="unit-select"></select>
-      <span class="unit-stats">共 <span class="num" id="unit-word-count">10</span> 词</span>
+      <div class="subject-filter-group" id="unit-bar-subject-filter">
+        <button class="subj-pill-btn active" data-subj="chem" onclick="setSubjectFilter('chem')">⚗️ 化学酸和碱 (L34-L39)</button>
+        <button class="subj-pill-btn" data-subj="bio" onclick="setSubjectFilter('bio')">🧬 生物生理学 (L01-L33)</button>
+        <button class="subj-pill-btn" data-subj="all" onclick="setSubjectFilter('all')">🧪 全部单元 (All 39)</button>
+      </div>
+      <div class="unit-bar-select-row">
+        <label>📚 单元:</label>
+        <select id="unit-select" onchange="onSelectUnit(this.value)"></select>
+        <span class="unit-stats">共 <span class="num" id="unit-word-count">14</span> 词</span>
+      </div>
     </div>
 
     <!-- ================ Home ================ -->
     <section id="home" class="game active">
       <div class="panel welcome">
         <h2>欢迎来到 Sky 的科学单词实验室 🚀</h2>
-        <p>6 个游戏，33 个单元（Part 1 + Part 2 全覆盖，共 180 个核心科学词汇），助你全面攻克 IGCSE 科学词汇与拼写陷阱！点击下方卡片开启挑战</p>
+        <p>6 个单词游戏，39 个单元（G8 化学酸碱 L34~L39 + 生物生理学 L01~L33，共 247 个核心科学词汇），助你全面攻克 IGCSE 科学词汇与拼写陷阱！选择单元后点击下方卡片开启挑战 🚀</p>
+        <div class="home-unit-hub">
+          <div class="home-hub-header">
+            <span class="hub-label">🎯 当前特训专题与单元：</span>
+            <span class="hub-badge" id="home-hub-badge">⚗️ G8 化学第二单元 (当前进行中)</span>
+          </div>
+          <div class="subject-filter-group" id="home-subject-filter">
+            <button class="subj-pill-btn active" data-subj="chem" onclick="setSubjectFilter('chem')">⚗️ 化学酸和碱 (L34-L39 · 当前进行中)</button>
+            <button class="subj-pill-btn" data-subj="bio" onclick="setSubjectFilter('bio')">🧬 生物生理学 (L01-L33)</button>
+            <button class="subj-pill-btn" data-subj="all" onclick="setSubjectFilter('all')">🧪 全部单元 (All 39)</button>
+          </div>
+          <div class="home-unit-selector-row">
+            <label style="font-weight:700; color:var(--text); font-size:0.9rem;">选择攻坚单元:</label>
+            <select id="home-unit-select" onchange="onSelectUnit(this.value)"></select>
+            <div class="home-unit-summary">
+              <span class="summary-count">本单元核心词汇: <strong id="home-unit-word-count">14</strong> 词</span>
+            </div>
+          </div>
+        </div>
         <div class="game-intro">
           <div class="card" data-tab="bee" style="cursor:pointer;">
             <div class="emoji">📝</div>
@@ -2592,9 +2747,6 @@
           { en: "end point", zh: "滴定终点 (指示剂颜色突变点)", phonetic: "/\u02c8end p\u0254\u026ant/",
             hint: "滴定中指示剂颜色发生敏锐突变、酸碱恰好完全反应的瞬间。**陷阱**: 两个词分开",
             accept: ["end point", "endpoint"] },
-          { en: "phenolphthalein", zh: "酚酞 (酸无碱粉红指示剂)", phonetic: "/\u02ccfi\u02d0n\u0252lf\u02c8\u03b8e\u026ali\u02d0\u026an/",
-            hint: "酸碱指示剂: 酸性无色, 碱性粉红。**陷阱**: 最易拼错化学词之一, **phth** 拼写",
-            accept: ["phenolphthalein", "phenolphthalin"] },
           { en: "independent variable", zh: "自变量 (实验中人为改变的量)", phonetic: "/\u02cc\u026and\u026a\u02c8pend\u0259nt \u02c8ve\u0259ri\u0259bl/",
             hint: "实验中由实验者主动改变的量 (如改变金属种类或酸的浓度)。",
             accept: ["independent variable", "independent-variable"] },
@@ -2604,25 +2756,37 @@
           { en: "acid rain", zh: "酸雨 (pH<5.6，侵蚀碳酸盐)", phonetic: "/\u02c8\u00e6s\u026ad re\u026an/",
             hint: "SO₂ 和氮氧化物溶于雨水形成 pH < 5.6 的酸性降水, 腐蚀大理石建筑物。",
             accept: ["acid rain"] },
-          { en: "ion", zh: "离子 (原子得失电子带电微粒)", phonetic: "/\u02c8a\u026a\u0259n/",
-            hint: "原子得失电子后形成的带电微粒 (阳离子带正电, 阴离子带负电)。",
-            accept: ["ion", "ions"] },
-          { en: "hydrogen", zh: "氢气 / 氢 (最轻气体单质 H2)", phonetic: "/\u02c8ha\u026adr\u0259d\u0292\u0259n/",
-            hint: "最轻的元素, 单质 H₂ 易燃, 点燃发出 squeaky pop 爆鸣声。**陷阱**: hydro-gen",
-            accept: ["hydrogen", "H2"] },
-          { en: "soluble", zh: "可溶的 (能溶于水形成溶液)", phonetic: "/\u02c8s\u0252lj\u0259bl/",
-            hint: "能溶解在某种溶剂 (水) 中形成均一稳定溶液。**陷阱**: 结尾是 -uble",
-            accept: ["soluble"] },
-          { en: "insoluble", zh: "不溶的 (难溶于水形成固体)", phonetic: "/\u026an\u02c8s\u0252lj\u0259bl/",
-            hint: "不能溶于水的固态性质 (如 CaCO₃, BaSO₄)。**陷阱**: in- + soluble",
-            accept: ["insoluble"] }
+          { en: "water of crystallisation", zh: "结晶水 (结合在晶体中的化学计量水)", phonetic: "/\u02c8w\u0254\u02d0t\u0259r \u0259v \u02cckr\u026ast\u0259la\u026a\u02c8ze\u026a\u0283n/",
+            hint: "固结在盐晶体点阵内部的特定化学计量水分子 (如五水硫酸铜中的 ·5H₂O)。**陷阱**: cry-stal-li-sa-tion 双写 l",
+            accept: ["water of crystallisation", "water of crystallization", "crystallisation water"] },
+          { en: "hydrated", zh: "水合的 / 结晶水合物 (含结晶水晶体)", phonetic: "/\u02c8ha\u026adre\u026at\u026ad/",
+            hint: "晶体结构中包含特定比例结晶水分子的化合物 (如蓝色 CuSO₄·5H₂O)。**陷阱**: hy-drat-ed",
+            accept: ["hydrated", "hydrated salt"] },
+          { en: "anhydrous", zh: "无水的 / 无水物 (失去结晶水粉末)", phonetic: "/\u00e6n\u02c8ha\u026adr\u0259s/",
+            hint: "脱去所有结晶水后的化合物 (如白色无水 CuSO₄ 粉末，遇水复水变蓝放热)。**陷阱**: an- + hydrous 词根",
+            accept: ["anhydrous", "anhydrous salt"] },
+          { en: "concordant titres", zh: "相符滴定读数 (相差在0.10或0.20以内的平行读数)", phonetic: "/k\u0259n\u02c8k\u0254\u02d0d\u0259nt \u02c8ta\u026at\u0259rz/",
+            hint: "平行滴定中读数极其接近 (通常相差在 ±0.10 cm³ 或 ±0.20 cm³ 之内) 的有效结果，用于取平均值。**陷阱**: con-cor-dant 结尾是 -ant",
+            accept: ["concordant titres", "concordant titers", "concordant titre"] },
+          { en: "rough titre", zh: "粗读数 / 预滴定 (第一次快速滴定读数，计算平均值时不计)", phonetic: "/r\u028cf \u02c8ta\u026at\u0259r/",
+            hint: "首次快速滴定以大致估算终点范围的粗略读数，在计算平均滴定体积 (mean titre) 时必须被剔除不计。**陷阱**: rough 发音 /rʌf/",
+            accept: ["rough titre", "rough titer"] }
         ]
       },
-      L39: { name: 'Acids & Bases Comprehensive Review (U2 Final)', mode: 'review', sourceUnits: ["L34", "L35", "L36", "L37", "L38"] }
+      L39: { name: 'Unit 2 Chemistry Review (Acids & Bases Comprehensive)', mode: 'review', sourceUnits: ["L34", "L35", "L36", "L37", "L38"] }
     };
 
-    // 当前活跃单元
-    let activeUnit = 'L01';
+    // 学科分类与当前活跃单元 (默认进入化学时态 L34)
+    let currentSubjectFilter = localStorage.getItem('sky_science_subject_filter') || 'chem';
+    let activeUnit = localStorage.getItem('sky_active_unit') || (currentSubjectFilter === 'chem' ? 'L34' : 'L01');
+    if (!UNITS[activeUnit]) {
+      activeUnit = 'L34';
+    }
+
+    function getUnitSubject(unitId) {
+      const num = parseInt((unitId || '').replace(/\D/g, ''), 10);
+      return (num >= 34 && num <= 39) ? 'chem' : 'bio';
+    }
     function getUnitConfig() {
       return UNITS[activeUnit] || { name: activeUnit, words: [] };
     }
@@ -2715,16 +2879,26 @@
         .replace(/`(.*?)`/g, '<code>$1</code>');
     }
 
-    // 智能回答归一化与比对：容错全角空格、连续多空格、连字符、多余标点及下划线
+    // 智能回答归一化与比对：容错全角空格、连续多空格、连字符、多余标点、引号及下划线
     function normalizeAnswer(str) {
       if (!str) return '';
       return str
         .toLowerCase()
         .replace(/[\u3000\u00A0]/g, ' ')   // 全角空格/NBSP -> 普通空格
-        .replace(/['’]/g, "'")             // 弯引号 -> 直引号
+        .replace(/['’`"“”]/g, "'")          // 各种引号统一为直单引号
         .replace(/[，,。.\-_/\\+]/g, ' ')  // 标点、连字符 -> 空格
         .replace(/\s+/g, ' ')             // 连续空格合并为单个空格
         .trim();
+    }
+
+    function stripQuotes(str) {
+      return (str || '').replace(/['’`"“”]/g, '');
+    }
+
+    function getFirstAlphaChar(str) {
+      if (!str) return '';
+      const match = str.match(/[a-zA-Z]/);
+      return match ? match[0] : str[0] || '';
     }
 
     function checkAnswerMatch(input, word) {
@@ -2734,20 +2908,33 @@
       if (!normInput) return false;
 
       const noSpaceInput = normInput.replace(/\s+/g, '');
+      const strippedInput = stripQuotes(normInput);
+      const strippedNoSpaceInput = stripQuotes(noSpaceInput);
       const acceptedList = [word.en, ...(word.accept || [])];
 
       // 1. 标准归一化比对（忽略大小写、全角空格、连续多空格、标点）
       if (acceptedList.some(a => normalizeAnswer(a) === normInput)) return true;
 
-      // 2. 去空格比对（容错连写、漏空格或连字符情况，如 salivaryglands 匹配 salivary glands）
-      if (noSpaceInput.length >= 3 && acceptedList.some(a => normalizeAnswer(a).replace(/\s+/g, '') === noSpaceInput)) {
+      // 2. 无引号比对（容错如 'squeaky pop' test 匹配 squeaky pop test）
+      if (strippedInput && acceptedList.some(a => stripQuotes(normalizeAnswer(a)) === strippedInput)) {
         return true;
       }
 
-      // 3. 单复数智能容错（长度 >= 4 字符，如 salivary gland <=> salivary glands）
+      // 3. 去空格与去引号比对（容错连写、漏空格或连字符情况，如 salivaryglands 匹配 salivary glands）
+      if (noSpaceInput.length >= 3 && acceptedList.some(a => {
+        const normA = normalizeAnswer(a);
+        return normA.replace(/\s+/g, '') === noSpaceInput ||
+               stripQuotes(normA.replace(/\s+/g, '')) === strippedNoSpaceInput;
+      })) {
+        return true;
+      }
+
+      // 4. 单复数智能容错（长度 >= 4 字符，如 salivary gland <=> salivary glands）
       if (normInput.length >= 4 && acceptedList.some(a => {
         const normA = normalizeAnswer(a);
-        return normInput + 's' === normA || normA + 's' === normInput;
+        const sNormA = stripQuotes(normA);
+        return normInput + 's' === normA || normA + 's' === normInput ||
+               strippedInput + 's' === sNormA || sNormA + 's' === strippedInput;
       })) {
         return true;
       }
@@ -2756,8 +2943,11 @@
 
     function buildWordSkeleton(en) {
       return (en || '').split(' ').map(part => {
-        if (part.length <= 1) return part;
-        return part[0] + ' ' + '_ '.repeat(part.length - 1).trim();
+        const clean = part.replace(/^['"‘“`]+|['"’”`]+$/g, '');
+        if (!clean) return part;
+        if (clean.length <= 1) return clean;
+        const first = getFirstAlphaChar(clean);
+        return first + ' ' + '_ '.repeat(clean.length - 1).trim();
       }).join(' &nbsp; ');
     }
 
@@ -3080,32 +3270,123 @@
     };
     StatsManager.init();
 
-    // ==================== Unit Selector ====================
-    function renderUnitSelector() {
-      const sel = $('unit-select');
-      sel.innerHTML = '';
-      Object.keys(UNITS).forEach(id => {
-        const u = UNITS[id];
-        const opt = document.createElement('option');
-        opt.value = id;
-        const wordCount = getWordCount(id);
-        // 复习课标识
-        const reviewTag = u.mode === 'review' ? ` (复习 ${u.sourceUnits.length}课合并)` : '';
-        const status = wordCount === 0 ? ' (即将推出)' : ` · ${wordCount} 词${reviewTag}`;
-        opt.textContent = `${id} · ${u.name}${status}`;
-        if (wordCount === 0) opt.disabled = true;
-        if (id === activeUnit) opt.selected = true;
-        sel.appendChild(opt);
-      });
-      $('unit-word-count').textContent = getWordCount(activeUnit);
-      // 更新 header tag
-      document.querySelector('header h1 .tag').textContent = `${activeUnit} · ${UNITS[activeUnit].name}`;
+    // ==================== Subject Filter & Unit Selector ====================
+    function createUnitOption(id) {
+      const u = UNITS[id];
+      const opt = document.createElement('option');
+      opt.value = id;
+      const wordCount = getWordCount(id);
+      const reviewTag = u.mode === 'review' ? ` (复习 ${u.sourceUnits.length} 课合并)` : '';
+      const status = wordCount === 0 ? ' (即将推出)' : ` · ${wordCount} 词${reviewTag}`;
+      opt.textContent = `${id} · ${u.name}${status}`;
+      if (wordCount === 0) opt.disabled = true;
+      if (id === activeUnit) opt.selected = true;
+      return opt;
     }
-    renderUnitSelector();
 
-    $('unit-select').addEventListener('change', (e) => {
-      activeUnit = e.target.value;
+    function renderSubjectFilterButtons() {
+      document.querySelectorAll('.subject-filter-group').forEach(grp => {
+        grp.querySelectorAll('.subj-pill-btn').forEach(btn => {
+          if (btn.dataset.subj === currentSubjectFilter) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      });
+      const badge = $('home-hub-badge');
+      if (badge) {
+        if (currentSubjectFilter === 'chem') {
+          badge.textContent = '⚗️ G8 化学第二单元 (当前进行中)';
+          badge.style.background = 'linear-gradient(135deg, #10b981 0%, #06b6d4 100%)';
+        } else if (currentSubjectFilter === 'bio') {
+          badge.textContent = '🧬 G8 生物人体生理学 (L01-L33)';
+          badge.style.background = 'linear-gradient(135deg, #38bdf8 0%, #6366f1 100%)';
+        } else {
+          badge.textContent = '🧪 全科学 39 单元全景大练兵';
+          badge.style.background = 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)';
+        }
+      }
+    }
+
+    function setSubjectFilter(subj) {
+      if (!['chem', 'bio', 'all'].includes(subj)) subj = 'chem';
+      currentSubjectFilter = subj;
+      localStorage.setItem('sky_science_subject_filter', subj);
+
+      const curSubj = getUnitSubject(activeUnit);
+      if (subj === 'chem' && curSubj !== 'chem') {
+        activeUnit = 'L34';
+        localStorage.setItem('sky_active_unit', activeUnit);
+      } else if (subj === 'bio' && curSubj !== 'bio') {
+        activeUnit = 'L01';
+        localStorage.setItem('sky_active_unit', activeUnit);
+      }
+
+      renderSubjectFilterButtons();
       renderUnitSelector();
+      onUnitChangedCommon();
+    }
+
+    function renderUnitSelector() {
+      const selGlobal = $('unit-select');
+      const selHome = $('home-unit-select');
+      const selects = [selGlobal, selHome].filter(Boolean);
+
+      const chemUnits = [];
+      const bioUnits = [];
+      Object.keys(UNITS).forEach(id => {
+        if (getUnitSubject(id) === 'chem') chemUnits.push(id);
+        else bioUnits.push(id);
+      });
+
+      selects.forEach(sel => {
+        sel.innerHTML = '';
+        if (currentSubjectFilter === 'all') {
+          const grpChem = document.createElement('optgroup');
+          grpChem.label = '⚗️ 化学酸和碱 (L34-L39 · 当前核心专题)';
+          chemUnits.forEach(id => grpChem.appendChild(createUnitOption(id)));
+          sel.appendChild(grpChem);
+
+          const grpBio = document.createElement('optgroup');
+          grpBio.label = '🧬 生物人体生理学 (L01-L33)';
+          bioUnits.forEach(id => grpBio.appendChild(createUnitOption(id)));
+          sel.appendChild(grpBio);
+        } else if (currentSubjectFilter === 'chem') {
+          chemUnits.forEach(id => sel.appendChild(createUnitOption(id)));
+        } else {
+          bioUnits.forEach(id => sel.appendChild(createUnitOption(id)));
+        }
+        sel.value = activeUnit;
+      });
+
+      const count = getWordCount(activeUnit);
+      if ($('unit-word-count')) $('unit-word-count').textContent = count;
+      if ($('home-unit-word-count')) $('home-unit-word-count').textContent = count;
+
+      const tagEl = document.querySelector('header h1 .tag');
+      if (tagEl && UNITS[activeUnit]) {
+        tagEl.textContent = `${activeUnit} · ${UNITS[activeUnit].name}`;
+      }
+    }
+
+    function onSelectUnit(unitId) {
+      if (!unitId || !UNITS[unitId]) return;
+      activeUnit = unitId;
+      localStorage.setItem('sky_active_unit', activeUnit);
+
+      const subj = getUnitSubject(unitId);
+      if (currentSubjectFilter !== 'all' && currentSubjectFilter !== subj) {
+        currentSubjectFilter = subj;
+        localStorage.setItem('sky_science_subject_filter', subj);
+        renderSubjectFilterButtons();
+      }
+
+      renderUnitSelector();
+      onUnitChangedCommon();
+    }
+
+    function onUnitChangedCommon() {
       // 重置所有游戏状态与定时器
       stopShooter();
       beeState.started = false;
@@ -3121,24 +3402,32 @@
       if (speedState.timer) { clearInterval(speedState.timer); speedState.timer = null; }
       speedState.running = false;
 
-      const activeTab = document.querySelector('.tabs button.active').dataset.tab;
+      const activeTabBtn = document.querySelector('.tabs button.active');
+      const activeTab = activeTabBtn ? activeTabBtn.dataset.tab : 'home';
       if (activeTab === 'bee') startBee();
       else if (activeTab === 'memory') startMemory();
       else if (activeTab === 'listening') startListening();
       else if (activeTab === 'anagram') startAnagram();
       else if (activeTab === 'shooter') {
-        $('shooter-overlay').style.display = 'flex';
-        $('shooter-overlay').innerHTML = `
-          <h2>🚀 Word Shooter</h2>
-          <p>已切换到 <strong>${getUnitName()}</strong>(${getWords().length} 词)<br>单词从屏幕上方飞下来,输入完整英文拼写击落<br>漏 1 个 = 掉 1 命,3 命用完 Game Over</p>
-          <button class="btn" id="shooter-start">开始游戏</button>
-        `;
-        $('shooter-start').addEventListener('click', startShooter);
+        const overlay = $('shooter-overlay');
+        if (overlay) {
+          overlay.style.display = 'flex';
+          overlay.innerHTML = `
+            <h2>🚀 Word Shooter</h2>
+            <p>已切换到 <strong>${getUnitName()}</strong> (${getWords().length} 词)<br>单词从屏幕上方飞下来,输入完整英文拼写击落<br>漏 1 个 = 掉 1 命,3 命用完 Game Over</p>
+            <button class="btn" id="shooter-start">开始游戏</button>
+          `;
+          $('shooter-start').addEventListener('click', startShooter);
+        }
       } else if (activeTab === 'speed') {
-        $('speed-overlay').classList.remove('hidden');
-        $('speed-input').disabled = true;
+        const ov = $('speed-overlay');
+        if (ov) ov.classList.remove('hidden');
+        if ($('speed-input')) $('speed-input').disabled = true;
       }
-    });
+    }
+
+    renderSubjectFilterButtons();
+    renderUnitSelector();
 
     // ==================== Tab 切换 ====================
     function switchTab(tab) {
@@ -3432,7 +3721,7 @@
       // 在反馈区展示清晰的字母结构骨架，避免下划线污染输入框
       $('bee-feedback').innerHTML = `<div style="font-family:monospace;font-size:1.15rem;letter-spacing:0.1em;color:var(--primary);font-weight:700;margin-top:0.2rem;">💡 ${buildWordSkeleton(w.en)}</div>`;
       if (!$('bee-input').value) {
-        $('bee-input').value = w.en[0];
+        $('bee-input').value = getFirstAlphaChar(w.en);
       }
       $('bee-input').focus();
     });
@@ -3478,7 +3767,8 @@
       board.innerHTML = '';
       memoryState.cards.forEach((card, idx) => {
         const div = document.createElement('div');
-        div.className = 'memory-card';
+        const isLong = (card.text || '').length >= 15;
+        div.className = 'memory-card' + (isLong ? ' long-word' : '');
         div.dataset.idx = idx;
         div.innerHTML = `
           <div class="face front">?</div>
@@ -4269,6 +4559,38 @@
       }
     });
     $('anagram-restart').addEventListener('click', startAnagram);
+
+    // Anagram 键盘打字与退格支持
+    document.addEventListener('keydown', (e) => {
+      if (e.isComposing || e.keyCode === 229) return;
+      if (document.activeElement && ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement.tagName)) return;
+      const anagramSection = $('anagram');
+      if (!anagramSection || !anagramSection.classList.contains('active')) return;
+      if (!anagramState.started || !anagramState.current) return;
+
+      if (e.key === 'Backspace') {
+        e.preventDefault();
+        const ans = $('anagram-answer');
+        if (ans && ans.lastElementChild) {
+          removeAnagramLetter(ans.lastElementChild);
+        }
+        return;
+      }
+
+      if (e.key.length === 1) {
+        const keyChar = e.key.toLowerCase();
+        const pool = $('anagram-pool');
+        if (!pool) return;
+        const match = Array.from(pool.children).find(s => {
+          const ch = (s.dataset.ch || '').toLowerCase();
+          return ch === keyChar || (keyChar === ' ' && ch === ' ');
+        });
+        if (match) {
+          e.preventDefault();
+          addAnagramLetter(match);
+        }
+      }
+    });
 
     // ==================== Game 6: Speed Round ====================
     const speedState = {
