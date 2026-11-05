@@ -138,8 +138,9 @@ if 'L08_Task_8_1' in part1_map:
     q['diagram_caption_en'] = "Figure 8.4: Universal Indicator pH Scale"
     q['diagram_caption_cn'] = "图8.4：通用酸碱指示剂 pH 比色板"
 
-if 'L11_Task_11_1' in part1_map:
-    q = part1_map['L11_Task_11_1']
+target_key = 'L11_Task_11_1_Diagram' if 'L11_Task_11_1_Diagram' in part1_map else ('L11_Task_11_1' if 'L11_Task_11_1' in part1_map else None)
+if target_key:
+    q = part1_map[target_key]
     q['image_url'] = "images/fig_autumn_11_4_heart_diagram_0.png"
     q['diagram_caption_en'] = "Figure 11.4: Internal Frontal Anatomy of the Human Heart"
     q['diagram_caption_cn'] = "图11.4：人体心脏正面冠状解剖结构图"

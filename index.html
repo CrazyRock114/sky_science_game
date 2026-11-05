@@ -3811,7 +3811,7 @@
         } else {
           // 配对失败
           if (c1.word && c2.word && c1.pairId !== c2.pairId) {
-            const key = [c1.en, c2.en].sort().join('|');
+            const key = [c1.word.en, c2.word.en].sort().join('|');
             if (!memoryState.wrong.find(w => w.key === key)) {
               memoryState.wrong.push({ key, en: [c1.word.en, c2.word.en], zh: [c1.word.zh, c2.word.zh] });
             }
