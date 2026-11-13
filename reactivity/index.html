@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>金属活动性顺序表与交互式化学实验室 | Reactivity Series Interactive Lab</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- 生态全域导航组件 -->
+  <script src="https://www.igcse.xyz/ecosystem-nav.js" defer></script>
+</head>
+<body>
+  <!-- 全域生态顶栏 (Sky 席位高亮) -->
+  <igcse-nav active="sky" sticky></igcse-nav>
+
+  <!-- 顶部导航栏 -->
+  <header class="top-header">
+    <div class="header-left">
+      <a href="https://sky.igcse.xyz/" class="nav-back-to-sky" title="返回 Sky 科学词汇与大练兵首页">
+        ← 返回 Sky 首页
+      </a>
+      <div class="logo-badge">⚗️</div>
+      <div>
+        <h1 data-i18n="title">金属活动性顺序交互式教学实验室</h1>
+        <p class="subtitle" data-i18n="subtitle">Reactivity Series of Metals — 覆盖全表 25 个元素的视觉化讲解与交互式虚拟化学实验</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="Filter-pills" id="zoneFilterGroup" aria-label="区域筛选">
+        <button class="pill active" data-zone="all">全部元素 (25)</button>
+        <button class="pill zone-water-pill" data-zone="water">🔴 与水反应 (6)</button>
+        <button class="pill zone-acid-pill" data-zone="acid">🟡 与酸反应 (11)</button>
+        <button class="pill zone-h-pill" data-zone="hydrogen">⚪ 氢基准 (1)</button>
+        <button class="pill zone-unreactive-pill" data-zone="unreactive">🔵 极不活泼 (7)</button>
+      </div>
+      <button id="langToggleBtn" class="btn-outline" title="切换中英文显示">中 / EN 双语</button>
+    </div>
+  </header>
+
+  <!-- 主体三栏/双栏响应式网格 -->
+  <main class="workspace-grid">
+    <!-- 左侧：严格复刻原图的交互式金属活动性顺序表 -->
+    <section class="chart-panel card-surface" aria-label="金属活动性顺序表">
+      <div class="panel-header">
+        <h2>📊 原图交互式活动性顺序表</h2>
+        <span class="hint-tag">点击任意元素查看详情并载入实验室</span>
+      </div>
+
+      <!-- 复刻原图的三列结构：Metals | 渐变向上箭头 | Reactivity 分区 -->
+      <div class="diagram-replica">
+        <!-- 表头 -->
+        <div class="diagram-header-row">
+          <div class="col-metals-header">Metals <span class="cn-sub">金属/元素</span></div>
+          <div class="col-arrow-header" title="越往上金属活动性越强">Reactivity ↑</div>
+          <div class="col-reactivity-header">Reactivity <span class="cn-sub">反应活性分区</span></div>
+        </div>
+
+        <!-- 表体 -->
+        <div class="diagram-body">
+          <!-- 左列：24 个金属/氢元素行 -->
+          <div class="metals-list" id="metalsListContainer">
+            <!-- 由 JS 动态渲染 24 个元素行，严格对应原图顺序 -->
+          </div>
+
+          <!-- 中列：贯穿全表的平滑色彩渐变向上大箭头 -->
+          <div class="arrow-column">
+            <svg class="reactivity-arrow-svg" viewBox="0 0 60 840" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="arrowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#ff2e63" />
+                  <stop offset="22%" stop-color="#ff6b6b" />
+                  <stop offset="30%" stop-color="#ffd166" />
+                  <stop offset="65%" stop-color="#ffee55" />
+                  <stop offset="71%" stop-color="#d8dee9" />
+                  <stop offset="76%" stop-color="#4dd0e1" />
+                  <stop offset="100%" stop-color="#4fc3f7" />
+                </linearGradient>
+              </defs>
+              <!-- 箭头头部 -->
+              <polygon points="30,6 4,58 19,58 19,834 41,834 41,58 56,58" fill="url(#arrowGrad)" stroke="#334155" stroke-width="1.5" />
+            </svg>
+            <div class="arrow-vertical-label">活动性由下往上依次增强 (Increasing Reactivity)</div>
+          </div>
+
+          <!-- 右列：四大反应活性色块区（严格按原图比例 6 : 10 : 1 : 7） -->
+          <div class="reactivity-zones">
+            <div class="zone-block zone-water" data-zone-select="water" style="flex: 6;">
+              <div class="zone-content">
+                <span class="zone-en">Reacts with water</span>
+                <span class="zone-cn">与冷水剧烈/明显反应</span>
+                <span class="zone-formula">2M + 2H₂O → 2MOH + H₂↑</span>
+                <span class="zone-elements-count">K, Na, Li, Ba, Sr, Ca (共6种)</span>
+              </div>
+            </div>
+            <div class="zone-block zone-acid" data-zone-select="acid" style="flex: 11;">
+              <div class="zone-content">
+                <span class="zone-en">Reacts with acids</span>
+                <span class="zone-cn">与酸反应置换出氢气</span>
+                <span class="zone-formula">M + 2H⁺ → M²⁺/M³⁺ + H₂↑</span>
+                <span class="zone-subnote">（与冷水几乎不反应，可与水蒸气或酸反应）</span>
+                <span class="zone-elements-count">Mg, Al, Mn, Zn, Cr, Fe, Cd, Co, Ni, Sn, Pb (共11种)</span>
+              </div>
+            </div>
+            <div class="zone-block zone-hydrogen" data-zone-select="hydrogen" style="flex: 1;">
+              <div class="zone-content">
+                <span class="zone-en">Included for comparison</span>
+                <span class="zone-cn">作为比较基准 (H)</span>
+              </div>
+            </div>
+            <div class="zone-block zone-unreactive" data-zone-select="unreactive" style="flex: 7;">
+              <div class="zone-content">
+                <span class="zone-en">Highly unreactive</span>
+                <span class="zone-cn">极不活泼（排在氢后）</span>
+                <span class="zone-formula">不与水或稀酸发生置换反应</span>
+                <span class="zone-elements-count">Sb, Bi, Cu, Hg, Ag, Au, Pt (共7种)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 右侧：元素深度解析 + 交互式化学实验室 + 核心考点与随堂测验 -->
+    <section class="interactive-panel">
+      <!-- 1. 当前选中元素的百科与性质卡片 -->
+      <div class="element-inspector card-surface" id="elementInspector">
+        <div class="inspector-top">
+          <div class="element-symbol-box" id="inspSymbolBox">
+            <span class="atomic-num" id="inspAtomicNum">19</span>
+            <span class="chem-symbol" id="inspSymbol">K</span>
+            <span class="electrode-pot" id="inspPotential">E° = -2.93 V</span>
+          </div>
+          <div class="element-title-group">
+            <div class="title-line">
+              <h2 id="inspName">Potassium · 钾</h2>
+              <span class="zone-badge" id="inspZoneBadge">Reacts with water · 与水反应</span>
+            </div>
+            <p class="insp-summary" id="inspSummary">
+              排在活动性顺序表最顶端！遇冷水立即剧烈反应，熔化成银白色小球四处游动，释放大量热量并点燃生成的氢气，产生淡紫色火焰。
+            </p>
+            <div class="insp-quick-actions">
+              <button class="btn-primary btn-sm" id="loadToWaterAcidBtn">🧪 送入【水/酸反应实验台】</button>
+              <button class="btn-secondary btn-sm" id="loadToDisplaceBtn">🔄 送入【金属置换反应池】</button>
+            </div>
+          </div>
+        </div>
+        <div class="inspector-grid">
+          <div class="insp-item">
+            <span class="insp-label">💧 与水反应 (H₂O)</span>
+            <span class="insp-val" id="inspWaterEq">2K + 2H₂O → 2KOH + H₂↑ (剧烈燃烧，紫焰)</span>
+          </div>
+          <div class="insp-item">
+            <span class="insp-label">🧪 与稀盐酸反应 (HCl)</span>
+            <span class="insp-val" id="inspAcidEq">2K + 2HCl → 2KCl + H₂↑ (极度剧烈/爆炸风险)</span>
+          </div>
+          <div class="insp-item">
+            <span class="insp-label">⛏️ 自然界存在与冶炼</span>
+            <span class="insp-val" id="inspExtraction">化合态存在；工业采用电解熔融盐法 (Electrolysis) 冶炼</span>
+          </div>
+          <div class="insp-item">
+            <span class="insp-label">💡 典型教学考点</span>
+            <span class="insp-val" id="inspTip">保存在煤油中隔绝空气与水分；切勿在实验室直接投入浓酸。</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. 多合一交互式化学实验与知识模块切换 -->
+      <div class="lab-workspace card-surface">
+        <div class="tabs-bar" role="tablist">
+          <button class="tab-btn active" data-tab="tab-water-acid" role="tab">
+            🧪 实验一：与水 / 与酸反应对比
+          </button>
+          <button class="tab-btn" data-tab="tab-displacement" role="tab">
+            🔄 实验二：金属置换反应 (湿法冶金)
+          </button>
+          <button class="tab-btn" data-tab="tab-knowledge" role="tab">
+            📘 核心知识点全景图
+          </button>
+          <button class="tab-btn" data-tab="tab-quiz" role="tab">
+            🎯 随堂闯关问答
+          </button>
+        </div>
+
+        <!-- Tab 1: 与水 & 与酸反应交互式双烧杯仿真实验室 -->
+        <div class="tab-content active" id="tab-water-acid">
+          <div class="lab-controls-bar">
+            <div class="control-group">
+              <label for="lab1MetalSelect">选择投入的金属/元素：</label>
+              <select id="lab1MetalSelect" class="select-input"></select>
+            </div>
+            <div class="control-group">
+              <label for="lab1MediumSelect">选择烧杯试剂环境：</label>
+              <select id="lab1MediumSelect" class="select-input">
+                <option value="water">💧 冷水 + 酚酞指示剂 (Cold Water + Phenolphthalein)</option>
+                <option value="acid">🧪 稀盐酸 HCl (Dilute Hydrochloric Acid)</option>
+                <option value="compare">⚖️ 双烧杯同屏对比（左：冷水 | 右：稀盐酸）</option>
+              </select>
+            </div>
+            <div class="control-buttons">
+              <button id="lab1StartBtn" class="btn-action">▶ 投入样品开始实验</button>
+              <button id="lab1ResetBtn" class="btn-ghost">↺ 重置烧杯</button>
+            </div>
+          </div>
+
+          <!-- Canvas 仿真舞台 + 实时仪表盘 -->
+          <div class="sim-stage-wrapper">
+            <div class="canvas-box">
+              <canvas id="beakerCanvas" width="680" height="340"></canvas>
+              <div class="canvas-overlay-badges" id="lab1OverlayBadges">
+                <span class="status-pill" id="lab1StateBadge">待命：点击“投入样品开始实验”或直接点击左侧顺序表</span>
+              </div>
+            </div>
+
+            <div class="telemetry-panel">
+              <div class="telemetry-card">
+                <span class="tele-label">🌡️ 溶液温度</span>
+                <div class="tele-value" id="teleTemp">25.0 °C</div>
+                <div class="progress-bar"><div class="progress-fill temp-fill" id="teleTempBar" style="width: 15%;"></div></div>
+              </div>
+              <div class="telemetry-card">
+                <span class="tele-label">🫧 H₂ 产生速率</span>
+                <div class="tele-value" id="teleGasRate">0.0 mL/s</div>
+                <div class="progress-bar"><div class="progress-fill gas-fill" id="teleGasBar" style="width: 0%;"></div></div>
+              </div>
+              <div class="telemetry-card">
+                <span class="tele-label">🎨 溶液酸碱/离子颜色</span>
+                <div class="tele-value" id="teleColorDesc">无色透明 (pH = 7.0)</div>
+              </div>
+              <div class="telemetry-card equation-box">
+                <span class="tele-label">📝 实时化学反应方程式 & 现象记录</span>
+                <div class="tele-equation" id="teleEquation">请选择金属并点击投入样品观察现象</div>
+                <div class="tele-phenomenon" id="telePhenomenon"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 2: 金属置换反应虚拟实验室 (A + BC -> AC + B) -->
+        <div class="tab-content" id="tab-displacement">
+          <div class="lab-controls-bar">
+            <div class="control-group">
+              <label for="dispStripSelect">插入金属片 (单质 M₁)：</label>
+              <select id="dispStripSelect" class="select-input"></select>
+            </div>
+            <div class="control-group">
+              <label for="dispSolutionSelect">烧杯盐溶液 (化合物 M₂ⁿ⁺)：</label>
+              <select id="dispSolutionSelect" class="select-input">
+                <option value="Cu">CuSO₄ 硫酸铜溶液 (天蓝色 · Cu²⁺)</option>
+                <option value="Ag">AgNO₃ 硝酸银溶液 (无色 · Ag⁺)</option>
+                <option value="Fe">FeSO₄ 硫酸亚铁溶液 (浅绿色 · Fe²⁺)</option>
+                <option value="Zn">ZnSO₄ 硫酸锌溶液 (无色 · Zn²⁺)</option>
+                <option value="Mg">MgSO₄ 硫酸镁溶液 (无色 · Mg²⁺)</option>
+                <option value="Pb">Pb(NO₃)₂ 硝酸铅溶液 (无色 · Pb²⁺)</option>
+                <option value="H">HCl 稀盐酸溶液 (无色 · H⁺ 基准对比)</option>
+              </select>
+            </div>
+            <div class="control-buttons">
+              <button id="dispStartBtn" class="btn-action">⬇️ 浸入金属片</button>
+              <button id="dispResetBtn" class="btn-ghost">↺ 取出并重置</button>
+            </div>
+          </div>
+
+          <div class="sim-stage-wrapper">
+            <div class="canvas-box">
+              <canvas id="displacementCanvas" width="680" height="340"></canvas>
+            </div>
+            <div class="telemetry-panel">
+              <div class="telemetry-card">
+                <span class="tele-label">⚖️ 活动性位置对比</span>
+                <div class="tele-value" id="dispRankCompare">Fe (#12) vs Cu (#20)</div>
+              </div>
+              <div class="telemetry-card">
+                <span class="tele-label">⚡ 反应判据 (“强换弱”)</span>
+                <div class="tele-value" id="dispVerdict">✅ 可以发生置换反应</div>
+              </div>
+              <div class="telemetry-card equation-box">
+                <span class="tele-label">📝 离子反应与表面析出物观测</span>
+                <div class="tele-equation" id="dispEquation">Fe + CuSO₄ → FeSO₄ + Cu↓</div>
+                <div class="tele-phenomenon" id="dispPhenomenon">铁片表面析出紫红色海绵状铜，溶液由天蓝色逐渐变为浅绿色 (Fe²⁺)。</div>
+              </div>
+              <div class="preset-buttons-box">
+                <span class="tele-label">✨ 经典课堂演示一键载入：</span>
+                <div class="preset-chips">
+                  <button class="chip-btn" data-strip="Fe" data-sol="Cu">曾青得铁则化为铜 (Fe + CuSO₄)</button>
+                  <button class="chip-btn" data-strip="Cu" data-sol="Ag">铜树银花实验 (Cu + AgNO₃)</button>
+                  <button class="chip-btn" data-strip="Zn" data-sol="Fe">锌置换亚铁 (Zn + FeSO₄)</button>
+                  <button class="chip-btn" data-strip="Cu" data-sol="Fe">反例：铜入硫酸亚铁 (不反应)</button>
+                  <button class="chip-btn" data-strip="Na" data-sol="Cu">易错特例：钠入硫酸铜 (先与水反应!)</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: 原图全知识点总结讲义 -->
+        <div class="tab-content" id="tab-knowledge">
+          <div class="knowledge-grid">
+            <article class="know-card border-pink">
+              <h3>1️⃣ 粉红区：与水反应 (Reacts with water)</h3>
+              <p class="know-elements">包含 6 种强活泼金属：<strong>K (钾)、Na (钠)、Li (锂)、Ba (钡)、Sr (锶)、Ca (钙)</strong></p>
+              <ul>
+                <li><strong>核心规律：</strong>极易失去最外层电子，在常温下即可置换出冷水中的氢，生成<strong>强碱（氢氧化物）和氢气</strong>：<code>2M + 2H₂O → 2MOH + H₂↑</code>（二价金属为 <code>M + 2H₂O → M(OH)₂ + H₂↑</code>）。</li>
+                <li><strong>递变现象：</strong>钾遇水立即起火（紫色火焰）；钠熔成银白小球四处游动；锂缓慢冒泡浮于水面；钙沉入水底产生大量气泡并形成微溶氢氧化钙白色浑浊。</li>
+                <li><strong>重要警示：</strong>这 6 种金属放入盐溶液（如 CuSO₄）中时，<strong>不会置换出金属单质</strong>，而是先与水剧烈反应生成碱，再与金属离子生成氢氧化物沉淀！</li>
+              </ul>
+            </article>
+
+            <article class="know-card border-yellow">
+              <h3>2️⃣ 黄色区：与酸反应 (Reacts with acids)</h3>
+              <p class="know-elements">包含 11 种较活泼金属：<strong>Mg (镁)、Al (铝)、Mn (锰)、Zn (锌)、Cr (铬)、Fe (铁)、Cd (镉)、Co (钴)、Ni (镍)、Sn (锡)、Pb (铅)</strong></p>
+              <ul>
+                <li><strong>核心规律：</strong>排在氢（H）之前，但活动性弱于钙。它们<strong>几乎不与冷水反应</strong>（Mg 可与沸水缓慢反应，Mg/Al/Zn/Fe 在高温下可与水蒸气反应生成氧化物），但能与稀盐酸、稀硫酸发生置换反应生成氢气：<code>M + 2H⁺ → M²⁺ + H₂↑</code>。</li>
+                <li><strong>关键细节：</strong>
+                  <ul>
+                    <li><strong>铝 (Al) 钝化与氧化膜：</strong>表面有致密 Al₂O₃ 薄膜，投入酸中最初气泡较慢，膜溶解后迅速加快。</li>
+                    <li><strong>铁 (Fe) 的变价：</strong>与非氧化性稀酸（稀 HCl、稀 H₂SO₄）反应只生成<strong>+2价亚铁离子 (Fe²⁺，浅绿色)</strong>，绝不生成 Fe³⁺。</li>
+                    <li><strong>铅 (Pb) 的表面覆盖：</strong>排在氢前边缘，与稀 H₂SO₄ 反应生成难溶 PbSO₄ 覆盖表面，反应很快停止。</li>
+                  </ul>
+                </li>
+              </ul>
+            </article>
+
+            <article class="know-card border-grey">
+              <h3>3️⃣ 灰色基准线：氢 (Hydrogen — Included for comparison)</h3>
+              <p class="know-elements">非金属元素 <strong>H (氢)</strong>，标准电极电势定义为 <code>E°(H⁺/H₂) = 0.00 V</code></p>
+              <ul>
+                <li><strong>为什么把非金属“氢”放进金属表？</strong>因为酸溶液中起氧化作用的是氢离子（H⁺）。氢是判断金属能否与非氧化性酸发生置换放出氢气的<strong>分水岭</strong>：</li>
+                <li><strong>排在 H 之前（K ~ Pb）：</strong>失电子能力比 H₂ 强（E° &lt; 0 V），能把酸中的 H⁺ 还原成 H₂↑。</li>
+                <li><strong>排在 H 之后（Sb ~ Pt）：</strong>失电子能力比 H₂ 弱（E° &gt; 0 V），不能从稀酸中置换出氢气。</li>
+              </ul>
+            </article>
+
+            <article class="know-card border-blue">
+              <h3>4️⃣ 蓝色区：极不活泼金属 (Highly unreactive)</h3>
+              <p class="know-elements">包含 7 种氢后元素：<strong>Sb (锑)、Bi (铋)、Cu (铜)、Hg (汞)、Ag (银)、Au (金)、Pt (铂)</strong></p>
+              <ul>
+                <li><strong>核心规律：</strong>既不与水反应，也不与稀盐酸、稀硫酸反应放出氢气。</li>
+                <li><strong>与强氧化性酸及王水：</strong>Cu、Hg、Ag 可溶于浓硫酸（加热）或硝酸，但生成的气体是 SO₂、NO₂ 或 NO，<strong>而不是 H₂</strong>；Au（金）和 Pt（铂）化学性质极稳定，仅溶于<strong>王水（浓硝酸 : 浓盐酸 = 1 : 3）</strong>。</li>
+                <li><strong>金属冶炼关联：</strong>
+                  <span class="tag-inline">K ~ Al：电解法 (Electrolysis)</span>
+                  <span class="tag-inline">Mn ~ Cu：热还原法 (C / CO / H₂ / 铝热)</span>
+                  <span class="tag-inline">Hg ~ Ag：热分解法</span>
+                  <span class="tag-inline">Au ~ Pt：自然界游离态富集</span>
+                </li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <!-- Tab 4: 随堂互动测验 (带即时解析与积分) -->
+        <div class="tab-content" id="tab-quiz">
+          <div class="quiz-container">
+            <div class="quiz-header">
+              <div>
+                <span class="quiz-step-badge" id="quizStepBadge">第 1 / 6 题</span>
+                <h3 id="quizQuestionText">题目加载中...</h3>
+              </div>
+              <div class="quiz-score-box">
+                得分：<strong id="quizScoreVal">0</strong> / 6
+              </div>
+            </div>
+            <div class="quiz-options" id="quizOptionsBox"></div>
+            <div class="quiz-feedback hidden" id="quizFeedbackBox"></div>
+            <div class="quiz-footer">
+              <button id="quizPrevBtn" class="btn-ghost" disabled>← 上一题</button>
+              <button id="quizNextBtn" class="btn-primary">下一题 →</button>
+              <button id="quizRestartBtn" class="btn-outline">🔄 重新测验</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
