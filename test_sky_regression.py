@@ -158,6 +158,45 @@ class TestSkyRegressionVaccines(unittest.TestCase):
         self.assertIn("part2_calc:", mock_js)
         self.assertIn("part3_theory:", mock_js)
 
+    def test_no_nitric_acid_metal_hydrogen_misconception(self):
+        chem = json.loads((ROOT / "g8_chemistry_u2_exercises.json").read_text(encoding="utf-8"))
+        metals = ("zinc", "magnesium", "iron", "aluminium", "calcium", "metal")
+        for item in chem:
+            prompt_l = str(item.get("prompt_en", "")).lower()
+            ans_l = str(item.get("answer_en", "")).lower()
+            if "nitric acid" in prompt_l and any(m in prompt_l for m in metals):
+                self.assertNotIn(
+                    "hydrogen",
+                    ans_l,
+                    f"Scientific misconception in {item['id']}: metal + nitric acid must NOT yield hydrogen",
+                )
+
+    def test_no_cloze_placeholder_leak_in_chem_bank(self):
+        chem = json.loads((ROOT / "g8_chemistry_u2_exercises.json").read_text(encoding="utf-8"))
+        placeholder_re = re.compile(r"\{b\d+\}")
+        for item in chem:
+            for field in ("answer_en", "answer_cn", "prompt_en", "prompt_cn", "rationale_en", "rationale_cn"):
+                val = str(item.get(field, ""))
+                self.assertIsNone(
+                    placeholder_re.search(val),
+                    f"Unresolved placeholder found in {item['id']}.{field}: {val[:80]}",
+                )
+
+    def test_all_chem_mcqs_options_breakdown_dict_schema(self):
+        chem = json.loads((ROOT / "g8_chemistry_u2_exercises.json").read_text(encoding="utf-8"))
+        mcqs = [x for x in chem if x.get("game_type") == "mcq"]
+        self.assertGreaterEqual(len(mcqs), 150)
+        for item in mcqs:
+            bd = item.get("options_breakdown")
+            self.assertIsInstance(bd, dict, f"{item['id']} options_breakdown must be dict")
+            for letter in ("A", "B", "C", "D"):
+                self.assertIn(letter, bd, f"{item['id']} options_breakdown missing key {letter}")
+                entry = bd[letter]
+                self.assertIsInstance(entry, dict, f"{item['id']} options_breakdown[{letter}] must be dict")
+                self.assertTrue(entry.get("en"), f"{item['id']} options_breakdown[{letter}].en empty")
+                self.assertTrue(entry.get("cn"), f"{item['id']} options_breakdown[{letter}].cn empty")
+                self.assertIsInstance(entry.get("correct"), bool, f"{item['id']} options_breakdown[{letter}].correct must be bool")
+
 
 if __name__ == "__main__":
     unittest.main()
