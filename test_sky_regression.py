@@ -108,6 +108,56 @@ class TestSkyRegressionVaccines(unittest.TestCase):
         self.assertRegex(css, r"\.inquiry-subbar\s*\{[^}]*top:\s*52px\s*;")
         self.assertRegex(css, r"z-index:\s*100000\s*;")
 
+    def test_chem_exam_rush_page_nav_layers_and_print(self):
+        rush_path = ROOT / "g8_chem_exam_rush.html"
+        self.assertTrue(rush_path.exists(), "Missing g8_chem_exam_rush.html")
+        html = rush_path.read_text(encoding="utf-8")
+        self.assertIn(f"{CANONICAL_HOST}/ecosystem-nav.js", html)
+        self.assertIn(f"{CANONICAL_HOST}/ecosystem-nav.css", html)
+        self.assertRegex(html, r'<igcse-nav\b[^>]*\bactive="sky"[^>]*\bsticky\b[^>]*>')
+        self.assertRegex(html, r"#chem-fullscreen-overlay\s*\{[^}]*z-index:\s*100000\s*;")
+        self.assertRegex(html, r"\.mock-sticky-bar\s*\{[^}]*top:\s*52px\s*;")
+        self.assertIn("@media print", html)
+        self.assertIn("print-blank-paper", html)
+        self.assertIn("print-answer-key", html)
+
+        index_html = (ROOT / "index.html").read_text(encoding="utf-8")
+        self.assertIn('href="g8_chem_exam_rush.html"', index_html)
+
+    def test_chem_u2_bank_expansion_citations_and_mock_papers(self):
+        chem = json.loads((ROOT / "g8_chemistry_u2_exercises.json").read_text(encoding="utf-8"))
+        bio1 = json.loads((ROOT / "g8_science_exercises_bilingual.json").read_text(encoding="utf-8"))
+        bio2 = json.loads((ROOT / "g8_science_part2_exercises_bilingual.json").read_text(encoding="utf-8"))
+
+        self.assertGreaterEqual(len(chem), 120)
+        all_ids = [x["id"] for x in (chem + bio1 + bio2)]
+        self.assertEqual(len(all_ids), len(set(all_ids)), "Global IDs must be 100% unique")
+
+        for item in chem:
+            self.assertTrue(item.get("answer_en"), f"Empty answer_en on {item['id']}")
+            self.assertTrue(item.get("answer_cn"), f"Empty answer_cn on {item['id']}")
+            if item.get("game_type") == "mcq" and item.get("source_tag") != "baseline":
+                self.assertEqual(len(item.get("options", [])), 4, f"Bad options on {item['id']}")
+                self.assertIn(item.get("correct_letter"), {"A", "B", "C", "D"})
+
+        wb_pdf_items = [
+            x for x in chem
+            if "G8_U2_Acids_and_Bases_Workbook_PDF.pdf" in x.get("citation_textbook", "")
+            and re.search(r"p\.\d+", x.get("citation_textbook", ""))
+        ]
+        sm_orig = [x for x in chem if x.get("source_tag") == "school_mistake"]
+        sm_var = [x for x in chem if x.get("source_tag") == "school_mistake_variant"]
+        self.assertGreaterEqual(len(wb_pdf_items), 30)
+        self.assertEqual(len(sm_orig), 30)
+        self.assertEqual(len(sm_var), 60)
+
+        mock_js = (ROOT / "g8_chem_mock_papers.js").read_text(encoding="utf-8")
+        self.assertIn("paperA:", mock_js)
+        self.assertIn("paperB:", mock_js)
+        self.assertIn("part1_mcq:", mock_js)
+        self.assertIn("part2_calc:", mock_js)
+        self.assertIn("part3_theory:", mock_js)
+
 
 if __name__ == "__main__":
     unittest.main()

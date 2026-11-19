@@ -149,13 +149,50 @@ function runStaticRegressionAssertions() {
   }
   console.log('  ✓ Both inquiry Canvas simulation scripts enforce HiDPI & RAF lifecycle');
 
-  // 7. index.html mounts href="inquiry/" cross-navigation link
+  // 7. index.html mounts href="inquiry/" and href="g8_chem_exam_rush.html" cross-navigation links
   const indexHtml = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf-8');
   assert.ok(
     indexHtml.includes('href="inquiry/"'),
     'index.html must mount href="inquiry/" navigation link'
   );
-  console.log('  ✓ index.html mounts href="inquiry/" navigation link');
+  assert.ok(
+    indexHtml.includes('href="g8_chem_exam_rush.html"'),
+    'index.html must mount href="g8_chem_exam_rush.html" navigation link'
+  );
+  console.log('  ✓ index.html mounts href="inquiry/" and href="g8_chem_exam_rush.html" links');
+
+  // 8. g8_chem_exam_rush.html exists, mounts canonical www ecosystem-nav + sticky, z-index >= 100000, @media print
+  const chemRushPath = path.resolve(__dirname, 'g8_chem_exam_rush.html');
+  assert.ok(fs.existsSync(chemRushPath), 'Missing g8_chem_exam_rush.html');
+  const chemRushHtml = fs.readFileSync(chemRushPath, 'utf-8');
+  assert.ok(chemRushHtml.includes(NAV_JS_URL), `g8_chem_exam_rush.html must reference ${NAV_JS_URL}`);
+  assert.ok(chemRushHtml.includes(NAV_CSS_URL), `g8_chem_exam_rush.html must reference ${NAV_CSS_URL}`);
+  assert.ok(
+    /<igcse-nav\b[^>]*\bactive="sky"[^>]*\bsticky\b[^>]*>/.test(chemRushHtml),
+    'g8_chem_exam_rush.html must contain <igcse-nav active="sky" sticky>'
+  );
+  const chemOverlayMatch = chemRushHtml.match(/#chem-fullscreen-overlay\s*\{[^}]*z-index:\s*(\d+)\s*;/);
+  assert.ok(chemOverlayMatch && Number(chemOverlayMatch[1]) >= 100000, 'g8_chem_exam_rush.html fullscreen overlay z-index must be >= 100000');
+  assert.ok(chemRushHtml.includes('@media print'), 'g8_chem_exam_rush.html must include @media print stylesheet');
+  console.log('  ✓ g8_chem_exam_rush.html nav/sticky, z-index >= 100000, and @media print verified');
+
+  // 9. Chemistry U2 question bank >= 120, globally unique IDs, PDF page citations, school mistakes + 1:2 variants, Paper A & Paper B
+  const chemBank = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'g8_chemistry_u2_exercises.json'), 'utf-8'));
+  const bioP1 = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'g8_science_exercises_bilingual.json'), 'utf-8'));
+  const bioP2 = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'g8_science_part2_exercises_bilingual.json'), 'utf-8'));
+  assert.ok(chemBank.length >= 120, `Chemistry bank must have >= 120 items, got ${chemBank.length}`);
+  const allIds = [...chemBank, ...bioP1, ...bioP2].map(x => x.id);
+  assert.strictEqual(new Set(allIds).size, allIds.length, 'Global question IDs must be 100% unique');
+  const wbCited = chemBank.filter(x => (x.citation_textbook || '').includes('G8_U2_Acids_and_Bases_Workbook_PDF.pdf') && /p\.\d+/.test(x.citation_textbook || ''));
+  const smOrig = chemBank.filter(x => x.source_tag === 'school_mistake');
+  const smVar = chemBank.filter(x => x.source_tag === 'school_mistake_variant');
+  assert.ok(wbCited.length >= 30, `Expected >= 30 Workbook PDF p.XX cited items, got ${wbCited.length}`);
+  assert.strictEqual(smOrig.length, 30, `Expected 30 school_mistake items, got ${smOrig.length}`);
+  assert.strictEqual(smVar.length, 60, `Expected 60 school_mistake_variant items (1:2), got ${smVar.length}`);
+
+  const mockPapersSrc = fs.readFileSync(path.resolve(__dirname, 'g8_chem_mock_papers.js'), 'utf-8');
+  assert.ok(mockPapersSrc.includes('paperA:') && mockPapersSrc.includes('paperB:'), 'g8_chem_mock_papers.js must define both paperA and paperB');
+  console.log(`  ✓ Chemistry U2 bank verified (${chemBank.length} items, ${wbCited.length} Workbook PDF p.XX, ${smOrig.length} school mistakes + ${smVar.length} variants, Paper A & B intact)`);
 }
 
 function loadPlaywrightOrNull() {
