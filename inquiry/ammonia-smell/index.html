@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>厕所氨气生成、水溶平衡与走廊扩散动力学 | Sky G8 Inquiry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://www.igcse.xyz/ecosystem-nav.css">
+  <link rel="stylesheet" href="../inquiry.css">
+</head>
+<body>
+  <script src="https://www.igcse.xyz/ecosystem-nav.js" defer></script>
+  <igcse-nav active="sky" sticky></igcse-nav>
+
+  <div class="inquiry-subbar">
+    <div class="subbar-inner">
+      <div class="subbar-left">
+        <a href="../index.html" class="nav-pill" data-zh="← 探究总入口" data-en="← Inquiry Hub">← 探究总入口</a>
+        <a href="../../index.html" class="nav-pill secondary" data-zh="🏠 Sky 首页" data-en="🏠 Sky Home">🏠 Sky 首页</a>
+        <a href="../acidic-water/" class="nav-pill secondary" data-zh="← 专题 01：电解气泡酸水" data-en="← Topic 01: Acidic Water">← 专题 01：电解气泡酸水</a>
+      </div>
+      <div class="subbar-right">
+        <button id="langToggleBtn" class="lang-toggle-btn" type="button">🌐 Switch to EN</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="hero-card">
+      <div class="hero-badge-row">
+        <span class="badge badge-amber" data-zh="专题 02 · IGCSE 0620 气体扩散与酸碱平衡" data-en="Topic 02 · IGCSE 0620 Diffusion & Acid-Base">专题 02 · IGCSE 0620 气体扩散与酸碱平衡</span>
+        <span class="badge badge-danger" data-zh="严禁洁厕灵混 84 消毒液" data-en="NEVER Mix HCl + Bleach">严禁洁厕灵混 84 消毒液</span>
+      </div>
+      <h1 data-zh="🌬️ 厕所氨气生成、水溶平衡与走廊扩散动力学" data-en="🌬️ Toilet Ammonia Generation, Solubility & Corridor Diffusion">🌬️ 厕所氨气生成、水溶平衡与走廊扩散动力学</h1>
+      <p class="hero-lead" data-zh="从无味尿素的酶促水解出发，定量解析 Mr(NH₃)=17 带来的 Graham 高速扩散与上浮对流、1:700 高水溶性墙面水膜缓释，以及科学柠檬酸中和与防氯气中毒铁律。" data-en="Trace ammonia from urease-catalysed hydrolysis of odourless urea to fast Graham diffusion (Mr=17 vs air ~29), corridor convection, 1:700 solubility persistence in damp wall films, citric acid neutralisation, and the fatal HCl + bleach chlorine hazard.">
+        从无味尿素的酶促水解出发，定量解析 Mr(NH₃)=17 带来的 Graham 高速扩散与上浮对流、1:700 高水溶性墙面水膜缓释，以及科学柠檬酸中和与防氯气中毒铁律。
+      </p>
+    </section>
+
+    <!-- Interactive Canvas Lab -->
+    <section class="section-block">
+      <h2 class="section-heading" data-zh="🧪 交互式仿真：尿素水解产气与走廊扩散动力学模拟器" data-en="🧪 Interactive Lab: Urea Hydrolysis & Corridor Diffusion Simulator">🧪 交互式仿真：尿素水解产气与走廊扩散动力学模拟器</h2>
+      <div class="lab-grid">
+        <div class="panel">
+          <div class="canvas-frame">
+            <canvas id="ammoniaCanvas" width="680" height="360"></canvas>
+          </div>
+          <div class="telemetry-grid">
+            <div class="tele-box">
+              <span class="tele-label" data-zh="走廊远端 NH₃ 估算浓度" data-en="Corridor NH₃ Estimate">走廊远端 NH₃ 估算浓度</span>
+              <span class="tele-val" id="telePpm">24.0 ppm</span>
+            </div>
+            <div class="tele-box">
+              <span class="tele-label" data-zh="Graham 扩散速率比 √(29/17)" data-en="Graham Rate Ratio √(29/17)">Graham 扩散速率比 √(29/17)</span>
+              <span class="tele-val" id="teleGraham">1.31×</span>
+            </div>
+            <div class="tele-box">
+              <span class="tele-label" data-zh="墙面水膜吸氨缓释负荷" data-en="Wall Moisture Film Load">墙面水膜吸氨缓释负荷</span>
+              <span class="tele-val" id="teleFilm">55%</span>
+            </div>
+            <div class="tele-box">
+              <span class="tele-label" data-zh="潮湿红石蕊试纸状态" data-en="Damp Red Litmus Test">潮湿红石蕊试纸状态</span>
+              <span class="tele-val" id="teleLitmus">变蓝（检出碱性 NH₃）</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="controls-stack">
+          <div class="control-card">
+            <div class="control-row">
+              <div class="control-label">
+                <span data-zh="🦠 尿垢堆积与脲酶负荷" data-en="🦠 Urine Scale & Urease Load">🦠 尿垢堆积与脲酶负荷</span>
+                <span class="val-chip" id="valScale">65%</span>
+              </div>
+              <input id="scaleSlider" type="range" min="0" max="100" step="5" value="65">
+            </div>
+            <div class="control-row">
+              <div class="control-label">
+                <span data-zh="💦 墙面/空气湿度（1:700 水膜吸氨）" data-en="💦 Humidity (1:700 Water Film Trap)">💦 墙面/空气湿度（1:700 水膜吸氨）</span>
+                <span class="val-chip" id="valHumidity">70%</span>
+              </div>
+              <input id="humiditySlider" type="range" min="10" max="95" step="5" value="70">
+            </div>
+            <div class="control-row">
+              <div class="control-label">
+                <span data-zh="🌀 负压排风 / 通风换气强度" data-en="🌀 Exhaust Ventilation Strength">🌀 负压排风 / 通风换气强度</span>
+                <span class="val-chip" id="valVent">30%</span>
+              </div>
+              <input id="ventSlider" type="range" min="0" max="100" step="5" value="30">
+            </div>
+            <div class="control-row">
+              <div class="control-label">
+                <span data-zh="🍋 柠檬酸弱酸中和剂量" data-en="🍋 Citric Acid Neutraliser Dosage">🍋 柠檬酸弱酸中和剂量</span>
+                <span class="val-chip" id="valCitric">0%</span>
+              </div>
+              <input id="citricSlider" type="range" min="0" max="100" step="5" value="0">
+            </div>
+          </div>
+
+          <div class="control-card">
+            <div style="font-weight:800;font-size:0.92rem;margin-bottom:0.55rem;color:#fca5a5;" data-zh="🚨 清洁剂化学安全校验台" data-en="🚨 Cleaning Agent Safety Checker">🚨 清洁剂化学安全校验台</div>
+            <div class="btn-group">
+              <button type="button" class="btn-chip active" data-mix="citric_only" data-zh="🍋 柠檬酸 + 排风" data-en="🍋 Citric Acid + Fan">🍋 柠檬酸 + 排风</button>
+              <button type="button" class="btn-chip" data-mix="perfume" data-zh="💐 香水喷雾遮盖" data-en="💐 Air Freshener">💐 香水喷雾遮盖</button>
+              <button type="button" class="btn-chip danger-chip" data-mix="hcl_bleach" data-zh="☠️ 盐酸洁厕灵 + 84 消毒液" data-en="☠️ HCl Cleaner + NaClO Bleach">☠️ 盐酸洁厕灵 + 84 消毒液</button>
+            </div>
+            <div id="mixResultBox" class="traffic-box green"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deep Chemistry Kernel -->
+    <section class="section-block">
+      <h2 class="section-heading" data-zh="📘 G8 / IGCSE 0620 深度科学内核" data-en="📘 G8 / IGCSE 0620 Deep Chemistry Kernel">📘 G8 / IGCSE 0620 深度科学内核</h2>
+      <div class="grid-2">
+        <article class="panel">
+          <h3 style="margin-bottom:0.5rem;color:#fcd34d;" data-zh="1. 成分与来源：无味尿素的酶促水解" data-en="1. Source: Urease-Catalysed Hydrolysis of Urea">1. 成分与来源：无味尿素的酶促水解</h3>
+          <p style="font-size:0.9rem;color:#cbd5e1;" data-zh="新鲜尿液本身几乎没有刺鼻氨臭，其主要含氮代谢物是无味的<strong>尿素 CO(NH₂)₂</strong>。当尿液残留于地面缝隙或便池壁时，环境细菌分泌的<strong>脲酶（Urease）</strong>催化尿素水解，持续生成挥发性氨气与二氧化碳：" data-en="Fresh urine is nearly odourless because its main nitrogenous waste is <strong>urea, CO(NH₂)₂</strong>. When residue remains on surfaces, bacteria secrete <strong>urease</strong>, catalysing hydrolysis into pungent ammonia and carbon dioxide:">
+            新鲜尿液本身几乎没有刺鼻氨臭，其主要含氮代谢物是无味的<strong>尿素 CO(NH₂)₂</strong>。当尿液残留于地面缝隙或便池壁时，环境细菌分泌的<strong>脲酶（Urease）</strong>催化尿素水解，持续生成挥发性氨气与二氧化碳：
+          </p>
+          <div class="eq-box amber">CO(NH₂)₂(aq) + H₂O(l) —[Urease]→ 2NH₃(g) + CO₂(g)</div>
+        </article>
+
+        <article class="panel">
+          <h3 style="margin-bottom:0.5rem;color:#7dd3fc;" data-zh="2. 为何“远扬”：Mr(NH₃)=17 与 Graham 扩散速率" data-en="2. Why It Travels Far: Mr(NH₃)=17 & Graham's Law">2. 为何“远扬”：Mr(NH₃)=17 与 Graham 扩散速率</h3>
+          <p style="font-size:0.9rem;color:#cbd5e1;" data-zh="氨气相对分子质量 <strong>Mr(NH₃) = 14 + 3×1 = 17</strong>，显著小于空气平均相对分子质量 <strong>Mr ≈ 29</strong>。结合粒子热运动与 Graham 扩散速率定律，质量越轻的气体分子平均运动速率越快、密度更小易向上浮升，叠加走廊空气对流即可实现远距离传播。" data-en="Ammonia has <strong>Mr(NH₃) = 17</strong>, much lighter than average air (<strong>Mr ≈ 29</strong>). By kinetic particle theory and Graham's law, lighter gas molecules diffuse faster and rise due to lower density, riding corridor convection currents over long distances.">
+            氨气相对分子质量 <strong>Mr(NH₃) = 14 + 3×1 = 17</strong>，显著小于空气平均相对分子质量 <strong>Mr ≈ 29</strong>。结合粒子热运动与 Graham 扩散速率定律，质量越轻的气体分子平均运动速率越快、密度更小易向上浮升，叠加走廊空气对流即可实现远距离传播。
+          </p>
+          <div class="eq-box">r(NH₃) / r(Air) = √(M_air / M_NH₃) = √(29 / 17) ≈ 1.31×</div>
+        </article>
+
+        <article class="panel">
+          <h3 style="margin-bottom:0.5rem;color:#6ee7b7;" data-zh="3. 为何“持久”：尿垢缓释 + 1:700 水溶可逆平衡" data-en="3. Why It Lingers: Scale Deposit & 1:700 Water Solubility">3. 为何“持久”：尿垢缓释 + 1:700 水溶可逆平衡</h3>
+          <p style="font-size:0.9rem;color:#cbd5e1;" data-zh="① 便池内沉积的<strong>尿垢（磷酸钙 / 尿酸盐结晶）</strong>多孔吸液，成为细菌滋生与慢释源；② 氨气具有极高水溶性（常温 1 体积水可溶约 <strong>700 体积 NH₃</strong>），溶解在潮湿瓷砖与墙面水膜中建立弱碱平衡，随温度升高或水分蒸发反复释放；这也是 <strong>IGCSE 0620 潮湿红色石蕊试纸变蓝</strong>检验氨气的化学本质。" data-en="① Porous <strong>urine scale (calcium phosphate / urate deposits)</strong> harbours bacteria for continuous slow release; ② NH₃ is extremely soluble in water (~<strong>1 : 700</strong> by volume), dissolving into damp tile films and re-releasing upon evaporation. This alkaline equilibrium explains the <strong>IGCSE 0620 damp red litmus turns blue</strong> test for ammonia.">
+            ① 便池内沉积的<strong>尿垢（磷酸钙 / 尿酸盐结晶）</strong>多孔吸液，成为细菌滋生与慢释源；② 氨气具有极高水溶性（常温 1 体积水可溶约 <strong>700 体积 NH₃</strong>），溶解在潮湿瓷砖与墙面水膜中建立弱碱平衡，随温度升高或水分蒸发反复释放；这也是 <strong>IGCSE 0620 潮湿红色石蕊试纸变蓝</strong>检验氨气的化学本质。
+          </p>
+          <div class="eq-box emerald">NH₃(g) + H₂O(l) ⇌ NH₄⁺(aq) + OH⁻(aq)   (Damp red litmus → BLUE)</div>
+        </article>
+
+        <article class="panel">
+          <h3 style="margin-bottom:0.5rem;color:#fca5a5;" data-zh="4. 科学除臭与致命安全铁律" data-en="4. Scientific Deodorising & Fatal Safety Law">4. 科学除臭与致命安全铁律</h3>
+          <p style="font-size:0.9rem;color:#cbd5e1;" data-zh="使用<strong>柠檬酸</strong>等温和弱酸清洁剂，可提供 H⁺ 将挥发性碱性气体 NH₃ 中和为<strong>非挥发性铵盐离子（NH₄⁺）</strong>，随水冲走彻底去味：" data-en="Weak organic acids like <strong>citric acid</strong> donate H⁺ to neutralise volatile alkaline NH₃ gas into <strong>non-volatile soluble ammonium ions (NH₄⁺)</strong>, permanently removing the odour:">
+            使用<strong>柠檬酸</strong>等温和弱酸清洁剂，可提供 H⁺ 将挥发性碱性气体 NH₃ 中和为<strong>非挥发性铵盐离子（NH₄⁺）</strong>，随水冲走彻底去味：
+          </p>
+          <div class="eq-box emerald">NH₃(aq) + H⁺(aq, from citric acid) → NH₄⁺(aq)  (Non-volatile salt)</div>
+          <div class="safety-banner" style="margin-top:0.75rem;">
+            <h3 data-zh="☠️ 致命安全铁律：严禁盐酸洁厕灵与 84 消毒液混用！" data-en="☠️ FATAL LAW: NEVER Mix HCl Toilet Cleaner with NaClO Bleach!">☠️ 致命安全铁律：严禁盐酸洁厕灵与 84 消毒液混用！</h3>
+            <div class="eq-box danger" style="margin:0.5rem 0;">NaClO(aq) + 2HCl(aq) → NaCl(aq) + H₂O(l) + Cl₂(g)↑</div>
+            <p style="font-size:0.86rem;color:#fee2e2;" data-zh="二者混合瞬间释放剧毒黄绿色氯气（Cl₂），在密闭卫生间中吸入可造成严重肺部化学灼伤甚至危及生命！" data-en="Mixing them instantly releases lethal yellow-green chlorine gas (Cl₂), causing severe lung injury in enclosed restrooms!">
+              二者混合瞬间释放剧毒黄绿色氯气（Cl₂），在密闭卫生间中吸入可造成严重肺部化学灼伤甚至危及生命！
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Quiz -->
+    <section class="section-block">
+      <h2 class="section-heading" data-zh="🎯 G8 / IGCSE Exam-Style 互动自测（5 题）" data-en="🎯 G8 / IGCSE Exam-Style Self-Check Quiz (5 Questions)">🎯 G8 / IGCSE Exam-Style 互动自测（5 题）</h2>
+      <div class="quiz-score-bar">
+        <strong id="quizScoreText">当前得分：0 / 5（已答 0 题）</strong>
+        <button id="quizResetBtn" type="button" class="btn-chip" data-zh="↺ 重置测验" data-en="↺ Reset Quiz">↺ 重置测验</button>
+      </div>
+      <div id="quizList"></div>
+    </section>
+
+    <!-- Ecosystem Footer -->
+    <section class="section-block">
+      <h2 class="section-heading" data-zh="🔗 延伸学习与生态互链" data-en="🔗 Further Study & Ecosystem Links">🔗 延伸学习与生态互链</h2>
+      <div class="eco-links-grid">
+        <a href="https://www.igcse.xyz/lesson/0620/1-1-states-of-matter" class="eco-link-card" target="_blank" rel="noopener">
+          <span class="eco-tag">IGCSE 0620 · Main Hub</span>
+          <strong data-zh="1.1 物质三态与气体扩散" data-en="1.1 States of Matter & Diffusion">1.1 物质三态与气体扩散</strong>
+          <span data-zh="直达主母舰气体扩散系统课" data-en="Open states of matter & diffusion lesson">直达主母舰气体扩散系统课</span>
+        </a>
+        <a href="https://www.igcse.xyz/lesson/0620/7-1-acids-bases" class="eco-link-card" target="_blank" rel="noopener">
+          <span class="eco-tag">IGCSE 0620 · Main Hub</span>
+          <strong data-zh="7.1 酸碱理论与中和反应" data-en="7.1 Acids, Bases & Neutralisation">7.1 酸碱理论与中和反应</strong>
+          <span data-zh="直达主母舰酸碱与铵盐课时" data-en="Open acids & bases core lesson">直达主母舰酸碱与铵盐课时</span>
+        </a>
+        <a href="https://why.igcse.xyz/#/issue/toilet-ammonia-smell" class="eco-link-card" target="_blank" rel="noopener">
+          <span class="eco-tag">Why Encyclopedia · Fun Edition</span>
+          <strong data-zh="🎈 小问号趣味版：厕所氨气" data-en="🎈 Why Fun Edition: Toilet Ammonia Smell">🎈 小问号趣味版：厕所氨气</strong>
+          <span data-zh="返回轻松趣味科普版" data-en="View illustrated fun edition">返回轻松趣味科普版</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

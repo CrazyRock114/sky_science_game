@@ -75,6 +75,39 @@ class TestSkyRegressionVaccines(unittest.TestCase):
         self.assertEqual(len(all_items), 267)
         self.assertEqual(len(set(ids)), 267)
 
+    def test_inquiry_pages_nav_and_homepage_mount(self):
+        inquiry_pages = [
+            "inquiry/index.html",
+            "inquiry/acidic-water/index.html",
+            "inquiry/ammonia-smell/index.html",
+        ]
+        for rel in inquiry_pages:
+            p = ROOT / rel
+            self.assertTrue(p.exists(), f"Missing {rel}")
+            html = p.read_text(encoding="utf-8")
+            self.assertIn(f"{CANONICAL_HOST}/ecosystem-nav.js", html)
+            self.assertIn(f"{CANONICAL_HOST}/ecosystem-nav.css", html)
+            self.assertRegex(
+                html,
+                r'<igcse-nav\b[^>]*\bactive="sky"[^>]*\bsticky\b[^>]*>',
+                f'{rel} missing sticky attribute on <igcse-nav active="sky">',
+            )
+
+        index_html = (ROOT / "index.html").read_text(encoding="utf-8")
+        self.assertIn('href="inquiry/"', index_html)
+
+    def test_inquiry_simulations_hidpi_raf_and_css_layers(self):
+        for rel in ["inquiry/acidic-water/app.js", "inquiry/ammonia-smell/app.js"]:
+            js = (ROOT / rel).read_text(encoding="utf-8")
+            self.assertIn("devicePixelRatio", js)
+            self.assertIn("Math.min(window.devicePixelRatio || 1, 2)", js)
+            self.assertIn("cancelAnimationFrame", js)
+            self.assertIn("visibilitychange", js)
+
+        css = (ROOT / "inquiry" / "inquiry.css").read_text(encoding="utf-8")
+        self.assertRegex(css, r"\.inquiry-subbar\s*\{[^}]*top:\s*52px\s*;")
+        self.assertRegex(css, r"z-index:\s*100000\s*;")
+
 
 if __name__ == "__main__":
     unittest.main()

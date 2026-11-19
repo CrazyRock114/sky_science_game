@@ -114,6 +114,48 @@ function runStaticRegressionAssertions() {
     `g8_exam_rush.html #confetti-canvas z-index must be >= 100000, got ${confettiMatch[1]}`
   );
   console.log(`  ✓ g8_exam_rush.html #confetti-canvas z-index verified (${confettiMatch[1]})`);
+
+  // 5. G8 Inquiry hub & dual topic pages exist and mount canonical www ecosystem-nav + sticky
+  const inquiryPages = [
+    'inquiry/index.html',
+    'inquiry/acidic-water/index.html',
+    'inquiry/ammonia-smell/index.html'
+  ];
+  for (const relPath of inquiryPages) {
+    const absPath = path.resolve(__dirname, relPath);
+    assert.ok(fs.existsSync(absPath), `Missing inquiry page: ${relPath}`);
+    const html = fs.readFileSync(absPath, 'utf-8');
+    assert.ok(html.includes(NAV_JS_URL), `${relPath} must reference ${NAV_JS_URL}`);
+    assert.ok(html.includes(NAV_CSS_URL), `${relPath} must reference ${NAV_CSS_URL}`);
+    assert.ok(
+      /<igcse-nav\b[^>]*\bactive="sky"[^>]*\bsticky\b[^>]*>/.test(html),
+      `${relPath} must contain <igcse-nav active="sky" sticky>`
+    );
+  }
+  console.log(`  ✓ All 3 inquiry HTML pages exist and mount ${CANONICAL_HOST}/ecosystem-nav.* with sticky`);
+
+  // 6. Inquiry Canvas simulation scripts enforce HiDPI, cancelAnimationFrame, and visibilitychange
+  const inquiryScripts = [
+    'inquiry/acidic-water/app.js',
+    'inquiry/ammonia-smell/app.js'
+  ];
+  for (const relPath of inquiryScripts) {
+    const absPath = path.resolve(__dirname, relPath);
+    assert.ok(fs.existsSync(absPath), `Missing inquiry simulation script: ${relPath}`);
+    const js = fs.readFileSync(absPath, 'utf-8');
+    assert.ok(js.includes('devicePixelRatio'), `${relPath} must include devicePixelRatio`);
+    assert.ok(js.includes('cancelAnimationFrame'), `${relPath} must include cancelAnimationFrame`);
+    assert.ok(js.includes('visibilitychange'), `${relPath} must include visibilitychange`);
+  }
+  console.log('  ✓ Both inquiry Canvas simulation scripts enforce HiDPI & RAF lifecycle');
+
+  // 7. index.html mounts href="inquiry/" cross-navigation link
+  const indexHtml = fs.readFileSync(path.resolve(__dirname, 'index.html'), 'utf-8');
+  assert.ok(
+    indexHtml.includes('href="inquiry/"'),
+    'index.html must mount href="inquiry/" navigation link'
+  );
+  console.log('  ✓ index.html mounts href="inquiry/" navigation link');
 }
 
 function loadPlaywrightOrNull() {

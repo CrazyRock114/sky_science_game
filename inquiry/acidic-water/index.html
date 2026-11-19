@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>电解气泡酸水与皮肤 pH 深度化学实验室 | Sky G8 Inquiry</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://www.igcse.xyz/ecosystem-nav.css">
+  <link rel="stylesheet" href="../inquiry.css">
+</head>
+<body>
+  <script src="https://www.igcse.xyz/ecosystem-nav.js" defer></script>
+  <igcse-nav active="sky" sticky></igcse-nav>
+
+  <div class="inquiry-subbar">
+    <div class="subbar-inner">
+      <div class="subbar-left">
+        <a href="../index.html" class="nav-pill" data-zh="← 探究总入口" data-en="← Inquiry Hub">← 探究总入口</a>
+        <a href="../../index.html" class="nav-pill secondary" data-zh="🏠 Sky 首页" data-en="🏠 Sky Home">🏠 Sky 首页</a>
+        <a href="../ammonia-smell/" class="nav-pill secondary" data-zh="专题 02：厕所氨气扩散 →" data-en="Topic 02: Ammonia Diffusion →">专题 02：厕所氨气扩散 →</a>
+      </div>
+      <div class="subbar-right">
+        <button id="langToggleBtn" class="lang-toggle-btn" type="button">🌐 Switch to EN</button>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="hero-card">
+      <div class="hero-badge-row">
+        <span class="badge badge-cyan" data-zh="专题 01 · IGCSE 0620 电解与酸碱" data-en="Topic 01 · IGCSE 0620 Electrolysis & Acids">专题 01 · IGCSE 0620 电解与酸碱</span>
+        <span class="badge badge-danger" data-zh="严谨医学安全边界" data-en="Strict Safety Boundaries">严谨医学安全边界</span>
+      </div>
+      <h1 data-zh="💧 电解气泡酸水与皮肤 pH 深度化学实验室" data-en="💧 Electrolysed Acidic Bubble Water & Skin pH Lab">💧 电解气泡酸水与皮肤 pH 深度化学实验室</h1>
+      <p class="hero-lead" data-zh="深入剖析离子膜电解水机阳极氧化半反应、微量氯离子次氯酸平衡、碳酸气泡水化学鉴别、皮肤酸性保护膜 pH 对数标度与外用安全红线。" data-en="Investigate anode half-equations in membrane water electrolysers, trace chloride hypochlorous acid equilibrium, chemical differentiation from carbonated water, the logarithmic pH scale of the skin's acid mantle, and strict medical safety limits.">
+        深入剖析离子膜电解水机阳极氧化半反应、微量氯离子次氯酸平衡、碳酸气泡水化学鉴别、皮肤酸性保护膜 pH 对数标度与外用安全红线。
+      </p>
+    </section>
+
+    <!-- Interactive Canvas Lab -->
+    <section class="section-block">
+      <h2 class="section-heading" data-zh="🧪 交互式仿真：离子膜电解槽、pH 对数换算与安全红绿灯" data-en="🧪 Interactive Lab: Membrane Electrolyser, [H⁺] Log Converter & Safety Validator">🧪 交互式仿真：离子膜电解槽、pH 对数换算与安全红绿灯</h2>
+      <div class="lab-grid">
+        <div class="panel">
+          <div class="btn-group" style="margin-bottom:0.75rem;">
+            <button type="button" class="btn-chip active" data-sim-mode="electrolysis" data-zh="⚡ 离子膜电解水机模式" data-en="⚡ Membrane Electrolyser Mode">⚡ 离子膜电解水机模式</button>
+            <button type="button" class="btn-chip" data-sim-mode="carbonated" data-zh="🫧 碳酸气泡水对照模式" data-en="🫧 Carbonated Water Control">🫧 碳酸气泡水对照模式</button>
+          </div>
+          <div class="canvas-frame">
+            <canvas id="acidWaterCanvas" width="680" height="360"></canvas>
+          </div>
+          <div class="telemetry-grid">
+            <div class="tele-box">
+              <span class="tele-label" data-zh="阳极室 / 样品 pH" data-en="Anode / Sample pH">阳极室 / 样品 pH</span>
+              <span class="tele-val" id="teleAnodePH">4.47</span>
+            </div>
+            <div class="tele-box">
+              <span class="tele-label" data-zh="阴极室碱性水 pH" data-en="Cathode Alkaline pH">阴极室碱性水 pH</span>
+              <span class="tele-val" id="teleCathodePH">9.53</span>
+            </div>
+            <div class="tele-box">
+              <span class="tele-label" data-zh="阳极氢离子浓度 [H⁺]" data-en="Anode [H⁺] Concentration">阳极氢离子浓度 [H⁺]</span>
+              <span class="tele-val" id="teleHConc">3.41e-5 mol/dm³</span>
+            </div>
+            <div class="tele-box">
+              <span class="tele-label" data-zh="估算微量 HOCl 浓度" data-en="Estimated Trace HOCl">估算微量 HOCl 浓度</span>
+              <span class="tele-val" id="teleHocl">7.5 ppm</span>
+            </div>
+          </div>
+          <div style="margin-top:0.65rem;font-size:0.84rem;color:#93c5fd;font-family:var(--font-mono);" id="teleGasRatio">阳极 O₂ : 阴极 H₂ = 1 : 2</div>
+        </div>
+
+        <div class="controls-stack">
+          <div class="control-card">
+            <div class="control-row">
+              <div class="control-label">
+                <span data-zh="⚡ 直流电解电压 (Voltage)" data-en="⚡ DC Voltage">⚡ 直流电解电压 (Voltage)</span>
+                <span class="val-chip" id="valVoltage">8.0 V</span>
+              </div>
+              <input id="voltageSlider" type="range" min="0" max="12" step="0.5" value="8">
+            </div>
+            <div class="control-row">
+              <div class="control-label">
+                <span data-zh="🧂 水中微量 Cl⁻ 含量" data-en="🧂 Trace Chloride (Cl⁻)">🧂 水中微量 Cl⁻ 含量</span>
+                <span class="val-chip" id="valChloride">25 mg/L</span>
+              </div>
+              <input id="chlorideSlider" type="range" min="0" max="100" step="5" value="25">
+            </div>
+          </div>
+
+          <div class="control-card">
+            <div style="font-weight:800;font-size:0.92rem;margin-bottom:0.55rem;color:#7dd3fc;" data-zh="📐 [H⁺] 对数标度换算器（每差 1 pH = 10 倍）" data-en="📐 [H⁺] Logarithmic Scale Converter (1 pH unit = 10×)">📐 [H⁺] 对数标度换算器（每差 1 pH = 10 倍）</div>
+            <div class="control-row">
+              <div class="control-label">
+                <span data-zh="水样 A（如健康皮肤膜/酸水）" data-en="Sample A (e.g. Skin / Acidic Water)">水样 A（如健康皮肤膜/酸水）</span>
+                <span class="val-chip" id="valPhA">pH 5.0</span>
+              </div>
+              <input id="phSliderA" type="range" min="2.0" max="9.0" step="0.5" value="5.0">
+            </div>
+            <div class="control-row">
+              <div class="control-label">
+                <span data-zh="水样 B（如中性纯水）" data-en="Sample B (e.g. Neutral Water)">水样 B（如中性纯水）</span>
+                <span class="val-chip" id="valPhB">pH 7.0</span>
+              </div>
+              <input id="phSliderB" type="range" min="2.0" max="9.0" step="0.5" value="7.0">
+            </div>
+            <div class="eq-box amber" id="logResultBox" style="margin-bottom:0;font-size:0.84rem;"></div>
+          </div>
+
+          <div class="control-card">
+            <div style="font-weight:800;font-size:0.92rem;margin-bottom:0.55rem;color:#fca5a5;" data-zh="🚦 水源 / 皮肤场景红绿灯校验" data-en="🚦 Water & Skin Scenario Traffic-Light Check">🚦 水源 / 皮肤场景红绿灯校验</div>
+            <div class="btn-group">
+              <button type="button" class="btn-chip active" data-scenario="intact_cleansing" data-zh="完整健康皮肤清洁" data-en="Intact Skin Rinse">完整健康皮肤清洁</button>
+              <button type="button" class="btn-chip" data-scenario="oily_skin" data-zh="青春痘/出油肌" data-en="Acne / Oily Skin">青春痘/出油肌</button>
+              <button type="button" class="btn-chip danger-chip" data-scenario="sunburn_blister" data-zh="晒伤起泡/破皮" data-en="Blistered Sunburn">晒伤起泡/破皮</button>
+              <button type="button" class="btn-chip danger-chip" data-scenario="drinking" data-zh="直接饮用酸水" data-en="Drinking Acidic Water">直接饮用酸水</button>
+            </div>
+            <div id="trafficResultBox" class="traffic-box green"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deep Chemistry Kernel -->
+    <section class="section-block">
+      <h2 class="section-heading" data-zh="📘 G8 / IGCSE 0620 深度科学内核" data-en="📘 G8 / IGCSE 0620 Deep Chemistry Kernel">📘 G8 / IGCSE 0620 深度科学内核</h2>
+      <div class="grid-2">
+        <article class="panel">
+          <h3 style="margin-bottom:0.5rem;color:#7dd3fc;" data-zh="1. 离子膜电解水机：阳极 vs 阴极半反应" data-en="1. Membrane Electrolyser: Anode vs Cathode Half-Equations">1. 离子膜电解水机：阳极 vs 阴极半反应</h3>
+          <p style="font-size:0.9rem;color:#cbd5e1;" data-zh="离子交换膜将电解槽分为阳极室与阴极室，防止两端生成的 H⁺ 与 OH⁻ 重新中和。阳极发生氧化反应释放细密 <strong>O₂ 气泡</strong>并富集 <strong>H⁺</strong>（酸性水）；阴极发生还原反应释放 <strong>H₂ 气泡</strong>并富集 <strong>OH⁻</strong>（碱性水），且气体体积比 H₂ : O₂ = 2 : 1。" data-en="An ion-exchange membrane separates the anode and cathode chambers so H⁺ and OH⁻ do not recombine. Oxidation at the anode releases fine <strong>O₂ bubbles</strong> and enriches <strong>H⁺</strong> (acidic water); reduction at the cathode releases <strong>H₂ bubbles</strong> and enriches <strong>OH⁻</strong> (alkaline water) in a 2 : 1 gas volume ratio.">
+            离子交换膜将电解槽分为阳极室与阴极室，防止两端生成的 H⁺ 与 OH⁻ 重新中和。阳极发生氧化反应释放细密 <strong>O₂ 气泡</strong>并富集 <strong>H⁺</strong>（酸性水）；阴极发生还原反应释放 <strong>H₂ 气泡</strong>并富集 <strong>OH⁻</strong>（碱性水），且气体体积比 H₂ : O₂ = 2 : 1。
+          </p>
+          <div class="eq-box">Anode (+): 2H₂O(l) → O₂(g) + 4H⁺(aq) + 4e⁻</div>
+          <div class="eq-box emerald">Cathode (−): 2H₂O(l) + 2e⁻ → H₂(g) + 2OH⁻(aq)</div>
+        </article>
+
+        <article class="panel">
+          <h3 style="margin-bottom:0.5rem;color:#fcd34d;" data-zh="2. 微量 Cl⁻ 阳极副反应与 HOCl 抑菌平衡" data-en="2. Trace Cl⁻ Anode Side-Reaction & HOCl Equilibrium">2. 微量 Cl⁻ 阳极副反应与 HOCl 抑菌平衡</h3>
+          <p style="font-size:0.9rem;color:#cbd5e1;" data-zh="自来水中若含微量氯离子（Cl⁻），部分 Cl⁻ 会在阳极失电子氧化为 Cl₂，随后迅速与水建立可逆平衡生成次氯酸（HOCl）。HOCl 为电中性小分子弱氧化剂，能破坏微生物酶系产生轻度表面抑菌作用——但绝非口服安全成分。" data-en="When trace Cl⁻ ions exist in tap water, some oxidise to Cl₂ at the anode and equilibrate with water to form hypochlorous acid (HOCl). Neutral HOCl is a weak oxidising agent that provides mild surface antimicrobial action—but makes the water strictly non-potable.">
+            自来水中若含微量氯离子（Cl⁻），部分 Cl⁻ 会在阳极失电子氧化为 Cl₂，随后迅速与水建立可逆平衡生成次氯酸（HOCl）。HOCl 为电中性小分子弱氧化剂，能破坏微生物酶系产生轻度表面抑菌作用——但绝非口服安全成分。
+          </p>
+          <div class="eq-box amber">2Cl⁻(aq) → Cl₂(g) + 2e⁻<br>Cl₂(aq) + H₂O(l) ⇌ HOCl(aq) + HCl(aq)</div>
+          <p style="font-size:0.86rem;color:#94a3b8;" data-zh="健康皮肤表面天然存在由皮脂与汗液构成的酸性保护膜（Acid Mantle，pH 4.5–5.5），能抑制有害菌定植；pH 每差 1 个单位，[H⁺] 相差 10 倍。" data-en="Healthy skin carries a natural Acid Mantle (pH 4.5–5.5) formed by sebum and sweat. Because pH is logarithmic, every 1-unit shift represents a 10× change in [H⁺].">
+            健康皮肤表面天然存在由皮脂与汗液构成的酸性保护膜（Acid Mantle，pH 4.5–5.5），能抑制有害菌定植；pH 每差 1 个单位，[H⁺] 相差 10 倍。
+          </p>
+        </article>
+      </div>
+
+      <article class="panel" style="margin-top:1.15rem;">
+        <h3 style="margin-bottom:0.45rem;color:#fff;" data-zh="3. 本质化学鉴别：电解酸性水 vs 碳酸气泡水" data-en="3. Chemical Differentiation: Electrolysed Acidic Water vs Carbonated Water">3. 本质化学鉴别：电解酸性水 vs 碳酸气泡水</h3>
+        <div class="table-wrap">
+          <table class="sci-table">
+            <thead>
+              <tr>
+                <th data-zh="鉴别维度" data-en="Criterion">鉴别维度</th>
+                <th data-zh="电解酸性水（阳极室）" data-en="Electrolysed Acidic Water (Anode)">电解酸性水（阳极室）</th>
+                <th data-zh="碳酸气泡水（Sparkling Water）" data-en="Carbonated Sparkling Water">碳酸气泡水（Sparkling Water）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-zh="<strong>气泡成分</strong>" data-en="<strong>Bubble Gas</strong>"><strong>气泡成分</strong></td>
+                <td data-zh="溶解态细密 O₂ 气泡（2H₂O → O₂ + 4H⁺ + 4e⁻）" data-en="Fine O₂ micro-bubbles (2H₂O → O₂ + 4H⁺ + 4e⁻)">溶解态细密 O₂ 气泡（2H₂O → O₂ + 4H⁺ + 4e⁻）</td>
+                <td data-zh="加压溶入的 CO₂（CO₂ + H₂O ⇌ H₂CO₃）" data-en="Pressurised dissolved CO₂ (CO₂ + H₂O ⇌ H₂CO₃)">加压溶入的 CO₂（CO₂ + H₂O ⇌ H₂CO₃）</td>
+              </tr>
+              <tr>
+                <td data-zh="<strong>澄清石灰水检验</strong>" data-en="<strong>Limewater Test</strong>"><strong>澄清石灰水检验</strong></td>
+                <td data-zh="无白色沉淀（O₂ 不与 Ca(OH)₂ 反应）" data-en="Remains clear (O₂ does not react with Ca(OH)₂)">无白色沉淀（O₂ 不与 Ca(OH)₂ 反应）</td>
+                <td data-zh="迅速变浑浊（生成白色 CaCO₃↓ 沉淀）" data-en="Turns milky/cloudy (white CaCO₃↓ precipitate)">迅速变浑浊（生成白色 CaCO₃↓ 沉淀）</td>
+              </tr>
+              <tr>
+                <td data-zh="<strong>加热脱气后 pH 变化</strong>" data-en="<strong>pH After Heating/Degassing</strong>"><strong>加热脱气后 pH 变化</strong></td>
+                <td data-zh="H⁺ 与阴离子仍留在水中，pH 基本保持酸性" data-en="H⁺ remains in solution; pH stays acidic">H⁺ 与阴离子仍留在水中，pH 基本保持酸性</td>
+                <td data-zh="CO₂ 逸出平衡左移，pH 明显回升接近中性" data-en="CO₂ escapes, equilibrium shifts left, pH rises toward 7">CO₂ 逸出平衡左移，pH 明显回升接近中性</td>
+              </tr>
+              <tr>
+                <td data-zh="<strong>饮用与外用属性</strong>" data-en="<strong>Potability & Use</strong>"><strong>饮用与外用属性</strong></td>
+                <td data-zh="严禁饮用；仅限完整皮肤外用清洁" data-en="NEVER drink; external use on intact skin only">严禁饮用；仅限完整皮肤外用清洁</td>
+                <td data-zh="食品级可饮用；不可用于破损皮肤护理" data-en="Food-grade potable; not for broken skin">食品级可饮用；不可用于破损皮肤护理</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="safety-banner">
+          <h3 data-zh="⚠️ 严正科学边界与医学安全红线" data-en="⚠️ Strict Scientific Boundaries & Medical Safety Rules">⚠️ 严正科学边界与医学安全红线</h3>
+          <ul>
+            <li data-zh="<strong>不能治疗疾病</strong>：电解酸水与碳酸水均不是药品，<strong>不能治疗晒伤，也不能根治青春痘</strong>。" data-en="<strong>Not a Medical Treatment</strong>: Acidic water is not a medicine and <strong>cannot cure sunburn or acne</strong>."><strong>不能治疗疾病</strong>：电解酸水与碳酸水均不是药品，<strong>不能治疗晒伤，也不能根治青春痘</strong>。</li>
+            <li data-zh="<strong>起泡/破皮严禁涂抹</strong>：晒伤出现水疱、脱皮或皮肤破损时严禁涂抹酸水，以免酸性 H⁺ 与微量氧化剂加重组织刺痛与损伤。" data-en="<strong>Never Apply to Broken/Blistered Skin</strong>: Strictly avoid acidic water on blistered or peeling sunburns."><strong>起泡/破皮严禁涂抹</strong>：晒伤出现水疱、脱皮或皮肤破损时严禁涂抹酸水，以免酸性 H⁺ 与微量氧化剂加重组织刺痛与损伤。</li>
+            <li data-zh="<strong>电解酸性水严禁饮用</strong>：阳极室产出的酸性水含微量 HOCl 与富集离子，严禁作为饮用水入口。" data-en="<strong>Never Drink Electrolysed Acidic Water</strong>: Anode-chamber acidic water is strictly for external use and must never be ingested."><strong>电解酸性水严禁饮用</strong>：阳极室产出的酸性水含微量 HOCl 与富集离子，严禁作为饮用水入口。</li>
+          </ul>
+        </div>
+      </article>
+    </section>
+
+    <!-- Quiz -->
+    <section class="section-block">
+      <h2 class="section-heading" data-zh="🎯 G8 / IGCSE Exam-Style 互动自测（5 题）" data-en="🎯 G8 / IGCSE Exam-Style Self-Check Quiz (5 Questions)">🎯 G8 / IGCSE Exam-Style 互动自测（5 题）</h2>
+      <div class="quiz-score-bar">
+        <strong id="quizScoreText">当前得分：0 / 5（已答 0 题）</strong>
+        <button id="quizResetBtn" type="button" class="btn-chip" data-zh="↺ 重置测验" data-en="↺ Reset Quiz">↺ 重置测验</button>
+      </div>
+      <div id="quizList"></div>
+    </section>
+
+    <!-- Ecosystem Footer -->
+    <section class="section-block">
+      <h2 class="section-heading" data-zh="🔗 延伸学习与生态互链" data-en="🔗 Further Study & Ecosystem Links">🔗 延伸学习与生态互链</h2>
+      <div class="eco-links-grid">
+        <a href="https://www.igcse.xyz/lesson/0620/4-1-electrolysis" class="eco-link-card" target="_blank" rel="noopener">
+          <span class="eco-tag">IGCSE 0620 · Main Hub</span>
+          <strong data-zh="4.1 电解原理与电极反应" data-en="4.1 Electrolysis & Electrode Reactions">4.1 电解原理与电极反应</strong>
+          <span data-zh="直达主母舰系统课时" data-en="Open core lesson on main hub">直达主母舰系统课时</span>
+        </a>
+        <a href="https://www.igcse.xyz/lesson/0620/7-1-acids-bases" class="eco-link-card" target="_blank" rel="noopener">
+          <span class="eco-tag">IGCSE 0620 · Main Hub</span>
+          <strong data-zh="7.1 酸碱理论与 pH 标度" data-en="7.1 Acids, Bases & pH Scale">7.1 酸碱理论与 pH 标度</strong>
+          <span data-zh="直达主母舰酸碱核心课" data-en="Open acids & bases core lesson">直达主母舰酸碱核心课</span>
+        </a>
+        <a href="https://why.igcse.xyz/#/issue/acidic-bubble-water" class="eco-link-card" target="_blank" rel="noopener">
+          <span class="eco-tag">Why Encyclopedia · Fun Edition</span>
+          <strong data-zh="🎈 小问号趣味版：酸气泡水" data-en="🎈 Why Fun Edition: Acidic Bubble Water">🎈 小问号趣味版：酸气泡水</strong>
+          <span data-zh="返回轻松趣味科普版" data-en="View illustrated fun edition">返回轻松趣味科普版</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
