@@ -788,7 +788,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initLab1Events();
   initDisplacementEvents();
   initQuiz();
-  requestAnimationFrame(animateAllCanvases);
+  startCanvasAnimation();
 });
 
 function updateFilterPillsCounts() {
@@ -1194,20 +1194,64 @@ function updateDisplacementPreview() {
 }
 
 // ============================================================================
-// Canvas 实时渲染引擎 (实验一 & 实验二)
+// Canvas 实时渲染引擎 (实验一 & 实验二) — HiDPI 适配与单实例 RAF 生命周期管理
 // ============================================================================
+let animationFrameId = null;
+const DEFAULT_CANVAS_WIDTH = 680;
+const DEFAULT_CANVAS_HEIGHT = 340;
+
+function setupHiDPICanvas(canvas) {
+  const logicalW = Number(canvas.dataset.logicalWidth) || canvas.width || DEFAULT_CANVAS_WIDTH;
+  const logicalH = Number(canvas.dataset.logicalHeight) || canvas.height || DEFAULT_CANVAS_HEIGHT;
+  if (!canvas.dataset.logicalWidth) canvas.dataset.logicalWidth = String(logicalW);
+  if (!canvas.dataset.logicalHeight) canvas.dataset.logicalHeight = String(logicalH);
+
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const targetW = Math.round(logicalW * dpr);
+  const targetH = Math.round(logicalH * dpr);
+  if (canvas.width !== targetW || canvas.height !== targetH) {
+    canvas.width = targetW;
+    canvas.height = targetH;
+  }
+
+  const ctx = canvas.getContext("2d");
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  return { ctx, W: logicalW, H: logicalH, dpr };
+}
+
+function stopCanvasAnimation() {
+  if (animationFrameId !== null) {
+    cancelAnimationFrame(animationFrameId);
+    animationFrameId = null;
+  }
+}
+
+function startCanvasAnimation() {
+  stopCanvasAnimation();
+  if (document.hidden) return;
+  animationFrameId = requestAnimationFrame(animateAllCanvases);
+}
+
 function animateAllCanvases() {
+  animationFrameId = null;
+  if (document.hidden) return;
   renderLab1Canvas();
   renderDisplacementCanvas();
-  requestAnimationFrame(animateAllCanvases);
+  animationFrameId = requestAnimationFrame(animateAllCanvases);
 }
+
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) {
+    stopCanvasAnimation();
+  } else {
+    startCanvasAnimation();
+  }
+});
 
 function renderLab1Canvas() {
   const canvas = document.getElementById("beakerCanvas");
   if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-  const W = canvas.width;
-  const H = canvas.height;
+  const { ctx, W, H } = setupHiDPICanvas(canvas);
 
   ctx.clearRect(0, 0, W, H);
 
@@ -1477,9 +1521,7 @@ function drawSingleBeaker(ctx, cfg) {
 function renderDisplacementCanvas() {
   const canvas = document.getElementById("displacementCanvas");
   if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-  const W = canvas.width;
-  const H = canvas.height;
+  const { ctx, W, H } = setupHiDPICanvas(canvas);
 
   ctx.clearRect(0, 0, W, H);
 
