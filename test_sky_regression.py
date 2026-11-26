@@ -224,6 +224,22 @@ class TestSkyRegressionVaccines(unittest.TestCase):
         chem_from_js = json.loads(chem_js_txt[len(prefix):].rstrip().rstrip(";"))
         self.assertEqual(chem, chem_from_js, "g8_chemistry_u2_exercises.json and .js must match 100%")
 
+    def test_chem_exam_rush_html_well_formed_tags_and_six_concept_cards(self):
+        html = (ROOT / "g8_chem_exam_rush.html").read_text(encoding="utf-8")
+        broken_lines = [
+            (i, line)
+            for i, line in enumerate(html.splitlines(), 1)
+            if re.search(r"</[a-zA-Z0-9-]+\s*$", line)
+        ]
+        self.assertEqual(broken_lines, [], f"Found truncated closing HTML tags: {broken_lines}")
+
+        concept_cards = re.findall(r'class="concept-item\b', html)
+        self.assertEqual(len(concept_cards), 6, f"Expected exactly 6 .concept-item cards, got {len(concept_cards)}")
+
+        div_opens = len(re.findall(r"<div\b", html))
+        div_closes = len(re.findall(r"</div>", html))
+        self.assertEqual(div_opens, div_closes, f"Unbalanced <div> tags: opens={div_opens}, closes={div_closes}")
+
 
 if __name__ == "__main__":
     unittest.main()
