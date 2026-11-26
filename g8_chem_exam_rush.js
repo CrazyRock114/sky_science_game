@@ -147,22 +147,70 @@
     }
   };
 
+  function extractMcqOptions(q) {
+    if (Array.isArray(q.options) && q.options.length) {
+      return {
+        stemEn: q.stem_en || q.prompt_en,
+        stemCn: q.stem_cn || q.prompt_cn,
+        options: q.options,
+        correctLetter: q.correct_letter || (String(q.answer_en || '').trim()[0] || 'A')
+      };
+    }
+    const enLines = String(q.prompt_en || '').split('\n');
+    const cnLines = String(q.prompt_cn || '').split('\n');
+    const enOpts = {};
+    const cnOpts = {};
+    const stemEnArr = [];
+    const stemCnArr = [];
+    enLines.forEach((line) => {
+      const m = line.match(/^([A-D])\)\s*(.+)$/);
+      if (m) enOpts[m[1]] = m[2];
+      else stemEnArr.push(line);
+    });
+    cnLines.forEach((line) => {
+      const m = line.match(/^([A-D])\)\s*(.+)$/);
+      if (m) cnOpts[m[1]] = m[2];
+      else stemCnArr.push(line);
+    });
+    const options = ['A', 'B', 'C', 'D']
+      .filter((l) => enOpts[l])
+      .map((l) => ({ letter: l, text_en: enOpts[l], text_cn: cnOpts[l] || '' }));
+    let correctLetter = q.correct_letter;
+    if (!correctLetter && q.options_breakdown && !Array.isArray(q.options_breakdown)) {
+      const found = ['A', 'B', 'C', 'D'].find((l) => q.options_breakdown[l] && q.options_breakdown[l].correct);
+      if (found) correctLetter = found;
+    }
+    if (!correctLetter) {
+      const m = String(q.answer_en || '').trim().match(/^([A-D])/);
+      correctLetter = m ? m[1] : 'A';
+    }
+    return {
+      stemEn: stemEnArr.join('\n') || q.prompt_en,
+      stemCn: stemCnArr.join('\n') || q.prompt_cn,
+      options,
+      correctLetter
+    };
+  }
+
   function renderMcqQuestionCard(q, prefix) {
     const isEnOnly = globalLang === 'en';
     const status = masteryMap[q.id] || '';
     const isSchool = q.source_tag === 'school_mistake';
     const isVariant = q.source_tag === 'school_mistake_variant';
+    const isBaseline = q.source_tag === 'baseline';
     const tagBadge = isSchool
       ? `<span class="badge-pill pill-red">🩺 学校错题原题 Q${q.school_q_num}</span>`
       : isVariant
       ? `<span class="badge-pill pill-amber">🧬 1:2 靶向变式 (${escapeHtml(q.task_code)})</span>`
+      : isBaseline
+      ? `<span class="badge-pill pill-green">📚 基线巩固 · ${escapeHtml(q.task_code || 'MCQ')}</span>`
       : `<span class="badge-pill pill-blue">${escapeHtml(q.workbook_unit || q.task_code)}</span>`;
 
-    const opts = Array.isArray(q.options) ? q.options : [];
-    const optsHtml = opts
+    const parsed = extractMcqOptions(q);
+    const optsHtml = parsed.options
       .map(
         (opt) => `
-      <button class="opt-btn" data-letter="${opt.letter}" onclick="checkMcqCard('${prefix}', '${q.id}', '${opt.letter}', '${q.correct_letter}')">
+      <button class="opt-btn" data-letter="${opt.letter}" onclick="checkMcqCard('${prefix}', '${q.id}', '${opt.letter}', '${parsed.correctLetter}')">
         <span class="opt-letter">${opt.letter}</span>
         <span class="opt-text">
           <span class="opt-text-en">${escapeHtml(opt.text_en)}</span>
@@ -206,8 +254,8 @@
           </div>
           ${masteryBar}
         </div>
-        <div class="q-prompt-en">${formatMultiline(q.stem_en || q.prompt_en)}</div>
-        ${!isEnOnly && (q.stem_cn || q.prompt_cn) ? `<div class="q-prompt-cn">${formatMultiline(q.stem_cn || q.prompt_cn)}</div>` : ''}
+        <div class="q-prompt-en">${formatMultiline(parsed.stemEn)}</div>
+        ${!isEnOnly && parsed.stemCn ? `<div class="q-prompt-cn">${formatMultiline(parsed.stemCn)}</div>` : ''}
         <div class="options-grid" id="${prefix}-opts-${q.id}">
           ${optsHtml}
         </div>
@@ -227,6 +275,13 @@
 
   function renderStructuredCard(q, prefix) {
     const isEnOnly = globalLang === 'en';
+    const typeLabels = {
+      structured: '📝 结构化简答 / 方程式',
+      matching: '🔗 概念配对连线（基线）',
+      cloze: '🧩 术语完形填空（基线）',
+      sorting: '🔢 实验步骤排序（基线）'
+    };
+    const typeLabel = typeLabels[q.game_type] || '📝 专项练习';
     const msHtml = Array.isArray(q.mark_scheme)
       ? q.mark_scheme.map((pt, i) => `<div class="ms-point"><strong>Point ${i + 1}:</strong> ${escapeHtml(pt)}</div>`).join('')
       : '';
@@ -241,17 +296,17 @@
       <article class="q-card structured-card" id="${prefix}-card-${q.id}">
         <div class="q-card-top">
           <div class="q-badges">
-            <span class="badge-pill pill-purple">📝 结构化简答 / 方程式</span>
-            <span class="badge-pill pill-blue">${escapeHtml(q.workbook_unit || '')}</span>
+            <span class="badge-pill pill-purple">${typeLabel}</span>
+            <span class="badge-pill pill-blue">${escapeHtml(q.workbook_unit || q.lesson_title_cn || '')}</span>
             ${q.marks ? `<span class="badge-mark">[${q.marks} marks]</span>` : ''}
             <span class="q-id-tag">${escapeHtml(q.id)}</span>
           </div>
         </div>
         <div class="q-prompt-en">${formatMultiline(q.prompt_en)}</div>
         ${!isEnOnly && q.prompt_cn ? `<div class="q-prompt-cn">${formatMultiline(q.prompt_cn)}</div>` : ''}
-        <textarea class="theory-textarea" placeholder="在此输入方程式、计算步骤或英文/中文简答草稿..."></textarea>
+        <textarea class="theory-textarea" placeholder="在此输入方程式、配对/填空/排序草稿或英文/中文简答..."></textarea>
         <div class="q-card-footer">
-          <button class="btn-reveal" onclick="toggleRevealBox('${prefix}-ms-${q.id}')">🔍 显示标准答案与采分点</button>
+          <button class="btn-reveal" onclick="toggleRevealBox('${prefix}-ms-${q.id}')">🔍 显示标准答案与解析</button>
           <span class="fb-citation">📖 ${escapeHtml(q.citation_textbook || '')}</span>
         </div>
         <div class="mark-scheme-box" id="${prefix}-ms-${q.id}">
@@ -259,6 +314,7 @@
             <strong>✅ 参考答案：</strong><br>${formatMultiline(q.answer_en || '')}
             ${!isEnOnly && q.answer_cn ? `<div class="cn-sub">${formatMultiline(q.answer_cn)}</div>` : ''}
           </div>
+          ${q.rationale_en ? `<div style="margin-top:0.45rem;"><strong>💡 解析：</strong>${escapeHtml(q.rationale_en)}${!isEnOnly && q.rationale_cn ? `<div class="cn-sub">${escapeHtml(q.rationale_cn)}</div>` : ''}</div>` : ''}
           ${msHtml}
           ${kwsHtml}
         </div>
@@ -292,7 +348,7 @@
     updateMasteryStats();
   }
 
-  // ==================== TAB 3: WORKBOOK & PPT BY LESSON ====================
+  // ==================== TAB 3: WORKBOOK, PPT & BASELINE FULL BANK ====================
   window.setWbFilter = function (filter, btn) {
     currentWbFilter = filter;
     document.querySelectorAll('#wb-filter-bar .filter-btn').forEach((b) => b.classList.remove('active'));
@@ -303,29 +359,43 @@
   function renderWorkbookList() {
     const container = document.getElementById('wb-list-container');
     if (!container) return;
-    const all = getAllChemData().filter(
+    const fullData = getAllChemData();
+    const wbAndPpt = fullData.filter(
       (q) => q.source_tag === 'workbook_pdf' || q.source_tag === 'student_ppt'
     );
-    let filtered = all;
+    const baselineAll = fullData.filter((q) => q.source_tag === 'baseline');
+    let filtered = wbAndPpt;
+    let scopeLabel = `${wbAndPpt.length} 道练习册与 PPT 原题`;
+
     if (currentWbFilter === 'l6') {
-      filtered = all.filter((q) => q.workbook_unit === 'Mid-unit Review 1');
-    } else if (currentWbFilter === 'l8_11') {
-      filtered = all.filter((q) => ['Lesson 8', 'Lesson 9', 'Lesson 10', 'Lesson 11'].includes(q.workbook_unit));
+      filtered = wbAndPpt.filter((q) => q.workbook_unit === 'Mid-unit Review 1');
+    } else if (currentWbFilter === 'l7') {
+      filtered = wbAndPpt.filter((q) => q.workbook_unit === 'Lesson 7');
+    } else if (currentWbFilter === 'l7_11') {
+      filtered = wbAndPpt.filter((q) => ['Lesson 7', 'Lesson 8', 'Lesson 9', 'Lesson 10', 'Lesson 11'].includes(q.workbook_unit));
     } else if (currentWbFilter === 'l12') {
-      filtered = all.filter((q) => q.workbook_unit === 'Mid-unit Review 2');
+      filtered = wbAndPpt.filter((q) => q.workbook_unit === 'Mid-unit Review 2');
     } else if (currentWbFilter === 'l13_16') {
-      filtered = all.filter((q) => ['Lesson 13', 'Lesson 14', 'Lesson 15', 'Lesson 16'].includes(q.workbook_unit));
+      filtered = wbAndPpt.filter((q) => ['Lesson 13', 'Lesson 14', 'Lesson 15', 'Lesson 16'].includes(q.workbook_unit));
     } else if (currentWbFilter === 'rev') {
-      filtered = all.filter((q) => q.workbook_unit === 'End-of-Unit Revision');
+      filtered = wbAndPpt.filter((q) => q.workbook_unit === 'End-of-Unit Revision');
+    } else if (currentWbFilter === 'gap') {
+      filtered = wbAndPpt.filter((q) => String(q.id || '').startsWith('CHEM_U2_GAP_'));
     } else if (currentWbFilter === 'structured') {
-      filtered = all.filter((q) => q.game_type === 'structured');
+      filtered = wbAndPpt.filter((q) => q.game_type === 'structured');
+    } else if (currentWbFilter === 'baseline') {
+      filtered = baselineAll;
+      scopeLabel = `${baselineAll.length} 道基础巩固基线题（单选/配对/完形/排序）`;
+    } else if (currentWbFilter === 'all_plus_base') {
+      filtered = [...wbAndPpt, ...baselineAll];
+      scopeLabel = `${filtered.length} 道原题+基线题（连同 Tab 2 90 题 = 全库 ${fullData.length} 题零隐藏）`;
     }
 
     const countEl = document.getElementById('wb-count-label');
-    if (countEl) countEl.textContent = `当前显示 ${filtered.length} / ${all.length} 道练习册与 PPT 原题`;
+    if (countEl) countEl.textContent = `当前显示 ${filtered.length} 题（所属范围：${scopeLabel}）`;
 
     container.innerHTML = filtered
-      .map((q) => (q.game_type === 'structured' ? renderStructuredCard(q, 'wb') : renderMcqQuestionCard(q, 'wb')))
+      .map((q) => (q.game_type === 'mcq' ? renderMcqQuestionCard(q, 'wb') : renderStructuredCard(q, 'wb')))
       .join('');
   }
 

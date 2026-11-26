@@ -198,5 +198,32 @@ class TestSkyRegressionVaccines(unittest.TestCase):
                 self.assertIsInstance(entry.get("correct"), bool, f"{item['id']} options_breakdown[{letter}].correct must be bool")
 
 
+    def test_chem_gap_closure_card6_hub_links_baseline_and_mock_totals(self):
+        chem = json.loads((ROOT / "g8_chemistry_u2_exercises.json").read_text(encoding="utf-8"))
+        self.assertGreaterEqual(len(chem), 205)
+
+        l7_cnt = sum(1 for x in chem if x.get("workbook_unit") == "Lesson 7")
+        l9_cnt = sum(1 for x in chem if x.get("workbook_unit") == "Lesson 9")
+        l15_cnt = sum(1 for x in chem if x.get("workbook_unit") == "Lesson 15")
+        self.assertGreaterEqual(l7_cnt, 4)
+        self.assertGreaterEqual(l9_cnt, 4)
+        self.assertGreaterEqual(l15_cnt, 4)
+
+        rush_html = (ROOT / "g8_chem_exam_rush.html").read_text(encoding="utf-8")
+        for kw in ("Corrosive", "Amphoteric", "Slaked lime", "Acid rain", "/lesson/0620/7-1-acids-bases", "/lesson/0620/7-3-salts"):
+            self.assertIn(kw, rush_html, f"g8_chem_exam_rush.html missing {kw}")
+        self.assertIn("setWbFilter('baseline'", rush_html)
+
+        rush_js = (ROOT / "g8_chem_exam_rush.js").read_text(encoding="utf-8")
+        self.assertIn("currentWbFilter === 'baseline'", rush_js)
+
+        # Verify JSON & JS bank 100% synced
+        chem_js_txt = (ROOT / "g8_chemistry_u2_exercises.js").read_text(encoding="utf-8")
+        prefix = "window.CHEMISTRY_U2_DATA = "
+        self.assertTrue(chem_js_txt.startswith(prefix))
+        chem_from_js = json.loads(chem_js_txt[len(prefix):].rstrip().rstrip(";"))
+        self.assertEqual(chem, chem_from_js, "g8_chemistry_u2_exercises.json and .js must match 100%")
+
+
 if __name__ == "__main__":
     unittest.main()

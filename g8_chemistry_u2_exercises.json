@@ -12587,5 +12587,1187 @@
     ],
     "variant_of": "CHEM_U2_SM_30",
     "school_q_num": 30
+  },
+  {
+    "id": "CHEM_U2_WB_L7_01",
+    "lesson_id": 35,
+    "lesson_title_en": "Lesson 35: Proton Theory & Strength vs Concentration",
+    "lesson_title_cn": "第35课：质子理论与强弱酸/pH",
+    "workbook_unit": "Lesson 7",
+    "task_code": "Fig 7.2 Conductivity",
+    "task_title_en": "Conductivity Bulb Brightness Comparison",
+    "task_title_cn": "三类液体导电灯泡亮度对比",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "source_tag": "workbook_pdf",
+    "citation_textbook": "《G8_U2_Acids_and_Bases_Workbook_PDF.pdf》 p.67 (Lesson 7 Fig 7.2 Conductivity)",
+    "prompt_en": "A student tests three liquids in a conductivity circuit with a bulb: pure ethanol (alcohol), dilute weak acid (ethanoic acid), and aqueous sodium chloride (salt solution). Which row correctly matches the bulb brightness?\nA) Ethanol: off/dim | Weak acid: dim | Salt solution: brightest\nB) Ethanol: brightest | Weak acid: off | Salt solution: dim\nC) All three make the bulb glow equally brightly\nD) Ethanol: dim | Weak acid: brightest | Salt solution: off",
+    "prompt_cn": "某同学用带灯泡的导电电路测试三种液体：纯乙醇（酒精）、稀弱酸（乙酸）和氯化钠水溶液（盐溶液）。哪一行正确匹配了灯泡亮度？\nA) 乙醇：不亮/极暗 | 弱酸：微亮 | 盐溶液：最亮\nB) 乙醇：最亮 | 弱酸：不亮 | 盐溶液：微亮\nC) 三种液体让灯泡一样亮\nD) 乙醇：微亮 | 弱酸：最亮 | 盐溶液：不亮",
+    "stem_en": "A student tests three liquids in a conductivity circuit with a bulb: pure ethanol (alcohol), dilute weak acid (ethanoic acid), and aqueous sodium chloride (salt solution). Which row correctly matches the bulb brightness?",
+    "stem_cn": "某同学用带灯泡的导电电路测试三种液体：纯乙醇（酒精）、稀弱酸（乙酸）和氯化钠水溶液（盐溶液）。哪一行正确匹配了灯泡亮度？",
+    "options": [
+      {
+        "letter": "A",
+        "text_en": "Ethanol: off/dim | Weak acid: dim | Salt solution: brightest",
+        "text_cn": "乙醇：不亮/极暗 | 弱酸：微亮 | 盐溶液：最亮"
+      },
+      {
+        "letter": "B",
+        "text_en": "Ethanol: brightest | Weak acid: off | Salt solution: dim",
+        "text_cn": "乙醇：最亮 | 弱酸：不亮 | 盐溶液：微亮"
+      },
+      {
+        "letter": "C",
+        "text_en": "All three make the bulb glow equally brightly",
+        "text_cn": "三种液体让灯泡一样亮"
+      },
+      {
+        "letter": "D",
+        "text_en": "Ethanol: dim | Weak acid: brightest | Salt solution: off",
+        "text_cn": "乙醇：微亮 | 弱酸：最亮 | 盐溶液：不亮"
+      }
+    ],
+    "correct_letter": "A",
+    "answer_en": "A) Ethanol: off/dim | Weak acid: dim | Salt solution: brightest",
+    "answer_cn": "A) 乙醇：不亮/极暗 | 弱酸：微亮 | 盐溶液：最亮",
+    "rationale_en": "Ethanol consists of neutral molecules (no free ions → bulb off); weak acid partially dissociates (few ions → dim); salt solution dissociates completely into abundant mobile ions (brightest).",
+    "rationale_cn": "乙醇由中性分子构成（无自由离子→不亮）；弱酸仅部分电离（离子少→微亮）；盐溶液完全电离出大量自由移动离子（最亮）。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Key Criteria]: Ethanol: off/dim | Weak acid: dim | Salt solution: brightest is correct. Ethanol consists of neutral molecules (no free ions → bulb off); weak acid partially dissociates (few ions → dim); salt solution dissociates completely into abundant mobile ions (brightest).",
+        "cn": "【核心考点】乙醇：不亮/极暗 | 弱酸：微亮 | 盐溶液：最亮 为正确选项。乙醇由中性分子构成（无自由离子→不亮）；弱酸仅部分电离（离子少→微亮）；盐溶液完全电离出大量自由移动离子（最亮）。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Confusion Trap]: Ethanol: brightest | Weak acid: off | Salt solution: dim does not match the chemical principle tested. The correct answer is A) Ethanol: off/dim | Weak acid: dim | Salt solution: brightest.",
+        "cn": "【易混辨析】“乙醇：最亮 | 弱酸：不亮 | 盐溶液：微亮”不符合本题考查的化学规律。正确答案应为 A) 乙醇：不亮/极暗 | 弱酸：微亮 | 盐溶液：最亮。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Confusion Trap]: All three make the bulb glow equally brightly does not match the chemical principle tested. The correct answer is A) Ethanol: off/dim | Weak acid: dim | Salt solution: brightest.",
+        "cn": "【易混辨析】“三种液体让灯泡一样亮”不符合本题考查的化学规律。正确答案应为 A) 乙醇：不亮/极暗 | 弱酸：微亮 | 盐溶液：最亮。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Confusion Trap]: Ethanol: dim | Weak acid: brightest | Salt solution: off does not match the chemical principle tested. The correct answer is A) Ethanol: off/dim | Weak acid: dim | Salt solution: brightest.",
+        "cn": "【易混辨析】“乙醇：微亮 | 弱酸：最亮 | 盐溶液：不亮”不符合本题考查的化学规律。正确答案应为 A) 乙醇：不亮/极暗 | 弱酸：微亮 | 盐溶液：最亮。",
+        "correct": false
+      }
+    },
+    "examiner_keywords": [
+      "free mobile ions",
+      "complete dissociation",
+      "bulb brightness"
+    ]
+  },
+  {
+    "id": "CHEM_U2_WB_L7_02",
+    "lesson_id": 35,
+    "lesson_title_en": "Lesson 35: Proton Theory & Strength vs Concentration",
+    "lesson_title_cn": "第35课：质子理论与强弱酸/pH",
+    "workbook_unit": "Lesson 7",
+    "task_code": "Task 7.1",
+    "task_title_en": "Conductivity as Fingerprint of Invisible Ions",
+    "task_title_cn": "导电性是隐形离子的可见指纹",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "source_tag": "workbook_pdf",
+    "citation_textbook": "《G8_U2_Acids_and_Bases_Workbook_PDF.pdf》 p.70 (Lesson 7 Task 7.1) & 《U2_Acids_and_Bases_Student_PPT.pptx》 Slide 65",
+    "prompt_en": "Complete the Lesson 7 key conclusion: 'Pure water has almost no ______ ions, so it ______ conducts; conductivity is the ______ fingerprint of ______ ions.'\nA) free ; barely ; visible ; invisible\nB) solid ; strongly ; invisible ; visible\nC) metal ; always ; colourless ; bright\nD) electron ; never ; acidic ; alkaline",
+    "prompt_cn": "补全第 7 课核心结论：“纯水几乎没有 ______ 离子，因此 ______ 导电；导电性是 ______ 离子的 ______ 指纹。”\nA) 自由(free) ; 几乎不(barely) ; 可见(visible) ; 隐形(invisible)\nB) 固体(solid) ; 强烈(strongly) ; 隐形(invisible) ; 可见(visible)\nC) 金属(metal) ; 总是(always) ; 无色(colourless) ; 明亮(bright)\nD) 电子(electron) ; 从不(never) ; 酸性(acidic) ; 碱性(alkaline)",
+    "stem_en": "Complete the Lesson 7 key conclusion: 'Pure water has almost no ______ ions, so it ______ conducts; conductivity is the ______ fingerprint of ______ ions.'",
+    "stem_cn": "补全第 7 课核心结论：“纯水几乎没有 ______ 离子，因此 ______ 导电；导电性是 ______ 离子的 ______ 指纹。”",
+    "options": [
+      {
+        "letter": "A",
+        "text_en": "free ; barely ; visible ; invisible",
+        "text_cn": "自由(free) ; 几乎不(barely) ; 可见(visible) ; 隐形(invisible)"
+      },
+      {
+        "letter": "B",
+        "text_en": "solid ; strongly ; invisible ; visible",
+        "text_cn": "固体(solid) ; 强烈(strongly) ; 隐形(invisible) ; 可见(visible)"
+      },
+      {
+        "letter": "C",
+        "text_en": "metal ; always ; colourless ; bright",
+        "text_cn": "金属(metal) ; 总是(always) ; 无色(colourless) ; 明亮(bright)"
+      },
+      {
+        "letter": "D",
+        "text_en": "electron ; never ; acidic ; alkaline",
+        "text_cn": "电子(electron) ; 从不(never) ; 酸性(acidic) ; 碱性(alkaline)"
+      }
+    ],
+    "correct_letter": "A",
+    "answer_en": "A) free ; barely ; visible ; invisible",
+    "answer_cn": "A) 自由(free) ; 几乎不(barely) ; 可见(visible) ; 隐形(invisible)",
+    "rationale_en": "Pure water has almost no free ions so it barely conducts; when ions are free to move, conductivity provides a visible fingerprint of invisible ions.",
+    "rationale_cn": "纯水几乎不含自由移动离子故几乎不导电；溶液导电性是微观隐形离子的宏观可见指纹。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Key Criteria]: free ; barely ; visible ; invisible is correct. Pure water has almost no free ions so it barely conducts; when ions are free to move, conductivity provides a visible fingerprint of invisible ions.",
+        "cn": "【核心考点】自由(free) ; 几乎不(barely) ; 可见(visible) ; 隐形(invisible) 为正确选项。纯水几乎不含自由移动离子故几乎不导电；溶液导电性是微观隐形离子的宏观可见指纹。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Confusion Trap]: solid ; strongly ; invisible ; visible does not match the chemical principle tested. The correct answer is A) free ; barely ; visible ; invisible.",
+        "cn": "【易混辨析】“固体(solid) ; 强烈(strongly) ; 隐形(invisible) ; 可见(visible)”不符合本题考查的化学规律。正确答案应为 A) 自由(free) ; 几乎不(barely) ; 可见(visible) ; 隐形(invisible)。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Confusion Trap]: metal ; always ; colourless ; bright does not match the chemical principle tested. The correct answer is A) free ; barely ; visible ; invisible.",
+        "cn": "【易混辨析】“金属(metal) ; 总是(always) ; 无色(colourless) ; 明亮(bright)”不符合本题考查的化学规律。正确答案应为 A) 自由(free) ; 几乎不(barely) ; 可见(visible) ; 隐形(invisible)。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Confusion Trap]: electron ; never ; acidic ; alkaline does not match the chemical principle tested. The correct answer is A) free ; barely ; visible ; invisible.",
+        "cn": "【易混辨析】“电子(electron) ; 从不(never) ; 酸性(acidic) ; 碱性(alkaline)”不符合本题考查的化学规律。正确答案应为 A) 自由(free) ; 几乎不(barely) ; 可见(visible) ; 隐形(invisible)。",
+        "correct": false
+      }
+    },
+    "examiner_keywords": [
+      "free ions",
+      "barely conducts",
+      "visible fingerprint"
+    ]
+  },
+  {
+    "id": "CHEM_U2_WB_L7_03",
+    "lesson_id": 35,
+    "lesson_title_en": "Lesson 35: Proton Theory & Strength vs Concentration",
+    "lesson_title_cn": "第35课：质子理论与强弱酸/pH",
+    "workbook_unit": "Lesson 7",
+    "task_code": "Task 7.2-7.3",
+    "task_title_en": "Why Carbon (Graphite) Electrodes Are Used",
+    "task_title_cn": "导电实验选用碳棒电极的原因",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "source_tag": "workbook_pdf",
+    "citation_textbook": "《G8_U2_Acids_and_Bases_Workbook_PDF.pdf》 pp.70-71 (Lesson 7 Tasks 7.2 & 7.3)",
+    "prompt_en": "In the conductivity experiment testing acids and alkalis, why are inert carbon (graphite) electrodes used instead of reactive metal strips like magnesium?\nA) Carbon conducts electricity while remaining chemically unreactive (inert) in acids and alkalis\nB) Carbon dissolves into hydrogen gas faster than magnesium\nC) Carbon turns the acid neutral immediately\nD) Magnesium does not conduct electricity",
+    "prompt_cn": "在测试酸碱导电性的实验中，为什么选用惰性碳棒（石墨）电极而不是镁条等活泼金属？\nA) 碳棒既能导电，又在酸和碱中保持化学惰性不发生反应\nB) 碳棒比镁更快溶解产生氢气\nC) 碳棒能立刻中和酸\nD) 镁不能导电",
+    "stem_en": "In the conductivity experiment testing acids and alkalis, why are inert carbon (graphite) electrodes used instead of reactive metal strips like magnesium?",
+    "stem_cn": "在测试酸碱导电性的实验中，为什么选用惰性碳棒（石墨）电极而不是镁条等活泼金属？",
+    "options": [
+      {
+        "letter": "A",
+        "text_en": "Carbon conducts electricity while remaining chemically unreactive (inert) in acids and alkalis",
+        "text_cn": "碳棒既能导电，又在酸和碱中保持化学惰性不发生反应"
+      },
+      {
+        "letter": "B",
+        "text_en": "Carbon dissolves into hydrogen gas faster than magnesium",
+        "text_cn": "碳棒比镁更快溶解产生氢气"
+      },
+      {
+        "letter": "C",
+        "text_en": "Carbon turns the acid neutral immediately",
+        "text_cn": "碳棒能立刻中和酸"
+      },
+      {
+        "letter": "D",
+        "text_en": "Magnesium does not conduct electricity",
+        "text_cn": "镁不能导电"
+      }
+    ],
+    "correct_letter": "A",
+    "answer_en": "A) Carbon conducts electricity while remaining chemically unreactive (inert) in acids and alkalis",
+    "answer_cn": "A) 碳棒既能导电，又在酸和碱中保持化学惰性不发生反应",
+    "rationale_en": "Graphite conducts electricity via delocalised electrons and is chemically inert, preventing unwanted side reactions with the test acid.",
+    "rationale_cn": "石墨既能导电又具有化学惰性，不会与待测酸液发生副反应干扰实验。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Key Criteria]: Carbon conducts electricity while remaining chemically unreactive (inert) in acids and alkalis is correct. Graphite conducts electricity via delocalised electrons and is chemically inert, preventing unwanted side reactions with the test acid.",
+        "cn": "【核心考点】碳棒既能导电，又在酸和碱中保持化学惰性不发生反应 为正确选项。石墨既能导电又具有化学惰性，不会与待测酸液发生副反应干扰实验。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Confusion Trap]: Carbon dissolves into hydrogen gas faster than magnesium does not match the chemical principle tested. The correct answer is A) Carbon conducts electricity while remaining chemically unreactive (inert) in acids and alkalis.",
+        "cn": "【易混辨析】“碳棒比镁更快溶解产生氢气”不符合本题考查的化学规律。正确答案应为 A) 碳棒既能导电，又在酸和碱中保持化学惰性不发生反应。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Confusion Trap]: Carbon turns the acid neutral immediately does not match the chemical principle tested. The correct answer is A) Carbon conducts electricity while remaining chemically unreactive (inert) in acids and alkalis.",
+        "cn": "【易混辨析】“碳棒能立刻中和酸”不符合本题考查的化学规律。正确答案应为 A) 碳棒既能导电，又在酸和碱中保持化学惰性不发生反应。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Confusion Trap]: Magnesium does not conduct electricity does not match the chemical principle tested. The correct answer is A) Carbon conducts electricity while remaining chemically unreactive (inert) in acids and alkalis.",
+        "cn": "【易混辨析】“镁不能导电”不符合本题考查的化学规律。正确答案应为 A) 碳棒既能导电，又在酸和碱中保持化学惰性不发生反应。",
+        "correct": false
+      }
+    },
+    "examiner_keywords": [
+      "carbon electrodes",
+      "inert",
+      "conducts electricity"
+    ]
+  },
+  {
+    "id": "CHEM_U2_WB_L7_04",
+    "lesson_id": 35,
+    "lesson_title_en": "Lesson 35: Proton Theory & Strength vs Concentration",
+    "lesson_title_cn": "第35课：质子理论与强弱酸/pH",
+    "workbook_unit": "Lesson 7",
+    "task_code": "Task 7.1-7.2 Theory",
+    "task_title_en": "Particle Explanation of Bulb Brightness in 3 Liquids",
+    "task_title_cn": "从微观离子角度解释三种液体灯泡亮度差异",
+    "game_type": "structured",
+    "game_type_cn": "结构化简答 / 方程式专练",
+    "source_tag": "workbook_pdf",
+    "citation_textbook": "《G8_U2_Acids_and_Bases_Workbook_PDF.pdf》 pp.67 & 70 (Lesson 7 Conductivity Model)",
+    "prompt_en": "A conductivity circuit with two carbon electrodes is dipped in turn into: (1) distilled water, (2) 0.5 mol/dm³ ethanoic acid, and (3) 0.5 mol/dm³ hydrochloric acid.\nState the bulb brightness in each liquid and explain the difference in terms of free moving ions. [3]",
+    "prompt_cn": "将带双碳棒电极的导电回路依次浸入：（1）蒸馏水、（2）0.5 mol/dm³ 乙酸、（3）0.5 mol/dm³ 稀盐酸。\n分别描述灯泡亮度，并从自由移动离子浓度角度解释原因。[3]",
+    "answer_en": "(1) Distilled water: bulb off / barely glows — almost no free moving ions.\n(2) Ethanoic acid: bulb glows dimly — weak acid only partially dissociates, giving a low concentration of free moving ions.\n(3) Hydrochloric acid: bulb glows brightly — strong acid dissociates completely, giving a high concentration of free moving H⁺ and Cl⁻ ions to carry current.",
+    "answer_cn": "（1）蒸馏水：不亮/极暗——几乎无自由移动离子。\n（2）乙酸：微亮——弱酸仅部分电离，自由移动离子浓度低。\n（3）稀盐酸：明亮发光——强酸完全电离，产生高浓度自由移动的 H⁺ 和 Cl⁻ 离子传导电流。",
+    "rationale_en": "In aqueous solutions, electric current is carried by free moving ions (never write 'free electrons' for solutions).",
+    "rationale_cn": "水溶液中传导电流的是自由移动的【离子】，切勿写成自由电子。",
+    "marks": 3,
+    "examiner_keywords": [
+      "no free moving ions",
+      "partially dissociates",
+      "completely dissociates",
+      "carry current"
+    ],
+    "mark_scheme": [
+      "Distilled water: off/no glow because almost no free ions [1]",
+      "Ethanoic acid: dim because weak acid partially dissociates (few mobile ions) [1]",
+      "HCl: bright because strong acid completely dissociates (many mobile ions carry charge) [1]"
+    ]
+  },
+  {
+    "id": "CHEM_U2_WB_L9_01",
+    "lesson_id": 36,
+    "lesson_title_en": "Lesson 36: Characteristic Reactions & Equations",
+    "lesson_title_cn": "第36课：酸碱特征反应与方程式",
+    "workbook_unit": "Lesson 9",
+    "task_code": "Task 9.2 Curve",
+    "task_title_en": "Maximum Temperature Point on a Neutralisation Curve",
+    "task_title_cn": "中和放热温度曲线的最高点含义",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "source_tag": "workbook_pdf",
+    "citation_textbook": "《G8_U2_Acids_and_Bases_Workbook_PDF.pdf》 p.80 & p.89 (Lesson 9 Exothermic Neutralisation)",
+    "prompt_en": "Dilute HCl is added 5 cm³ at a time to 25 cm³ of NaOH(aq) in an insulated cup and the temperature is recorded. What does the MAXIMUM temperature (peak of the curve) represent?\nA) The exact point of complete neutralisation (all OH⁻ has just reacted with H⁺)\nB) The point where the reaction becomes endothermic\nC) The boiling point of sodium chloride\nD) The moment when no water has formed yet",
+    "prompt_cn": "向保温杯中 25 cm³ NaOH 溶液每次加入 5 cm³ 稀盐酸并记录温度。温度曲线达到最高点（峰值）代表什么？\nA) 恰好完全中和的终点（所有 OH⁻ 刚好与 H⁺ 反应完毕）\nB) 反应转变为吸热反应的转折点\nC) 氯化钠的沸点\nD) 还没有生成水的时刻",
+    "stem_en": "Dilute HCl is added 5 cm³ at a time to 25 cm³ of NaOH(aq) in an insulated cup and the temperature is recorded. What does the MAXIMUM temperature (peak of the curve) represent?",
+    "stem_cn": "向保温杯中 25 cm³ NaOH 溶液每次加入 5 cm³ 稀盐酸并记录温度。温度曲线达到最高点（峰值）代表什么？",
+    "options": [
+      {
+        "letter": "A",
+        "text_en": "The exact point of complete neutralisation (all OH⁻ has just reacted with H⁺)",
+        "text_cn": "恰好完全中和的终点（所有 OH⁻ 刚好与 H⁺ 反应完毕）"
+      },
+      {
+        "letter": "B",
+        "text_en": "The point where the reaction becomes endothermic",
+        "text_cn": "反应转变为吸热反应的转折点"
+      },
+      {
+        "letter": "C",
+        "text_en": "The boiling point of sodium chloride",
+        "text_cn": "氯化钠的沸点"
+      },
+      {
+        "letter": "D",
+        "text_en": "The moment when no water has formed yet",
+        "text_cn": "还没有生成水的时刻"
+      }
+    ],
+    "correct_letter": "A",
+    "answer_en": "A) The exact point of complete neutralisation (all OH⁻ has just reacted with H⁺)",
+    "answer_cn": "A) 恰好完全中和的终点（所有 OH⁻ 刚好与 H⁺ 反应完毕）",
+    "rationale_en": "Neutralisation is exothermic; heat is released until all limiting alkali is neutralised, so the peak temperature marks the exact neutralisation point.",
+    "rationale_cn": "中和反应持续放热使温度不断上升，当碱恰好完全反应耗尽时释放总热量最多，温度达到最高峰值。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Key Criteria]: The exact point of complete neutralisation (all OH⁻ has just reacted with H⁺) is correct. Neutralisation is exothermic; heat is released until all limiting alkali is neutralised, so the peak temperature marks the exact neutralisation point.",
+        "cn": "【核心考点】恰好完全中和的终点（所有 OH⁻ 刚好与 H⁺ 反应完毕） 为正确选项。中和反应持续放热使温度不断上升，当碱恰好完全反应耗尽时释放总热量最多，温度达到最高峰值。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Confusion Trap]: The point where the reaction becomes endothermic does not match the chemical principle tested. The correct answer is A) The exact point of complete neutralisation (all OH⁻ has just reacted with H⁺).",
+        "cn": "【易混辨析】“反应转变为吸热反应的转折点”不符合本题考查的化学规律。正确答案应为 A) 恰好完全中和的终点（所有 OH⁻ 刚好与 H⁺ 反应完毕）。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Confusion Trap]: The boiling point of sodium chloride does not match the chemical principle tested. The correct answer is A) The exact point of complete neutralisation (all OH⁻ has just reacted with H⁺).",
+        "cn": "【易混辨析】“氯化钠的沸点”不符合本题考查的化学规律。正确答案应为 A) 恰好完全中和的终点（所有 OH⁻ 刚好与 H⁺ 反应完毕）。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Confusion Trap]: The moment when no water has formed yet does not match the chemical principle tested. The correct answer is A) The exact point of complete neutralisation (all OH⁻ has just reacted with H⁺).",
+        "cn": "【易混辨析】“还没有生成水的时刻”不符合本题考查的化学规律。正确答案应为 A) 恰好完全中和的终点（所有 OH⁻ 刚好与 H⁺ 反应完毕）。",
+        "correct": false
+      }
+    },
+    "examiner_keywords": [
+      "exothermic",
+      "peak temperature",
+      "exact neutralisation point"
+    ]
+  },
+  {
+    "id": "CHEM_U2_WB_L9_02",
+    "lesson_id": 36,
+    "lesson_title_en": "Lesson 36: Characteristic Reactions & Equations",
+    "lesson_title_cn": "第36课：酸碱特征反应与方程式",
+    "workbook_unit": "Lesson 9",
+    "task_code": "Curve Cooling Phase",
+    "task_title_en": "Why Temperature Drops After the Neutralisation Peak",
+    "task_title_cn": "超过最高温度点后温度下降的原因",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "source_tag": "workbook_pdf",
+    "citation_textbook": "《G8_U2_Acids_and_Bases_Workbook_PDF.pdf》 p.80 & 《U2_Acids_and_Bases_Student_PPT.pptx》 Slide 88 (Lesson 9 Neutralisation Curve)",
+    "prompt_en": "After the peak temperature is reached in an HCl + NaOH thermometric titration, continuing to add more room-temperature HCl causes the temperature to fall. Why?\nA) No further neutralisation reaction occurs (no more heat is released), and the excess cooler HCl cools/dilutes the warm mixture\nB) Excess HCl causes an endothermic freezing reaction\nC) Sodium chloride absorbs all the heat and turns solid\nD) Water molecules break back into H⁺ and OH⁻",
+    "prompt_cn": "在 HCl + NaOH 测温中和实验中，越过最高温度点后继续加入室温稀盐酸，混合液温度为何反而下降？\nA) 中和反应已经结束不再放热，继续加入的较冷过量稀盐酸冷却稀释了温热混合液\nB) 过量盐酸引发了吸热结冰反应\nC) 氯化钠吸收热量变成固体\nD) 水分子重新分解回 H⁺ 和 OH⁻",
+    "stem_en": "After the peak temperature is reached in an HCl + NaOH thermometric titration, continuing to add more room-temperature HCl causes the temperature to fall. Why?",
+    "stem_cn": "在 HCl + NaOH 测温中和实验中，越过最高温度点后继续加入室温稀盐酸，混合液温度为何反而下降？",
+    "options": [
+      {
+        "letter": "A",
+        "text_en": "No further neutralisation reaction occurs (no more heat is released), and the excess cooler HCl cools/dilutes the warm mixture",
+        "text_cn": "中和反应已经结束不再放热，继续加入的较冷过量稀盐酸冷却稀释了温热混合液"
+      },
+      {
+        "letter": "B",
+        "text_en": "Excess HCl causes an endothermic freezing reaction",
+        "text_cn": "过量盐酸引发了吸热结冰反应"
+      },
+      {
+        "letter": "C",
+        "text_en": "Sodium chloride absorbs all the heat and turns solid",
+        "text_cn": "氯化钠吸收热量变成固体"
+      },
+      {
+        "letter": "D",
+        "text_en": "Water molecules break back into H⁺ and OH⁻",
+        "text_cn": "水分子重新分解回 H⁺ 和 OH⁻"
+      }
+    ],
+    "correct_letter": "A",
+    "answer_en": "A) No further neutralisation reaction occurs (no more heat is released), and the excess cooler HCl cools/dilutes the warm mixture",
+    "answer_cn": "A) 中和反应已经结束不再放热，继续加入的较冷过量稀盐酸冷却稀释了温热混合液",
+    "rationale_en": "Once all OH⁻ is used up, adding extra room-temperature acid produces no more exothermic heat and cools the mixture while heat also dissipates to surroundings.",
+    "rationale_cn": "碱已耗尽不再放热，加入的室温过量酸液与散热共同导致混合液温度下降。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Key Criteria]: No further neutralisation reaction occurs (no more heat is released), and the excess cooler HCl cools/dilutes the warm mixture is correct. Once all OH⁻ is used up, adding extra room-temperature acid produces no more exothermic heat and cools the mixture while heat also dissipates to surroundings.",
+        "cn": "【核心考点】中和反应已经结束不再放热，继续加入的较冷过量稀盐酸冷却稀释了温热混合液 为正确选项。碱已耗尽不再放热，加入的室温过量酸液与散热共同导致混合液温度下降。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Confusion Trap]: Excess HCl causes an endothermic freezing reaction does not match the chemical principle tested. The correct answer is A) No further neutralisation reaction occurs (no more heat is released), and the excess cooler HCl cools/dilutes the warm mixture.",
+        "cn": "【易混辨析】“过量盐酸引发了吸热结冰反应”不符合本题考查的化学规律。正确答案应为 A) 中和反应已经结束不再放热，继续加入的较冷过量稀盐酸冷却稀释了温热混合液。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Confusion Trap]: Sodium chloride absorbs all the heat and turns solid does not match the chemical principle tested. The correct answer is A) No further neutralisation reaction occurs (no more heat is released), and the excess cooler HCl cools/dilutes the warm mixture.",
+        "cn": "【易混辨析】“氯化钠吸收热量变成固体”不符合本题考查的化学规律。正确答案应为 A) 中和反应已经结束不再放热，继续加入的较冷过量稀盐酸冷却稀释了温热混合液。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Confusion Trap]: Water molecules break back into H⁺ and OH⁻ does not match the chemical principle tested. The correct answer is A) No further neutralisation reaction occurs (no more heat is released), and the excess cooler HCl cools/dilutes the warm mixture.",
+        "cn": "【易混辨析】“水分子重新分解回 H⁺ 和 OH⁻”不符合本题考查的化学规律。正确答案应为 A) 中和反应已经结束不再放热，继续加入的较冷过量稀盐酸冷却稀释了温热混合液。",
+        "correct": false
+      }
+    },
+    "examiner_keywords": [
+      "reaction finished",
+      "no more heat released",
+      "excess cooler acid"
+    ]
+  },
+  {
+    "id": "CHEM_U2_WB_L9_03",
+    "lesson_id": 36,
+    "lesson_title_en": "Lesson 36: Characteristic Reactions & Equations",
+    "lesson_title_cn": "第36课：酸碱特征反应与方程式",
+    "workbook_unit": "Lesson 9",
+    "task_code": "Task 9.1 Part C",
+    "task_title_en": "Balanced Symbol Equation: H₂SO₄ + KOH",
+    "task_title_cn": "稀硫酸与氢氧化钾配平方程式",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "source_tag": "workbook_pdf",
+    "citation_textbook": "《G8_U2_Acids_and_Bases_Workbook_PDF.pdf》 p.87 (Lesson 9 Task 9.1 Part C Q1)",
+    "prompt_en": "Which balanced symbol equation represents the neutralisation of sulfuric acid with potassium hydroxide?\nA) H₂SO₄ + KOH → KSO₄ + H₂O\nB) H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O\nC) 2H₂SO₄ + KOH → K₂SO₄ + 2H₂O\nD) H₂SO₄ + 2KOH → K₂SO₄ + H₂",
+    "prompt_cn": "哪一个配平符号方程式正确表示硫酸与氢氧化钾的中和反应？\nA) H₂SO₄ + KOH → KSO₄ + H₂O\nB) H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O\nC) 2H₂SO₄ + KOH → K₂SO₄ + 2H₂O\nD) H₂SO₄ + 2KOH → K₂SO₄ + H₂",
+    "stem_en": "Which balanced symbol equation represents the neutralisation of sulfuric acid with potassium hydroxide?",
+    "stem_cn": "哪一个配平符号方程式正确表示硫酸与氢氧化钾的中和反应？",
+    "options": [
+      {
+        "letter": "A",
+        "text_en": "H₂SO₄ + KOH → KSO₄ + H₂O",
+        "text_cn": "H₂SO₄ + KOH → KSO₄ + H₂O"
+      },
+      {
+        "letter": "B",
+        "text_en": "H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O",
+        "text_cn": "H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O"
+      },
+      {
+        "letter": "C",
+        "text_en": "2H₂SO₄ + KOH → K₂SO₄ + 2H₂O",
+        "text_cn": "2H₂SO₄ + KOH → K₂SO₄ + 2H₂O"
+      },
+      {
+        "letter": "D",
+        "text_en": "H₂SO₄ + 2KOH → K₂SO₄ + H₂",
+        "text_cn": "H₂SO₄ + 2KOH → K₂SO₄ + H₂"
+      }
+    ],
+    "correct_letter": "B",
+    "answer_en": "B) H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O",
+    "answer_cn": "B) H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O",
+    "rationale_en": "SO₄²⁻ requires two K⁺ ions (K₂SO₄), so 2KOH reacts with 1 H₂SO₄ to form K₂SO₄ and 2H₂O.",
+    "rationale_cn": "硫酸根为 −2 价，硫酸钾为 K₂SO₄，需配平 2KOH 和 2H₂O。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Confusion Trap]: H₂SO₄ + KOH → KSO₄ + H₂O does not match the chemical principle tested. The correct answer is B) H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O.",
+        "cn": "【易混辨析】“H₂SO₄ + KOH → KSO₄ + H₂O”不符合本题考查的化学规律。正确答案应为 B) H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O。",
+        "correct": false
+      },
+      "B": {
+        "en": "[Key Criteria]: H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O is correct. SO₄²⁻ requires two K⁺ ions (K₂SO₄), so 2KOH reacts with 1 H₂SO₄ to form K₂SO₄ and 2H₂O.",
+        "cn": "【核心考点】H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O 为正确选项。硫酸根为 −2 价，硫酸钾为 K₂SO₄，需配平 2KOH 和 2H₂O。",
+        "correct": true
+      },
+      "C": {
+        "en": "[Confusion Trap]: 2H₂SO₄ + KOH → K₂SO₄ + 2H₂O does not match the chemical principle tested. The correct answer is B) H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O.",
+        "cn": "【易混辨析】“2H₂SO₄ + KOH → K₂SO₄ + 2H₂O”不符合本题考查的化学规律。正确答案应为 B) H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Confusion Trap]: H₂SO₄ + 2KOH → K₂SO₄ + H₂ does not match the chemical principle tested. The correct answer is B) H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O.",
+        "cn": "【易混辨析】“H₂SO₄ + 2KOH → K₂SO₄ + H₂”不符合本题考查的化学规律。正确答案应为 B) H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O。",
+        "correct": false
+      }
+    },
+    "examiner_keywords": [
+      "H₂SO₄ + 2KOH → K₂SO₄ + 2H₂O"
+    ]
+  },
+  {
+    "id": "CHEM_U2_WB_L9_04",
+    "lesson_id": 36,
+    "lesson_title_en": "Lesson 36: Characteristic Reactions & Equations",
+    "lesson_title_cn": "第36课：酸碱特征反应与方程式",
+    "workbook_unit": "Lesson 9",
+    "task_code": "Task 9.2 Q5-Q6",
+    "task_title_en": "Particle Neutrality & Exothermic Temperature Rise",
+    "task_title_cn": "中和反应粒子中性解释与测温实验",
+    "game_type": "structured",
+    "game_type_cn": "结构化简答 / 方程式专练",
+    "source_tag": "workbook_pdf",
+    "citation_textbook": "《G8_U2_Acids_and_Bases_Workbook_PDF.pdf》 p.89 (Lesson 9 Questions 5 & 6)",
+    "prompt_en": "(a) Explain at the particle level why mixing exact amounts of dilute acid and alkali produces a neutral (pH 7) solution. Use the terms H⁺, OH⁻, and water molecules. [2]\n(b) A student mixes acid and alkali in a polystyrene cup. State what happens to the temperature and explain why a polystyrene cup is better than a glass beaker. [2]",
+    "prompt_cn": "(a) 从粒子层面解释为何等当量酸碱混合后呈中性（pH 7），必须用到 H⁺、OH⁻ 和水分子。[2]\n(b) 某同学在聚苯乙烯泡沫杯中混合酸碱，说明温度变化并解释为何泡沫杯比玻璃烧杯更适合该实验。[2]",
+    "answer_en": "(a) Acidic H⁺ ions combine with alkaline OH⁻ ions to form neutral water molecules (H⁺ + OH⁻ → H₂O), leaving no excess free H⁺ or OH⁻ ions so pH = 7.\n(b) Temperature rises (exothermic reaction). A polystyrene cup is a good thermal insulator, reducing heat loss to the surroundings for a more accurate maximum temperature.",
+    "answer_cn": "(a) 酸中的 H⁺ 与碱中的 OH⁻ 结合生成中性水分子（H⁺ + OH⁻ → H₂O），溶液中不再有过量游离 H⁺ 或 OH⁻，故 pH 为 7。\n(b) 温度升高（放热反应）；聚苯乙烯泡沫杯隔热性能好，可减少热量散失，使测得的最高温度更准确。",
+    "rationale_en": "Polystyrene cup = thermal insulator reducing heat loss — classic IGCSE ATP experimental design mark.",
+    "rationale_cn": "泡沫杯作隔热容器减少热量散失，是 IGCSE 实验设计（ATP）必考得分点。",
+    "marks": 4,
+    "examiner_keywords": [
+      "H⁺ + OH⁻ → H₂O",
+      "no excess H⁺ or OH⁻",
+      "temperature rises / exothermic",
+      "insulator / reduces heat loss"
+    ],
+    "mark_scheme": [
+      "H⁺ and OH⁻ combine to form neutral water molecules [1]",
+      "No excess H⁺ or OH⁻ ions remain (so pH = 7) [1]",
+      "Temperature increases because neutralisation is exothermic [1]",
+      "Polystyrene is an insulator that minimises heat loss to surroundings [1]"
+    ]
+  },
+  {
+    "id": "CHEM_U2_WB_L15_01",
+    "lesson_id": 38,
+    "lesson_title_en": "Lesson 38: Volumetric Analysis & Experimental Skills",
+    "lesson_title_cn": "第38课：酸碱滴定与实验技能",
+    "workbook_unit": "Lesson 15",
+    "task_code": "Water Test CoCl₂",
+    "task_title_en": "Anhydrous Cobalt(II) Chloride Water Test",
+    "task_title_cn": "无水氯化钴检验水的变色规律",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "source_tag": "workbook_pdf",
+    "citation_textbook": "《G8_U2_Acids_and_Bases_Workbook_PDF.pdf》 p.128 (Lesson 15 Practical Assessment Notes)",
+    "prompt_en": "A strip of dry anhydrous cobalt(II) chloride paper is touched to a drop of liquid containing water. What colour change is observed?\nA) White to blue\nB) Blue to pink\nC) Pink to blue\nD) Green to purple",
+    "prompt_cn": "将干燥的无水氯化钴（anhydrous cobalt(II) chloride）试纸接触含水液滴，观察到什么颜色变化？\nA) 白色变蓝色\nB) 蓝色变粉红色\nC) 粉红色变蓝色\nD) 绿色变紫色",
+    "stem_en": "A strip of dry anhydrous cobalt(II) chloride paper is touched to a drop of liquid containing water. What colour change is observed?",
+    "stem_cn": "将干燥的无水氯化钴（anhydrous cobalt(II) chloride）试纸接触含水液滴，观察到什么颜色变化？",
+    "options": [
+      {
+        "letter": "A",
+        "text_en": "White to blue",
+        "text_cn": "白色变蓝色"
+      },
+      {
+        "letter": "B",
+        "text_en": "Blue to pink",
+        "text_cn": "蓝色变粉红色"
+      },
+      {
+        "letter": "C",
+        "text_en": "Pink to blue",
+        "text_cn": "粉红色变蓝色"
+      },
+      {
+        "letter": "D",
+        "text_en": "Green to purple",
+        "text_cn": "绿色变紫色"
+      }
+    ],
+    "correct_letter": "B",
+    "answer_en": "B) Blue to pink",
+    "answer_cn": "B) 蓝色变粉红色",
+    "rationale_en": "Anhydrous cobalt(II) chloride turns BLUE → PINK in the presence of water (whereas anhydrous copper(II) sulfate turns WHITE → BLUE).",
+    "rationale_cn": "无水氯化钴遇水由【蓝色变粉红色】；切勿与无水硫酸铜（白色变蓝色）记混！",
+    "options_breakdown": {
+      "A": {
+        "en": "[Confusion Trap]: White to blue does not match the chemical principle tested. The correct answer is B) Blue to pink.",
+        "cn": "【易混辨析】“白色变蓝色”不符合本题考查的化学规律。正确答案应为 B) 蓝色变粉红色。",
+        "correct": false
+      },
+      "B": {
+        "en": "[Key Criteria]: Blue to pink is correct. Anhydrous cobalt(II) chloride turns BLUE → PINK in the presence of water (whereas anhydrous copper(II) sulfate turns WHITE → BLUE).",
+        "cn": "【核心考点】蓝色变粉红色 为正确选项。无水氯化钴遇水由【蓝色变粉红色】；切勿与无水硫酸铜（白色变蓝色）记混！",
+        "correct": true
+      },
+      "C": {
+        "en": "[Confusion Trap]: Pink to blue does not match the chemical principle tested. The correct answer is B) Blue to pink.",
+        "cn": "【易混辨析】“粉红色变蓝色”不符合本题考查的化学规律。正确答案应为 B) 蓝色变粉红色。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Confusion Trap]: Green to purple does not match the chemical principle tested. The correct answer is B) Blue to pink.",
+        "cn": "【易混辨析】“绿色变紫色”不符合本题考查的化学规律。正确答案应为 B) 蓝色变粉红色。",
+        "correct": false
+      }
+    },
+    "examiner_keywords": [
+      "anhydrous cobalt(II) chloride",
+      "blue to pink"
+    ]
+  },
+  {
+    "id": "CHEM_U2_WB_L15_02",
+    "lesson_id": 38,
+    "lesson_title_en": "Lesson 38: Volumetric Analysis & Experimental Skills",
+    "lesson_title_cn": "第38课：酸碱滴定与实验技能",
+    "workbook_unit": "Lesson 15",
+    "task_code": "Hydrated vs Anhydrous",
+    "task_title_en": "Reversible Hydration of Copper(II) Sulfate",
+    "task_title_cn": "五水硫酸铜的可逆失水与吸水",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "source_tag": "workbook_pdf",
+    "citation_textbook": "《G8_U2_Acids_and_Bases_Workbook_PDF.pdf》 pp.119 & 128 (Lessons 13 & 15 Hydrated Salts)",
+    "prompt_en": "Blue hydrated copper(II) sulfate crystals (CuSO₄·5H₂O) are heated strongly until a white powder forms. What happens when a few drops of water are added back to the cooled white powder?\nA) It turns back to blue and releases heat (reversible exothermic hydration)\nB) It stays white permanently because the change is irreversible\nC) It bursts into flames producing hydrogen\nD) It turns into black copper(II) oxide",
+    "prompt_cn": "将蓝色五水硫酸铜晶体强热至变为白色无水粉末，冷却后滴回几滴水会发生什么？\nA) 重新变回蓝色并放出热量（可逆放热水合反应）\nB) 永久保持白色，因为变化不可逆\nC) 剧烈燃烧放出氢气\nD) 变成黑色氧化铜",
+    "stem_en": "Blue hydrated copper(II) sulfate crystals (CuSO₄·5H₂O) are heated strongly until a white powder forms. What happens when a few drops of water are added back to the cooled white powder?",
+    "stem_cn": "将蓝色五水硫酸铜晶体强热至变为白色无水粉末，冷却后滴回几滴水会发生什么？",
+    "options": [
+      {
+        "letter": "A",
+        "text_en": "It turns back to blue and releases heat (reversible exothermic hydration)",
+        "text_cn": "重新变回蓝色并放出热量（可逆放热水合反应）"
+      },
+      {
+        "letter": "B",
+        "text_en": "It stays white permanently because the change is irreversible",
+        "text_cn": "永久保持白色，因为变化不可逆"
+      },
+      {
+        "letter": "C",
+        "text_en": "It bursts into flames producing hydrogen",
+        "text_cn": "剧烈燃烧放出氢气"
+      },
+      {
+        "letter": "D",
+        "text_en": "It turns into black copper(II) oxide",
+        "text_cn": "变成黑色氧化铜"
+      }
+    ],
+    "correct_letter": "A",
+    "answer_en": "A) It turns back to blue and releases heat (reversible exothermic hydration)",
+    "answer_cn": "A) 重新变回蓝色并放出热量（可逆放热水合反应）",
+    "rationale_en": "CuSO₄·5H₂O(s) ⇌ CuSO₄(s) + 5H₂O(l). Adding water back to white anhydrous CuSO₄ turns it blue again and gives out heat.",
+    "rationale_cn": "五水硫酸铜失水/吸水是经典可逆反应：白色无水硫酸铜遇水变蓝并放热。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Key Criteria]: It turns back to blue and releases heat (reversible exothermic hydration) is correct. CuSO₄·5H₂O(s) ⇌ CuSO₄(s) + 5H₂O(l). Adding water back to white anhydrous CuSO₄ turns it blue again and gives out heat.",
+        "cn": "【核心考点】重新变回蓝色并放出热量（可逆放热水合反应） 为正确选项。五水硫酸铜失水/吸水是经典可逆反应：白色无水硫酸铜遇水变蓝并放热。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Confusion Trap]: It stays white permanently because the change is irreversible does not match the chemical principle tested. The correct answer is A) It turns back to blue and releases heat (reversible exothermic hydration).",
+        "cn": "【易混辨析】“永久保持白色，因为变化不可逆”不符合本题考查的化学规律。正确答案应为 A) 重新变回蓝色并放出热量（可逆放热水合反应）。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Confusion Trap]: It bursts into flames producing hydrogen does not match the chemical principle tested. The correct answer is A) It turns back to blue and releases heat (reversible exothermic hydration).",
+        "cn": "【易混辨析】“剧烈燃烧放出氢气”不符合本题考查的化学规律。正确答案应为 A) 重新变回蓝色并放出热量（可逆放热水合反应）。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Confusion Trap]: It turns into black copper(II) oxide does not match the chemical principle tested. The correct answer is A) It turns back to blue and releases heat (reversible exothermic hydration).",
+        "cn": "【易混辨析】“变成黑色氧化铜”不符合本题考查的化学规律。正确答案应为 A) 重新变回蓝色并放出热量（可逆放热水合反应）。",
+        "correct": false
+      }
+    },
+    "examiner_keywords": [
+      "hydrated",
+      "anhydrous",
+      "white to blue",
+      "reversible"
+    ]
+  },
+  {
+    "id": "CHEM_U2_WB_L15_03",
+    "lesson_id": 38,
+    "lesson_title_en": "Lesson 38: Volumetric Analysis & Experimental Skills",
+    "lesson_title_cn": "第38课：酸碱滴定与实验技能",
+    "workbook_unit": "Lesson 15",
+    "task_code": "Water Purity Evaluation",
+    "task_title_en": "Distinguishing Impure Water by Boiling Point",
+    "task_title_cn": "沸点 102°C 判定水不纯",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "source_tag": "workbook_pdf",
+    "citation_textbook": "《G8_U2_Acids_and_Bases_Workbook_PDF.pdf》 p.128 (Lesson 15 Practical Assessment Notes)",
+    "prompt_en": "A clear liquid turns anhydrous copper(II) sulfate from white to blue, but boils at 102°C at 1 atm. Which conclusion is scientifically valid?\nA) The liquid contains water, but it is impure (contains dissolved solutes raising the boiling point)\nB) The liquid is 100% pure water because it turned copper(II) sulfate blue\nC) The liquid contains no water\nD) The thermometer must be measuring freezing point",
+    "prompt_cn": "某无色澄清液体能使无水硫酸铜白变蓝，但在 1 标准大气压下沸点为 102°C。哪一项结论科学严谨？\nA) 该液体含有水，但不纯（含有溶解杂质使沸点升高至 100°C 以上）\nB) 该液体是 100% 纯水，因为它使硫酸铜变蓝\nC) 该液体完全不含水\nD) 温度计测的是冰点",
+    "stem_en": "A clear liquid turns anhydrous copper(II) sulfate from white to blue, but boils at 102°C at 1 atm. Which conclusion is scientifically valid?",
+    "stem_cn": "某无色澄清液体能使无水硫酸铜白变蓝，但在 1 标准大气压下沸点为 102°C。哪一项结论科学严谨？",
+    "options": [
+      {
+        "letter": "A",
+        "text_en": "The liquid contains water, but it is impure (contains dissolved solutes raising the boiling point)",
+        "text_cn": "该液体含有水，但不纯（含有溶解杂质使沸点升高至 100°C 以上）"
+      },
+      {
+        "letter": "B",
+        "text_en": "The liquid is 100% pure water because it turned copper(II) sulfate blue",
+        "text_cn": "该液体是 100% 纯水，因为它使硫酸铜变蓝"
+      },
+      {
+        "letter": "C",
+        "text_en": "The liquid contains no water",
+        "text_cn": "该液体完全不含水"
+      },
+      {
+        "letter": "D",
+        "text_en": "The thermometer must be measuring freezing point",
+        "text_cn": "温度计测的是冰点"
+      }
+    ],
+    "correct_letter": "A",
+    "answer_en": "A) The liquid contains water, but it is impure (contains dissolved solutes raising the boiling point)",
+    "answer_cn": "A) 该液体含有水，但不纯（含有溶解杂质使沸点升高至 100°C 以上）",
+    "rationale_en": "Chemical tests (CuSO₄/CoCl₂) only prove PRESENCE of water; dissolved impurities raise the boiling point above 100°C (and lower melting point below 0°C).",
+    "rationale_cn": "化学检验只证明“有水”；纯水在 1 atm 下沸点恒为 100°C，杂质会使沸点升高、熔点降低。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Key Criteria]: The liquid contains water, but it is impure (contains dissolved solutes raising the boiling point) is correct. Chemical tests (CuSO₄/CoCl₂) only prove PRESENCE of water; dissolved impurities raise the boiling point above 100°C (and lower melting point below 0°C).",
+        "cn": "【核心考点】该液体含有水，但不纯（含有溶解杂质使沸点升高至 100°C 以上） 为正确选项。化学检验只证明“有水”；纯水在 1 atm 下沸点恒为 100°C，杂质会使沸点升高、熔点降低。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Confusion Trap]: The liquid is 100% pure water because it turned copper(II) sulfate blue does not match the chemical principle tested. The correct answer is A) The liquid contains water, but it is impure (contains dissolved solutes raising the boiling point).",
+        "cn": "【易混辨析】“该液体是 100% 纯水，因为它使硫酸铜变蓝”不符合本题考查的化学规律。正确答案应为 A) 该液体含有水，但不纯（含有溶解杂质使沸点升高至 100°C 以上）。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Confusion Trap]: The liquid contains no water does not match the chemical principle tested. The correct answer is A) The liquid contains water, but it is impure (contains dissolved solutes raising the boiling point).",
+        "cn": "【易混辨析】“该液体完全不含水”不符合本题考查的化学规律。正确答案应为 A) 该液体含有水，但不纯（含有溶解杂质使沸点升高至 100°C 以上）。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Confusion Trap]: The thermometer must be measuring freezing point does not match the chemical principle tested. The correct answer is A) The liquid contains water, but it is impure (contains dissolved solutes raising the boiling point).",
+        "cn": "【易混辨析】“温度计测的是冰点”不符合本题考查的化学规律。正确答案应为 A) 该液体含有水，但不纯（含有溶解杂质使沸点升高至 100°C 以上）。",
+        "correct": false
+      }
+    },
+    "examiner_keywords": [
+      "presence vs purity",
+      "boils at 100°C",
+      "impure raises boiling point"
+    ]
+  },
+  {
+    "id": "CHEM_U2_WB_L15_04",
+    "lesson_id": 38,
+    "lesson_title_en": "Lesson 38: Volumetric Analysis & Experimental Skills",
+    "lesson_title_cn": "第38课：酸碱滴定与实验技能",
+    "workbook_unit": "Lesson 15",
+    "task_code": "Practical Water Assessment",
+    "task_title_en": "Chemical Presence Test vs Physical Purity Test for Water",
+    "task_title_cn": "水的化学存在检验与物理纯度检验综合题",
+    "game_type": "structured",
+    "game_type_cn": "结构化简答 / 方程式专练",
+    "source_tag": "workbook_pdf",
+    "citation_textbook": "《G8_U2_Acids_and_Bases_Workbook_PDF.pdf》 p.128 (Lesson 15 Practical Assessment Notes)",
+    "prompt_en": "A colourless liquid collects in a delivery tube during a salt heating experiment.\n(a) Describe TWO different chemical tests to show the liquid contains water, giving the colour change for each. [2]\n(b) Explain why those chemical tests CANNOT prove the liquid is pure water, and state the physical test that confirms purity. [2]",
+    "prompt_cn": "在加热结晶水合物实验中导管口收集到无色液体。\n(a) 写出两种不同的化学检验法证明其含水，并给出各自颜色变化。[2]\n(b) 解释为何上述化学法不能证明是“纯水”，并写出确证纯水的物理方法。[2]",
+    "answer_en": "(a) Test 1: White anhydrous copper(II) sulfate turns blue. Test 2: Blue anhydrous cobalt(II) chloride turns pink.\n(b) Any aqueous mixture (e.g. salt water) also contains water molecules and gives the same colour change. To prove purity, measure its boiling point at 1 atm → pure water boils sharply at exactly 100°C (or melts sharply at 0°C).",
+    "answer_cn": "(a) 方法一：白色无水硫酸铜变蓝；方法二：蓝色无水氯化钴变粉红。\n(b) 任何含水混合物（如盐水）都会引起同样变色；要证明是纯水需在 1 atm 下测得精确恒定沸点 100°C（或熔点 0°C）。",
+    "rationale_en": "Always separate 'chemical test for presence' from 'physical constant (b.p. 100°C / m.p. 0°C) for purity'.",
+    "rationale_cn": "牢记区分：化学法测“存在”，物理常数（沸点 100°C / 熔点 0°C）测“纯度”。",
+    "marks": 4,
+    "examiner_keywords": [
+      "white to blue",
+      "blue to pink",
+      "boils sharply at 100°C",
+      "presence vs purity"
+    ],
+    "mark_scheme": [
+      "Anhydrous CuSO₄: white → blue [1]",
+      "Anhydrous CoCl₂: blue → pink [1]",
+      "Impure aqueous solutions also turn CuSO₄/CoCl₂ colour [1]",
+      "Pure water boils sharply at 100°C (or melts at 0°C) at 1 atm [1]"
+    ]
+  },
+  {
+    "id": "CHEM_U2_GAP_01",
+    "lesson_id": 34,
+    "lesson_title_en": "Lesson 34: Properties of Acids & Indicators",
+    "lesson_title_cn": "第34课：酸和碱的性质与指示剂显色",
+    "workbook_unit": "Lesson 1",
+    "task_code": "Safety & Hazards",
+    "task_title_en": "Hazard Symbols & Safe Dilution of Concentrated Acid",
+    "task_title_cn": "危险警示标志与浓酸稀释安全铁律",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "source_tag": "student_ppt",
+    "citation_textbook": "《U2_Acids_and_Bases_Student_PPT.pptx》 Slide 3 & 《G8_U2_Acids_and_Bases_Workbook_PDF.pdf》 pp.19, 135 (Laboratory Safety & Hazards)",
+    "prompt_en": "A bottle of concentrated sulfuric acid carries the 'Corrosive' hazard symbol (liquid dripping onto a hand and metal bar). Which safety rule is ESSENTIAL when diluting concentrated acid?\nA) Always wear safety goggles and slowly ADD ACID TO WATER while stirring\nB) Pour water quickly into concentrated acid so it cools down faster\nC) Taste a small drop to check if dilution is complete\nD) No goggles are needed once the acid is in a beaker",
+    "prompt_cn": "一瓶浓硫酸贴有“腐蚀性（Corrosive）”危险标志。在实验室稀释浓酸时，哪一条安全铁律必须严格遵守？\nA) 全程佩戴护目镜，搅拌下将“酸缓慢注入水中”（Add acid to water）\nB) 将水快速倒入浓酸中以加快冷却\nC) 尝一小滴确认是否稀释完毕\nD) 倒入烧杯后即可摘下护目镜",
+    "stem_en": "A bottle of concentrated sulfuric acid carries the 'Corrosive' hazard symbol (liquid dripping onto a hand and metal bar). Which safety rule is ESSENTIAL when diluting concentrated acid?",
+    "stem_cn": "一瓶浓硫酸贴有“腐蚀性（Corrosive）”危险标志。在实验室稀释浓酸时，哪一条安全铁律必须严格遵守？",
+    "options": [
+      {
+        "letter": "A",
+        "text_en": "Always wear safety goggles and slowly ADD ACID TO WATER while stirring",
+        "text_cn": "全程佩戴护目镜，搅拌下将“酸缓慢注入水中”（Add acid to water）"
+      },
+      {
+        "letter": "B",
+        "text_en": "Pour water quickly into concentrated acid so it cools down faster",
+        "text_cn": "将水快速倒入浓酸中以加快冷却"
+      },
+      {
+        "letter": "C",
+        "text_en": "Taste a small drop to check if dilution is complete",
+        "text_cn": "尝一小滴确认是否稀释完毕"
+      },
+      {
+        "letter": "D",
+        "text_en": "No goggles are needed once the acid is in a beaker",
+        "text_cn": "倒入烧杯后即可摘下护目镜"
+      }
+    ],
+    "correct_letter": "A",
+    "answer_en": "A) Always wear safety goggles and slowly ADD ACID TO WATER while stirring",
+    "answer_cn": "A) 全程佩戴护目镜，搅拌下将“酸缓慢注入水中”（Add acid to water）",
+    "rationale_en": "Diluting concentrated acid is highly exothermic. Adding acid slowly to a large volume of water disperses heat safely; pouring water into acid causes violent boiling and corrosive splashing!",
+    "rationale_cn": "浓酸稀释剧烈放热，必须“酸入水（Add acid to water）”让大量水吸收热量；若水入酸会局部暴沸引起腐蚀性酸液飞溅！",
+    "options_breakdown": {
+      "A": {
+        "en": "[Key Criteria]: Always wear safety goggles and slowly ADD ACID TO WATER while stirring is correct. Diluting concentrated acid is highly exothermic. Adding acid slowly to a large volume of water disperses heat safely; pouring water into acid causes violent boiling and corrosive splashing!",
+        "cn": "【核心考点】全程佩戴护目镜，搅拌下将“酸缓慢注入水中”（Add acid to water） 为正确选项。浓酸稀释剧烈放热，必须“酸入水（Add acid to water）”让大量水吸收热量；若水入酸会局部暴沸引起腐蚀性酸液飞溅！",
+        "correct": true
+      },
+      "B": {
+        "en": "[Confusion Trap]: Pour water quickly into concentrated acid so it cools down faster does not match the chemical principle tested. The correct answer is A) Always wear safety goggles and slowly ADD ACID TO WATER while stirring.",
+        "cn": "【易混辨析】“将水快速倒入浓酸中以加快冷却”不符合本题考查的化学规律。正确答案应为 A) 全程佩戴护目镜，搅拌下将“酸缓慢注入水中”（Add acid to water）。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Confusion Trap]: Taste a small drop to check if dilution is complete does not match the chemical principle tested. The correct answer is A) Always wear safety goggles and slowly ADD ACID TO WATER while stirring.",
+        "cn": "【易混辨析】“尝一小滴确认是否稀释完毕”不符合本题考查的化学规律。正确答案应为 A) 全程佩戴护目镜，搅拌下将“酸缓慢注入水中”（Add acid to water）。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Confusion Trap]: No goggles are needed once the acid is in a beaker does not match the chemical principle tested. The correct answer is A) Always wear safety goggles and slowly ADD ACID TO WATER while stirring.",
+        "cn": "【易混辨析】“倒入烧杯后即可摘下护目镜”不符合本题考查的化学规律。正确答案应为 A) 全程佩戴护目镜，搅拌下将“酸缓慢注入水中”（Add acid to water）。",
+        "correct": false
+      }
+    },
+    "examiner_keywords": [
+      "corrosive",
+      "irritant",
+      "add acid to water",
+      "safety goggles"
+    ]
+  },
+  {
+    "id": "CHEM_U2_GAP_02",
+    "lesson_id": 36,
+    "lesson_title_en": "Lesson 36: Characteristic Reactions & Equations",
+    "lesson_title_cn": "第36课：酸碱特征反应与方程式",
+    "workbook_unit": "Lesson 9",
+    "task_code": "Everyday Neutralisation",
+    "task_title_en": "Treating Acidic Bee Stings vs Alkaline Wasp Stings",
+    "task_title_cn": "蜜蜂蛰伤与黄蜂蛰伤的中和急救",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "source_tag": "workbook_pdf",
+    "citation_textbook": "《G8_U2_Acids_and_Bases_Workbook_PDF.pdf》 p.80 & 《U2_Acids_and_Bases_Student_PPT.pptx》 Slide 85 (Lesson 9 Sting Science)",
+    "prompt_en": "Bee stings are acidic, whereas wasp stings are alkaline. Which pair of mild household remedies correctly neutralises each sting?\nA) Bee sting: baking soda (NaHCO₃, weak alkali) | Wasp sting: vinegar (ethanoic acid, weak acid)\nB) Bee sting: vinegar | Wasp sting: baking soda\nC) Bee sting: concentrated NaOH | Wasp sting: concentrated HCl\nD) Both stings should be treated with pure salt water",
+    "prompt_cn": "蜜蜂毒液呈酸性，而黄蜂毒液呈碱性。下列哪一组温和日常用品可分别正确中和两种蛰伤？\nA) 蜜蜂蛰伤：小苏打（NaHCO₃ 弱碱） | 黄蜂蛰伤：食醋（乙酸 弱酸）\nB) 蜜蜂蛰伤：食醋 | 黄蜂蛰伤：小苏打\nC) 蜜蜂蛰伤：浓氢氧化钠 | 黄蜂蛰伤：浓盐酸\nD) 两种蛰伤都用纯盐水",
+    "stem_en": "Bee stings are acidic, whereas wasp stings are alkaline. Which pair of mild household remedies correctly neutralises each sting?",
+    "stem_cn": "蜜蜂毒液呈酸性，而黄蜂毒液呈碱性。下列哪一组温和日常用品可分别正确中和两种蛰伤？",
+    "options": [
+      {
+        "letter": "A",
+        "text_en": "Bee sting: baking soda (NaHCO₃, weak alkali) | Wasp sting: vinegar (ethanoic acid, weak acid)",
+        "text_cn": "蜜蜂蛰伤：小苏打（NaHCO₃ 弱碱） | 黄蜂蛰伤：食醋（乙酸 弱酸）"
+      },
+      {
+        "letter": "B",
+        "text_en": "Bee sting: vinegar | Wasp sting: baking soda",
+        "text_cn": "蜜蜂蛰伤：食醋 | 黄蜂蛰伤：小苏打"
+      },
+      {
+        "letter": "C",
+        "text_en": "Bee sting: concentrated NaOH | Wasp sting: concentrated HCl",
+        "text_cn": "蜜蜂蛰伤：浓氢氧化钠 | 黄蜂蛰伤：浓盐酸"
+      },
+      {
+        "letter": "D",
+        "text_en": "Both stings should be treated with pure salt water",
+        "text_cn": "两种蛰伤都用纯盐水"
+      }
+    ],
+    "correct_letter": "A",
+    "answer_en": "A) Bee sting: baking soda (NaHCO₃, weak alkali) | Wasp sting: vinegar (ethanoic acid, weak acid)",
+    "answer_cn": "A) 蜜蜂蛰伤：小苏打（NaHCO₃ 弱碱） | 黄蜂蛰伤：食醋（乙酸 弱酸）",
+    "rationale_en": "Acidic bee stings are neutralised by a mild alkali (sodium hydrogencarbonate / baking soda); alkaline wasp stings are neutralised by a weak acid (vinegar). Never use strong corrosive lab chemicals on skin!",
+    "rationale_cn": "酸性蜜蜂蛰伤用弱碱（小苏打）中和，碱性黄蜂蛰伤用弱酸（食醋）中和；绝不能在皮肤上使用强酸或强碱。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Key Criteria]: Bee sting: baking soda (NaHCO₃, weak alkali) | Wasp sting: vinegar (ethanoic acid, weak acid) is correct. Acidic bee stings are neutralised by a mild alkali (sodium hydrogencarbonate / baking soda); alkaline wasp stings are neutralised by a weak acid (vinegar). Never use strong corrosive lab chemicals on skin!",
+        "cn": "【核心考点】蜜蜂蛰伤：小苏打（NaHCO₃ 弱碱） | 黄蜂蛰伤：食醋（乙酸 弱酸） 为正确选项。酸性蜜蜂蛰伤用弱碱（小苏打）中和，碱性黄蜂蛰伤用弱酸（食醋）中和；绝不能在皮肤上使用强酸或强碱。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Confusion Trap]: Bee sting: vinegar | Wasp sting: baking soda does not match the chemical principle tested. The correct answer is A) Bee sting: baking soda (NaHCO₃, weak alkali) | Wasp sting: vinegar (ethanoic acid, weak acid).",
+        "cn": "【易混辨析】“蜜蜂蛰伤：食醋 | 黄蜂蛰伤：小苏打”不符合本题考查的化学规律。正确答案应为 A) 蜜蜂蛰伤：小苏打（NaHCO₃ 弱碱） | 黄蜂蛰伤：食醋（乙酸 弱酸）。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Confusion Trap]: Bee sting: concentrated NaOH | Wasp sting: concentrated HCl does not match the chemical principle tested. The correct answer is A) Bee sting: baking soda (NaHCO₃, weak alkali) | Wasp sting: vinegar (ethanoic acid, weak acid).",
+        "cn": "【易混辨析】“蜜蜂蛰伤：浓氢氧化钠 | 黄蜂蛰伤：浓盐酸”不符合本题考查的化学规律。正确答案应为 A) 蜜蜂蛰伤：小苏打（NaHCO₃ 弱碱） | 黄蜂蛰伤：食醋（乙酸 弱酸）。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Confusion Trap]: Both stings should be treated with pure salt water does not match the chemical principle tested. The correct answer is A) Bee sting: baking soda (NaHCO₃, weak alkali) | Wasp sting: vinegar (ethanoic acid, weak acid).",
+        "cn": "【易混辨析】“两种蛰伤都用纯盐水”不符合本题考查的化学规律。正确答案应为 A) 蜜蜂蛰伤：小苏打（NaHCO₃ 弱碱） | 黄蜂蛰伤：食醋（乙酸 弱酸）。",
+        "correct": false
+      }
+    },
+    "examiner_keywords": [
+      "bee sting acidic",
+      "baking soda",
+      "wasp sting alkaline",
+      "vinegar"
+    ]
+  },
+  {
+    "id": "CHEM_U2_GAP_03",
+    "lesson_id": 36,
+    "lesson_title_en": "Lesson 36: Characteristic Reactions & Equations",
+    "lesson_title_cn": "第36课：酸碱特征反应与方程式",
+    "workbook_unit": "Lesson 2",
+    "task_code": "Antacids in Medicine",
+    "task_title_en": "Why Antacid Tablets Use Mild Bases Instead of NaOH",
+    "task_title_cn": "抗酸药中和胃酸的原理与选材安全",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "source_tag": "student_ppt",
+    "citation_textbook": "《U2_Acids_and_Bases_Student_PPT.pptx》 Slides 21, 58, 137 (Everyday Neutralisation: Antacids)",
+    "prompt_en": "Indigestion is caused by excess hydrochloric acid in the stomach. Why do antacid tablets contain mild bases like Mg(OH)₂, Al(OH)₃, or CaCO₃ rather than sodium hydroxide (NaOH)?\nA) NaOH is a strong corrosive alkali that would severely burn the oesophagus and stomach lining, whereas mild insoluble bases neutralise HCl safely\nB) NaOH cannot react with hydrochloric acid\nC) Mg(OH)₂ is a strong acid that dissolves food\nD) CaCO₃ turns stomach acid into sulfuric acid",
+    "prompt_cn": "消化不良由胃中过量盐酸引起。为什么抗酸药片选用氢氧化镁、氢氧化铝或碳酸钙等温和碱，而绝不使用氢氧化钠（NaOH）？\nA) NaOH 是强腐蚀性碱，会严重灼伤食道和胃黏膜；而温和弱碱/难溶碱能安全中和胃酸\nB) NaOH 不能与盐酸反应\nC) Mg(OH)₂ 是能消化食物的强酸\nD) CaCO₃ 会把胃酸变成硫酸",
+    "stem_en": "Indigestion is caused by excess hydrochloric acid in the stomach. Why do antacid tablets contain mild bases like Mg(OH)₂, Al(OH)₃, or CaCO₃ rather than sodium hydroxide (NaOH)?",
+    "stem_cn": "消化不良由胃中过量盐酸引起。为什么抗酸药片选用氢氧化镁、氢氧化铝或碳酸钙等温和碱，而绝不使用氢氧化钠（NaOH）？",
+    "options": [
+      {
+        "letter": "A",
+        "text_en": "NaOH is a strong corrosive alkali that would severely burn the oesophagus and stomach lining, whereas mild insoluble bases neutralise HCl safely",
+        "text_cn": "NaOH 是强腐蚀性碱，会严重灼伤食道和胃黏膜；而温和弱碱/难溶碱能安全中和胃酸"
+      },
+      {
+        "letter": "B",
+        "text_en": "NaOH cannot react with hydrochloric acid",
+        "text_cn": "NaOH 不能与盐酸反应"
+      },
+      {
+        "letter": "C",
+        "text_en": "Mg(OH)₂ is a strong acid that dissolves food",
+        "text_cn": "Mg(OH)₂ 是能消化食物的强酸"
+      },
+      {
+        "letter": "D",
+        "text_en": "CaCO₃ turns stomach acid into sulfuric acid",
+        "text_cn": "CaCO₃ 会把胃酸变成硫酸"
+      }
+    ],
+    "correct_letter": "A",
+    "answer_en": "A) NaOH is a strong corrosive alkali that would severely burn the oesophagus and stomach lining, whereas mild insoluble bases neutralise HCl safely",
+    "answer_cn": "A) NaOH 是强腐蚀性碱，会严重灼伤食道和胃黏膜；而温和弱碱/难溶碱能安全中和胃酸",
+    "rationale_en": "Antacids safely neutralise excess stomach HCl without causing corrosive alkali burns.",
+    "rationale_cn": "抗酸药需在安全中和胃酸的同时避免强碱腐蚀消化道。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Key Criteria]: NaOH is a strong corrosive alkali that would severely burn the oesophagus and stomach lining, whereas mild insoluble bases neutralise HCl safely is correct. Antacids safely neutralise excess stomach HCl without causing corrosive alkali burns.",
+        "cn": "【核心考点】NaOH 是强腐蚀性碱，会严重灼伤食道和胃黏膜；而温和弱碱/难溶碱能安全中和胃酸 为正确选项。抗酸药需在安全中和胃酸的同时避免强碱腐蚀消化道。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Confusion Trap]: NaOH cannot react with hydrochloric acid does not match the chemical principle tested. The correct answer is A) NaOH is a strong corrosive alkali that would severely burn the oesophagus and stomach lining, whereas mild insoluble bases neutralise HCl safely.",
+        "cn": "【易混辨析】“NaOH 不能与盐酸反应”不符合本题考查的化学规律。正确答案应为 A) NaOH 是强腐蚀性碱，会严重灼伤食道和胃黏膜；而温和弱碱/难溶碱能安全中和胃酸。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Confusion Trap]: Mg(OH)₂ is a strong acid that dissolves food does not match the chemical principle tested. The correct answer is A) NaOH is a strong corrosive alkali that would severely burn the oesophagus and stomach lining, whereas mild insoluble bases neutralise HCl safely.",
+        "cn": "【易混辨析】“Mg(OH)₂ 是能消化食物的强酸”不符合本题考查的化学规律。正确答案应为 A) NaOH 是强腐蚀性碱，会严重灼伤食道和胃黏膜；而温和弱碱/难溶碱能安全中和胃酸。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Confusion Trap]: CaCO₃ turns stomach acid into sulfuric acid does not match the chemical principle tested. The correct answer is A) NaOH is a strong corrosive alkali that would severely burn the oesophagus and stomach lining, whereas mild insoluble bases neutralise HCl safely.",
+        "cn": "【易混辨析】“CaCO₃ 会把胃酸变成硫酸”不符合本题考查的化学规律。正确答案应为 A) NaOH 是强腐蚀性碱，会严重灼伤食道和胃黏膜；而温和弱碱/难溶碱能安全中和胃酸。",
+        "correct": false
+      }
+    },
+    "examiner_keywords": [
+      "antacid",
+      "Mg(OH)₂",
+      "CaCO₃",
+      "corrosive NaOH"
+    ]
+  },
+  {
+    "id": "CHEM_U2_GAP_04",
+    "lesson_id": 36,
+    "lesson_title_en": "Lesson 36: Characteristic Reactions & Equations",
+    "lesson_title_cn": "第36课：酸碱特征反应与方程式",
+    "workbook_unit": "Lesson 2",
+    "task_code": "Soil Lime & Fertiliser Trap",
+    "task_title_en": "Neutralising Acidic Soil with Lime & Ammonium Fertiliser Warning",
+    "task_title_cn": "石灰改良酸性土壤与严禁混用铵态氮肥",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "source_tag": "student_ppt",
+    "citation_textbook": "《U2_Acids_and_Bases_Student_PPT.pptx》 Slides 21 & 59 & 《G8_U2_Acids_and_Bases_Workbook_PDF.pdf》 p.6 (Quicklime, Slaked Lime, Limestone)",
+    "prompt_en": "Farmers spread quicklime (CaO), slaked lime (Ca(OH)₂), or limestone (CaCO₃) to raise the pH of acidic soil. Why must farmers NOT apply slaked lime at the same time as ammonium fertilisers (e.g. NH₄NO₃)?\nA) The alkali reacts with ammonium ions to release ammonia gas (NH₃), causing nitrogen to escape and wasting the fertiliser\nB) It turns the soil into solid glass\nC) It produces explosive hydrogen gas in the field\nD) Slaked lime is an acid that cancels out limestone",
+    "prompt_cn": "农民施用生石灰（CaO）、熟石灰（Ca(OH)₂）或石灰石（CaCO₃）改良酸性土壤。为什么严禁将熟石灰与铵态氮肥（如硝酸铵）同时施用？\nA) 熟石灰（碱）会与铵态氮肥反应生成氨气（NH₃）挥发逸出，导致氮素流失、肥效大减\nB) 会把土壤变成固态玻璃\nC) 会在农田产生易爆氢气\nD) 熟石灰是酸，会抵消石灰石",
+    "stem_en": "Farmers spread quicklime (CaO), slaked lime (Ca(OH)₂), or limestone (CaCO₃) to raise the pH of acidic soil. Why must farmers NOT apply slaked lime at the same time as ammonium fertilisers (e.g. NH₄NO₃)?",
+    "stem_cn": "农民施用生石灰（CaO）、熟石灰（Ca(OH)₂）或石灰石（CaCO₃）改良酸性土壤。为什么严禁将熟石灰与铵态氮肥（如硝酸铵）同时施用？",
+    "options": [
+      {
+        "letter": "A",
+        "text_en": "The alkali reacts with ammonium ions to release ammonia gas (NH₃), causing nitrogen to escape and wasting the fertiliser",
+        "text_cn": "熟石灰（碱）会与铵态氮肥反应生成氨气（NH₃）挥发逸出，导致氮素流失、肥效大减"
+      },
+      {
+        "letter": "B",
+        "text_en": "It turns the soil into solid glass",
+        "text_cn": "会把土壤变成固态玻璃"
+      },
+      {
+        "letter": "C",
+        "text_en": "It produces explosive hydrogen gas in the field",
+        "text_cn": "会在农田产生易爆氢气"
+      },
+      {
+        "letter": "D",
+        "text_en": "Slaked lime is an acid that cancels out limestone",
+        "text_cn": "熟石灰是酸，会抵消石灰石"
+      }
+    ],
+    "correct_letter": "A",
+    "answer_en": "A) The alkali reacts with ammonium ions to release ammonia gas (NH₃), causing nitrogen to escape and wasting the fertiliser",
+    "answer_cn": "A) 熟石灰（碱）会与铵态氮肥反应生成氨气（NH₃）挥发逸出，导致氮素流失、肥效大减",
+    "rationale_en": "Ammonium salt + Alkali (Ca(OH)₂) → Salt + Water + NH₃(g). Losing NH₃ gas wastes essential nitrogen needed by crops!",
+    "rationale_cn": "铵盐 + 碱（熟石灰）→ 盐 + 水 + 氨气↑，氮元素以氨气形式白白跑掉导致肥效丧失！",
+    "options_breakdown": {
+      "A": {
+        "en": "[Key Criteria]: The alkali reacts with ammonium ions to release ammonia gas (NH₃), causing nitrogen to escape and wasting the fertiliser is correct. Ammonium salt + Alkali (Ca(OH)₂) → Salt + Water + NH₃(g). Losing NH₃ gas wastes essential nitrogen needed by crops!",
+        "cn": "【核心考点】熟石灰（碱）会与铵态氮肥反应生成氨气（NH₃）挥发逸出，导致氮素流失、肥效大减 为正确选项。铵盐 + 碱（熟石灰）→ 盐 + 水 + 氨气↑，氮元素以氨气形式白白跑掉导致肥效丧失！",
+        "correct": true
+      },
+      "B": {
+        "en": "[Confusion Trap]: It turns the soil into solid glass does not match the chemical principle tested. The correct answer is A) The alkali reacts with ammonium ions to release ammonia gas (NH₃), causing nitrogen to escape and wasting the fertiliser.",
+        "cn": "【易混辨析】“会把土壤变成固态玻璃”不符合本题考查的化学规律。正确答案应为 A) 熟石灰（碱）会与铵态氮肥反应生成氨气（NH₃）挥发逸出，导致氮素流失、肥效大减。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Confusion Trap]: It produces explosive hydrogen gas in the field does not match the chemical principle tested. The correct answer is A) The alkali reacts with ammonium ions to release ammonia gas (NH₃), causing nitrogen to escape and wasting the fertiliser.",
+        "cn": "【易混辨析】“会在农田产生易爆氢气”不符合本题考查的化学规律。正确答案应为 A) 熟石灰（碱）会与铵态氮肥反应生成氨气（NH₃）挥发逸出，导致氮素流失、肥效大减。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Confusion Trap]: Slaked lime is an acid that cancels out limestone does not match the chemical principle tested. The correct answer is A) The alkali reacts with ammonium ions to release ammonia gas (NH₃), causing nitrogen to escape and wasting the fertiliser.",
+        "cn": "【易混辨析】“熟石灰是酸，会抵消石灰石”不符合本题考查的化学规律。正确答案应为 A) 熟石灰（碱）会与铵态氮肥反应生成氨气（NH₃）挥发逸出，导致氮素流失、肥效大减。",
+        "correct": false
+      }
+    },
+    "examiner_keywords": [
+      "quicklime CaO",
+      "slaked lime Ca(OH)₂",
+      "limestone CaCO₃",
+      "ammonia loss"
+    ]
+  },
+  {
+    "id": "CHEM_U2_GAP_05",
+    "lesson_id": 34,
+    "lesson_title_en": "Lesson 34: Properties of Acids & Indicators",
+    "lesson_title_cn": "第34课：酸和碱的性质与指示剂显色",
+    "workbook_unit": "Lesson 2",
+    "task_code": "Task 2.3 Acid Rain",
+    "task_title_en": "Causes and Chemical Damage of Acid Rain",
+    "task_title_cn": "酸雨的成因气体与化学腐蚀",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "source_tag": "student_ppt",
+    "citation_textbook": "《U2_Acids_and_Bases_Student_PPT.pptx》 Slide 21 & 《G8_U2_Acids_and_Bases_Workbook_PDF.pdf》 pp.5, 37 (Task 2.3 Calcium Carbonate & Acid Rain)",
+    "prompt_en": "Clean rainwater has a pH of about 5.6 due to dissolved CO₂. Which pollutant gases from burning fossil fuels dissolve in rainwater to form ACID RAIN (pH < 5) that corrodes limestone/marble statues?\nA) Sulfur dioxide (SO₂) and nitrogen oxides (NOₓ)\nB) Hydrogen (H₂) and helium (He)\nC) Oxygen (O₂) and argon (Ar)\nD) Methane (CH₄) and neon (Ne)",
+    "prompt_cn": "洁净雨水因溶解 CO₂ 呈弱酸性（pH ≈ 5.6）。化石燃料燃烧排放的哪类污染气体溶于雨水形成酸雨（pH < 5）并腐蚀大理石/石灰石雕像？\nA) 二氧化硫（SO₂）和氮氧化物（NOₓ）\nB) 氢气（H₂）和氦气（He）\nC) 氧气（O₂）和氩气（Ar）\nD) 甲烷（CH₄）和氖气（Ne）",
+    "stem_en": "Clean rainwater has a pH of about 5.6 due to dissolved CO₂. Which pollutant gases from burning fossil fuels dissolve in rainwater to form ACID RAIN (pH < 5) that corrodes limestone/marble statues?",
+    "stem_cn": "洁净雨水因溶解 CO₂ 呈弱酸性（pH ≈ 5.6）。化石燃料燃烧排放的哪类污染气体溶于雨水形成酸雨（pH < 5）并腐蚀大理石/石灰石雕像？",
+    "options": [
+      {
+        "letter": "A",
+        "text_en": "Sulfur dioxide (SO₂) and nitrogen oxides (NOₓ)",
+        "text_cn": "二氧化硫（SO₂）和氮氧化物（NOₓ）"
+      },
+      {
+        "letter": "B",
+        "text_en": "Hydrogen (H₂) and helium (He)",
+        "text_cn": "氢气（H₂）和氦气（He）"
+      },
+      {
+        "letter": "C",
+        "text_en": "Oxygen (O₂) and argon (Ar)",
+        "text_cn": "氧气（O₂）和氩气（Ar）"
+      },
+      {
+        "letter": "D",
+        "text_en": "Methane (CH₄) and neon (Ne)",
+        "text_cn": "甲烷（CH₄）和氖气（Ne）"
+      }
+    ],
+    "correct_letter": "A",
+    "answer_en": "A) Sulfur dioxide (SO₂) and nitrogen oxides (NOₓ)",
+    "answer_cn": "A) 二氧化硫（SO₂）和氮氧化物（NOₓ）",
+    "rationale_en": "SO₂ and NOₓ are acidic non-metal oxides that dissolve in rainwater to form sulfurous/sulfuric and nitric acids, which react with CaCO₃ in limestone statues.",
+    "rationale_cn": "SO₂ 和 NOₓ 属于酸性非金属氧化物，溶于雨水形成酸雨，与大理石/石灰石（CaCO₃）反应造成严重腐蚀。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Key Criteria]: Sulfur dioxide (SO₂) and nitrogen oxides (NOₓ) is correct. SO₂ and NOₓ are acidic non-metal oxides that dissolve in rainwater to form sulfurous/sulfuric and nitric acids, which react with CaCO₃ in limestone statues.",
+        "cn": "【核心考点】二氧化硫（SO₂）和氮氧化物（NOₓ） 为正确选项。SO₂ 和 NOₓ 属于酸性非金属氧化物，溶于雨水形成酸雨，与大理石/石灰石（CaCO₃）反应造成严重腐蚀。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Confusion Trap]: Hydrogen (H₂) and helium (He) does not match the chemical principle tested. The correct answer is A) Sulfur dioxide (SO₂) and nitrogen oxides (NOₓ).",
+        "cn": "【易混辨析】“氢气（H₂）和氦气（He）”不符合本题考查的化学规律。正确答案应为 A) 二氧化硫（SO₂）和氮氧化物（NOₓ）。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Confusion Trap]: Oxygen (O₂) and argon (Ar) does not match the chemical principle tested. The correct answer is A) Sulfur dioxide (SO₂) and nitrogen oxides (NOₓ).",
+        "cn": "【易混辨析】“氧气（O₂）和氩气（Ar）”不符合本题考查的化学规律。正确答案应为 A) 二氧化硫（SO₂）和氮氧化物（NOₓ）。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Confusion Trap]: Methane (CH₄) and neon (Ne) does not match the chemical principle tested. The correct answer is A) Sulfur dioxide (SO₂) and nitrogen oxides (NOₓ).",
+        "cn": "【易混辨析】“甲烷（CH₄）和氖气（Ne）”不符合本题考查的化学规律。正确答案应为 A) 二氧化硫（SO₂）和氮氧化物（NOₓ）。",
+        "correct": false
+      }
+    },
+    "examiner_keywords": [
+      "acid rain",
+      "SO₂",
+      "NOₓ",
+      "corrodes CaCO₃"
+    ]
+  },
+  {
+    "id": "CHEM_U2_GAP_06",
+    "lesson_id": 35,
+    "lesson_title_en": "Lesson 35: Proton Theory & Strength vs Concentration",
+    "lesson_title_cn": "第35课：质子理论与强弱酸/pH",
+    "workbook_unit": "Lesson 10",
+    "task_code": "Oxides Classification",
+    "task_title_en": "Four Classes of Oxides & Amphoteric Oxides (Al₂O₃, ZnO)",
+    "task_title_cn": "氧化物四分类与两性氧化物识别",
+    "game_type": "mcq",
+    "game_type_cn": "标准单项选择题",
+    "source_tag": "workbook_pdf",
+    "citation_textbook": "《G8_U2_Acids_and_Bases_Workbook_PDF.pdf》 pp.5, 140 & 《U2_Acids_and_Bases_Student_PPT.pptx》 Slide 97 (Amphoteric & Oxide Classification)",
+    "prompt_en": "Which pair consists ONLY of AMPHOTERIC oxides — metal oxides that react with BOTH acids and alkalis to form a salt and water?\nA) Aluminium oxide (Al₂O₃) and Zinc oxide (ZnO)\nB) Carbon dioxide (CO₂) and Sulfur dioxide (SO₂)\nC) Copper(II) oxide (CuO) and Magnesium oxide (MgO)\nD) Carbon monoxide (CO) and Nitrogen monoxide (NO)",
+    "prompt_cn": "下列哪一组全部属于【两性氧化物（Amphoteric oxides）】——既能与酸反应又能与碱反应生成盐和水的金属氧化物？\nA) 氧化铝（Al₂O₃）和氧化锌（ZnO）\nB) 二氧化碳（CO₂）和二氧化硫（SO₂）\nC) 氧化铜（CuO）和氧化镁（MgO）\nD) 一氧化碳（CO）和一氧化氮（NO）",
+    "stem_en": "Which pair consists ONLY of AMPHOTERIC oxides — metal oxides that react with BOTH acids and alkalis to form a salt and water?",
+    "stem_cn": "下列哪一组全部属于【两性氧化物（Amphoteric oxides）】——既能与酸反应又能与碱反应生成盐和水的金属氧化物？",
+    "options": [
+      {
+        "letter": "A",
+        "text_en": "Aluminium oxide (Al₂O₃) and Zinc oxide (ZnO)",
+        "text_cn": "氧化铝（Al₂O₃）和氧化锌（ZnO）"
+      },
+      {
+        "letter": "B",
+        "text_en": "Carbon dioxide (CO₂) and Sulfur dioxide (SO₂)",
+        "text_cn": "二氧化碳（CO₂）和二氧化硫（SO₂）"
+      },
+      {
+        "letter": "C",
+        "text_en": "Copper(II) oxide (CuO) and Magnesium oxide (MgO)",
+        "text_cn": "氧化铜（CuO）和氧化镁（MgO）"
+      },
+      {
+        "letter": "D",
+        "text_en": "Carbon monoxide (CO) and Nitrogen monoxide (NO)",
+        "text_cn": "一氧化碳（CO）和一氧化氮（NO）"
+      }
+    ],
+    "correct_letter": "A",
+    "answer_en": "A) Aluminium oxide (Al₂O₃) and Zinc oxide (ZnO)",
+    "answer_cn": "A) 氧化铝（Al₂O₃）和氧化锌（ZnO）",
+    "rationale_en": "Oxide 4 classes: Acidic (CO₂, SO₂ — non-metal), Basic (CuO, MgO — most metals), Amphoteric (Al₂O₃, ZnO — react with BOTH acid & alkali), Neutral (CO, NO, H₂O).",
+    "rationale_cn": "氧化物四分类：酸性（CO₂, SO₂）、碱性（CuO, MgO）、两性（Al₂O₃, ZnO，酸碱通吃）、中性（CO, NO, H₂O）。",
+    "options_breakdown": {
+      "A": {
+        "en": "[Key Criteria]: Aluminium oxide (Al₂O₃) and Zinc oxide (ZnO) is correct. Oxide 4 classes: Acidic (CO₂, SO₂ — non-metal), Basic (CuO, MgO — most metals), Amphoteric (Al₂O₃, ZnO — react with BOTH acid & alkali), Neutral (CO, NO, H₂O).",
+        "cn": "【核心考点】氧化铝（Al₂O₃）和氧化锌（ZnO） 为正确选项。氧化物四分类：酸性（CO₂, SO₂）、碱性（CuO, MgO）、两性（Al₂O₃, ZnO，酸碱通吃）、中性（CO, NO, H₂O）。",
+        "correct": true
+      },
+      "B": {
+        "en": "[Confusion Trap]: Carbon dioxide (CO₂) and Sulfur dioxide (SO₂) does not match the chemical principle tested. The correct answer is A) Aluminium oxide (Al₂O₃) and Zinc oxide (ZnO).",
+        "cn": "【易混辨析】“二氧化碳（CO₂）和二氧化硫（SO₂）”不符合本题考查的化学规律。正确答案应为 A) 氧化铝（Al₂O₃）和氧化锌（ZnO）。",
+        "correct": false
+      },
+      "C": {
+        "en": "[Confusion Trap]: Copper(II) oxide (CuO) and Magnesium oxide (MgO) does not match the chemical principle tested. The correct answer is A) Aluminium oxide (Al₂O₃) and Zinc oxide (ZnO).",
+        "cn": "【易混辨析】“氧化铜（CuO）和氧化镁（MgO）”不符合本题考查的化学规律。正确答案应为 A) 氧化铝（Al₂O₃）和氧化锌（ZnO）。",
+        "correct": false
+      },
+      "D": {
+        "en": "[Confusion Trap]: Carbon monoxide (CO) and Nitrogen monoxide (NO) does not match the chemical principle tested. The correct answer is A) Aluminium oxide (Al₂O₃) and Zinc oxide (ZnO).",
+        "cn": "【易混辨析】“一氧化碳（CO）和一氧化氮（NO）”不符合本题考查的化学规律。正确答案应为 A) 氧化铝（Al₂O₃）和氧化锌（ZnO）。",
+        "correct": false
+      }
+    },
+    "examiner_keywords": [
+      "amphoteric oxides",
+      "Al₂O₃",
+      "ZnO",
+      "four oxide classes"
+    ]
   }
 ]

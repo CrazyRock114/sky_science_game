@@ -193,6 +193,15 @@ function runStaticRegressionAssertions() {
   const mockPapersSrc = fs.readFileSync(path.resolve(__dirname, 'g8_chem_mock_papers.js'), 'utf-8');
   assert.ok(mockPapersSrc.includes('paperA:') && mockPapersSrc.includes('paperB:'), 'g8_chem_mock_papers.js must define both paperA and paperB');
   console.log(`  ✓ Chemistry U2 bank verified (${chemBank.length} items, ${wbCited.length} Workbook PDF p.XX, ${smOrig.length} school mistakes + ${smVar.length} variants, Paper A & B intact)`);
+
+  // 10. Tab 1 Card 6 gap keywords, 19 PPT diagram hub links, Tab 3 baseline filter, bank >= 205
+  assert.ok(chemBank.length >= 205, `Expanded chemistry bank must have >= 205 items, got ${chemBank.length}`);
+  for (const kw of ['Corrosive', 'Amphoteric', 'Slaked lime', 'Acid rain', '/lesson/0620/7-1-acids-bases', '/lesson/0620/7-3-salts']) {
+    assert.ok(chemRushHtml.includes(kw), `g8_chem_exam_rush.html missing Tab 1 Card 6 / hub keyword: ${kw}`);
+  }
+  const chemRushJs = fs.readFileSync(path.resolve(__dirname, 'g8_chem_exam_rush.js'), 'utf-8');
+  assert.ok(chemRushHtml.includes("setWbFilter('baseline'") && chemRushJs.includes("currentWbFilter === 'baseline'"), 'Tab 3 must support baseline filter');
+  console.log('  ✓ Tab 1 Card 6 + 19 PPT diagram hub links, Tab 3 baseline filter & bank >= 205 verified');
 }
 
 function loadPlaywrightOrNull() {

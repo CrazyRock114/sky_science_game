@@ -31,19 +31,19 @@ window.CHEM_MOCK_PAPERS = {
         explain_en: 'Vitamin C is ascorbic acid (citric acid is found in lemons/oranges).'
       },
       {
-        id: 'PA_M02', topic: 'Everyday Acids', marks: 1,
-        citation: 'School Review Q16 & Workbook p.60 (L6 Q2)',
-        prompt_en: 'Vinegar tastes sour because it contains which acid?',
-        prompt_cn: '食醋尝起来发酸是因为含有哪种酸？',
+        id: 'PA_M02', topic: 'Lab Safety & Hazards', marks: 1,
+        citation: 'PPT Slide 3 & Workbook pp.19, 135 (Corrosive / Irritant)',
+        prompt_en: 'Concentrated sulfuric acid carries the Corrosive hazard symbol. Which procedure is essential when diluting it safely in the lab?',
+        prompt_cn: '浓硫酸瓶贴有腐蚀性（Corrosive）危险标志。实验室安全稀释浓酸的必备规范是？',
         options: [
-          { letter: 'A', en: 'Ethanoic acid', cn: '乙酸' },
-          { letter: 'B', en: 'Sulfuric acid', cn: '硫酸' },
-          { letter: 'C', en: 'Nitric acid', cn: '硝酸' },
-          { letter: 'D', en: 'Hydrochloric acid', cn: '盐酸' }
+          { letter: 'A', en: 'Wear safety goggles and slowly ADD ACID TO WATER while stirring', cn: '佩戴护目镜，搅拌下将酸缓慢注入水中（Add acid to water）' },
+          { letter: 'B', en: 'Pour cold water quickly into the concentrated acid', cn: '将冷水快速倒入浓酸中' },
+          { letter: 'C', en: 'Dilute it without goggles because it becomes an irritant', cn: '稀释后会变为刺激性，无需护目镜' },
+          { letter: 'D', en: 'Taste a drop to check acidity', cn: '品尝一滴确认酸度' }
         ],
         correct: 'A',
-        explain_cn: '食醋的主要酸性成分是乙酸（Ethanoic acid，CH₃COOH）。',
-        explain_en: 'Vinegar is dilute ethanoic acid (CH₃COOH).'
+        explain_cn: '浓酸稀释剧烈放热，必须佩戴护目镜并严格遵循“酸入水（Add acid to water）”，严防水入酸暴沸飞溅。',
+        explain_en: 'Always wear goggles and add acid slowly to water to disperse exothermic heat safely.'
       },
       {
         id: 'PA_M03', topic: 'Indicators', marks: 1,
@@ -314,15 +314,15 @@ window.CHEM_MOCK_PAPERS = {
         ]
       },
       {
-        id: 'PA_T02', topic: 'Acid + Carbonate & CO₂ Test', marks: 5,
-        citation: 'Workbook p.63 (L6 Theory Q2) & p.149 (Short Q3)',
-        prompt_en: 'Dilute hydrochloric acid is added to solid calcium carbonate (eggshell).\n(a) Write the word equation for this reaction. [2]\n(b) Describe the chemical test for the gas produced and state the positive observation. [2]\n(c) State one visible observation in the test tube during the reaction. [1]',
-        prompt_cn: '向碳酸钙（蛋壳）中加入稀盐酸。\n(a) 写出该反应的文字方程式。[2]\n(b) 描述所产气体的化学检验方法与阳性现象。[2]\n(c) 写出试管中可观察到的一项直观现象。[1]',
-        model_answer: '(a) hydrochloric acid + calcium carbonate → calcium chloride + water + carbon dioxide.\n(b) Bubble the gas through limewater (aqueous calcium hydroxide) → turns cloudy / milky.\n(c) Effervescence (fizzing/bubbles) and/or the solid disappears.',
+        id: 'PA_T02', topic: 'Antacids, Acid Rain & Carbonate Test', marks: 5,
+        citation: 'PPT Slide 21, 58 & Workbook p.63 (L6 Q2)',
+        prompt_en: 'Calcium carbonate (CaCO₃) is used in antacid tablets to neutralise excess stomach hydrochloric acid, and is also corroded by acid rain.\n(a) Write the word equation for calcium carbonate reacting with stomach hydrochloric acid. [2]\n(b) Describe the chemical test for the gas produced and state the positive result. [2]\n(c) Name ONE pollutant gas from burning fossil fuels that causes acid rain. [1]',
+        prompt_cn: '碳酸钙（CaCO₃）既可用于抗酸药中和过多胃酸（HCl），也会被酸雨腐蚀。\n(a) 写出碳酸钙与胃中稀盐酸反应的文字方程式。[2]\n(b) 描述所产气体的检验方法与阳性现象。[2]\n(c) 写出一种化石燃料燃烧引发酸雨的污染气体名称。[1]',
+        model_answer: '(a) hydrochloric acid + calcium carbonate → calcium chloride + water + carbon dioxide.\n(b) Bubble the gas through limewater (aqueous calcium hydroxide) → turns cloudy / milky.\n(c) Sulfur dioxide (SO₂) or nitrogen oxides (NOₓ).',
         mark_scheme: [
           'calcium chloride [1] + water + carbon dioxide [1]',
           'Bubble gas into limewater [1] → turns cloudy/milky [1]',
-          'Fizzing / effervescence / bubbles / solid dissolves [1]'
+          'Sulfur dioxide (SO₂) or nitrogen oxide(s) (NOₓ) [1]'
         ]
       },
       {
@@ -396,19 +396,19 @@ window.CHEM_MOCK_PAPERS = {
         explain_en: 'H₂O donates H⁺ to NH₃ (acting as an acid). Substances that can act as both acid and base are amphoteric.'
       },
       {
-        id: 'PB_M04', topic: 'Acidic Oxides', marks: 1,
-        citation: 'Workbook p.142 (Revision Q2)',
-        prompt_en: 'Compound X dissolves in water to form an aqueous solution that turns methyl orange RED. What is X?',
-        prompt_cn: '化合物 X 溶于水后使甲基橙变红，X 是什么？',
+        id: 'PB_M04', topic: 'Classification of Oxides & Amphoteric', marks: 1,
+        citation: 'Workbook p.5, p.140 & PPT Slide 97 (Oxide Classification)',
+        prompt_en: 'Which pair contains ONLY amphoteric oxides (reacting with BOTH dilute acids and aqueous alkalis)?',
+        prompt_cn: '哪一组全部是两性氧化物（Amphoteric oxides，既能与稀酸又能与碱水溶液反应）？',
         options: [
-          { letter: 'A', en: 'Sodium carbonate', cn: '碳酸钠' },
-          { letter: 'B', en: 'Copper(II) oxide', cn: '氧化铜' },
-          { letter: 'C', en: 'Potassium oxide', cn: '氧化钾' },
-          { letter: 'D', en: 'Sulfur dioxide', cn: '二氧化硫 (SO₂)' }
+          { letter: 'A', en: 'SO₂ and CO₂', cn: '二氧化硫和二氧化碳（酸性氧化物）' },
+          { letter: 'B', en: 'CuO and MgO', cn: '氧化铜和氧化镁（碱性氧化物）' },
+          { letter: 'C', en: 'CO and NO', cn: '一氧化碳和一氧化氮（中性氧化物）' },
+          { letter: 'D', en: 'Al₂O₃ and ZnO', cn: '氧化铝和氧化锌（两性氧化物）' }
         ],
         correct: 'D',
-        explain_cn: '非金属氧化物 SO₂ 溶于水呈酸性（亚硫酸），使甲基橙变红。',
-        explain_en: 'SO₂ is a soluble acidic non-metal oxide, forming sulfurous acid (turns methyl orange red).'
+        explain_cn: 'Al₂O₃ 与 ZnO 是 IGCSE 必考的两性氧化物；SO₂/CO₂ 为酸性氧化物，CuO/MgO 为碱性氧化物，CO/NO 为中性氧化物。',
+        explain_en: 'Aluminium oxide (Al₂O₃) and zinc oxide (ZnO) are amphoteric oxides.'
       },
       {
         id: 'PB_M05', topic: 'State Symbols', marks: 1,
@@ -546,19 +546,19 @@ window.CHEM_MOCK_PAPERS = {
         explain_en: 'Washing with distilled water removes clinging soluble spectator ions without dissolving the insoluble precipitate.'
       },
       {
-        id: 'PB_M14', topic: 'Ammonium Salts', marks: 1,
-        citation: 'Workbook p.145 (Revision Q14)',
-        prompt_en: 'Which mixture releases ammonia gas on gentle warming?',
-        prompt_cn: '下列哪一组混合物微热时会释放出氨气？',
+        id: 'PB_M14', topic: 'Soil Lime & Ammonium Fertiliser Trap', marks: 1,
+        citation: 'PPT Slide 21, 59 & Workbook p.145 (Slaked Lime + NH₄⁺)',
+        prompt_en: 'A farmer spreads slaked lime, Ca(OH)₂, to neutralise acidic soil. Why must ammonium nitrate fertiliser NOT be added at the same time?',
+        prompt_cn: '农民撒施熟石灰 Ca(OH)₂ 中和酸性土壤时，为什么严禁同时施用硝酸铵（铵态氮肥）？',
         options: [
-          { letter: 'A', en: 'Ammonium sulfate + dilute nitric acid', cn: '硫酸铵 + 稀硝酸' },
-          { letter: 'B', en: 'Ammonium chloride + aqueous sodium hydroxide', cn: '氯化铵 + 氢氧化钠水溶液' },
-          { letter: 'C', en: 'Ammonium nitrate + sodium chloride', cn: '硝酸铵 + 氯化钠' },
-          { letter: 'D', en: 'Sodium carbonate + dilute hydrochloric acid', cn: '碳酸钠 + 稀盐酸' }
+          { letter: 'A', en: 'Slaked lime turns the soil strongly acidic', cn: '熟石灰会使土壤变强酸' },
+          { letter: 'B', en: 'The alkali reacts with ammonium ions to release ammonia gas (NH₃), losing nitrogen fertiliser', cn: '碱性的熟石灰与铵根反应释放氨气（NH₃）逸出，导致氮肥流失' },
+          { letter: 'C', en: 'It produces explosive hydrogen gas', cn: '会产生易爆氢气' },
+          { letter: 'D', en: 'Ammonium nitrate is insoluble in rainwater', cn: '硝酸铵不溶于雨水' }
         ],
         correct: 'B',
-        explain_cn: '只有铵盐与碱（NaOH / Ca(OH)₂）共热才释放氨气：NH₄⁺ + OH⁻ → NH₃↑ + H₂O。',
-        explain_en: 'Ammonium salt + alkali (warming) → salt + water + ammonia gas.'
+        explain_cn: '熟石灰（Ca(OH)₂）与铵盐反应放出氨气（NH₃↑），导致农作物必需的氮元素挥发流失！',
+        explain_en: 'Alkaline slaked lime reacts with ammonium salts to release NH₃(g), wasting nitrogen from the fertiliser.'
       },
       {
         id: 'PB_M15', topic: 'Conductivity & Ions', marks: 1,
